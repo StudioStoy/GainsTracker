@@ -1,0 +1,12 @@
+version: "3"
+services:
+  pg:
+    image: postgres
+    restart: always
+    ports:
+      - "15432:5432"
+    environment:
+      POSTGRES_PASSWORD: postman
+    volumes:
+      - ./development/postgres/data:/var/lib/postgresql/data
+#      - ./development/postgres/init:/docker-entrypoint-initdb.d/ 

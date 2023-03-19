@@ -13,6 +13,7 @@ BenchmarkDotNet.Artifacts/
 src/SignalR/clients/**/dist/
 modules/
 .ionide/
+development/
 
 # File extensions
 *.aps
@@ -45,3 +46,4 @@ UpgradeLog.htm
 .idea
 mono_crash.*.json
 mono_crash.*.blob
+

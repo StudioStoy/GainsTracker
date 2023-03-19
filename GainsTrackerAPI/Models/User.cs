@@ -4,5 +4,4 @@ namespace GainsTrackerAPI.Models;
 
 public class User : IdentityUser
 {
-    
 }
