@@ -1,0 +1,25 @@
+# Running "docker compose up" (active process)
+# or "docker compose start" (background process)
+# will setup the development database
+#
+# One can connect to it using your DB client
+# (Rider, pqadmin, psql, ...),
+# using the following parameters (see: appsettings.json):
+# Host=localhost:15432; Database=gainstracker_db; Username=stoy; Password=postman
+
+version: "3.7"
+services:
+  db:
+    build: development/db
+    restart: always
+    ports:
+      - "15432:5432"
+    environment:
+      POSTGRES_USER: stoy
+      POSTGRES_PASSWORD: postman
+      DB_APP_NAME: gainstracker_db
+      DB_APP_USER: gainstracker_db
+      DB_APP_PASS: gainstracker_db
+    volumes:
+      - ./development/postgres/data:/var/lib/postgresql/data
+#      - ./development/postgres/init:/docker-entrypoint-initdb.d/ 

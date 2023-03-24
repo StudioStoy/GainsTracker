@@ -158,9 +158,14 @@ namespace GainsTrackerAPI.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", "d0e831a7-7bd4-4650-95dc-6bcf727a4320", "admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "3ec88f10-ac48-4b5a-8316-1ea08de5c461", 0, "0671eb0e-df0c-4269-8e87-1fbc807de1fc", "egg@mail.com", false, false, null, null, null, "cheese", null, false, "5289e829-e161-494f-b60c-e53539107b02", false, "eggman" });
+                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, "a38f2c1f-b537-492b-a805-798ba0edc4a0", "stije@studiostoy.nl", true, false, null, "STIJE@STUDIOSTOY.NL", "STIJE", "AQAAAAEAACcQAAAAELcJu1FZem6Wv5zop4ylR0wBiez/aKrLPrCxsgu/iQEJGphKB6N5HgFWOXhyiej/0A==", null, false, "af317526-0852-4f61-a7d1-3a4f71d0b5ec", false, "stije" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

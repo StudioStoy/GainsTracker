@@ -88,17 +88,19 @@ namespace GainsTrackerAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3ec88f10-ac48-4b5a-8316-1ea08de5c461",
+                            Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0671eb0e-df0c-4269-8e87-1fbc807de1fc",
-                            Email = "egg@mail.com",
-                            EmailConfirmed = false,
+                            ConcurrencyStamp = "a38f2c1f-b537-492b-a805-798ba0edc4a0",
+                            Email = "stije@studiostoy.nl",
+                            EmailConfirmed = true,
                             LockoutEnabled = false,
-                            PasswordHash = "cheese",
+                            NormalizedEmail = "STIJE@STUDIOSTOY.NL",
+                            NormalizedUserName = "STIJE",
+                            PasswordHash = "AQAAAAEAACcQAAAAELcJu1FZem6Wv5zop4ylR0wBiez/aKrLPrCxsgu/iQEJGphKB6N5HgFWOXhyiej/0A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5289e829-e161-494f-b60c-e53539107b02",
+                            SecurityStamp = "af317526-0852-4f61-a7d1-3a4f71d0b5ec",
                             TwoFactorEnabled = false,
-                            UserName = "eggman"
+                            UserName = "stije"
                         });
                 });
 
@@ -126,6 +128,15 @@ namespace GainsTrackerAPI.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
+                            ConcurrencyStamp = "d0e831a7-7bd4-4650-95dc-6bcf727a4320",
+                            Name = "admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
