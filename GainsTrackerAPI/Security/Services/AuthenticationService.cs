@@ -1,12 +1,14 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using GainsTrackerAPI.Controllers.DTO;
-using GainsTrackerAPI.Models;
+using GainsTrackerAPI.ExceptionConfigurations.Exceptions;
+using GainsTrackerAPI.Gains.Models;
+using GainsTrackerAPI.Security.Controllers.DTO;
+using GainsTrackerAPI.Security.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
-namespace GainsTrackerAPI.Services;
+namespace GainsTrackerAPI.Security.Services;
 
 public class AuthenticationService : IAuthenticationService
 {
@@ -24,13 +26,18 @@ public class AuthenticationService : IAuthenticationService
         User? userByEmail = await _userManager.FindByEmailAsync(request.Email);
         User? userByUsername = await _userManager.FindByNameAsync(request.UserName);
 
-        if (userByEmail is not null || userByUsername is not null) throw new ArgumentException($"User with email {request.Email} or username {request.UserName} already exists.");
+        if (userByEmail is not null || userByUsername is not null)
+            throw new ArgumentException($"User with email {request.Email} or username {request.UserName} already exists.");
 
         User user = new()
         {
             Email = request.Email,
             UserName = request.UserName,
-            SecurityStamp = Guid.NewGuid().ToString()
+            SecurityStamp = Guid.NewGuid().ToString(),
+            GainsAccount = new GainsAccount
+            {
+                UserName = request.UserName
+            }
         };
 
         IdentityResult? result = await _userManager.CreateAsync(user, request.Password);
@@ -46,7 +53,11 @@ public class AuthenticationService : IAuthenticationService
 
         if (user is null) user = await _userManager.FindByEmailAsync(request.Username);
 
-        if (user is null || !await _userManager.CheckPasswordAsync(user, request.Password)) throw new ArgumentException($"Unable to authenticate user {request.Username}");
+        if (user is null)
+            throw new NotFoundException("There is no user found with that username");
+
+        if (!await _userManager.CheckPasswordAsync(user, request.Password))
+            throw new UnauthorizedException($"Unable to authenticate user {request.Username}");
 
         List<Claim> authClaims = new()
         {

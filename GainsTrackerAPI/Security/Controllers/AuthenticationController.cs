@@ -1,9 +1,9 @@
-using GainsTrackerAPI.Controllers.DTO;
-using GainsTrackerAPI.Services;
+using GainsTrackerAPI.Security.Controllers.DTO;
+using GainsTrackerAPI.Security.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GainsTrackerAPI.Controllers;
+namespace GainsTrackerAPI.Security.Controllers;
 
 [Route("[controller]")]
 [ApiController]
@@ -19,13 +19,10 @@ public class AuthenticationController : ControllerBase
     [AllowAnonymous]
     [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
     {
-        string response = await _authenticationService.Login(request);
-
-        return Ok(response);
+        return Ok(await _authenticationService.Login(request));
     }
 
     [AllowAnonymous]

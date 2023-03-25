@@ -1,6 +1,6 @@
-﻿using GainsTrackerAPI.Controllers.DTO;
+﻿using GainsTrackerAPI.Security.Controllers.DTO;
 
-namespace GainsTrackerAPI.Services;
+namespace GainsTrackerAPI.Security.Services;
 
 public interface IAuthenticationService
 {

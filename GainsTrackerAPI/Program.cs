@@ -1,7 +1,8 @@
 using System.Text;
 using GainsTrackerAPI.Db;
-using GainsTrackerAPI.Models;
-using GainsTrackerAPI.Services;
+using GainsTrackerAPI.ExceptionConfigurations;
+using GainsTrackerAPI.Security.Models;
+using GainsTrackerAPI.Security.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 // Set DbContext.
-builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("databaseConnection")));
+builder.Services.AddDbContext<AppDbContext>(options => { options.UseNpgsql(configuration.GetConnectionString("databaseConnection")); });
 
 // Map Identity to User and the database.
 builder.Services.AddIdentity<User, IdentityRole>()
@@ -46,14 +47,13 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
-
 // 5. Swagger documentation with authentication.
 builder.Services.AddSwaggerGen(SwaggerOptions =>
 {
     SwaggerOptions.SwaggerDoc("v1", new OpenApiInfo { Title = "Gains Tracker API", Version = "v1" });
     SwaggerOptions.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = "JWT Authorization header using the Bearer scheme. \r\n" + 
+        Description = "JWT Authorization header using the Bearer scheme. \r\n" +
                       "Enter 'Bearer' [space] and then your token in the text input below.\n" +
                       "Example: 'Bearer 12345abcdef'",
         Name = "Authorization",
@@ -110,11 +110,17 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.AllowedForNewUsers = true;
 
     // User settings.
-    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+!#$^";
     options.User.RequireUniqueEmail = false;
 });
 
 WebApplication app = builder.Build();
+
+using (IServiceScope scope = app.Services.CreateScope())
+{
+    AppDbContext db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -129,6 +135,9 @@ app.UseHttpsRedirection();
 // Authentication
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Custom exception handling
+app.AddGlobalErrorHandler();
 
 app.MapControllers();
 

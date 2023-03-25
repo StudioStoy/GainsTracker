@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GainsTrackerAPI.Controllers.DTO;
+namespace GainsTrackerAPI.Security.Controllers.DTO;
 
 public class LoginRequestDto
 {
