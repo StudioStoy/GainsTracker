@@ -13,7 +13,9 @@ BenchmarkDotNet.Artifacts/
 src/SignalR/clients/**/dist/
 modules/
 .ionide/
+
 development/postgres
+GainsTrackerAPI/Migrations/*
 
 # File extensions
 *.aps

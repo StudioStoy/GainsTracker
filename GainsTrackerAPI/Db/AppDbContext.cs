@@ -1,5 +1,5 @@
-﻿using GainsTrackerAPI.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using GainsTrackerAPI.Gains.Models;
+using GainsTrackerAPI.Security.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,38 +12,32 @@ public class AppDbContext : IdentityDbContext<User>
     }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<GainsAccount> GainsAccounts { get; set; }
+    public DbSet<Workout> Workouts { get; set; }
 
+    // In here, all the many-to-one, one-to-one, etc relations are managed.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<GainsAccount>()
+            .HasOne(g => g.User)
+            .WithOne(u => u.GainsAccount);
+
+        modelBuilder.Entity<Workout>()
+            .HasOne(w => w.GainsAccount)
+            .WithMany(g => g.Workouts);
+
+        new DbInitializer(modelBuilder).Seed();
+
         base.OnModelCreating(modelBuilder);
+    }
 
-        const string ADMIN_ID = "a18be9c0-aa65-4af8-bd17-00bd9344e575";
-        const string ROLE_ID = ADMIN_ID;
-        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
-        {
-            Id = ROLE_ID,
-            Name = "admin",
-            NormalizedName = "ADMIN"
-        });
-        
-        var user = new User();
-        var hasher = new PasswordHasher<User>();
-
-        // When creating a default user, it is necessary to fill in the normalized fields as well as the security stamp.
-        var admin = new User
-        {
-            Id = ADMIN_ID,
-            UserName = "stije",
-            NormalizedUserName = "STIJE",
-            Email = "stije@studiostoy.nl",
-            EmailConfirmed = true,
-            NormalizedEmail = "STIJE@STUDIOSTOY.NL",
-            PasswordHash = hasher.HashPassword(user, "admin"),
-            SecurityStamp = Guid.NewGuid().ToString()
-        };
-
-        modelBuilder.Entity<User>().HasData(admin);
-        
-        Database.MigrateAsync();
+    // EF automatically creates tables using their camelcase name.
+    // We don't want this in postgres as this creates stupid queries, like:
+    // 'select * from public."Workout"' instead of 'select * from workout'.
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder
+            .UseNpgsql()
+            .UseLowerCaseNamingConvention();
     }
 }
