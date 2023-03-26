@@ -1,6 +1,7 @@
 using System.Text;
 using GainsTrackerAPI.Db;
 using GainsTrackerAPI.ExceptionConfigurations;
+using GainsTrackerAPI.Gains.Services;
 using GainsTrackerAPI.Security.Models;
 using GainsTrackerAPI.Security.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -94,6 +95,8 @@ builder.Services.AddCors(options =>
         });
 });
 
+builder.Services.AddScoped<IGainsService, GainsService>();
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Password settings.
@@ -119,6 +122,9 @@ WebApplication app = builder.Build();
 using (IServiceScope scope = app.Services.CreateScope())
 {
     AppDbContext db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    
+    db.Database.EnsureDeleted();
+    db.Database.EnsureCreated();
     db.Database.Migrate();
 }
 

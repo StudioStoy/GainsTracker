@@ -1,11 +1,12 @@
 ﻿using GainsTrackerAPI.Gains.Models;
+using GainsTrackerAPI.Gains.Models.Measurements;
 using GainsTrackerAPI.Security.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GainsTrackerAPI.Db;
 
-public class AppDbContext : IdentityDbContext<User>
+public sealed class AppDbContext : IdentityDbContext<User>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
@@ -14,17 +15,24 @@ public class AppDbContext : IdentityDbContext<User>
     public DbSet<User> Users { get; set; }
     public DbSet<GainsAccount> GainsAccounts { get; set; }
     public DbSet<Workout> Workouts { get; set; }
+    public DbSet<Measurement> Measurements { get; set; }
+
+    // Derived classes (of Workout and Measurement)
+    public DbSet<WeightWorkout> WeightWorkouts { get; set; }
+    public DbSet<RunningWorkout> RunningWorkouts { get; set; }
+    public DbSet<PureRepWorkout> PureRepWorkouts { get; set; }
+    public DbSet<EnduranceWorkout> EnduranceWorkouts { get; set; }
+    public DbSet<SimpleRepMeasurement> SimpleRepMeasurements { get; set; }
+    public DbSet<SimpleEnduranceMeasurement> SimpleEnduranceMeasurements { get; set; }
+    public DbSet<RunningMeasurement> RunningMeasurements { get; set; }
+    public DbSet<WeightMeasurement> WeightMeasurements { get; set; }
 
     // In here, all the many-to-one, one-to-one, etc relations are managed.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<GainsAccount>()
-            .HasOne(g => g.User)
-            .WithOne(u => u.GainsAccount);
+        modelBuilder.Entity<GainsAccount>().Navigation(g => g.Workouts).AutoInclude();
 
-        modelBuilder.Entity<Workout>()
-            .HasOne(w => w.GainsAccount)
-            .WithMany(g => g.Workouts);
+        modelBuilder.ConvertEnumsToStrings();
 
         new DbInitializer(modelBuilder).Seed();
 
@@ -38,6 +46,6 @@ public class AppDbContext : IdentityDbContext<User>
     {
         optionsBuilder
             .UseNpgsql()
-            .UseLowerCaseNamingConvention();
+            .UseSnakeCaseNamingConvention();
     }
 }

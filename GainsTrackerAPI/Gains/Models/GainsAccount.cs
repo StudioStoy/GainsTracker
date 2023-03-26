@@ -1,5 +1,3 @@
-using GainsTrackerAPI.Security.Models;
-
 namespace GainsTrackerAPI.Gains.Models;
 
 public class GainsAccount
@@ -11,7 +9,6 @@ public class GainsAccount
 
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public string UserId { get; set; }
-    public User User { get; set; }
 
     #endregion
 }

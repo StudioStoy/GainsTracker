@@ -1,9 +1,6 @@
-using GainsTrackerAPI.Db;
-using GainsTrackerAPI.Security.Models;
+using GainsTrackerAPI.Gains.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace GainsTrackerAPI.Gains.Controllers;
 
@@ -12,31 +9,16 @@ namespace GainsTrackerAPI.Gains.Controllers;
 [Route("[controller]")]
 public class GainsController : ControllerBase
 {
-    private readonly AppDbContext _context;
-    private readonly UserManager<User> _userManager;
+    private readonly IGainsService _gainsService;
 
-    public GainsController(UserManager<User> userManager, AppDbContext context)
+    public GainsController(IGainsService service)
     {
-        _userManager = userManager;
-        _context = context;
+        _gainsService = service;
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllUsers()
+    public async Task<IActionResult> GetAllGainsAccounts()
     {
-        List<User> eggs = await _context.Users.ToListAsync();
-        return Ok(eggs);
+        return Ok(await _gainsService.GetAllGainsAccounts());
     }
-
-    #region private methods
-
-    private async Task<User> FindUserByUserName(string userName)
-    {
-        if (userName.Contains('@'))
-            return await _userManager.FindByEmailAsync(userName);
-
-        return await _userManager.FindByNameAsync(userName);
-    }
-
-    #endregion
 }
