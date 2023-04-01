@@ -2,7 +2,7 @@ namespace GainsTrackerAPI.Gains.Models;
 
 public class GainsAccount
 {
-    public string UserName { get; set; } = "";
+    public string Username { get; set; } = "";
     public List<Workout> Workouts { get; set; }
 
     #region Relations

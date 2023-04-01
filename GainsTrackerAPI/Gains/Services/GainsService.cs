@@ -36,7 +36,7 @@ public class GainsService : IGainsService
             .FirstOrDefault(u => u.UserName == username);
 
         if (user == null)
-            throw new NotFoundException("User not found.");
+            throw new NotFoundException("User not found. Make sure to include a valid token.");
 
         return user.GainsAccount;
     }

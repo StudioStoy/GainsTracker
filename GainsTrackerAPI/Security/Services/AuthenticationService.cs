@@ -24,34 +24,32 @@ public class AuthenticationService : IAuthenticationService
     public async Task<string> Register(RegisterRequestDto request)
     {
         User? userByEmail = await _userManager.FindByEmailAsync(request.Email);
-        User? userByUsername = await _userManager.FindByNameAsync(request.UserName);
+        User? userByUsername = await _userManager.FindByNameAsync(request.Username);
 
         if (userByEmail is not null || userByUsername is not null)
-            throw new ArgumentException($"User with email {request.Email} or username {request.UserName} already exists.");
+            throw new ArgumentException($"User with email {request.Email} or username {request.Username} already exists.");
 
         User user = new()
         {
             Email = request.Email,
-            UserName = request.UserName,
+            UserName = request.Username,
             SecurityStamp = Guid.NewGuid().ToString(),
             GainsAccount = new GainsAccount
             {
-                UserName = request.UserName
+                Username = request.Username
             }
         };
 
         IdentityResult? result = await _userManager.CreateAsync(user, request.Password);
 
-        if (!result.Succeeded) throw new ArgumentException($"Unable to register user {request.UserName} errors: {GetErrorsText(result.Errors)}");
+        if (!result.Succeeded) throw new ArgumentException($"Unable to register user {request.Username} errors: {GetErrorsText(result.Errors)}");
 
         return await Login(new LoginRequestDto { Username = request.Email, Password = request.Password });
     }
 
     public async Task<string> Login(LoginRequestDto request)
     {
-        User? user = await _userManager.FindByNameAsync(request.Username);
-
-        if (user is null) user = await _userManager.FindByEmailAsync(request.Username);
+        User? user = await _userManager.FindByNameAsync(request.Username) ?? await _userManager.FindByEmailAsync(request.Username);
 
         if (user is null)
             throw new NotFoundException("There is no user found with that username");
