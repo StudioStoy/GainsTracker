@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using GainsTrackerAPI.Gains.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,7 @@ namespace GainsTrackerAPI.Gains.Controllers;
 
 [ApiController]
 [Authorize]
-[Route("[controller]")]
+[Route("gains")]
 public class GainsController : ControllerBase
 {
     private readonly IGainsService _gainsService;
@@ -16,9 +17,10 @@ public class GainsController : ControllerBase
         _gainsService = service;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetAllGainsAccounts()
+    [HttpGet("user/workout")]
+    public async Task<IActionResult> GetUserWorkouts()
     {
-        return Ok(await _gainsService.GetAllGainsAccounts());
+        string? username = User.FindFirstValue(ClaimTypes.Name);
+        return Ok(await _gainsService.GetWorkoutsByUsername(username));
     }
 }

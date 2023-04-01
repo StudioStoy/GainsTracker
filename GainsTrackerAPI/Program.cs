@@ -1,4 +1,6 @@
+using System.Security.Claims;
 using System.Text;
+using System.Text.Json.Serialization;
 using GainsTrackerAPI.Db;
 using GainsTrackerAPI.ExceptionConfigurations;
 using GainsTrackerAPI.Gains.Services;
@@ -15,7 +17,9 @@ ConfigurationManager configuration = builder.Configuration;
 
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
 builder.Services.AddEndpointsApiExplorer();
 
 // Set DbContext.
@@ -99,6 +103,8 @@ builder.Services.AddScoped<IGainsService, GainsService>();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
+    options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
+
     // Password settings.
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
@@ -122,7 +128,7 @@ WebApplication app = builder.Build();
 using (IServiceScope scope = app.Services.CreateScope())
 {
     AppDbContext db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    
+
     db.Database.EnsureDeleted();
     db.Database.EnsureCreated();
     db.Database.Migrate();
