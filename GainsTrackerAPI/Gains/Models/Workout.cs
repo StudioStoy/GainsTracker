@@ -5,74 +5,52 @@ using GainsTrackerAPI.Gains.Models.Measurements;
 namespace GainsTrackerAPI.Gains.Models;
 
 [Table("workout")]
-[JsonDerivedType(typeof(EnduranceWorkout))]
-[JsonDerivedType(typeof(PureRepWorkout))]
-[JsonDerivedType(typeof(RunningWorkout))]
-[JsonDerivedType(typeof(WeightWorkout))]
-public abstract class Workout
+public class Workout
 {
+    protected Workout()
+    {
+    }
+
+    public Workout(string gainsAccountId, WorkoutType type, List<Measurement> measurements)
+    {
+        if (measurements.Count <= 0) throw new ArgumentException("A workout must have at least one measurement");
+
+        GainsAccountId = gainsAccountId;
+        WorkoutType = type;
+        Measurements = measurements;
+        PersonalBest = measurements.First();
+    }
+
+    public WorkoutType WorkoutType { get; set; }
+
+    [ForeignKey("MeasurementId")] public Measurement PersonalBest { get; set; }
     public List<Measurement> Measurements { get; set; } = new();
 
-    public WorkoutType Type { get; set; }
+    public void CheckPersonalBest(Measurement newMeasurement, Measurement oldPersonalBest)
+    {
+        if (newMeasurement.GetType() != oldPersonalBest.GetType())
+            throw new ArgumentException("Cannot compare measurements as they're not the same type.");
 
-    protected abstract void CheckPersonalBest<T>(Measurement newMeasurement, T oldPersonalBest);
+        // Sets the PersonalBest to the new measurement if its values are higher,
+        // otherwise keep the old one. 
+        PersonalBest = newMeasurement switch
+        {
+            StrengthMeasurement measurement =>
+                measurement.Weight > (oldPersonalBest as StrengthMeasurement)!.Weight ? newMeasurement : oldPersonalBest,
+            SimpleRepMeasurement measurement =>
+                measurement.Reps > (oldPersonalBest as SimpleRepMeasurement)!.Reps ? newMeasurement : oldPersonalBest,
+            SimpleEnduranceMeasurement measurement =>
+                measurement.Time > (oldPersonalBest as SimpleEnduranceMeasurement)!.Time ? newMeasurement : oldPersonalBest,
+            RunningEnduranceMeasurement measurement =>
+                measurement.Time > (oldPersonalBest as RunningEnduranceMeasurement)!.Time ? newMeasurement : oldPersonalBest,
+            _ => throw new ArgumentOutOfRangeException(nameof(newMeasurement), newMeasurement, "This type is not supported.")
+        };
+    }
 
     #region Relations
 
-    public string Id { get; set; } = Guid.NewGuid().ToString();
-    public string GainsAccountId { get; set; }
+    [JsonIgnore] public string Id { get; set; } = Guid.NewGuid().ToString();
+    [JsonIgnore] public string GainsAccountId { get; set; }
 
     #endregion
-}
-
-public class EnduranceWorkout : Workout
-{
-    public double PersonalBest { get; set; }
-
-    protected override void CheckPersonalBest<T>(Measurement newMeasurement, T oldPersonalBest)
-    {
-        if (newMeasurement.GetType() != typeof(SimpleEnduranceMeasurement)) return;
-        double newReps = (newMeasurement as SimpleEnduranceMeasurement)!.Time;
-
-        if (newReps > PersonalBest)
-            PersonalBest = newReps;
-    }
-}
-
-public class PureRepWorkout : Workout
-{
-    public int PersonalBest { get; set; }
-
-    protected override void CheckPersonalBest<T>(Measurement newMeasurement, T oldPersonalBest)
-    {
-        if (newMeasurement.GetType() != typeof(SimpleRepMeasurement)) return;
-        int newReps = (newMeasurement as SimpleRepMeasurement)!.Reps;
-
-        if (newReps > PersonalBest)
-            PersonalBest = newReps;
-    }
-}
-
-public class RunningWorkout : Workout
-{
-    public double PersonalBest { get; set; }
-
-    protected override void CheckPersonalBest<T>(Measurement newMeasurement, T oldPersonalBest)
-    {
-        throw new NotImplementedException();
-    }
-}
-
-public class WeightWorkout : Workout
-{
-    public double PersonalBest { get; set; }
-
-    protected override void CheckPersonalBest<T>(Measurement newMeasurement, T oldPersonalBest)
-    {
-        if (newMeasurement.GetType() != typeof(WeightMeasurement)) return;
-        double newWeight = (newMeasurement as WeightMeasurement)!.Weight;
-
-        if (newWeight > PersonalBest)
-            PersonalBest = newWeight;
-    }
 }

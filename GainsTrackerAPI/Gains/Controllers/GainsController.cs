@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using GainsTrackerAPI.Gains.Models;
 using GainsTrackerAPI.Gains.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,8 @@ public class GainsController : ControllerBase
     public async Task<IActionResult> GetUserWorkouts()
     {
         string? username = User.FindFirstValue(ClaimTypes.Name);
-        return Ok(await _gainsService.GetWorkoutsByUsername(username));
+        List<Workout> workouts = await _gainsService.GetWorkoutsByUsername(username);
+
+        return Ok(workouts);
     }
 }
