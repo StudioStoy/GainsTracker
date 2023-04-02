@@ -66,7 +66,7 @@ public class AuthenticationService : IAuthenticationService
 
         JwtSecurityToken token = GetToken(authClaims);
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        return "Bearer " + new JwtSecurityTokenHandler().WriteToken(token);
     }
 
     private JwtSecurityToken GetToken(IEnumerable<Claim> authClaims)

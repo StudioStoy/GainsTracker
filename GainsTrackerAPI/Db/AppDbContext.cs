@@ -17,15 +17,11 @@ public sealed class AppDbContext : IdentityDbContext<User>
     public DbSet<Workout> Workouts { get; set; }
     public DbSet<Measurement> Measurements { get; set; }
 
-    // Derived classes (of Workout and Measurement)
-    public DbSet<WeightWorkout> WeightWorkouts { get; set; }
-    public DbSet<RunningWorkout> RunningWorkouts { get; set; }
-    public DbSet<PureRepWorkout> PureRepWorkouts { get; set; }
-    public DbSet<EnduranceWorkout> EnduranceWorkouts { get; set; }
+    // Derived classes of Measurement
     public DbSet<SimpleRepMeasurement> SimpleRepMeasurements { get; set; }
     public DbSet<SimpleEnduranceMeasurement> SimpleEnduranceMeasurements { get; set; }
-    public DbSet<RunningMeasurement> RunningMeasurements { get; set; }
-    public DbSet<WeightMeasurement> WeightMeasurements { get; set; }
+    public DbSet<RunningEnduranceMeasurement> RunningMeasurements { get; set; }
+    public DbSet<StrengthMeasurement> WeightMeasurements { get; set; }
 
     // In here, all the many-to-one, one-to-one, etc relations are managed.
     protected override void OnModelCreating(ModelBuilder modelBuilder)

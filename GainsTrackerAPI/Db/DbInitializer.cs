@@ -1,6 +1,4 @@
 ﻿using GainsTrackerAPI.Gains.Models;
-using GainsTrackerAPI.Gains.Models.Measurements;
-using GainsTrackerAPI.Gains.Models.Measurements.Units;
 using GainsTrackerAPI.Security.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -86,51 +84,6 @@ public class DbInitializer
                 Username = simpleUser.UserName,
                 Workouts = new List<Workout>()
             });
-        });
-
-        _builder.Entity<WeightWorkout>(g =>
-        {
-            g.HasData(new WeightWorkout
-            {
-                Id = WORKOUT_ID1,
-                GainsAccountId = GAINSACCOUNT_ID,
-                Type = WorkoutType.BenchPress
-            });
-        });
-
-        _builder.Entity<PureRepWorkout>(g =>
-        {
-            g.HasData(new PureRepWorkout
-            {
-                Id = WORKOUT_ID2,
-                GainsAccountId = GAINSACCOUNT_ID,
-                Type = WorkoutType.ClosePushUp
-            });
-        });
-
-        _builder.Entity<WeightMeasurement>(m =>
-        {
-            m.HasData(new WeightMeasurement
-            {
-                WorkoutId = WORKOUT_ID1,
-                Weight = 50,
-                TotalReps = 8,
-                WeightUnit = WeightUnits.Kilograms
-            });
-        });
-
-        _builder.Entity<SimpleRepMeasurement>(m =>
-        {
-            m.HasData(new SimpleRepMeasurement
-                {
-                    WorkoutId = WORKOUT_ID2,
-                    Reps = 10
-                },
-                new SimpleRepMeasurement
-                {
-                    WorkoutId = WORKOUT_ID2,
-                    Reps = 12
-                });
         });
     }
 }

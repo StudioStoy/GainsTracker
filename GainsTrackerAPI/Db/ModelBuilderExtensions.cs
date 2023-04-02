@@ -14,19 +14,19 @@ public static class ModelBuilderExtensions
     {
         // Workout types
         builder.Entity<Workout>()
-            .Property(workout => workout.Type)
+            .Property(workout => workout.WorkoutType)
             .HasConversion<string>();
 
         // Measurement types
-        builder.Entity<WeightMeasurement>()
+        builder.Entity<StrengthMeasurement>()
             .Property(measurement => measurement.WeightUnit)
             .HasConversion<string>();
 
-        builder.Entity<RunningMeasurement>()
+        builder.Entity<RunningEnduranceMeasurement>()
             .Property(measurement => measurement.DistanceUnit)
             .HasConversion<string>();
 
-        builder.Entity<RunningMeasurement>()
+        builder.Entity<RunningEnduranceMeasurement>()
             .Property(measurement => measurement.TimeUnit)
             .HasConversion<string>();
 
