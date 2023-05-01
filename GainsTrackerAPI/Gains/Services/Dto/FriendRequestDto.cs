@@ -4,8 +4,9 @@ namespace GainsTrackerAPI.Gains.Services.Dto;
 
 public class FriendRequestDto
 {
-    private FriendRequestDto(string requestedByName, string requestedToName, string requestTime, string status, string requestedById, string requestedToId)
+    private FriendRequestDto(string id, string requestedByName, string requestedToName, string requestTime, string status, string requestedById, string requestedToId)
     {
+        Id = id;
         RequestedById = requestedById;
         RequestedToId = requestedToId;
         RequestedByName = requestedByName;
@@ -14,6 +15,8 @@ public class FriendRequestDto
         Status = status;
     }
 
+    public string Id { get; set; }
+    
     public string RequestedById { get; set; }
     public string RequestedToId { get; set; }
 
@@ -27,6 +30,7 @@ public class FriendRequestDto
     {
         return new FriendRequestDto
         (
+            id: request.Id,
             requestedById: request.RequestedById,
             requestedToId: request.RequestedToId,
             requestedByName: request.RequestedBy.Username,

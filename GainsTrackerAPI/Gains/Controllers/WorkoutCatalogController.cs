@@ -7,7 +7,6 @@ using Microsoft.OpenApi.Extensions;
 namespace GainsTrackerAPI.Gains.Controllers;
 
 [ApiController]
-[Authorize]
 [Route("catalog")]
 public class WorkoutCatalogController : ControllerBase
 {

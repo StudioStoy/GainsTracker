@@ -26,6 +26,12 @@ public class BigBrain
         return _context.Users.FirstOrDefault(u => u.UserName == username) != null;
     }
 
+    public string GetGainsIdByUsername(string username)
+    {
+        return _context.GainsAccounts.FirstOrDefault(g => g.Username == username)?.Id
+               ?? throw new NotFoundException("");
+    }
+
     public Task<List<Workout>> GetWorkoutsByGainsId(string gainsId)
     {
         return _context.Workouts
@@ -63,7 +69,9 @@ public class BigBrain
 
     public FriendRequest GetFriendRequestById(string requestId)
     {
-        return _context.FriendRequests.FirstOrDefault(r => r.Id == requestId)
+        return _context.FriendRequests
+                   .Include(req => req.RequestedBy)
+                   .FirstOrDefault(r => r.Id == requestId)
                ?? throw new NotFoundException("Request not found.");
     } 
 }

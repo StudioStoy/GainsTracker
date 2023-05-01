@@ -48,10 +48,14 @@ public class FriendService : IFriendService
         _bigBrain.SaveContext();
     }
 
-    public void HandleFriendRequestState(string requestId, bool accept=true)
+    public void HandleFriendRequestState(string username, string requestId, bool accept=true)
     {
         var request = _bigBrain.GetFriendRequestById(requestId);
-
+        var userId = _bigBrain.GetGainsIdByUsername(username);
+        
+        if (request.RequestedById == userId)
+            throw new Exception("Requester can obviously not accept their own request");
+        
         if (accept) request.Accept();
         else request.Reject();
         
