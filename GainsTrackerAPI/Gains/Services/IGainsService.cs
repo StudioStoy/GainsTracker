@@ -4,6 +4,6 @@ namespace GainsTrackerAPI.Gains.Services;
 
 public interface IGainsService
 {
-    public Task<GainsAccount> GetGainsAccountFromUser(string username);
+    public GainsAccount GetGainsAccountFromUser(string username);
     public Task<List<Workout>> GetWorkoutsByUsername(string username);
 }

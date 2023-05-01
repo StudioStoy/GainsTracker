@@ -17,17 +17,17 @@ public class FriendService : IFriendService
         _gainsService = gainsService;
     }
 
-    public async Task<List<Friend>> GetFriends(string username)
+    public List<Friend> GetFriends(string username)
     {
-        GainsAccount gainsAccount = await _gainsService.GetGainsAccountFromUser(username);
+        GainsAccount gainsAccount = _gainsService.GetGainsAccountFromUser(username);
         List<Friend> friends = _bigBrain.GetFriendsByGainsId(gainsAccount.Id);
 
         return friends;
     }
 
-    public async Task<FriendRequestOverviewDto> GetFriendRequests(string username)
+    public FriendRequestOverviewDto GetFriendRequests(string username)
     {
-        string accountId = (await _gainsService.GetGainsAccountFromUser(username)).Id;
+        string accountId = (_gainsService.GetGainsAccountFromUser(username)).Id;
         GainsAccount user = _bigBrain.GetFriendInfoByGainsId(accountId);
 
         return new FriendRequestOverviewDto
@@ -37,34 +37,46 @@ public class FriendService : IFriendService
         };
     }
 
-    public async Task SendFriendRequest(string username, string friendName)
+    public void SendFriendRequest(string username, string friendName)
     {
-        GainsAccount user = await _gainsService.GetGainsAccountFromUser(username);
-        GainsAccount potentialFriend = await _gainsService.GetGainsAccountFromUser(friendName);
+        CheckFriendshipStatus(username, friendName);
+        
+        GainsAccount user = _gainsService.GetGainsAccountFromUser(username);
+        GainsAccount potentialFriend = _gainsService.GetGainsAccountFromUser(friendName);
 
         user.SentFriendRequest(potentialFriend);
         _bigBrain.SaveContext();
     }
 
-    private async Task CheckFriendshipStatus(string username, string friendName)
+    public void HandleFriendRequestState(string requestId, bool accept=true)
     {
-        if (await AreFriends(username, friendName))
+        var request = _bigBrain.GetFriendRequestById(requestId);
+
+        if (accept) request.Accept();
+        else request.Reject();
+        
+        _bigBrain.SaveContext();
+    }
+
+    private void CheckFriendshipStatus(string username, string friendName)
+    {
+        if (AreFriends(username, friendName))
             throw new AlreadyFriendsException($"You are already friends with {friendName}!");
 
-        if (await FriendRequestAlreadySent(username, friendName))
+        if (FriendRequestAlreadySent(username, friendName))
             throw new FriendRequestAlreadySentException($"You already sent a friend request to {friendName}!");
     }
 
-    private async Task<bool> AreFriends(string username, string friendName)
+    private bool AreFriends(string username, string friendName)
     {
-        List<Friend> userFriends = await GetFriends(username);
+        List<Friend> userFriends = GetFriends(username);
         return userFriends.Any(friend =>
             string.Equals(friend.Name, friendName, StringComparison.InvariantCultureIgnoreCase));
     }
 
-    private async Task<bool> FriendRequestAlreadySent(string username, string friendName)
+    private bool FriendRequestAlreadySent(string username, string friendName)
     {
-        FriendRequestOverviewDto egg = await GetFriendRequests(username);
+        FriendRequestOverviewDto egg = GetFriendRequests(username);
         return egg.Sent.Any(req =>
             string.Equals(req.RequestedToName, friendName, StringComparison.InvariantCultureIgnoreCase));
     }

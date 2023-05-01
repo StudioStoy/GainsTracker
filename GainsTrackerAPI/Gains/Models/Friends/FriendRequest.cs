@@ -2,9 +2,10 @@
 
 public class FriendRequest
 {
+    // EF Core constructor.
     private FriendRequest()
     {
-    } // EF Core constructor
+    }
 
     public FriendRequest(GainsAccount requestedBy, GainsAccount requestedTo)
     {
@@ -29,4 +30,14 @@ public class FriendRequest
     public FriendRequestStatus Status { get; set; }
 
     public bool Accepted => Status == FriendRequestStatus.Accepted;
+
+    public void Accept()
+    {
+        Status = FriendRequestStatus.Accepted;
+    }
+
+    public void Reject()
+    {
+        Status = FriendRequestStatus.Rejected;
+    }
 }

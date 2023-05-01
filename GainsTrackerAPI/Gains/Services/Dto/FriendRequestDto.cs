@@ -25,8 +25,6 @@ public class FriendRequestDto
 
     public static FriendRequestDto FromFriendRequest(FriendRequest request)
     {
-        FriendRequest egg = request;
-
         return new FriendRequestDto
         (
             requestedById: request.RequestedById,

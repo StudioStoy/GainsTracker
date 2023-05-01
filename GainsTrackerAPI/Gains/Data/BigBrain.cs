@@ -52,12 +52,18 @@ public class BigBrain
                ?? throw new NotFoundException($"User with id {gainsId} was not found.");
     }
 
-    public Task<User?> GetUserByUsername(string username)
+    public User? GetUserByUsername(string username)
     {
-        User? egg = _context.Users
+        User? user = _context.Users
             .Include(u => u.GainsAccount)
             .FirstOrDefault(u => u.UserName == username);
 
-        return Task.FromResult(egg);
+        return user;
     }
+
+    public FriendRequest GetFriendRequestById(string requestId)
+    {
+        return _context.FriendRequests.FirstOrDefault(r => r.Id == requestId)
+               ?? throw new NotFoundException("Request not found.");
+    } 
 }

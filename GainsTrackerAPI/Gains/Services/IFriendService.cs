@@ -5,7 +5,8 @@ namespace GainsTrackerAPI.Gains.Services;
 
 public interface IFriendService
 {
-    public Task SendFriendRequest(string username, string friendName);
-    public Task<List<Friend>> GetFriends(string username);
-    public Task<FriendRequestOverviewDto> GetFriendRequests(string username);
+    public void SendFriendRequest(string username, string friendName);
+    public void HandleFriendRequestState(string requestId, bool accept=true);
+    public List<Friend> GetFriends(string username);
+    public FriendRequestOverviewDto GetFriendRequests(string username);
 }

@@ -16,15 +16,15 @@ public class GainsService : IGainsService
 
     public async Task<List<Workout>> GetWorkoutsByUsername(string username)
     {
-        GainsAccount gainsAccount = await GetGainsAccountFromUser(username);
+        GainsAccount gainsAccount = GetGainsAccountFromUser(username);
         return await _bigBrain.GetWorkoutsByGainsId(gainsAccount.Id);
     }
 
-    public async Task<GainsAccount> GetGainsAccountFromUser(string username)
+    public GainsAccount GetGainsAccountFromUser(string username)
     {
         ValidateAccount(username);
 
-        User user = (await _bigBrain.GetUserByUsername(username))!;
+        User user = (_bigBrain.GetUserByUsername(username))!;
         return user.GainsAccount;
     }
 

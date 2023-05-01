@@ -22,23 +22,30 @@ public class FriendController : ControllerBase
     private string CurrentUserName => User.FindFirstValue(ClaimTypes.Name);
 
     [HttpGet]
-    public async Task<IActionResult> GetFriends()
+    public IActionResult GetFriends()
     {
-        List<Friend> friends = await _friendService.GetFriends(CurrentUserName);
+        List<Friend> friends = _friendService.GetFriends(CurrentUserName);
         return Ok(friends);
     }
 
     [HttpGet("request")]
-    public async Task<IActionResult> GetFriendRequests()
+    public IActionResult GetFriendRequests()
     {
-        FriendRequestOverviewDto overview = await _friendService.GetFriendRequests(CurrentUserName);
+        FriendRequestOverviewDto overview = _friendService.GetFriendRequests(CurrentUserName);
         return Ok(overview);
     }
 
     [HttpPost("request")]
-    public async Task<IActionResult> SendFriendRequest(string friendName)
+    public IActionResult SendFriendRequest(string friendName)
     {
-        await _friendService.SendFriendRequest(CurrentUserName, friendName);
+        _friendService.SendFriendRequest(CurrentUserName, friendName);
         return Ok();
+    }
+    
+    [HttpPut("request")]
+    public IActionResult HandleFriendRequest(string requestId, bool accept=true)
+    {
+        _friendService.HandleFriendRequestState(requestId, accept);
+        return NoContent();
     }
 }
