@@ -1,43 +1,36 @@
-﻿using GainsTrackerAPI.Db;
-using GainsTrackerAPI.ExceptionConfigurations.Exceptions;
+﻿using GainsTrackerAPI.ExceptionConfigurations.Exceptions;
+using GainsTrackerAPI.Gains.Data;
 using GainsTrackerAPI.Gains.Models;
 using GainsTrackerAPI.Security.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace GainsTrackerAPI.Gains.Services;
 
 public class GainsService : IGainsService
 {
-    private readonly AppDbContext _context;
+    private readonly BigBrain _bigBrain;
 
-    public GainsService(AppDbContext context)
+    public GainsService(BigBrain bigBrain)
     {
-        _context = context;
-    }
-
-    public async Task<List<GainsAccount>> GetAllGainsAccounts()
-    {
-        return await _context.GainsAccounts.ToListAsync();
+        _bigBrain = bigBrain;
     }
 
     public async Task<List<Workout>> GetWorkoutsByUsername(string username)
     {
-        string gainsId = GetGainsAccountFromUser(username).Id;
-
-        return await _context.Workouts
-            .Include(w => w.Measurements)
-            .Where(w => w.GainsAccountId == gainsId).ToListAsync();
+        GainsAccount gainsAccount = await GetGainsAccountFromUser(username);
+        return await _bigBrain.GetWorkoutsByGainsId(gainsAccount.Id);
     }
 
-    private GainsAccount GetGainsAccountFromUser(string username)
+    public async Task<GainsAccount> GetGainsAccountFromUser(string username)
     {
-        User? user = _context.Users
-            .Include(u => u.GainsAccount)
-            .FirstOrDefault(u => u.UserName == username);
+        ValidateAccount(username);
 
-        if (user == null)
-            throw new NotFoundException("User not found. Make sure to include a valid token.");
-
+        User user = (await _bigBrain.GetUserByUsername(username))!;
         return user.GainsAccount;
+    }
+
+    private void ValidateAccount(string username)
+    {
+        if (!_bigBrain.UserExistsByUsername(username))
+            throw new NotFoundException("User not found. Make sure to include a valid token.");
     }
 }

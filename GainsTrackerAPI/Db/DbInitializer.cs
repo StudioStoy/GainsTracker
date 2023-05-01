@@ -23,6 +23,7 @@ public class DbInitializer
         const string WORKOUT_ID2 = "B58eddff-d5be-46c1-9c99-1283d54152d1";
 
         const string SIMPLE_USER_ID = "e18be9c0-aa65-4af8-bd17-00bd9344e575";
+        const string SIMPLE_USER_ID2 = "B18be9c0-aa65-4af8-bd17-00bd9344e575";
 
         const string ROLE_ID = ADMIN_ID;
 
@@ -61,10 +62,23 @@ public class DbInitializer
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
+        User simpleUser2 = new()
+        {
+            Id = SIMPLE_USER_ID2,
+            UserName = "cheeseman",
+            NormalizedUserName = "CHEESEMAN",
+            Email = "test@studiostoy.nl",
+            EmailConfirmed = false,
+            NormalizedEmail = "TEST@STUDIOSTOY.NL",
+            PasswordHash = hasher.HashPassword(user, "cheese"),
+            SecurityStamp = Guid.NewGuid().ToString()
+        };
+
         _builder.Entity<User>(a =>
         {
             a.HasData(admin);
             a.HasData(simpleUser);
+            a.HasData(simpleUser2);
         });
 
         _builder.Entity<GainsAccount>(g =>
@@ -82,6 +96,14 @@ public class DbInitializer
                 Id = GAINSACCOUNT_ID2,
                 UserId = SIMPLE_USER_ID,
                 Username = simpleUser.UserName,
+                Workouts = new List<Workout>()
+            });
+
+            g.HasData(new GainsAccount
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserId = SIMPLE_USER_ID2,
+                Username = simpleUser2.UserName,
                 Workouts = new List<Workout>()
             });
         });

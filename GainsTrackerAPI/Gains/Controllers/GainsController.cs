@@ -8,7 +8,7 @@ namespace GainsTrackerAPI.Gains.Controllers;
 
 [ApiController]
 [Authorize]
-[Route("gains")]
+[Route("gains/user")]
 public class GainsController : ControllerBase
 {
     private readonly IGainsService _gainsService;
@@ -18,12 +18,19 @@ public class GainsController : ControllerBase
         _gainsService = service;
     }
 
-    [HttpGet("user/workout")]
+    private string CurrentUserName => User.FindFirstValue(ClaimTypes.Name);
+
+    [HttpGet]
+    public async Task<IActionResult> GetUserInfo()
+    {
+        List<Workout> workouts = await _gainsService.GetWorkoutsByUsername(CurrentUserName);
+        return Ok(workouts);
+    }
+
+    [HttpGet("workout")]
     public async Task<IActionResult> GetUserWorkouts()
     {
-        string? username = User.FindFirstValue(ClaimTypes.Name);
-        List<Workout> workouts = await _gainsService.GetWorkoutsByUsername(username);
-
+        List<Workout> workouts = await _gainsService.GetWorkoutsByUsername(CurrentUserName);
         return Ok(workouts);
     }
 }

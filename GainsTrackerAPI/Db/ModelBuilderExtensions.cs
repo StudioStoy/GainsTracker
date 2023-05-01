@@ -1,4 +1,5 @@
 ﻿using GainsTrackerAPI.Gains.Models;
+using GainsTrackerAPI.Gains.Models.Friends;
 using GainsTrackerAPI.Gains.Models.Measurements;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,19 @@ namespace GainsTrackerAPI.Db;
 
 public static class ModelBuilderExtensions
 {
+    public static void ConfigureRelationModels(this ModelBuilder builder)
+    {
+        builder.Entity<FriendRequest>()
+            .HasOne(a => a.RequestedBy)
+            .WithMany(b => b.SentFriendRequests)
+            .HasForeignKey(f => f.RequestedById);
+
+        builder.Entity<FriendRequest>()
+            .HasOne(a => a.RequestedTo)
+            .WithMany(b => b.ReceivedFriendRequests)
+            .HasForeignKey(c => c.RequestedToId);
+    }
+
     /// <summary>
     ///     Converts the enum names in the database to string format.
     ///     Add any new enums here to make sure they get converted properly

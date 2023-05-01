@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using GainsTrackerAPI.Db;
 using GainsTrackerAPI.ExceptionConfigurations;
+using GainsTrackerAPI.Gains.Data;
 using GainsTrackerAPI.Gains.Services;
 using GainsTrackerAPI.Security.Models;
 using GainsTrackerAPI.Security.Services;
@@ -15,10 +16,12 @@ using Microsoft.OpenApi.Models;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
-builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-
 builder.Services.AddControllers()
-    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -98,8 +101,10 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod();
         });
 });
-
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IGainsService, GainsService>();
+builder.Services.AddScoped<IFriendService, FriendService>();
+builder.Services.AddScoped<BigBrain>();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
