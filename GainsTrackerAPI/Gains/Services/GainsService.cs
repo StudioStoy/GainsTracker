@@ -1,5 +1,4 @@
-﻿using GainsTrackerAPI.ExceptionConfigurations.Exceptions;
-using GainsTrackerAPI.Gains.Data;
+﻿using GainsTrackerAPI.Gains.Data;
 using GainsTrackerAPI.Gains.Models;
 using GainsTrackerAPI.Security.Models;
 

@@ -34,12 +34,12 @@ public class FriendRequest
     public void Accept()
     {
         Status = FriendRequestStatus.Accepted;
-        // Maybe sent an event or something for notifications?
+        //TODO: Maybe sent an event or something for notifications?
         RequestedBy.SentFriendRequests.Remove(this);
         RequestedTo.ReceivedFriendRequests.Remove(this);
 
-        RequestedBy.Friends.Add(new Friend(RequestedTo));
-        RequestedTo.Friends.Add(new Friend(RequestedBy));
+        RequestedBy.Friends.Add(new Friend(RequestedTo, DateTime.UtcNow));
+        RequestedTo.Friends.Add(new Friend(RequestedBy, DateTime.UtcNow));
     }
 
     public void Reject()

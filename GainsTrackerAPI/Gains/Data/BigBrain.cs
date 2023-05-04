@@ -32,7 +32,7 @@ public abstract class BigBrain
         User? user = Context.Users
             .Include(u => u.GainsAccount)
             .FirstOrDefault(u => u.UserName == username);
-        
+
         return user ?? throw new NotFoundException("User with that name not found.");
     }
 
