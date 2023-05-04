@@ -1,4 +1,4 @@
-﻿namespace GainsTrackerAPI.ExceptionConfigurations.Exceptions;
+﻿namespace GainsTrackerLib.Models.Exceptions;
 
 public class UnauthorizedException : Exception
 {

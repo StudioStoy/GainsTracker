@@ -1,6 +1,6 @@
 ﻿using GainsTrackerAPI.Gains.Models;
 
-namespace GainsTrackerAPI.Gains.Controllers.DTO;
+namespace GainsTrackerAPI.Gains.Services.Dto;
 
 public class FriendDto
 {

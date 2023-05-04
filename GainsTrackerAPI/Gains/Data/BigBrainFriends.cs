@@ -1,7 +1,7 @@
 ﻿using GainsTrackerAPI.Db;
-using GainsTrackerAPI.ExceptionConfigurations.Exceptions;
 using GainsTrackerAPI.Gains.Models;
 using GainsTrackerAPI.Gains.Models.Friends;
+using GainsTrackerLib.Models.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace GainsTrackerAPI.Gains.Data;

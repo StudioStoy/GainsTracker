@@ -1,5 +1,5 @@
-﻿using GainsTrackerAPI.Gains.Controllers.DTO;
-using GainsTrackerAPI.Gains.Models;
+﻿using GainsTrackerAPI.Gains.Models;
+using GainsTrackerLib.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Extensions;
 

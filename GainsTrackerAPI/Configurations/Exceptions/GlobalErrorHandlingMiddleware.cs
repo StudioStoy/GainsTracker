@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
-using GainsTrackerAPI.ExceptionConfigurations.Exceptions;
+using GainsTrackerLib.Models.Exceptions;
 
 namespace GainsTrackerAPI.ExceptionConfigurations;
 
