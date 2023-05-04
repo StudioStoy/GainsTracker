@@ -1,12 +1,13 @@
 ﻿using System.Data.Entity.ModelConfiguration.Conventions;
-using GainsTrackerAPI.Gains.Models;
-using GainsTrackerAPI.Gains.Models.Friends;
-using GainsTrackerAPI.Gains.Models.Measurements;
-using GainsTrackerAPI.Security.Models;
+using GainsTrackerAPI.Components.Friends.Models;
+using GainsTrackerAPI.Components.Gains.Models;
+using GainsTrackerAPI.Components.Gains.Models.Measurements;
+using GainsTrackerAPI.Components.Gains.Models.Workouts;
+using GainsTrackerAPI.Components.Security.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace GainsTrackerAPI.Db;
+namespace GainsTrackerAPI.Configurations.Database;
 
 public sealed class AppDbContext : IdentityDbContext<User>
 {

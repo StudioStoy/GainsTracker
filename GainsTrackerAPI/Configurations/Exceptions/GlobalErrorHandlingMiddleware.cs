@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using System.Text.Json;
-using GainsTrackerLib.Models.Exceptions;
+using GainsTrackerCommon.Models.Exceptions;
 
-namespace GainsTrackerAPI.ExceptionConfigurations;
+namespace GainsTrackerAPI.Configurations.Exceptions;
 
 public class GlobalErrorHandlingMiddleware
 {

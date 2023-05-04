@@ -1,9 +1,9 @@
-﻿using GainsTrackerAPI.Gains.Models;
-using GainsTrackerAPI.Gains.Models.Friends;
-using GainsTrackerAPI.Gains.Models.Measurements;
+﻿using GainsTrackerAPI.Components.Friends.Models;
+using GainsTrackerAPI.Components.Gains.Models.Measurements;
+using GainsTrackerAPI.Components.Gains.Models.Workouts;
 using Microsoft.EntityFrameworkCore;
 
-namespace GainsTrackerAPI.Db;
+namespace GainsTrackerAPI.Configurations.Database;
 
 public static class ModelBuilderExtensions
 {

@@ -1,9 +1,10 @@
-﻿using GainsTrackerAPI.Gains.Models;
-using GainsTrackerAPI.Security.Models;
+﻿using GainsTrackerAPI.Components.Gains.Models;
+using GainsTrackerAPI.Components.Gains.Models.Workouts;
+using GainsTrackerAPI.Components.Security.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace GainsTrackerAPI.Db;
+namespace GainsTrackerAPI.Configurations.Database;
 
 public class DbInitializer
 {

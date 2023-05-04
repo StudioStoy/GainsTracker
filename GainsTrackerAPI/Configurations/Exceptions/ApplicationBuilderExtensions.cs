@@ -1,4 +1,4 @@
-﻿namespace GainsTrackerAPI.ExceptionConfigurations;
+﻿namespace GainsTrackerAPI.Configurations.Exceptions;
 
 public static class ApplicationBuilderExtensions
 {

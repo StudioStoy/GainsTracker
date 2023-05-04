@@ -27,12 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Gains\Controllers\DTO\"/>
-        <Folder Include="Security"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\GainsTrackerLib\GainsTrackerLib.csproj"/>
+        <ProjectReference Include="..\GainsTrackerCommon\GainsTrackerCommon.csproj"/>
     </ItemGroup>
 
 </Project>
