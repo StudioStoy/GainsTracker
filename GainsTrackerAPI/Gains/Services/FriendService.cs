@@ -8,10 +8,10 @@ namespace GainsTrackerAPI.Gains.Services;
 
 public class FriendService : IFriendService
 {
-    private readonly BigBrain _bigBrain;
+    private readonly BigBrainFriends _bigBrain;
     private readonly IGainsService _gainsService;
 
-    public FriendService(BigBrain bigBrain, IGainsService gainsService)
+    public FriendService(BigBrainFriends bigBrain, IGainsService gainsService)
     {
         _bigBrain = bigBrain;
         _gainsService = gainsService;
@@ -27,7 +27,7 @@ public class FriendService : IFriendService
 
     public FriendRequestOverviewDto GetFriendRequests(string username)
     {
-        string accountId = (_gainsService.GetGainsAccountFromUser(username)).Id;
+        string accountId = _gainsService.GetGainsAccountFromUser(username).Id;
         GainsAccount user = _bigBrain.GetFriendInfoByGainsId(accountId);
 
         return new FriendRequestOverviewDto
@@ -40,7 +40,7 @@ public class FriendService : IFriendService
     public void SendFriendRequest(string username, string friendName)
     {
         CheckFriendshipStatus(username, friendName);
-        
+
         GainsAccount user = _gainsService.GetGainsAccountFromUser(username);
         GainsAccount potentialFriend = _gainsService.GetGainsAccountFromUser(friendName);
 
@@ -48,17 +48,17 @@ public class FriendService : IFriendService
         _bigBrain.SaveContext();
     }
 
-    public void HandleFriendRequestState(string username, string requestId, bool accept=true)
+    public void HandleFriendRequestState(string username, string requestId, bool accept = true)
     {
-        var request = _bigBrain.GetFriendRequestById(requestId);
-        var userId = _bigBrain.GetGainsIdByUsername(username);
-        
-        if (request.RequestedById == userId)
+        FriendRequest request = _bigBrain.GetFriendRequestById(requestId);
+        string gainsId = _bigBrain.GetGainsIdByUsername(username);
+
+        if (request.RequestedById == gainsId)
             throw new Exception("Requester can obviously not accept their own request");
-        
+
         if (accept) request.Accept();
         else request.Reject();
-        
+
         _bigBrain.SaveContext();
     }
 

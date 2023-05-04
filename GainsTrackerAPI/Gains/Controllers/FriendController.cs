@@ -41,9 +41,9 @@ public class FriendController : ControllerBase
         _friendService.SendFriendRequest(CurrentUserName, friendName);
         return Ok();
     }
-    
+
     [HttpPut("request")]
-    public IActionResult HandleFriendRequest(string requestId, bool accept=true)
+    public IActionResult HandleFriendRequest(string requestId, bool accept = true)
     {
         _friendService.HandleFriendRequestState(CurrentUserName, requestId, accept);
         return NoContent();

@@ -1,77 +1,44 @@
 ﻿using GainsTrackerAPI.Db;
 using GainsTrackerAPI.ExceptionConfigurations.Exceptions;
-using GainsTrackerAPI.Gains.Models;
-using GainsTrackerAPI.Gains.Models.Friends;
 using GainsTrackerAPI.Security.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GainsTrackerAPI.Gains.Data;
 
-public class BigBrain
+/// <summary>
+///     This is the generic base class, which will contain the most basic functions like info about the user and id's.
+/// </summary>
+public abstract class BigBrain
 {
-    private readonly AppDbContext _context;
+    protected readonly AppDbContext Context;
 
-    public BigBrain(AppDbContext context)
+    protected BigBrain(AppDbContext context)
     {
-        _context = context;
+        Context = context;
     }
 
     public void SaveContext()
     {
-        _context.SaveChanges();
+        Context.SaveChanges();
     }
 
     public bool UserExistsByUsername(string username)
     {
-        return _context.Users.FirstOrDefault(u => u.UserName == username) != null;
-    }
-
-    public string GetGainsIdByUsername(string username)
-    {
-        return _context.GainsAccounts.FirstOrDefault(g => g.Username == username)?.Id
-               ?? throw new NotFoundException("");
-    }
-
-    public Task<List<Workout>> GetWorkoutsByGainsId(string gainsId)
-    {
-        return _context.Workouts
-            .Include(w => w.Measurements)
-            .Where(w => w.GainsAccountId == gainsId).ToListAsync();
-    }
-
-    public List<Friend> GetFriendsByGainsId(string gainsId)
-    {
-        List<Friend>? friendsByGainsId = _context.GainsAccounts
-            .Include(g => g.Friends)
-            .FirstOrDefault(g => g.Id == gainsId)?.Friends;
-        return friendsByGainsId ?? new List<Friend>();
-    }
-
-    public GainsAccount GetFriendInfoByGainsId(string gainsId)
-    {
-        return _context.GainsAccounts
-                   .Include(g => g.SentFriendRequests)
-                   .ThenInclude(req => req.RequestedTo)
-                   .Include(g => g.ReceivedFriendRequests)
-                   .ThenInclude(req => req.RequestedBy)
-                   .FirstOrDefault(g => g.Id == gainsId)
-               ?? throw new NotFoundException($"User with id {gainsId} was not found.");
+        return Context.Users.FirstOrDefault(u => u.UserName == username) != null;
     }
 
     public User? GetUserByUsername(string username)
     {
-        User? user = _context.Users
+        User? user = Context.Users
             .Include(u => u.GainsAccount)
             .FirstOrDefault(u => u.UserName == username);
-
-        return user;
+        
+        return user ?? throw new NotFoundException("User with that name not found.");
     }
 
-    public FriendRequest GetFriendRequestById(string requestId)
+    public string GetGainsIdByUsername(string username)
     {
-        return _context.FriendRequests
-                   .Include(req => req.RequestedBy)
-                   .FirstOrDefault(r => r.Id == requestId)
-               ?? throw new NotFoundException("Request not found.");
-    } 
+        return Context.GainsAccounts.FirstOrDefault(g => g.Username == username)?.Id
+               ?? throw new NotFoundException("User not found.");
+    }
 }

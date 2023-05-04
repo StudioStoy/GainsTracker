@@ -7,9 +7,9 @@ namespace GainsTrackerAPI.Gains.Services;
 
 public class GainsService : IGainsService
 {
-    private readonly BigBrain _bigBrain;
+    private readonly BigBrainWorkout _bigBrain;
 
-    public GainsService(BigBrain bigBrain)
+    public GainsService(BigBrainWorkout bigBrain)
     {
         _bigBrain = bigBrain;
     }
@@ -22,15 +22,7 @@ public class GainsService : IGainsService
 
     public GainsAccount GetGainsAccountFromUser(string username)
     {
-        ValidateAccount(username);
-
-        User user = (_bigBrain.GetUserByUsername(username))!;
+        User user = _bigBrain.GetUserByUsername(username)!;
         return user.GainsAccount;
-    }
-
-    private void ValidateAccount(string username)
-    {
-        if (!_bigBrain.UserExistsByUsername(username))
-            throw new NotFoundException("User not found. Make sure to include a valid token.");
     }
 }

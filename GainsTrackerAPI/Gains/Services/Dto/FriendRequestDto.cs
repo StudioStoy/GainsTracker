@@ -16,7 +16,7 @@ public class FriendRequestDto
     }
 
     public string Id { get; set; }
-    
+
     public string RequestedById { get; set; }
     public string RequestedToId { get; set; }
 
@@ -30,7 +30,7 @@ public class FriendRequestDto
     {
         return new FriendRequestDto
         (
-            id: request.Id,
+            request.Id,
             requestedById: request.RequestedById,
             requestedToId: request.RequestedToId,
             requestedByName: request.RequestedBy.Username,

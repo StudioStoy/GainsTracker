@@ -23,8 +23,8 @@ public class FriendRequest
     public string RequestedById { get; set; }
     public string RequestedToId { get; set; }
 
-    public GainsAccount RequestedBy { get; private set; }
-    public GainsAccount RequestedTo { get; private set; }
+    public GainsAccount RequestedBy { get; }
+    public GainsAccount RequestedTo { get; }
 
     public DateTime RequestTime { get; private set; }
     public FriendRequestStatus Status { get; set; }
@@ -37,7 +37,7 @@ public class FriendRequest
         // Maybe sent an event or something for notifications?
         RequestedBy.SentFriendRequests.Remove(this);
         RequestedTo.ReceivedFriendRequests.Remove(this);
-        
+
         RequestedBy.Friends.Add(new Friend(RequestedTo));
         RequestedTo.Friends.Add(new Friend(RequestedBy));
     }

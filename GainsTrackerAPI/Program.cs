@@ -104,7 +104,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IGainsService, GainsService>();
 builder.Services.AddScoped<IFriendService, FriendService>();
-builder.Services.AddScoped<BigBrain>();
+builder.Services.AddScoped<BigBrainFriends>();
+builder.Services.AddScoped<BigBrainWorkout>();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
