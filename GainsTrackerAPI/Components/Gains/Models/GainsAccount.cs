@@ -22,6 +22,11 @@ public class GainsAccount
         toPotentialFriend.ReceivedFriendRequests.Add(request);
     }
 
+    public void AddWorkout(Workout workout)
+    {
+        Workouts.Add(workout);
+    }
+
     // This method is not always reliable, as EF core usually loads entities in without all properties.
     // Because of this they can appear empty even though they are not. So always also check in the service layer.
     private void CheckFriendRequests(string friendName)

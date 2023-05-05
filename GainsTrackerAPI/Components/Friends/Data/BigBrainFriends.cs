@@ -1,5 +1,4 @@
 ﻿using GainsTrackerAPI.Components.Friends.Models;
-using GainsTrackerAPI.Components.Gains.Data;
 using GainsTrackerAPI.Components.Gains.Models;
 using GainsTrackerAPI.Configurations.Database;
 using GainsTrackerCommon.Models.Exceptions;

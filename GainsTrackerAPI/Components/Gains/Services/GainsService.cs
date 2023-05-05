@@ -1,7 +1,8 @@
 ﻿using GainsTrackerAPI.Components.Gains.Data;
 using GainsTrackerAPI.Components.Gains.Models;
+using GainsTrackerAPI.Components.Gains.Models.Measurements;
 using GainsTrackerAPI.Components.Gains.Models.Workouts;
-using GainsTrackerAPI.Components.Security.Models;
+using GainsTrackerAPI.Components.Gains.Services.Dto;
 
 namespace GainsTrackerAPI.Components.Gains.Services;
 
@@ -14,15 +15,23 @@ public class GainsService : IGainsService
         _bigBrain = bigBrain;
     }
 
-    public async Task<List<Workout>> GetWorkoutsByUsername(string username)
-    {
-        GainsAccount gainsAccount = GetGainsAccountFromUser(username);
-        return await _bigBrain.GetWorkoutsByGainsId(gainsAccount.Id);
-    }
-
     public GainsAccount GetGainsAccountFromUser(string username)
     {
-        User user = _bigBrain.GetUserByUsername(username)!;
-        return user.GainsAccount;
+        return _bigBrain.GetGainsAccountByUsername(username);
+    }
+
+    public async Task<List<Workout>> GetWorkoutsByUsername(string username)
+    {
+        string id = _bigBrain.GetGainsIdByUsername(username);
+        return await _bigBrain.GetWorkoutsByGainsId(id);
+    }
+
+    public void AddWorkoutToGainsAccount(string username, WorkoutDto workoutDto)
+    {
+        GainsAccount gainsAccount = GetGainsAccountFromUser(username);
+        Workout workout = new(gainsAccount.Id, workoutDto.WorkoutType, new List<Measurement>());
+        gainsAccount.AddWorkout(workout);
+
+        _bigBrain.SaveContext();
     }
 }

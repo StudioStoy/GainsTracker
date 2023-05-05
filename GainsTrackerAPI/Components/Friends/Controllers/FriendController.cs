@@ -19,33 +19,33 @@ public class FriendController : ControllerBase
         _friendService = friendService;
     }
 
-    private string CurrentUserName => User.FindFirstValue(ClaimTypes.Name);
+    private string CurrentUsername => User.FindFirstValue(ClaimTypes.Name);
 
     [HttpGet]
     public IActionResult GetFriends()
     {
-        List<Friend> friends = _friendService.GetFriends(CurrentUserName);
+        List<Friend> friends = _friendService.GetFriends(CurrentUsername);
         return Ok(friends);
     }
 
     [HttpGet("request")]
     public IActionResult GetFriendRequests()
     {
-        FriendRequestOverviewDto overview = _friendService.GetFriendRequests(CurrentUserName);
+        FriendRequestOverviewDto overview = _friendService.GetFriendRequests(CurrentUsername);
         return Ok(overview);
     }
 
     [HttpPost("request")]
     public IActionResult SendFriendRequest(string friendName)
     {
-        _friendService.SendFriendRequest(CurrentUserName, friendName);
+        _friendService.SendFriendRequest(CurrentUsername, friendName);
         return Ok();
     }
 
     [HttpPut("request")]
     public IActionResult HandleFriendRequest(string requestId, bool accept = true)
     {
-        _friendService.HandleFriendRequestState(CurrentUserName, requestId, accept);
+        _friendService.HandleFriendRequestState(CurrentUsername, requestId, accept);
         return NoContent();
     }
 }

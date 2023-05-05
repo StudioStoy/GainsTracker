@@ -15,7 +15,7 @@ public sealed class AppDbContext : IdentityDbContext<User>
     {
     }
 
-    public DbSet<User> Users { get; set; }
+    public override DbSet<User> Users { get; set; }
     public DbSet<GainsAccount> GainsAccounts { get; set; }
     public DbSet<FriendRequest> FriendRequests { get; set; }
     public DbSet<Friend> Friends { get; set; }
@@ -37,8 +37,6 @@ public sealed class AppDbContext : IdentityDbContext<User>
     // In here, all the many-to-one, one-to-one, etc relations are managed.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<GainsAccount>().Navigation(g => g.Workouts).AutoInclude();
-
         modelBuilder.ConfigureRelationModels();
         modelBuilder.ConvertEnumsToStrings();
 
@@ -48,7 +46,7 @@ public sealed class AppDbContext : IdentityDbContext<User>
     }
 
     // EF automatically creates tables using their camelcase name.
-    // We don't want this in postgres as this creates stupid queries, like:
+    // We don't want this in postgres as this necessitates stupid queries, like:
     // 'select * from public."Workout"' instead of 'select * from workout'.
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

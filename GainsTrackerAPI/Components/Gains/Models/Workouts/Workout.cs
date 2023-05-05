@@ -13,12 +13,11 @@ public class Workout
 
     public Workout(string gainsAccountId, WorkoutType type, List<Measurement> measurements)
     {
-        if (measurements.Count <= 0) throw new ArgumentException("A workout must have at least one measurement");
-
         GainsAccountId = gainsAccountId;
         WorkoutType = type;
         Measurements = measurements;
-        PersonalBest = measurements.First();
+        if (measurements.Any())
+            PersonalBest = measurements.First();
     }
 
     public WorkoutType WorkoutType { get; set; }
