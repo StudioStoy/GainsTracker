@@ -22,11 +22,23 @@ public class Workout
 
     public WorkoutType WorkoutType { get; set; }
 
-    [ForeignKey("MeasurementId")] public Measurement PersonalBest { get; set; }
+    [ForeignKey("BestMeasurementId")] public Measurement? PersonalBest { get; set; }
     public List<Measurement> Measurements { get; set; } = new();
 
-    public void CheckPersonalBest(Measurement newMeasurement, Measurement oldPersonalBest)
+    public void AddNewMeasurement(Measurement measurement)
     {
+        CheckAndUpdatePersonalBest(measurement, PersonalBest);
+        Measurements.Add(measurement);
+    }
+
+    private void CheckAndUpdatePersonalBest(Measurement newMeasurement, Measurement? oldPersonalBest)
+    {
+        if (oldPersonalBest == null)
+        {
+            PersonalBest = newMeasurement;
+            return;
+        }
+
         if (newMeasurement.GetType() != oldPersonalBest.GetType())
             throw new ArgumentException("Cannot compare measurements as they're not the same type.");
 

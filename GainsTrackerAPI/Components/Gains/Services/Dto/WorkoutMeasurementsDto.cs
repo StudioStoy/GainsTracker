@@ -6,7 +6,7 @@ namespace GainsTrackerAPI.Components.Gains.Services.Dto;
 public class WorkoutMeasurementsDto
 {
     public string Id { get; set; } = "";
-    public List<MeasurementResponseDto> Measurements { get; set; } = new();
+    public List<MeasurementDto> Measurements { get; set; } = new();
 
     public static WorkoutMeasurementsDto FromWorkout(Workout workout)
     {
@@ -14,7 +14,7 @@ public class WorkoutMeasurementsDto
         {
             Id = workout.Id,
             Measurements = workout.Measurements
-                .Select(m => new MeasurementResponseDto
+                .Select(m => new MeasurementDto
                 {
                     WorkoutId = m.WorkoutId,
                     Category = m.Category,
