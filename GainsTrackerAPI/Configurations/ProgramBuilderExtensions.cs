@@ -25,6 +25,7 @@ public static class ProgramBuilderExtensions
     {
         builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
         builder.Services.AddScoped<IGainsService, GainsService>();
+        builder.Services.AddScoped<IMeasurementService, MeasurementService>();
         builder.Services.AddScoped<IFriendService, FriendService>();
         builder.Services.AddScoped<BigBrainFriends>();
         builder.Services.AddScoped<BigBrainWorkout>();

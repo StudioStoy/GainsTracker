@@ -21,7 +21,7 @@ builder.RegisterEpicDependencies();
 
 WebApplication app = builder.Build();
 
-app.ResetAndUpdateDatabase(false);
+app.ResetAndUpdateDatabase();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
