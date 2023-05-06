@@ -1,22 +1,7 @@
-using System.Security.Claims;
-using System.Text;
 using System.Text.Json.Serialization;
-using GainsTrackerAPI.Components.Friends.Data;
-using GainsTrackerAPI.Components.Friends.Services;
-using GainsTrackerAPI.Components.Gains.Data;
-using GainsTrackerAPI.Components.Gains.Services;
-using GainsTrackerAPI.Components.Security.Models;
-using GainsTrackerAPI.Components.Security.Services;
-using GainsTrackerAPI.Configurations.Database;
-using GainsTrackerAPI.Configurations.Exceptions;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using GainsTrackerAPI.Configurations;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-ConfigurationManager configuration = builder.Configuration;
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -27,120 +12,16 @@ builder.Services.AddControllers()
 
 builder.Services.AddEndpointsApiExplorer();
 
-// Set DbContext.
-builder.Services.AddDbContext<AppDbContext>(options => { options.UseNpgsql(configuration.GetConnectionString("databaseConnection")); });
-
-// Map Identity to User and the database.
-builder.Services.AddIdentity<User, IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
-
-// Add Authentication with JWT.
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    // Add the JWT Bearer.
-    .AddJwtBearer(options =>
-    {
-        options.SaveToken = true;
-        options.RequireHttpsMetadata = false;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidAudience = configuration["JWT:ValidAudience"],
-            ValidIssuer = configuration["JWT:ValidIssuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
-        };
-    });
-
-// 5. Swagger documentation with authentication.
-builder.Services.AddSwaggerGen(SwaggerOptions =>
-{
-    SwaggerOptions.SwaggerDoc("v1", new OpenApiInfo { Title = "Gains Tracker API", Version = "v1" });
-    SwaggerOptions.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Description = "JWT Authorization header using the Bearer scheme. \r\n" +
-                      "Enter 'Bearer' [space] and then your token in the text input below.\n" +
-                      "Example: 'Bearer 12345abcdef'",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-    });
-
-    SwaggerOptions.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                },
-                Scheme = "oauth2",
-                Name = "Bearer",
-                In = ParameterLocation.Header
-            },
-            new List<string>()
-        }
-    });
-});
-
-// Add CORS policy for local development and testing purposes.
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAngularDevClient",
-        b =>
-        {
-            b
-                .WithOrigins("http://localhost:4200")
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-});
-builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-builder.Services.AddScoped<IGainsService, GainsService>();
-builder.Services.AddScoped<IFriendService, FriendService>();
-builder.Services.AddScoped<BigBrainFriends>();
-builder.Services.AddScoped<BigBrainWorkout>();
-
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
-
-    // Password settings.
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = true;
-    options.Password.RequiredLength = 5;
-    options.Password.RequiredUniqueChars = 1;
-
-    // Lockout settings.
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-    options.Lockout.MaxFailedAccessAttempts = 5;
-    options.Lockout.AllowedForNewUsers = true;
-
-    // User settings.
-    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+!#$^";
-    options.User.RequireUniqueEmail = false;
-});
+// Configuration.
+builder.ConfigureContextAndIdentity();
+builder.ConfigureAuthentication();
+builder.AddSwaggerDocumentation();
+builder.ConfigureCors();
+builder.RegisterEpicDependencies();
 
 WebApplication app = builder.Build();
 
-using (IServiceScope scope = app.Services.CreateScope())
-{
-    AppDbContext db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-    db.Database.EnsureDeleted();
-    db.Database.EnsureCreated();
-    db.Database.Migrate();
-}
+app.ResetAndUpdateDatabase(false);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
