@@ -55,4 +55,14 @@ public class GainsService : IGainsService
 
         _bigBrain.SaveContext();
     }
+
+    public void UpdateDisplayName(string userHandle, string newDisplayName)
+    {
+        var gainsAccount = GetGainsAccountFromUser(userHandle);
+        
+        //TODO: apply filters here for bad words n shizzle
+        gainsAccount.DisplayName = newDisplayName;
+        
+        _bigBrain.SaveContext();
+    }
 }

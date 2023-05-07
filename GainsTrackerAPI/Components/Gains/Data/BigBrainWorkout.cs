@@ -32,4 +32,13 @@ public class BigBrainWorkout : BigBrain
                    .FirstOrDefault(w => w.Id == id)
                ?? throw new NotFoundException("Workout with that id not found");
     }
+    
+    //TODO: this query should soon move into its own big brain, specifically for the userprofile stuff.
+    public void UpdateDisplayNameByUserHandle(string userHandle, string newDisplayName)
+    {
+        var gains = Context.GainsAccounts.FirstOrDefault(g => g.UserHandle.ToLower() == userHandle.ToLower());
+        //TODO: filter out bad words n shizzle
+        gains.DisplayName = newDisplayName;
+        
+    }
 }

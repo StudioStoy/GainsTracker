@@ -21,7 +21,6 @@ public class Workout
     }
 
     public WorkoutType WorkoutType { get; set; }
-
     [ForeignKey("BestMeasurementId")] public Measurement? PersonalBest { get; set; }
     public List<Measurement> Measurements { get; set; } = new();
 
