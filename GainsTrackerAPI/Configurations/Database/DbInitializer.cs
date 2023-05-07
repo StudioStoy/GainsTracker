@@ -88,7 +88,8 @@ public class DbInitializer
             {
                 Id = GAINSACCOUNT_ID,
                 UserId = ADMIN_ID,
-                Username = admin.UserName,
+                UserHandle = admin.UserName,
+                DisplayName = "DavrozzGaining",
                 Workouts = new List<Workout>()
             });
 
@@ -96,7 +97,7 @@ public class DbInitializer
             {
                 Id = GAINSACCOUNT_ID2,
                 UserId = SIMPLE_USER_ID,
-                Username = simpleUser.UserName,
+                UserHandle = simpleUser.UserName,
                 Workouts = new List<Workout>()
             });
 
@@ -104,7 +105,7 @@ public class DbInitializer
             {
                 Id = Guid.NewGuid().ToString(),
                 UserId = SIMPLE_USER_ID2,
-                Username = simpleUser2.UserName,
+                UserHandle = simpleUser2.UserName,
                 Workouts = new List<Workout>()
             });
         });

@@ -28,13 +28,22 @@ public class FriendRequestDto
 
     public static FriendRequestDto FromFriendRequest(FriendRequest request)
     {
+        string byName = request.RequestedBy.DisplayName;
+        string toName = request.RequestedTo.DisplayName;
+        byName = !string.IsNullOrEmpty(byName)
+            ? byName + $" (@{request.RequestedBy.UserHandle})"
+            : request.RequestedBy.UserHandle;
+        toName = !string.IsNullOrEmpty(toName)
+            ? toName + $" (@{request.RequestedTo.UserHandle})"
+            : request.RequestedTo.UserHandle;
+
         return new FriendRequestDto
         (
             request.Id,
             requestedById: request.RequestedById,
             requestedToId: request.RequestedToId,
-            requestedByName: request.RequestedBy.Username,
-            requestedToName: request.RequestedTo.Username,
+            requestedByName: byName,
+            requestedToName: toName,
             requestTime: request.RequestTime.ToLongDateString(),
             status: request.Status.ToString()
         );

@@ -6,7 +6,8 @@ namespace GainsTrackerAPI.Components.Gains.Models;
 
 public class GainsAccount
 {
-    public string Username { get; set; } = "";
+    public string UserHandle { get; set; } = "";
+    public string DisplayName { get; set; } = "";
     public List<Workout> Workouts { get; set; } = new();
     public List<Friend> Friends { get; set; } = new();
     public List<FriendRequest> ReceivedFriendRequests { get; set; } = new();
@@ -14,7 +15,7 @@ public class GainsAccount
 
     public void SentFriendRequest(GainsAccount toPotentialFriend)
     {
-        CheckFriendRequests(toPotentialFriend.Username);
+        CheckFriendRequests(toPotentialFriend.UserHandle);
 
         FriendRequest request = new(this, toPotentialFriend);
 
@@ -32,10 +33,10 @@ public class GainsAccount
     private void CheckFriendRequests(string friendName)
     {
         if (SentFriendRequests.Any(req =>
-                string.Equals(req.RequestedTo.Username, friendName,
+                string.Equals(req.RequestedTo.UserHandle, friendName,
                     StringComparison.InvariantCultureIgnoreCase))
             || ReceivedFriendRequests.Any(req =>
-                string.Equals(req.RequestedTo.Username, friendName,
+                string.Equals(req.RequestedTo.UserHandle, friendName,
                     StringComparison.InvariantCultureIgnoreCase)))
             throw new FriendRequestAlreadySentException($"You already sent a friend request to {friendName}!");
     }

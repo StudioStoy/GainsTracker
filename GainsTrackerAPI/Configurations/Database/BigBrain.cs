@@ -24,21 +24,25 @@ public abstract class BigBrain
         Context.SaveChanges();
     }
 
-    public User GetUserByUsername(string username)
+    public User GetUserByUsername(string userHandle)
     {
-        User? user = Context.Users.FirstOrDefault(u => u.UserName == username);
+        User? user = Context.Users.FirstOrDefault(u =>
+            string.Equals(u.UserName.ToLower(), userHandle.ToLower()));
+
         return user ?? throw new NotFoundException("User with that name not found");
     }
 
-    public GainsAccount GetGainsAccountByUsername(string username)
+    public GainsAccount GetGainsAccountByUsername(string userHandle)
     {
-        GainsAccount? gains = Context.GainsAccounts.FirstOrDefault(gains => gains.Username == username);
-        return gains ?? throw new NotFoundException("Gains account not found with that username");
+        GainsAccount? gains = Context.GainsAccounts.FirstOrDefault(gains =>
+            string.Equals(gains.UserHandle.ToLower(), userHandle.ToLower()));
+
+        return gains ?? throw new NotFoundException("Gains account not found with that userHandle");
     }
 
-    public string GetGainsIdByUsername(string username)
+    public string GetGainsIdByUsername(string userHandle)
     {
-        return Context.GainsAccounts.Where(g => g.Username == username)
+        return Context.GainsAccounts.Where(g => g.UserHandle == userHandle)
                    .Select(g => new { g.Id })
                    .FirstOrDefault()?.Id
                ?? throw new NotFoundException("User not found");

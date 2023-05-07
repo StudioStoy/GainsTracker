@@ -9,16 +9,18 @@ public class Friend
     {
     }
 
-    public Friend(string name, string gainsId, DateTime friendsSince)
+    public Friend(string name, string handle, string gainsId, DateTime friendsSince)
     {
-        Name = name;
+        FriendName = name;
+        FriendHandle = handle;
         GainsAccountId = gainsId;
         FriendsSince = friendsSince;
     }
 
     public Friend(GainsAccount account, DateTime friendsSince)
     {
-        Name = account.Username;
+        FriendName = !string.IsNullOrEmpty(account.DisplayName) ? account.DisplayName : account.UserHandle;
+        FriendHandle = account.UserHandle;
         GainsAccountId = account.Id;
         FriendsSince = friendsSince;
     }
@@ -26,5 +28,6 @@ public class Friend
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public string GainsAccountId { get; set; }
     public DateTime FriendsSince { get; set; }
-    public string Name { get; set; }
+    public string FriendName { get; set; }
+    public string FriendHandle { get; set; }
 }
