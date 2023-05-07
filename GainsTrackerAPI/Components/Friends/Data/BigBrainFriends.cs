@@ -37,6 +37,7 @@ public class BigBrainFriends : BigBrain
     {
         return Context.FriendRequests
                    .Include(req => req.RequestedBy)
+                   .Include(req => req.RequestedTo)
                    .FirstOrDefault(r => r.Id == requestId)
                ?? throw new NotFoundException("Request not found.");
     }

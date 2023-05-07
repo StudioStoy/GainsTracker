@@ -81,8 +81,8 @@ public class FriendService : IFriendService
 
     private bool FriendRequestAlreadySent(string username, string friendName)
     {
-        FriendRequestOverviewDto egg = GetFriendRequests(username);
-        return egg.Sent.Any(req =>
+        FriendRequestOverviewDto friendRequest = GetFriendRequests(username);
+        return friendRequest.Sent.Any(req =>
             string.Equals(req.RequestedToName, friendName, StringComparison.InvariantCultureIgnoreCase));
     }
 }

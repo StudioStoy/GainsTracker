@@ -9,7 +9,7 @@ namespace GainsTrackerAPI.Components.Friends.Controllers;
 
 [ApiController]
 [Authorize]
-[Route("friends")]
+[Route("friend")]
 public class FriendController : ControllerBase
 {
     private readonly IFriendService _friendService;

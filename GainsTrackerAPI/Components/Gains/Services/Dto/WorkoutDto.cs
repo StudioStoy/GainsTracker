@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using GainsTrackerAPI.Components.Gains.Models.Measurements;
+﻿using GainsTrackerAPI.Components.Gains.Models.Measurements;
 using GainsTrackerAPI.Components.Gains.Models.Workouts;
 
 namespace GainsTrackerAPI.Components.Gains.Services.Dto;
@@ -14,7 +13,7 @@ public class WorkoutDto
     public static WorkoutDto FromWorkout(Workout workout)
     {
         MeasurementDto? bestMeasurement = null;
-        
+
         if (workout.PersonalBest != null)
         {
             bestMeasurement = new MeasurementDto();
@@ -23,7 +22,7 @@ public class WorkoutDto
             bestMeasurement.Category = workout.PersonalBest.Category;
             bestMeasurement.Data = MeasurementFactory.SerializeMeasurementToJson(workout.PersonalBest);
         }
-        
+
         return new WorkoutDto
         {
             Id = workout.Id,

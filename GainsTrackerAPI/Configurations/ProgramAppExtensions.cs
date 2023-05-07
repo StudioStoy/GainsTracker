@@ -24,7 +24,7 @@ public static class ProgramAppExtensions
     }
 
     /// <summary>
-    /// Configure global exception handling.
+    ///     Configure global exception handling.
     /// </summary>
     public static void AddGlobalErrorHandler(this IApplicationBuilder applicationBuilder)
     {

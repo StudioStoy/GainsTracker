@@ -1,4 +1,5 @@
 ﻿// God that's a boat load of usings
+
 using System.Security.Claims;
 using System.Text;
 using GainsTrackerAPI.Components.Friends.Data;
@@ -90,7 +91,6 @@ public static class ProgramBuilderExtensions
     /// <summary>
     ///     Add Authentication with JWT.
     /// </summary>
-    /// <param name="builder"></param>
     public static void ConfigureAuthentication(this WebApplicationBuilder builder)
     {
         builder.Services.AddAuthentication(options =>
