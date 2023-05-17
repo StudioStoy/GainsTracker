@@ -1,0 +1,20 @@
+﻿@page "/login"
+@using GainsTracker.UI.Services
+@inject IGainsAuthService AuthService;
+
+<h1>Login</h1>
+
+<input id="username-input" placeholder="Username" @bind="UserHandle"/>
+<input id="password-input" type="password" placeholder="Password" @bind="Password"/>
+
+<button class="btn btn-primary" @onclick="Login">Login</button>
+
+@code {
+    private string UserHandle = "";
+    private string Password = "";
+
+    private async void Login()
+    {
+        await AuthService.Login(UserHandle, Password);
+    }
+}

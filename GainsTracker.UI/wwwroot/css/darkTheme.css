@@ -1,0 +1,22 @@
+:root {
+    /* dark theme */
+    --background: #222;
+    --primary-color: #0b6200;
+    --secondary-color: #084600;
+    --font-color: #fff;
+    --font-color-2: #fff;
+    --highlight: #393939;
+    --highlight-2: #444444;
+    --link: #3ca4ff;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: var(--font-color);
+    border-color: grey;
+}
+
+.page {
+    background-color: var(--background);
+    color: var(--font-color);
+}

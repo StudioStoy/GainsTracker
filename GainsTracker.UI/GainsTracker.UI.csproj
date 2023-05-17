@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>11</LangVersion>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+        <SupportedPlatform Include="browser"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.15"/>
+        <PackageReference Include="System.Security.Permissions" Version="6.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="wwwroot\background.png"/>
+        <_ContentIncludedByDefault Remove="wwwroot\exampleJsInterop.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\app.css"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\darkMode.css"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\lightMode.css"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\FONT-LICENSE"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.eot"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.otf"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.svg"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.ttf"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.woff"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\ICON-LICENSE"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\README.md"/>
+        <_ContentIncludedByDefault Remove="wwwroot\favicon.ico"/>
+        <_ContentIncludedByDefault Remove="wwwroot\index.html"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="wwwroot\css\"/>
+        <Folder Include="wwwroot\script\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="Components\ElementManipulator.razor"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\GainsTracker.Common\GainsTracker.Common.csproj"/>
+    </ItemGroup>
+
+</Project>

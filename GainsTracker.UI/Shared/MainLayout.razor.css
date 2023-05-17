@@ -1,0 +1,33 @@
+.page {
+    display: flex;
+    flex-direction: column-reverse;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+main {
+    flex: 1;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: #0b6200;
+    margin-top: 5px;
+    bottom: 0;
+    width: 100%;
+}
+
+/* For tablet up to desktop */
+@media only screen and (min-width: 600px) {
+    .navigation {
+        flex-direction: column;
+        top:0;
+    }
+
+    .page {
+        display: flex;
+        flex-direction: column;
+    }
+}
