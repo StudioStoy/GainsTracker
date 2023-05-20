@@ -1,13 +1,13 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+# This is a simple workflow that will build a .NET MAUI project, specifically targeting the android platform.
+# It's meant for continuous integration, so running tests and making sure it all builds without failure.
 
 name: GainsTracker Native
 
 on:
   push:
-    branches: [ "main", "workflow/actions" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "workflow/actions" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -17,6 +17,7 @@ env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
   DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
 
+# This should be updated in the future to include actual signing and publishing for each platform.
 jobs:
   build:
     runs-on: windows-latest

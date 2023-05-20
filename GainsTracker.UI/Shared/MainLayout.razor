@@ -1,6 +1,6 @@
 ﻿@using GainsTracker.UI.Components
 @inherits LayoutComponentBase
-<ElementManipulator IsDarkTheme="_isDark"></ElementManipulator>
+<ElementManipulator IsDarkTheme="IsDark"></ElementManipulator>
 
 <div class="page">
     <header class="navigation">
@@ -8,7 +8,7 @@
     </header>
     
     <main>
-        <button @onclick="ToggleDarkMode">Toggle theme</button>
+        <button id="toggleThemeButton" @onclick="ToggleDarkMode">Toggle theme</button>
 
         <article class="content">
             @Body
@@ -17,11 +17,12 @@
 </div>
 
 @code {
-    bool _isDark;
+    [Parameter]
+    public bool IsDark { get; set; }
 
     private void ToggleDarkMode()
     {
-        _isDark = !_isDark;
+        IsDark = !IsDark;
     }
 
 }
