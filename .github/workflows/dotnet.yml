@@ -35,4 +35,4 @@ jobs:
       - name: Build
         run: dotnet build GainsTracker.ClientNative/GainsTracker.ClientNative.csproj -c Release -f net7.0-android --no-restore
       - name: Test
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --verbosity normal --no-restore
