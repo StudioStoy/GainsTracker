@@ -36,6 +36,7 @@ public class FriendRequest
     public void Accept()
     {
         Status = FriendRequestStatus.Accepted;
+
         //TODO: Maybe sent an event or something for notifications?
         RequestedBy.SentFriendRequests.Remove(this);
         RequestedTo.ReceivedFriendRequests.Remove(this);
@@ -47,6 +48,7 @@ public class FriendRequest
     public void Reject()
     {
         Status = FriendRequestStatus.Rejected;
+
         // No event, happens silently.
         RequestedBy.SentFriendRequests.Remove(this);
         RequestedTo.ReceivedFriendRequests.Remove(this);

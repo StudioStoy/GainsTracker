@@ -38,6 +38,7 @@ public class BigBrainWorkout : BigBrain
     public void UpdateDisplayNameByUserHandle(string userHandle, string newDisplayName)
     {
         GainsAccount? gains = Context.GainsAccounts.FirstOrDefault(g => g.UserHandle.ToLower() == userHandle.ToLower());
+
         //TODO: filter out bad words n shizzle
         gains.DisplayName = newDisplayName;
     }

@@ -99,6 +99,7 @@ public static class ProgramBuilderExtensions
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             })
+
             // Add the JWT Bearer.
             .AddJwtBearer(options =>
             {

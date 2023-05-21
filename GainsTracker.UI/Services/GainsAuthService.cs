@@ -49,6 +49,7 @@ public class GainsAuthService : IGainsAuthService
                 { "password", password },
                 { "firstName", "Standard" },
                 { "lastName", "User" }
+
                 //TODO: Expand with actual name and other info of the user.
             };
 
@@ -56,6 +57,7 @@ public class GainsAuthService : IGainsAuthService
             HttpResponseMessage response = await _httpClient.PostAsync(url, content);
 
             ValidateResponse(response);
+
             //TODO: This response contains the JWT. implement the setting authorization of the returned token here.
 
             return response.IsSuccessStatusCode;

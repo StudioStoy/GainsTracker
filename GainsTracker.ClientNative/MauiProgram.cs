@@ -23,7 +23,7 @@ public static class MauiProgram
         builder.Services.AddScoped<IGainsAuthService, GainsAuthService>();
         builder.Services.AddScoped<IGainsTrackerService, GainsTrackerService>();
         builder.Services.AddSingleton<HttpClient>();
-        
+
         return builder.Build();
     }
 }
