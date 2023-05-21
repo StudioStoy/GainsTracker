@@ -23,7 +23,7 @@ main {
 @media only screen and (min-width: 600px) {
     .navigation {
         flex-direction: column;
-        top:0;
+        top: 0;
     }
 
     .page {

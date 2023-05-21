@@ -1,12 +1,25 @@
 @inject IJSRuntime JSRuntime
 
 @code {
+
     protected override async Task OnParametersSetAsync()
     {
+        if (!_isReady) return;
+
         if (IsDarkTheme is not null)
             await JSRuntime.InvokeVoidAsync("toggleThemeStyleSheet", IsDarkTheme);
     }
 
+    // The JSInterop runtime can only be used after the component is fully rendered.
+    // So before that, _isReady is false.
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        _isReady = true;
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
     [Parameter]
     public bool? IsDarkTheme { get; set; }
+
+    private bool _isReady { get; set; }
 }

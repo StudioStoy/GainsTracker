@@ -14,17 +14,17 @@ public class MainLayoutTest : TestContext
     public void Build()
     {
     }
-    
+
     [Fact]
     public void DarkModeToggleShouldSwitchProperty()
     {
-        var cut = RenderComponent<MainLayout>(parameters =>
+        IRenderedComponent<MainLayout> cut = RenderComponent<MainLayout>(parameters =>
             parameters.Add(p => p.IsDark, true));
-        
+
         Assert.True(cut.Instance.IsDark);
-        
+
         cut.Find("#toggleThemeButton").Click();
-        
+
         Assert.False(cut.Instance.IsDark);
     }
 }

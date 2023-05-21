@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.Testing.CoreAP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.Testing.UI", "GainsTracker.Testing.UI\GainsTracker.Testing.UI.csproj", "{75BFFEC2-C80D-43D0-8FD4-FAEDA0FF4F9F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.ClientWeb", "GainsTracker.ClientWeb\GainsTracker.ClientWeb.csproj", "{B1508A96-07FE-44C3-B4F8-68AC203AEBB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{75BFFEC2-C80D-43D0-8FD4-FAEDA0FF4F9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75BFFEC2-C80D-43D0-8FD4-FAEDA0FF4F9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75BFFEC2-C80D-43D0-8FD4-FAEDA0FF4F9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1508A96-07FE-44C3-B4F8-68AC203AEBB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1508A96-07FE-44C3-B4F8-68AC203AEBB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1508A96-07FE-44C3-B4F8-68AC203AEBB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1508A96-07FE-44C3-B4F8-68AC203AEBB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
