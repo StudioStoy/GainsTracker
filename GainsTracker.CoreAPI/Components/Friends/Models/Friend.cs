@@ -26,8 +26,8 @@ public class Friend
     }
 
     public string Id { get; set; } = Guid.NewGuid().ToString();
-    public string GainsAccountId { get; set; }
+    public string GainsAccountId { get; set; } = string.Empty;
     public DateTime FriendsSince { get; set; }
-    public string FriendName { get; set; }
-    public string FriendHandle { get; set; }
+    public string FriendName { get; set; } = string.Empty;
+    public string FriendHandle { get; set; } = string.Empty;
 }

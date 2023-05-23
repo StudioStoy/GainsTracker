@@ -27,7 +27,7 @@ public class GainsTrackerService : IGainsTrackerService
         {
             Debug.WriteLine("uh oh:");
             Debug.WriteLine(ex);
-            return null;
+            return string.Empty;
         }
     }
 }

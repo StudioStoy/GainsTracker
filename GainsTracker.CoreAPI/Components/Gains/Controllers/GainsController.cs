@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using GainsTracker.Common;
 using GainsTracker.CoreAPI.Components.Gains.Models;
 using GainsTracker.CoreAPI.Components.Gains.Services;
 using GainsTracker.CoreAPI.Components.Gains.Services.Dto;
@@ -19,7 +20,7 @@ public class GainsController : ControllerBase
         _gainsService = service;
     }
 
-    private string CurrentUsername => User.FindFirstValue(ClaimTypes.Name);
+    private string CurrentUsername => User.FindFirstValue(ClaimTypes.Name) ?? Constants.AnonymousUserName;
 
     [HttpGet]
     public IActionResult GetUserGains()

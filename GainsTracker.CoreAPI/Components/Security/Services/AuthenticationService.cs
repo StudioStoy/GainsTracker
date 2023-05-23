@@ -40,7 +40,7 @@ public class AuthenticationService : IAuthenticationService
             }
         };
 
-        IdentityResult? result = await _userManager.CreateAsync(user, request.Password);
+        IdentityResult result = await _userManager.CreateAsync(user, request.Password);
 
         if (!result.Succeeded) throw new ArgumentException($"Unable to register user {request.UserHandle} errors: {GetErrorsText(result.Errors)}");
 
@@ -49,13 +49,17 @@ public class AuthenticationService : IAuthenticationService
 
     public async Task<string> Login(LoginRequestDto request)
     {
-        User? user = await _userManager.FindByNameAsync(request.UserHandle) ?? await _userManager.FindByEmailAsync(request.UserHandle);
+        ValidateLoginRequest(request);
 
-        if (user is null)
-            throw new NotFoundException("There is no user found with that username");
+        User user = await _userManager.FindByNameAsync(request.UserHandle)
+                    ?? await _userManager.FindByEmailAsync(request.UserHandle)
+                    ?? throw new NotFoundException("There is no user found with that username");
 
         if (!await _userManager.CheckPasswordAsync(user, request.Password))
             throw new UnauthorizedException($"Unable to authenticate user {request.UserHandle}");
+
+        if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.Email))
+            throw new BadRequestException("Invalid credentials.");
 
         List<Claim> authClaims = new()
         {
@@ -86,5 +90,11 @@ public class AuthenticationService : IAuthenticationService
     private string GetErrorsText(IEnumerable<IdentityError> errors)
     {
         return string.Join(", ", errors.Select(error => error.Description).ToArray());
+    }
+
+    private void ValidateLoginRequest(LoginRequestDto login)
+    {
+        if (string.IsNullOrEmpty(login.UserHandle) || string.IsNullOrEmpty(login.Password))
+            throw new BadRequestException("Invalid credentials.");
     }
 }

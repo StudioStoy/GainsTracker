@@ -5,12 +5,15 @@ namespace GainsTracker.CoreAPI.Components.Gains.Models.Measurements;
 
 public static class MeasurementFactory
 {
-    public static Measurement DeserializeMeasurementFromJson(ExerciseCategory category, JsonDocument measurementData)
+    public static Measurement DeserializeMeasurementFromJson(ExerciseCategory category, JsonDocument? measurementData)
     {
         JsonSerializerOptions options = new()
         {
             PropertyNameCaseInsensitive = true
         };
+
+        if (measurementData == null)
+            throw new ArgumentException("Can't deserialize measurement, invalid data provided.");
 
         return (category switch
         {

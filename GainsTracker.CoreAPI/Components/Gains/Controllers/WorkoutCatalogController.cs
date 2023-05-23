@@ -13,11 +13,10 @@ public class WorkoutCatalogController : ControllerBase
     public IActionResult GetAvailableWorkoutTypes()
     {
         List<WorkoutTypeDto> workoutTypes = Enum.GetNames<WorkoutType>()
-            .Select(workoutType => new WorkoutTypeDto
-            {
-                Type = workoutType,
-                Category = WorkoutUtils.GetCategoryFromType(workoutType).GetDisplayName()
-            }).ToList();
+            .Select(workoutType => new WorkoutTypeDto(
+                workoutType,
+                WorkoutUtils.GetCategoryFromType(workoutType).GetDisplayName())
+            ).ToList();
 
         return Ok(workoutTypes);
     }

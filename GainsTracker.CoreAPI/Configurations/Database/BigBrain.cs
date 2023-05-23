@@ -1,6 +1,5 @@
 ﻿using GainsTracker.Common.Exceptions;
 using GainsTracker.CoreAPI.Components.Gains.Models;
-using GainsTracker.CoreAPI.Components.Security.Models;
 
 namespace GainsTracker.CoreAPI.Configurations.Database;
 
@@ -22,14 +21,6 @@ public abstract class BigBrain
     public void SaveContext()
     {
         Context.SaveChanges();
-    }
-
-    public User GetUserByUsername(string userHandle)
-    {
-        User? user = Context.Users.FirstOrDefault(u =>
-            string.Equals(u.UserName.ToLower(), userHandle.ToLower()));
-
-        return user ?? throw new NotFoundException("User with that name not found");
     }
 
     public GainsAccount GetGainsAccountByUsername(string userHandle)

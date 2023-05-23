@@ -7,8 +7,10 @@ namespace GainsTracker.CoreAPI.Components.Gains.Models.Workouts;
 [Table("workout")]
 public class Workout
 {
+    // For Hibernate
     protected Workout()
     {
+        GainsAccountId = string.Empty;
     }
 
     public Workout(string gainsAccountId, WorkoutType type, List<Measurement> measurements)

@@ -22,7 +22,7 @@ public class GainsAuthService : IGainsAuthService
         try
         {
             HttpResponseMessage response = await _httpClient.GetAsync(url);
-            JsonNode jsonString = JsonNode.Parse(await response.Content.ReadAsStringAsync());
+            JsonNode? jsonString = JsonNode.Parse(await response.Content.ReadAsStringAsync());
 
             Debug.WriteLine(jsonString?["status"]?.ToString() == "UP"
                 ? "Server successfully responded."

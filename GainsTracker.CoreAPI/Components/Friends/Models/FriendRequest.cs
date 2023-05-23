@@ -22,11 +22,11 @@ public class FriendRequest
 
     public string Id { get; set; } = Guid.NewGuid().ToString();
 
-    public string RequestedById { get; set; }
-    public string RequestedToId { get; set; }
+    public string RequestedById { get; set; } = string.Empty;
+    public string RequestedToId { get; set; } = string.Empty;
 
-    public GainsAccount RequestedBy { get; }
-    public GainsAccount RequestedTo { get; }
+    public GainsAccount RequestedBy { get; set; } = new();
+    public GainsAccount RequestedTo { get; set; } = new();
 
     public DateTime RequestTime { get; private set; }
     public FriendRequestStatus Status { get; set; }

@@ -18,13 +18,11 @@ public class DbInitializer
     public void Seed()
     {
         const string ADMIN_ID = "a18be9c0-aa65-4af8-bd17-00bd9344e575";
-        const string GAINSACCOUNT_ID = "e58eddff-d5be-46c1-9c99-1283d54152d1";
-        const string GAINSACCOUNT_ID2 = "e58addff-d5be-46c1-9c99-1283d54152d1";
-        const string WORKOUT_ID1 = "a58eddff-d5be-46c1-9c99-1283d54152d1";
-        const string WORKOUT_ID2 = "B58eddff-d5be-46c1-9c99-1283d54152d1";
-
         const string SIMPLE_USER_ID = "e18be9c0-aa65-4af8-bd17-00bd9344e575";
         const string SIMPLE_USER_ID2 = "B18be9c0-aa65-4af8-bd17-00bd9344e575";
+
+        const string GAINSACCOUNT_ID = "e58eddff-d5be-46c1-9c99-1283d54152d1";
+        const string GAINSACCOUNT_ID2 = "e58addff-d5be-46c1-9c99-1283d54152d1";
 
         const string ROLE_ID = ADMIN_ID;
 

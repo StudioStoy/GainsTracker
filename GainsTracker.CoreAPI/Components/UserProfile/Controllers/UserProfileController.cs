@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using GainsTracker.Common;
 using GainsTracker.CoreAPI.Components.Gains.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ public class UserProfileController : ControllerBase
         _gainsService = gainsService;
     }
 
-    private string CurrentUsername => User.FindFirstValue(ClaimTypes.Name);
+    private string CurrentUsername => User.FindFirstValue(ClaimTypes.Name) ?? Constants.AnonymousUserName;
 
     //TODO: make this into a bigger updating profile thing with a dto, not little parts like this.
     [HttpGet("displayname")]

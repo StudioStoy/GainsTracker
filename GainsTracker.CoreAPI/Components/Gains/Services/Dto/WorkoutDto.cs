@@ -5,6 +5,11 @@ namespace GainsTracker.CoreAPI.Components.Gains.Services.Dto;
 
 public class WorkoutDto
 {
+    private WorkoutDto(string gainsAccountId)
+    {
+        GainsAccountId = gainsAccountId;
+    }
+
     public string Id { get; set; } = "";
     public string GainsAccountId { get; set; }
     public WorkoutType WorkoutType { get; set; }
@@ -15,18 +20,17 @@ public class WorkoutDto
         MeasurementDto? bestMeasurement = null;
 
         if (workout.PersonalBest != null)
-        {
-            bestMeasurement = new MeasurementDto();
-            bestMeasurement.WorkoutId = workout.PersonalBest.WorkoutId;
-            bestMeasurement.TimeOfRecord = workout.PersonalBest.TimeOfRecord;
-            bestMeasurement.Category = workout.PersonalBest.Category;
-            bestMeasurement.Data = MeasurementFactory.SerializeMeasurementToJson(workout.PersonalBest);
-        }
+            bestMeasurement = new MeasurementDto
+            {
+                WorkoutId = workout.PersonalBest.WorkoutId,
+                TimeOfRecord = workout.PersonalBest.TimeOfRecord,
+                Category = workout.PersonalBest.Category,
+                Data = MeasurementFactory.SerializeMeasurementToJson(workout.PersonalBest)
+            };
 
-        return new WorkoutDto
+        return new WorkoutDto(workout.GainsAccountId)
         {
             Id = workout.Id,
-            GainsAccountId = workout.GainsAccountId,
             WorkoutType = workout.WorkoutType,
             PersonalBest = bestMeasurement
         };

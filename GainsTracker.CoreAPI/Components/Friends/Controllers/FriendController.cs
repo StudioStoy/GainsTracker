@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using GainsTracker.Common;
 using GainsTracker.CoreAPI.Components.Friends.Models;
 using GainsTracker.CoreAPI.Components.Friends.Services;
 using GainsTracker.CoreAPI.Components.Friends.Services.Dto;
@@ -19,7 +20,7 @@ public class FriendController : ControllerBase
         _friendService = friendService;
     }
 
-    private string CurrentUsername => User.FindFirstValue(ClaimTypes.Name);
+    private string CurrentUsername => User.FindFirstValue(ClaimTypes.Name) ?? Constants.AnonymousUserName;
 
     [HttpGet]
     public IActionResult GetFriends()
