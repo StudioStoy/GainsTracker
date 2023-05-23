@@ -1,0 +1,19 @@
+﻿@page "/activities"
+
+<h3>Activities</h3>
+
+<ol>
+    @foreach (var activity in RecentActivities)
+    {
+        <li>@activity</li>
+    }
+</ol>
+
+@code {
+
+    public List<string> RecentActivities = new List<string>()
+    {
+        "@brands hit a new PB! 60kg on the Bench Press.",
+        "@meneerovereem set a new goal for himself. 0 -> 1 boulder trails"
+    };
+}

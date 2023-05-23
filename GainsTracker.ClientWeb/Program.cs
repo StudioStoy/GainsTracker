@@ -1,10 +1,12 @@
 using GainsTracker.UI.Services;
+using Microsoft.Extensions.FileProviders;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddRazorPages();
 
 // Register dependencies for injection and create app.
 builder.Services.AddScoped<IGainsTrackerService, GainsTrackerService>();

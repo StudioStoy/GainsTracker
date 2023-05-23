@@ -1,13 +1,33 @@
-﻿<nav class="flex-column">
+﻿<nav class="nav-bar">
+    @* Dashboard *@
     <div class="nav-item">
         <NavLink class="nav-link" href="dashboard" Match="NavLinkMatch.All">
-            Dashboard
+            <p class="nav-icon">|^|</p>
+            <p class="nav-description">Dashboard</p>
         </NavLink>
     </div>
 
+    @* Log *@
     <div class="nav-item">
-        <NavLink class="nav-link" href="login">
-            Login page
+        <NavLink class="nav-link" href="logging">
+            <p class="nav-icon">[|</p>
+            <p class="nav-description">Logging</p>
+        </NavLink>
+    </div>
+    
+    @* Activity *@
+    <div class="nav-item">
+        <NavLink class="nav-link" href="activities">
+            <p class="nav-icon">^</p>
+            <p class="nav-description">Activities</p>
+        </NavLink>
+    </div>
+    
+    @* Profile *@
+    <div class="nav-item">
+        <NavLink class="nav-link" href="profile">
+            <p class="nav-icon">O</p>
+            <p class="nav-description">Profile</p>
         </NavLink>
     </div>
 </nav>

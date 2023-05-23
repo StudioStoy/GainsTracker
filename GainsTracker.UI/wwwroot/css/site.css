@@ -1,1 +1,10 @@
 /* The global styling that applies throughout the whole UI. */
+
+body {
+    margin: 0;
+}
+
+/* unclicked -> hover -> clicked -> visited link style */
+a:link, a:hover, a:active, a:visited {
+    text-decoration: none;
+}

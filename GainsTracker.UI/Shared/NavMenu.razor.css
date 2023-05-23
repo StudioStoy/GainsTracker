@@ -1,6 +1,36 @@
+.nav-bar {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .nav-item {
     display: inline-block;
-    font-size: 0.9rem;
     background-color: var(--primary-color);
-    padding: 1.5rem;
+    cursor: pointer;
+}
+
+::deep .nav-link {
+    display: block;
+    font-size: 1.5rem;
+    text-decoration: none;
+    padding: 2.5rem;
+}
+
+.nav-item:hover {
+    background-color: lightgreen;
+}
+
+.nav-description {
+    display: none;
+}
+
+/* For tablet up to desktop */
+@media only screen and (min-width: 600px) {
+    .nav-icon {
+        display: none;
+    }
+
+    .nav-description {
+        display: block;
+    }
 }

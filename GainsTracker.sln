@@ -1,20 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.CoreAPI", "GainsTracker.CoreAPI\GainsTracker.CoreAPI.csproj", "{9210CFA0-2BDD-46DE-8FD4-3767BF660473}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GainsTracker.CoreAPI", "GainsTracker.CoreAPI\GainsTracker.CoreAPI.csproj", "{9210CFA0-2BDD-46DE-8FD4-3767BF660473}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.UI", "GainsTracker.UI\GainsTracker.UI.csproj", "{4354990B-2912-4953-B842-B126AD299B1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GainsTracker.UI", "GainsTracker.UI\GainsTracker.UI.csproj", "{4354990B-2912-4953-B842-B126AD299B1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.ClientNative", "GainsTracker.ClientNative\GainsTracker.ClientNative.csproj", "{4ACB81DD-CFCF-4D81-88E0-B860BE5F8B5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GainsTracker.ClientNative", "GainsTracker.ClientNative\GainsTracker.ClientNative.csproj", "{4ACB81DD-CFCF-4D81-88E0-B860BE5F8B5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.Common", "GainsTracker.Common\GainsTracker.Common.csproj", "{412D30DA-7B16-4D3C-8ED0-DFF544305178}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GainsTracker.Common", "GainsTracker.Common\GainsTracker.Common.csproj", "{412D30DA-7B16-4D3C-8ED0-DFF544305178}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.Testing.ClientNative", "GainsTracker.Testing.ClientNative\GainsTracker.Testing.ClientNative.csproj", "{3CCA4E21-F530-49A0-8EA0-17EB43D901E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GainsTracker.Testing.ClientNative", "GainsTracker.Testing.ClientNative\GainsTracker.Testing.ClientNative.csproj", "{3CCA4E21-F530-49A0-8EA0-17EB43D901E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.Testing.CoreAPI", "GainsTracker.Testing.CoreAPI\GainsTracker.Testing.CoreAPI.csproj", "{5196C9DD-7FFE-4729-8A63-7BC7046A907C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GainsTracker.Testing.CoreAPI", "GainsTracker.Testing.CoreAPI\GainsTracker.Testing.CoreAPI.csproj", "{5196C9DD-7FFE-4729-8A63-7BC7046A907C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.Testing.UI", "GainsTracker.Testing.UI\GainsTracker.Testing.UI.csproj", "{75BFFEC2-C80D-43D0-8FD4-FAEDA0FF4F9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GainsTracker.Testing.UI", "GainsTracker.Testing.UI\GainsTracker.Testing.UI.csproj", "{75BFFEC2-C80D-43D0-8FD4-FAEDA0FF4F9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.ClientWeb", "GainsTracker.ClientWeb\GainsTracker.ClientWeb.csproj", "{B1508A96-07FE-44C3-B4F8-68AC203AEBB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GainsTracker.ClientWeb", "GainsTracker.ClientWeb\GainsTracker.ClientWeb.csproj", "{B1508A96-07FE-44C3-B4F8-68AC203AEBB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,5 +57,11 @@ Global
 		{B1508A96-07FE-44C3-B4F8-68AC203AEBB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1508A96-07FE-44C3-B4F8-68AC203AEBB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1508A96-07FE-44C3-B4F8-68AC203AEBB3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A3ED42A1-9AF6-4B41-B6C6-765DF2424467}
 	EndGlobalSection
 EndGlobal

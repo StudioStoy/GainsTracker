@@ -4,6 +4,7 @@
     position: absolute;
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
 main {
@@ -14,7 +15,6 @@ main {
     display: flex;
     flex-direction: column-reverse;
     background-color: #0b6200;
-    margin-top: 5px;
     bottom: 0;
     width: 100%;
 }
