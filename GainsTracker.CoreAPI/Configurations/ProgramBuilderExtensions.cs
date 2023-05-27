@@ -77,11 +77,11 @@ public static class ProgramBuilderExtensions
     {
         builder.Services.AddCors(options =>
         {
-            options.AddPolicy("AllowAngularDevClient",
+            options.AddPolicy("AllowBlazorDevClient",
                 b =>
                 {
                     b
-                        .WithOrigins("http://localhost:4200")
+                        .WithOrigins("https://localhost:7093", "http://localhost:5027", "http://localhost:5027")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });

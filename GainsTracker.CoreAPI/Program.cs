@@ -21,7 +21,7 @@ builder.RegisterEpicDependencies();
 
 WebApplication app = builder.Build();
 
-app.ResetAndUpdateDatabase();
+app.ResetAndUpdateDatabase(false);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -30,7 +30,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowAngularDevClient");
+app.UseCors("AllowBlazorDevClient");
 app.UseHttpsRedirection();
 
 // Authentication
