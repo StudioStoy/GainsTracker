@@ -39,7 +39,7 @@ public static class ProgramBuilderExtensions
     public static void ConfigureContextAndIdentity(this WebApplicationBuilder builder)
     {
         // Set DbContext.
-        builder.Services.AddDbContext<AppDbContext>(options => { options.UseNpgsql(builder.Configuration.GetConnectionString("databaseConnection")); });
+        builder.Services.AddDbContext<AppDbContext>(options => { options.UseNpgsql(builder.Configuration.GetConnectionString("databaseConnectionDocker")); });
 
         // Map Identity to User and the database.
         builder.Services.AddIdentity<User, IdentityRole>()

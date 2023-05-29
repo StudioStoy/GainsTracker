@@ -47,7 +47,7 @@
 
         <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
-        <None Remove="Resources\AppIcon\appiconfg.svg" />
+<!--        <None Remove="Resources\AppIcon\appiconfg.svg" />-->
     </ItemGroup>
 
     <ItemGroup>

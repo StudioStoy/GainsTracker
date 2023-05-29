@@ -1,4 +1,4 @@
-# Running "docker compose up" (active process)
+﻿# Running "docker compose up" (active process)
 # or "docker compose start" (background process)
 # will setup the development database
 #
@@ -10,7 +10,7 @@
 version: "3.7"
 services:
   db:
-    build: development/db
+    build: GainsTracker.CoreAPI/development/db
     restart: always
     ports:
       - "15432:5432"
@@ -21,11 +21,11 @@ services:
       DB_APP_USER: gainstracker_db
       DB_APP_PASS: gainstracker_db
     volumes:
-      - ./development/postgres/data:/var/lib/postgresql/data
+      - ./GainsTracker.CoreAPI/development/postgres/data:/var/lib/postgresql/data
   api:
     build: ./
     restart: always
-    depends_on: 
+    depends_on:
       - db
     ports:
       - "420:4040" # funny
