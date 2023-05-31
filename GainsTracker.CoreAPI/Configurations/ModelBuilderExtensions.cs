@@ -1,6 +1,6 @@
-﻿using GainsTracker.CoreAPI.Components.Friends.Models;
-using GainsTracker.CoreAPI.Components.Gains.Models.Measurements;
-using GainsTracker.CoreAPI.Components.Gains.Models.Workouts;
+﻿using GainsTracker.CoreAPI.Components.Friend.Models;
+using GainsTracker.CoreAPI.Components.Workout.Models.Measurements;
+using GainsTracker.CoreAPI.Components.Workout.Models.Workouts;
 using Microsoft.EntityFrameworkCore;
 
 namespace GainsTracker.CoreAPI.Configurations;

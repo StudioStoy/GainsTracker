@@ -2,12 +2,12 @@
 
 using System.Security.Claims;
 using System.Text;
-using GainsTracker.CoreAPI.Components.Friends.Data;
-using GainsTracker.CoreAPI.Components.Friends.Services;
-using GainsTracker.CoreAPI.Components.Gains.Data;
-using GainsTracker.CoreAPI.Components.Gains.Services;
+using GainsTracker.CoreAPI.Components.Friend.Data;
+using GainsTracker.CoreAPI.Components.Friend.Services;
 using GainsTracker.CoreAPI.Components.Security.Models;
 using GainsTracker.CoreAPI.Components.Security.Services;
+using GainsTracker.CoreAPI.Components.Workout.Data;
+using GainsTracker.CoreAPI.Components.Workout.Services;
 using GainsTracker.CoreAPI.Configurations.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -28,7 +28,7 @@ public static class ProgramBuilderExtensions
         builder.Services.AddScoped<IGainsService, GainsService>();
         builder.Services.AddScoped<IMeasurementService, MeasurementService>();
         builder.Services.AddScoped<IFriendService, FriendService>();
-        builder.Services.AddScoped<BigBrainFriends>();
+        builder.Services.AddScoped<BigBrainFriend>();
         builder.Services.AddScoped<BigBrainWorkout>();
     }
 

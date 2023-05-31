@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using GainsTracker.Common;
-using GainsTracker.CoreAPI.Components.Gains.Services;
+using GainsTracker.CoreAPI.Components.Workout.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

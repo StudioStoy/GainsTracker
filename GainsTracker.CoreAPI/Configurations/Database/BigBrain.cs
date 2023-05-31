@@ -1,5 +1,5 @@
 ﻿using GainsTracker.Common.Exceptions;
-using GainsTracker.CoreAPI.Components.Gains.Models;
+using GainsTracker.CoreAPI.Components.Workout.Models;
 
 namespace GainsTracker.CoreAPI.Configurations.Database;
 

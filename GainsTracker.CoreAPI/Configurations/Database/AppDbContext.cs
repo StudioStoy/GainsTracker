@@ -1,9 +1,9 @@
 ﻿using System.Data.Entity.ModelConfiguration.Conventions;
-using GainsTracker.CoreAPI.Components.Friends.Models;
-using GainsTracker.CoreAPI.Components.Gains.Models;
-using GainsTracker.CoreAPI.Components.Gains.Models.Measurements;
-using GainsTracker.CoreAPI.Components.Gains.Models.Workouts;
+using GainsTracker.CoreAPI.Components.Friend.Models;
 using GainsTracker.CoreAPI.Components.Security.Models;
+using GainsTracker.CoreAPI.Components.Workout.Models;
+using GainsTracker.CoreAPI.Components.Workout.Models.Measurements;
+using GainsTracker.CoreAPI.Components.Workout.Models.Workouts;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

@@ -2,9 +2,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using GainsTracker.Common.Exceptions;
-using GainsTracker.CoreAPI.Components.Gains.Models;
 using GainsTracker.CoreAPI.Components.Security.Controllers.DTO;
 using GainsTracker.CoreAPI.Components.Security.Models;
+using GainsTracker.CoreAPI.Components.Workout.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
