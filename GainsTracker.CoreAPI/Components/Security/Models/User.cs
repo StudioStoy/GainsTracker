@@ -1,4 +1,4 @@
-﻿using GainsTracker.CoreAPI.Components.Workout.Models;
+﻿using GainsTracker.CoreAPI.Components.Workouts.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace GainsTracker.CoreAPI.Components.Security.Models;

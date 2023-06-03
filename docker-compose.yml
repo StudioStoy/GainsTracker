@@ -22,10 +22,10 @@ services:
       DB_APP_PASS: gainstracker_db
     volumes:
       - ./GainsTracker.CoreAPI/development/postgres/data:/var/lib/postgresql/data
-  api:
-    build: ./
-    restart: always
-    depends_on:
-      - db
-    ports:
-      - "420:4040" # funny
+#  api:
+#    build: ./
+#    restart: always
+#    depends_on:
+#      - db
+#    ports:
+#      - "420:4040" # funny

@@ -4,7 +4,7 @@ using System.Text;
 using GainsTracker.Common.Exceptions;
 using GainsTracker.CoreAPI.Components.Security.Controllers.DTO;
 using GainsTracker.CoreAPI.Components.Security.Models;
-using GainsTracker.CoreAPI.Components.Workout.Models;
+using GainsTracker.CoreAPI.Components.Workouts.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 

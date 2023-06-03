@@ -2,12 +2,14 @@
 
 using System.Security.Claims;
 using System.Text;
-using GainsTracker.CoreAPI.Components.Friend.Data;
-using GainsTracker.CoreAPI.Components.Friend.Services;
+using GainsTracker.CoreAPI.Components.Friends.Data;
+using GainsTracker.CoreAPI.Components.Friends.Services;
+using GainsTracker.CoreAPI.Components.HealthMetrics.Data;
+using GainsTracker.CoreAPI.Components.HealthMetrics.Services;
 using GainsTracker.CoreAPI.Components.Security.Models;
 using GainsTracker.CoreAPI.Components.Security.Services;
-using GainsTracker.CoreAPI.Components.Workout.Data;
-using GainsTracker.CoreAPI.Components.Workout.Services;
+using GainsTracker.CoreAPI.Components.Workouts.Data;
+using GainsTracker.CoreAPI.Components.Workouts.Services;
 using GainsTracker.CoreAPI.Configurations.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -27,9 +29,11 @@ public static class ProgramBuilderExtensions
         builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
         builder.Services.AddScoped<IGainsService, GainsService>();
         builder.Services.AddScoped<IMeasurementService, MeasurementService>();
+        builder.Services.AddScoped<IHealthMetricService, HealthMetricService>();
         builder.Services.AddScoped<IFriendService, FriendService>();
         builder.Services.AddScoped<BigBrainFriend>();
         builder.Services.AddScoped<BigBrainWorkout>();
+        builder.Services.AddScoped<BigBrainHealthMetric>();
     }
 
     /// <summary>
@@ -39,7 +43,7 @@ public static class ProgramBuilderExtensions
     public static void ConfigureContextAndIdentity(this WebApplicationBuilder builder)
     {
         // Set DbContext.
-        builder.Services.AddDbContext<AppDbContext>(options => { options.UseNpgsql(builder.Configuration.GetConnectionString("databaseConnectionDocker")); });
+        builder.Services.AddDbContext<AppDbContext>(options => { options.UseNpgsql(builder.Configuration.GetConnectionString("databaseConnection")); });
 
         // Map Identity to User and the database.
         builder.Services.AddIdentity<User, IdentityRole>()

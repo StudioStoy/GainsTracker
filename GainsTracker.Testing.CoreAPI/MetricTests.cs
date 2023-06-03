@@ -1,4 +1,4 @@
-﻿using GainsTracker.CoreAPI.Components.HealthMetric.Models;
+﻿using GainsTracker.CoreAPI.Components.HealthMetrics.Models;
 
 namespace GainsTracker.Testing.CoreAPI;
 

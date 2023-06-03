@@ -1,6 +1,6 @@
 ﻿using GainsTracker.CoreAPI.Components.Security.Models;
-using GainsTracker.CoreAPI.Components.Workout.Models;
-using GainsTracker.CoreAPI.Components.Workout.Models.Workouts;
+using GainsTracker.CoreAPI.Components.Workouts.Models;
+using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,9 +1,10 @@
 ﻿using System.Data.Entity.ModelConfiguration.Conventions;
-using GainsTracker.CoreAPI.Components.Friend.Models;
+using GainsTracker.CoreAPI.Components.Friends.Models;
+using GainsTracker.CoreAPI.Components.HealthMetrics.Models;
 using GainsTracker.CoreAPI.Components.Security.Models;
-using GainsTracker.CoreAPI.Components.Workout.Models;
-using GainsTracker.CoreAPI.Components.Workout.Models.Measurements;
-using GainsTracker.CoreAPI.Components.Workout.Models.Workouts;
+using GainsTracker.CoreAPI.Components.Workouts.Models;
+using GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
+using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,12 +22,17 @@ public sealed class AppDbContext : IdentityDbContext<User>
     public DbSet<Friend> Friends { get; set; }
     public DbSet<Workout> Workouts { get; set; }
     public DbSet<Measurement> Measurements { get; set; }
+    public DbSet<Metric> Metrics { get; set; }
 
     // Derived classes of Measurement
     public DbSet<SimpleRepMeasurement> SimpleRepMeasurements { get; set; }
     public DbSet<SimpleEnduranceMeasurement> SimpleEnduranceMeasurements { get; set; }
     public DbSet<RunningEnduranceMeasurement> RunningMeasurements { get; set; }
     public DbSet<StrengthMeasurement> WeightMeasurements { get; set; }
+
+    // Derived classes of Metric
+    public DbSet<WeightMetric> WeightMetrics { get; set; }
+    public DbSet<ProteinMetric> ProteinMetrics { get; set; }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
