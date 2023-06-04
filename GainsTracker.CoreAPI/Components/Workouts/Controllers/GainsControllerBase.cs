@@ -1,8 +1,7 @@
-using System.Security.Claims;
-using GainsTracker.Common;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Services;
 using GainsTracker.CoreAPI.Components.Workouts.Services.Dto;
+using GainsTracker.CoreAPI.Configurations.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,16 +10,14 @@ namespace GainsTracker.CoreAPI.Components.Workouts.Controllers;
 [ApiController]
 [Authorize]
 [Route("gains/workout")]
-public class GainsController : ControllerBase
+public class GainsControllerBase : ExtendedControllerBase
 {
     private readonly IGainsService _gainsService;
 
-    public GainsController(IGainsService service)
+    public GainsControllerBase(IGainsService service)
     {
         _gainsService = service;
     }
-
-    private string CurrentUsername => User.FindFirstValue(ClaimTypes.Name) ?? Constants.AnonymousUserName;
 
     [HttpGet("/gains/user")]
     public IActionResult GetUserGains()

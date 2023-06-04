@@ -3,6 +3,7 @@ using GainsTracker.Common;
 using GainsTracker.CoreAPI.Components.Friends.Models;
 using GainsTracker.CoreAPI.Components.Friends.Services;
 using GainsTracker.CoreAPI.Components.Friends.Services.Dto;
+using GainsTracker.CoreAPI.Configurations.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,17 +12,15 @@ namespace GainsTracker.CoreAPI.Components.Friends.Controllers;
 [ApiController]
 [Authorize]
 [Route("friend")]
-public class FriendController : ControllerBase
+public class FriendControllerBase : ExtendedControllerBase
 {
     private readonly IFriendService _friendService;
 
-    public FriendController(IFriendService friendService)
+    public FriendControllerBase(IFriendService friendService)
     {
         _friendService = friendService;
     }
-
-    private string CurrentUsername => User.FindFirstValue(ClaimTypes.Name) ?? Constants.AnonymousUserName;
-
+    
     [HttpGet]
     public IActionResult GetFriends()
     {

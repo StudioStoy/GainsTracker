@@ -18,6 +18,7 @@ public static class ProgramAppExtensions
         using IServiceScope scope = app.Services.CreateScope();
         AppDbContext db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
+        Console.WriteLine("Resetting database..");
         db.Database.EnsureDeleted();
         db.Database.EnsureCreated();
         db.Database.Migrate();

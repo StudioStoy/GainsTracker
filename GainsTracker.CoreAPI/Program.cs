@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using GainsTracker.Common.Extensions;
 using GainsTracker.CoreAPI.Configurations;
 
 namespace GainsTracker.CoreAPI;
@@ -27,7 +28,7 @@ public static class Program
 
         WebApplication app = builder.Build();
 
-        app.ResetAndUpdateDatabase();
+        app.ResetAndUpdateDatabase(args[0].ToBool());
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
