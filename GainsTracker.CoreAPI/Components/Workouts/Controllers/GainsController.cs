@@ -10,11 +10,11 @@ namespace GainsTracker.CoreAPI.Components.Workouts.Controllers;
 [ApiController]
 [Authorize]
 [Route("gains/workout")]
-public class GainsControllerBase : ExtendedControllerBase
+public class GainsController : ExtendedControllerBase
 {
     private readonly IGainsService _gainsService;
 
-    public GainsControllerBase(IGainsService service)
+    public GainsController(IGainsService service)
     {
         _gainsService = service;
     }

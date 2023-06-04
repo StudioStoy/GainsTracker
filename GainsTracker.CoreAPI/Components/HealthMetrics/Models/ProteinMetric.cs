@@ -1,20 +1,18 @@
 ﻿using GainsTracker.Common.Models;
+using GainsTracker.Common.Models.Generic;
 
 namespace GainsTracker.CoreAPI.Components.HealthMetrics.Models;
 
-public class ProteinMetric : Metric
+public class ProteinMetric : Metric, ITrackableGoal<ProteinMetric>
 {
-    public ProteinMetric()
-    {
-        Date = DateTime.UtcNow;
-    }
-
-    public string Id { get; set; } = Guid.NewGuid().ToString();
-    public DateTime Date { get; init; }
     public long TotalProteinIntake { get; set; }
 
     public Goal<ProteinMetric> CreateAsGoal()
     {
-        throw new NotImplementedException();
+        if (_isInGoal)
+            throw new ArgumentException("Already in a goal!");
+        _isInGoal = true;
+
+        return new Goal<ProteinMetric>(this);
     }
 }

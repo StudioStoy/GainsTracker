@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GainsTracker.CoreAPI.Components.Security.Controllers;
 
-[Route("authentication")]
+[Route("auth")]
 [ApiController]
 public class AuthenticationController : ControllerBase
 {

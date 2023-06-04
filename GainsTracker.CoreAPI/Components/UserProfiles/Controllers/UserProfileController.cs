@@ -8,11 +8,11 @@ namespace GainsTracker.CoreAPI.Components.UserProfiles.Controllers;
 [ApiController]
 [Authorize]
 [Route("/profile")]
-public class UserProfileControllerBase : ExtendedControllerBase
+public class UserProfileController : ExtendedControllerBase
 {
     private readonly IGainsService _gainsService;
 
-    public UserProfileControllerBase(IGainsService gainsService)
+    public UserProfileController(IGainsService gainsService)
     {
         _gainsService = gainsService;
     }

@@ -22,4 +22,11 @@ public class HealthMetricService : IHealthMetricService
 
         _bigBrain.SaveContext();
     }
+
+    public List<Metric> GetAllMetricsByUsername(string username)
+    {
+        List<Metric> data = _bigBrain.GetAllMetricsByUsername(username);
+
+        return data;
+    }
 }
