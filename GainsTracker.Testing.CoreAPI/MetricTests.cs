@@ -9,9 +9,9 @@ public class MetricTests
     {
         ProteinMetric protein = new()
         {
-            TotalProteinIntake = 34
+            ProteinIntake = 34
         };
 
-        Assert.Equal(34, protein.TotalProteinIntake);
+        Assert.Equal(34, protein.ProteinIntake);
     }
 }

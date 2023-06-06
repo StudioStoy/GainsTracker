@@ -16,7 +16,7 @@ public class UserProfileController : ExtendedControllerBase
     {
         _gainsService = gainsService;
     }
-    
+
     //TODO: make this into a bigger updating profile thing with a dto, not little parts like this.
     [HttpGet("displayname")]
     public void UpdateDisplayName(string displayName)

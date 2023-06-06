@@ -1,5 +1,4 @@
-﻿using GainsTracker.CoreAPI.Components.HealthMetrics.Models;
-using GainsTracker.CoreAPI.Components.HealthMetrics.Services;
+﻿using GainsTracker.CoreAPI.Components.HealthMetrics.Services;
 using GainsTracker.CoreAPI.Components.HealthMetrics.Services.Dto;
 using GainsTracker.CoreAPI.Configurations.Controllers;
 using Microsoft.AspNetCore.Authorization;
@@ -20,14 +19,14 @@ public class HealthMetricController : ExtendedControllerBase
     }
 
     [HttpGet]
-    public List<Metric> GetAllMetrics()
+    public List<MetricDto> GetAllMetrics()
     {
         return _metricService.GetAllMetricsByUsername(CurrentUsername);
     }
-    
+
     [HttpPost]
-    public void CreateMetric(MetricDto metricDto)
+    public void CreateMetric(CreateMetricDto createMetricDto)
     {
-        _metricService.AddMetricToGainsAccount(CurrentUsername, metricDto);
+        _metricService.AddMetricToGainsAccount(CurrentUsername, createMetricDto);
     }
 }

@@ -8,7 +8,8 @@ namespace GainsTracker.CoreAPI.Components.HealthMetrics.Models;
 [JsonDerivedType(typeof(WeightMetric))]
 public abstract class Metric
 {
-    public string Id { get; set; } = Guid.NewGuid().ToString();
-    public DateTime LoggingDate { get; init; } = DateTime.UtcNow;
+    [JsonIgnore] public string Id { get; set; } = Guid.NewGuid().ToString();
+    [JsonIgnore] public MetricType Type { get; set; }
+    [JsonIgnore] public DateTime LoggingDate { get; init; } = DateTime.UtcNow;
     protected bool _isInGoal { get; set; }
 }

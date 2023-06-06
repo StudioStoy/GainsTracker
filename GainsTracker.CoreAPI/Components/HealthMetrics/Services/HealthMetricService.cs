@@ -1,4 +1,5 @@
-﻿using GainsTracker.CoreAPI.Components.HealthMetrics.Data;
+﻿using GainsTracker.Common.Models.Generic;
+using GainsTracker.CoreAPI.Components.HealthMetrics.Data;
 using GainsTracker.CoreAPI.Components.HealthMetrics.Models;
 using GainsTracker.CoreAPI.Components.HealthMetrics.Services.Dto;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
@@ -14,19 +15,24 @@ public class HealthMetricService : IHealthMetricService
         _bigBrain = bigBrain;
     }
 
-    public void AddMetricToGainsAccount(string userHandle, MetricDto metricDto)
+    public void AddMetricToGainsAccount(string userHandle, CreateMetricDto createMetricDto)
     {
-        Metric metric = MetricFactory.DeserializeMetricFromJson(metricDto.Type, metricDto.Data);
+        Metric metric = MetricFactory.DeserializeMetricFromJson(createMetricDto.Type, createMetricDto.Data);
         GainsAccount gains = _bigBrain.GetGainsAccountByUsername(userHandle);
         gains.AddMetric(metric);
 
         _bigBrain.SaveContext();
     }
 
-    public List<Metric> GetAllMetricsByUsername(string username)
+    public List<MetricDto> GetAllMetricsByUsername(string username)
     {
         List<Metric> data = _bigBrain.GetAllMetricsByUsername(username);
-
-        return data;
+        return data.Select(m => new MetricDto
+        {
+            Id = m.Id,
+            Type = m.Type,
+            LoggingDate = m.LoggingDate,
+            Data = GenericJsonSerializer.SerializeObjectToJson(m)
+        }).ToList();
     }
 }

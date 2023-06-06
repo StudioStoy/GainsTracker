@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-using GainsTracker.Common;
-using GainsTracker.CoreAPI.Components.Friends.Models;
+﻿using GainsTracker.CoreAPI.Components.Friends.Models;
 using GainsTracker.CoreAPI.Components.Friends.Services;
 using GainsTracker.CoreAPI.Components.Friends.Services.Dto;
 using GainsTracker.CoreAPI.Configurations.Controllers;
@@ -20,7 +18,7 @@ public class FriendController : ExtendedControllerBase
     {
         _friendService = friendService;
     }
-    
+
     [HttpGet]
     public IActionResult GetFriends()
     {

@@ -5,7 +5,7 @@ namespace GainsTracker.CoreAPI.Components.HealthMetrics.Models;
 
 public class ProteinMetric : Metric, ITrackableGoal<ProteinMetric>
 {
-    public long TotalProteinIntake { get; set; }
+    public long ProteinIntake { get; set; }
 
     public Goal<ProteinMetric> CreateAsGoal()
     {

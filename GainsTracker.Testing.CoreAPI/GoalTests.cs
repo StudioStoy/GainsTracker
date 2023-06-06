@@ -20,12 +20,12 @@ public class GoalTests
     {
         ProteinMetric protein = new()
         {
-            TotalProteinIntake = 34
+            ProteinIntake = 34
         };
 
         Goal<ProteinMetric> proteinGoal = protein.CreateAsGoal();
 
-        Assert.Equal(34, proteinGoal.Target.TotalProteinIntake);
+        Assert.Equal(34, proteinGoal.Target.ProteinIntake);
     }
 
     [Fact(DisplayName = "Creating goals from targets that already are a goal results in an exception.")]
