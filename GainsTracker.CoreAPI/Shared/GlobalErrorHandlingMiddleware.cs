@@ -2,7 +2,7 @@
 using System.Text.Json;
 using GainsTracker.Common.Exceptions;
 
-namespace GainsTracker.CoreAPI.Configurations.Exceptions;
+namespace GainsTracker.CoreAPI.Shared;
 
 public class GlobalErrorHandlingMiddleware
 {

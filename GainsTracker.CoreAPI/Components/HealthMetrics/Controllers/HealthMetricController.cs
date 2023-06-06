@@ -1,6 +1,6 @@
 ﻿using GainsTracker.CoreAPI.Components.HealthMetrics.Services;
 using GainsTracker.CoreAPI.Components.HealthMetrics.Services.Dto;
-using GainsTracker.CoreAPI.Configurations.Controllers;
+using GainsTracker.CoreAPI.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

@@ -3,7 +3,7 @@ using GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
 using Microsoft.EntityFrameworkCore;
 
-namespace GainsTracker.CoreAPI.Configurations;
+namespace GainsTracker.CoreAPI.Database;
 
 public static class ModelBuilderExtensions
 {

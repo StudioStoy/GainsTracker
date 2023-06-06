@@ -8,7 +8,7 @@ using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace GainsTracker.CoreAPI.Configurations.Database;
+namespace GainsTracker.CoreAPI.Database;
 
 public sealed class AppDbContext : IdentityDbContext<User>
 {

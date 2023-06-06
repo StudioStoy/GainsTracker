@@ -17,7 +17,7 @@ RUN dotnet publish GainsTracker.CoreAPI/GainsTracker.CoreAPI.csproj -c Release -
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 as runtime
 
 ENV ASPNETCORE_URLS=http://*:4040
-ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ASPNETCORE_ENVIRONMENT=Docker
 
 WORKDIR /app
 COPY --from=publish /app/publish .

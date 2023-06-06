@@ -1,6 +1,6 @@
 ﻿using GainsTracker.CoreAPI.Components.HealthMetrics.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
-using GainsTracker.CoreAPI.Configurations.Database;
+using GainsTracker.CoreAPI.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace GainsTracker.CoreAPI.Components.HealthMetrics.Data;

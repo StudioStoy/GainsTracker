@@ -1,7 +1,7 @@
 ﻿using GainsTracker.Common.Exceptions;
 using GainsTracker.CoreAPI.Components.Friends.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
-using GainsTracker.CoreAPI.Configurations.Database;
+using GainsTracker.CoreAPI.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace GainsTracker.CoreAPI.Components.Friends.Data;

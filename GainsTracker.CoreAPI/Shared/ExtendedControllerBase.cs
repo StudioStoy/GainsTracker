@@ -2,7 +2,7 @@ using System.Security.Claims;
 using GainsTracker.Common;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GainsTracker.CoreAPI.Configurations.Controllers;
+namespace GainsTracker.CoreAPI.Shared;
 
 /// <summary>
 ///     Extended controller class to add commonly used controller functionality.

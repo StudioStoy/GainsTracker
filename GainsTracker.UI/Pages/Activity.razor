@@ -3,7 +3,7 @@
 <h3>Activities</h3>
 
 <ol>
-    @foreach (var activity in RecentActivities)
+    @foreach (string activity in RecentActivities)
     {
         <li>@activity</li>
     }
@@ -11,9 +11,10 @@
 
 @code {
 
-    public List<string> RecentActivities = new List<string>()
+    public List<string> RecentActivities = new()
     {
         "@brands hit a new PB! 60kg on the Bench Press.",
         "@meneerovereem set a new goal for himself. 0 -> 1 boulder trails"
     };
+
 }

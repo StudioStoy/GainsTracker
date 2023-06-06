@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
 using GainsTracker.Common.Extensions;
-using GainsTracker.CoreAPI.Configurations;
 
 namespace GainsTracker.CoreAPI;
 
@@ -20,15 +19,16 @@ public static class Program
         builder.Services.AddEndpointsApiExplorer();
 
         // Configuration.
+        builder.RegisterEpicDependencies();
         builder.ConfigureContextAndIdentity();
         builder.ConfigureAuthentication();
         builder.AddSwaggerDocumentation();
         builder.ConfigureCors();
-        builder.RegisterEpicDependencies();
+        builder.EnableDataProtection();
 
         WebApplication app = builder.Build();
 
-        app.ResetAndUpdateDatabase(args[0].ToBool());
+        app.ResetAndUpdateDatabase(args.Length > 0 && args[0].ToBool());
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())

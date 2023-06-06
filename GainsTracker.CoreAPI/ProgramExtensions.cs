@@ -1,4 +1,4 @@
-﻿// God that's a boat load of usings
+﻿// Woah that's a boat load of usings
 
 using System.Security.Claims;
 using System.Text;
@@ -10,19 +10,23 @@ using GainsTracker.CoreAPI.Components.Security.Models;
 using GainsTracker.CoreAPI.Components.Security.Services;
 using GainsTracker.CoreAPI.Components.Workouts.Data;
 using GainsTracker.CoreAPI.Components.Workouts.Services;
-using GainsTracker.CoreAPI.Configurations.Database;
+using GainsTracker.CoreAPI.Database;
+using GainsTracker.CoreAPI.Shared;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
-namespace GainsTracker.CoreAPI.Configurations;
+namespace GainsTracker.CoreAPI;
 
-public static class ProgramBuilderExtensions
+public static class ProgramExtensions
 {
     /// <summary>
-    ///     Register all dependencies, scoped as well as transient.
+    ///     Register all dependencies, scoped as well as transient. Epic.
     /// </summary>
     public static void RegisterEpicDependencies(this WebApplicationBuilder builder)
     {
@@ -42,8 +46,15 @@ public static class ProgramBuilderExtensions
     /// </summary>
     public static void ConfigureContextAndIdentity(this WebApplicationBuilder builder)
     {
-        // Set DbContext.
-        builder.Services.AddDbContext<AppDbContext>(options => { options.UseNpgsql(builder.Configuration.GetConnectionString("databaseConnection")); });
+        // Load the appsettings.json file
+        builder.Configuration.AddJsonFile("appsettings.json", true, true);
+
+        string? connection = builder.Configuration
+            .GetSection($"ConnectionStrings:{builder.Environment.EnvironmentName}")
+            .Value;
+        builder.Configuration.GetSection("ConnectionStrings:connection").Value = connection;
+
+        builder.Services.AddDbContext<AppDbContext>(options => { options.UseNpgsql(builder.Configuration.GetConnectionString("connection")); });
 
         // Map Identity to User and the database.
         builder.Services.AddIdentity<User, IdentityRole>()
@@ -120,6 +131,16 @@ public static class ProgramBuilderExtensions
             });
     }
 
+    public static void EnableDataProtection(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddDataProtection().UseCryptographicAlgorithms(
+            new AuthenticatedEncryptorConfiguration
+            {
+                EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
+                ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
+            });
+    }
+
     /// <summary>
     ///     Swagger documentation with authentication.
     /// </summary>
@@ -157,5 +178,31 @@ public static class ProgramBuilderExtensions
                 }
             });
         });
+    }
+
+    /// <summary>
+    ///     Useful for debugging.
+    /// </summary>
+    /// <param name="execute">Flag to execute this function or not.</param>
+    public static void ResetAndUpdateDatabase(this WebApplication app, bool execute = true)
+    {
+        if (!execute)
+            return;
+
+        using IServiceScope scope = app.Services.CreateScope();
+        AppDbContext db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+        Console.WriteLine("Resetting database..");
+        db.Database.EnsureDeleted();
+        db.Database.EnsureCreated();
+        db.Database.Migrate();
+    }
+
+    /// <summary>
+    ///     Configure global exception handling.
+    /// </summary>
+    public static void AddGlobalErrorHandler(this IApplicationBuilder applicationBuilder)
+    {
+        applicationBuilder.UseMiddleware<GlobalErrorHandlingMiddleware>();
     }
 }

@@ -1,5 +1,4 @@
 using GainsTracker.UI.Services;
-using Microsoft.Extensions.FileProviders;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

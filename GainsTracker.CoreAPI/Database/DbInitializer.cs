@@ -4,7 +4,7 @@ using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace GainsTracker.CoreAPI.Configurations.Database;
+namespace GainsTracker.CoreAPI.Database;
 
 public class DbInitializer
 {

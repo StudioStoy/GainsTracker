@@ -10,7 +10,6 @@ public class WeightMetric : Metric, ITrackableGoal<WeightMetric>
         Date = DateTime.UtcNow;
     }
 
-    public string Id { get; set; } = Guid.NewGuid().ToString();
     public DateTime Date { get; init; }
 
     public Goal<WeightMetric> CreateAsGoal()

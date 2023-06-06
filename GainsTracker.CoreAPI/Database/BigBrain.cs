@@ -1,7 +1,7 @@
 ﻿using GainsTracker.Common.Exceptions;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
 
-namespace GainsTracker.CoreAPI.Configurations.Database;
+namespace GainsTracker.CoreAPI.Database;
 
 /// <summary>
 ///     Oh yeah this is big brain time

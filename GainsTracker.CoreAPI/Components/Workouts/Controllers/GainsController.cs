@@ -1,7 +1,7 @@
 using GainsTracker.CoreAPI.Components.Workouts.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Services;
 using GainsTracker.CoreAPI.Components.Workouts.Services.Dto;
-using GainsTracker.CoreAPI.Configurations.Controllers;
+using GainsTracker.CoreAPI.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
