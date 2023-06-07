@@ -1,6 +1,6 @@
 namespace GainsTracker.Common.Models.Generic;
 
-public interface ITrackableGoal<T>
+public interface ITrackableGoal
 {
-    public Goal<T> CreateAsGoal();
+    bool IsInGoal { get; set; }
 }

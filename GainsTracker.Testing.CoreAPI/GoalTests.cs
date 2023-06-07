@@ -1,5 +1,6 @@
 ﻿using GainsTracker.Common.Models;
 using GainsTracker.CoreAPI.Components.HealthMetrics.Models;
+using GainsTracker.CoreAPI.Shared;
 
 namespace GainsTracker.Testing.CoreAPI;
 
