@@ -34,7 +34,7 @@ public class GainsController : ExtendedControllerBase
     }
 
     [HttpPost]
-    public IActionResult AddWorkoutToAccount([FromBody] WorkoutDto workout)
+    public IActionResult AddWorkoutToAccount([FromBody] CreateWorkoutDto workout)
     {
         _gainsService.AddWorkoutToGainsAccount(CurrentUsername, workout);
         return NoContent();

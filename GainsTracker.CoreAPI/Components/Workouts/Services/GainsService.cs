@@ -30,7 +30,7 @@ public class GainsService : IGainsService
             .ToList();
     }
 
-    public void AddWorkoutToGainsAccount(string username, WorkoutDto workoutDto)
+    public void AddWorkoutToGainsAccount(string username, CreateWorkoutDto workoutDto)
     {
         GainsAccount gainsAccount = GetGainsAccountFromUser(username);
         Workout workout = new(gainsAccount.Id, workoutDto.WorkoutType, new List<Measurement>());

@@ -30,8 +30,4 @@
     <ItemGroup>
         <ProjectReference Include="..\GainsTracker.Common\GainsTracker.Common.csproj"/>
     </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Components\Workouts\Controllers\Examples\"/>
-    </ItemGroup>
 </Project>
