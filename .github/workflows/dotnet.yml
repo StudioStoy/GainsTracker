@@ -19,7 +19,7 @@ env:
 
 # This should be updated in the future to include actual signing and publishing for each platform.
 jobs:
-  build:
+  build_and_test:
     runs-on: windows-latest
 
     steps:
