@@ -1,5 +1,5 @@
-﻿using GainsTracker.CoreAPI.Components.Friends.Models;
-using GainsTracker.CoreAPI.Components.Friends.Services.Dto;
+﻿using GainsTracker.Common.Models.Friends.Dto;
+using GainsTracker.CoreAPI.Components.Friends.Models;
 
 namespace GainsTracker.CoreAPI.Components.Friends.Services;
 

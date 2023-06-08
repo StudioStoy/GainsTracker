@@ -47,7 +47,7 @@ public class GainsController : ExtendedControllerBase
     }
 
     [HttpPost("{workoutId}/measurement")]
-    public IActionResult AddMeasurementToWorkout(string workoutId, [FromBody] MeasurementDto measurementDto)
+    public IActionResult AddMeasurementToWorkout(string workoutId, [FromBody] CreateMeasurementDto measurementDto)
     {
         _gainsService.AddMeasurementToWorkout(workoutId, measurementDto);
         return NoContent();

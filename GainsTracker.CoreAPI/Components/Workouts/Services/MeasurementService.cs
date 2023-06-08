@@ -1,6 +1,6 @@
 ﻿using GainsTracker.Common.Exceptions;
+using GainsTracker.Common.Models.Workouts;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
-using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
 
 namespace GainsTracker.CoreAPI.Components.Workouts.Services;
 

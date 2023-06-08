@@ -40,10 +40,10 @@ public class GainsAccount
     private void CheckFriendRequests(string friendName)
     {
         if (SentFriendRequests.Any(req =>
-                string.Equals(req.RequestedTo.UserHandle, friendName,
+                string.Equals(req.Recipient.UserHandle, friendName,
                     StringComparison.InvariantCultureIgnoreCase))
             || ReceivedFriendRequests.Any(req =>
-                string.Equals(req.RequestedTo.UserHandle, friendName,
+                string.Equals(req.Recipient.UserHandle, friendName,
                     StringComparison.InvariantCultureIgnoreCase)))
             throw new FriendRequestAlreadySentException($"You already sent a friend request to {friendName}!");
     }

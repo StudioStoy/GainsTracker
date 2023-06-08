@@ -10,14 +10,14 @@ public static class ModelBuilderExtensions
     public static void ConfigureRelationModels(this ModelBuilder builder)
     {
         builder.Entity<FriendRequest>()
-            .HasOne(a => a.RequestedBy)
+            .HasOne(a => a.Requester)
             .WithMany(b => b.SentFriendRequests)
-            .HasForeignKey(f => f.RequestedById);
+            .HasForeignKey(f => f.RequesterId);
 
         builder.Entity<FriendRequest>()
-            .HasOne(a => a.RequestedTo)
+            .HasOne(a => a.Recipient)
             .WithMany(b => b.ReceivedFriendRequests)
-            .HasForeignKey(c => c.RequestedToId);
+            .HasForeignKey(c => c.RecipientId);
     }
 
     /// <summary>

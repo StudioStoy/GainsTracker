@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 using GainsTracker.Common.Models.Generic;
 using GainsTracker.Common.Models.Measurements.Units;
-using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
+using GainsTracker.Common.Models.Workouts;
 
 namespace GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
 

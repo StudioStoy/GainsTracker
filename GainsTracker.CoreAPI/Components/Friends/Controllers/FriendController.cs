@@ -1,6 +1,6 @@
-﻿using GainsTracker.CoreAPI.Components.Friends.Models;
+﻿using GainsTracker.Common.Models.Friends.Dto;
+using GainsTracker.CoreAPI.Components.Friends.Models;
 using GainsTracker.CoreAPI.Components.Friends.Services;
-using GainsTracker.CoreAPI.Components.Friends.Services.Dto;
 using GainsTracker.CoreAPI.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -37,7 +37,7 @@ public class FriendController : ExtendedControllerBase
     public IActionResult SendFriendRequest(string friendName)
     {
         _friendService.SendFriendRequest(CurrentUsername, friendName);
-        return Ok();
+        return NoContent();
     }
 
     [HttpPut("request")]

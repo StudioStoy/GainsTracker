@@ -1,4 +1,4 @@
-﻿namespace GainsTracker.CoreAPI.Components.Friends.Services.Dto;
+﻿namespace GainsTracker.Common.Models.Friends.Dto;
 
 public class FriendRequestOverviewDto
 {

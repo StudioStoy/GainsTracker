@@ -9,12 +9,12 @@ public class FriendRequest
     {
     }
 
-    public FriendRequest(GainsAccount requestedBy, GainsAccount requestedTo)
+    public FriendRequest(GainsAccount requester, GainsAccount recipient)
     {
-        RequestedBy = requestedBy;
-        RequestedTo = requestedTo;
-        RequestedById = requestedBy.Id;
-        RequestedToId = requestedTo.Id;
+        Requester = requester;
+        Recipient = recipient;
+        RequesterId = requester.Id;
+        RecipientId = recipient.Id;
 
         Status = FriendRequestStatus.Pending;
         RequestTime = DateTime.UtcNow;
@@ -22,11 +22,11 @@ public class FriendRequest
 
     public string Id { get; set; } = Guid.NewGuid().ToString();
 
-    public string RequestedById { get; set; } = string.Empty;
-    public string RequestedToId { get; set; } = string.Empty;
+    public string RequesterId { get; set; } = string.Empty;
+    public string RecipientId { get; set; } = string.Empty;
 
-    public GainsAccount RequestedBy { get; set; } = new();
-    public GainsAccount RequestedTo { get; set; } = new();
+    public GainsAccount Requester { get; set; } = new();
+    public GainsAccount Recipient { get; set; } = new();
 
     public DateTime RequestTime { get; private set; }
     public FriendRequestStatus Status { get; set; }
@@ -38,11 +38,11 @@ public class FriendRequest
         Status = FriendRequestStatus.Accepted;
 
         //TODO: Maybe sent an event or something for notifications?
-        RequestedBy.SentFriendRequests.Remove(this);
-        RequestedTo.ReceivedFriendRequests.Remove(this);
+        Requester.SentFriendRequests.Remove(this);
+        Recipient.ReceivedFriendRequests.Remove(this);
 
-        RequestedBy.Friends.Add(new Friend(RequestedTo, DateTime.UtcNow));
-        RequestedTo.Friends.Add(new Friend(RequestedBy, DateTime.UtcNow));
+        Requester.Friends.Add(new Friend(Recipient, DateTime.UtcNow));
+        Recipient.Friends.Add(new Friend(Requester, DateTime.UtcNow));
     }
 
     public void Reject()
@@ -50,7 +50,7 @@ public class FriendRequest
         Status = FriendRequestStatus.Rejected;
 
         // No event, happens silently.
-        RequestedBy.SentFriendRequests.Remove(this);
-        RequestedTo.ReceivedFriendRequests.Remove(this);
+        Requester.SentFriendRequests.Remove(this);
+        Recipient.ReceivedFriendRequests.Remove(this);
     }
 }

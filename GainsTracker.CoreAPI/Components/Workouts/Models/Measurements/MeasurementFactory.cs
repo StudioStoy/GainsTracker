@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
+using GainsTracker.Common.Models.Workouts;
 
 namespace GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
 

@@ -1,7 +1,7 @@
-﻿using GainsTracker.CoreAPI.Components.Friends.Data;
+﻿using GainsTracker.Common.Models.Friends.Dto;
+using GainsTracker.CoreAPI.Components.Friends.Data;
 using GainsTracker.CoreAPI.Components.Friends.Models;
 using GainsTracker.CoreAPI.Components.Friends.Models.Exceptions;
-using GainsTracker.CoreAPI.Components.Friends.Services.Dto;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Services;
 
@@ -33,8 +33,8 @@ public class FriendService : IFriendService
 
         return new FriendRequestOverviewDto
         {
-            Sent = user.SentFriendRequests.Select(FriendRequestDto.FromFriendRequest).ToList(),
-            Received = user.ReceivedFriendRequests.Select(FriendRequestDto.FromFriendRequest).ToList()
+            Sent = user.SentFriendRequests.Select(f => f.ToDto()).ToList(),
+            Received = user.ReceivedFriendRequests.Select(f => f.ToDto()).ToList()
         };
     }
 
@@ -54,7 +54,7 @@ public class FriendService : IFriendService
         FriendRequest request = _bigBrain.GetFriendRequestById(requestId);
         string gainsId = _bigBrain.GetGainsIdByUsername(userHandle);
 
-        if (request.RequestedById == gainsId)
+        if (request.RequesterId == gainsId)
             throw new Exception("Requester can obviously not accept or reject their own request");
 
         if (accept) request.Accept();
@@ -83,6 +83,6 @@ public class FriendService : IFriendService
     {
         FriendRequestOverviewDto friendRequest = GetFriendRequests(userHandle);
         return friendRequest.Sent.Any(req =>
-            string.Equals(req.RequestedToName, friendHandle, StringComparison.InvariantCultureIgnoreCase));
+            string.Equals(req.RecipientName, friendHandle, StringComparison.InvariantCultureIgnoreCase));
     }
 }

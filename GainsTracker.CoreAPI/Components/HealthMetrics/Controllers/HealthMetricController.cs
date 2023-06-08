@@ -19,14 +19,15 @@ public class HealthMetricController : ExtendedControllerBase
     }
 
     [HttpGet]
-    public List<MetricDto> GetAllMetrics()
+    public IActionResult GetAllMetrics()
     {
-        return _metricService.GetAllMetricsByUsername(CurrentUsername);
+        return Ok(_metricService.GetAllMetricsByUsername(CurrentUsername));
     }
 
     [HttpPost]
-    public void CreateMetric(CreateMetricDto createMetricDto)
+    public IActionResult CreateMetric(CreateMetricDto createMetricDto)
     {
         _metricService.AddMetricToGainsAccount(CurrentUsername, createMetricDto);
+        return Ok();
     }
 }

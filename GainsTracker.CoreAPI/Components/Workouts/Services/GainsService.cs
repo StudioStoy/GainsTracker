@@ -45,7 +45,7 @@ public class GainsService : IGainsService
         return workout.ToMeasurementsListDto();
     }
 
-    public void AddMeasurementToWorkout(string workoutId, MeasurementDto dto)
+    public void AddMeasurementToWorkout(string workoutId, CreateMeasurementDto dto)
     {
         Measurement measurement = MeasurementFactory.DeserializeMeasurementFromJson(dto.Category, dto.Data);
         _measurementService.ValidateMeasurement(measurement);
