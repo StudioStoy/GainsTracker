@@ -1,4 +1,5 @@
 ﻿using GainsTracker.Common.DTO;
+using GainsTracker.Common.Models.Workouts;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Extensions;

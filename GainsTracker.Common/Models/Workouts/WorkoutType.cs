@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
+namespace GainsTracker.Common.Models.Workouts;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum WorkoutType

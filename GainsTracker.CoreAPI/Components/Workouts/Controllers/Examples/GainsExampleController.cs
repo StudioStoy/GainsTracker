@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 using GainsTracker.Common.Models.Generic;
-using GainsTracker.CoreAPI.Components.Workouts.Services.Dto;
+using GainsTracker.Common.Models.Workouts.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GainsTracker.CoreAPI.Components.Workouts.Controllers.Examples;

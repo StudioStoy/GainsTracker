@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
-using GainsTracker.CoreAPI.Components.Workouts.Models.Measurements.Units;
+using GainsTracker.Common.Models.Measurements.Units;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
 
-namespace GainsTracker.CoreAPI.Components.Workouts.Services.Dto;
+namespace GainsTracker.Common.Models.Workouts.Dto;
 
 public class MeasurementDto
 {

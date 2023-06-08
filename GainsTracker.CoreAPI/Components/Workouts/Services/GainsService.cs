@@ -1,8 +1,8 @@
-﻿using GainsTracker.CoreAPI.Components.Workouts.Data;
+﻿using GainsTracker.Common.Models.Workouts.Dto;
+using GainsTracker.CoreAPI.Components.Workouts.Data;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
-using GainsTracker.CoreAPI.Components.Workouts.Services.Dto;
 
 namespace GainsTracker.CoreAPI.Components.Workouts.Services;
 
@@ -26,7 +26,7 @@ public class GainsService : IGainsService
     {
         string id = _bigBrain.GetGainsIdByUsername(username);
         return (await _bigBrain.GetWorkoutsByGainsId(id))
-            .Select(WorkoutDto.FromWorkout)
+            .Select(w => w.ToDto())
             .ToList();
     }
 
@@ -42,7 +42,7 @@ public class GainsService : IGainsService
     public WorkoutMeasurementsDto GetWorkoutMeasurementsById(string workoutId)
     {
         Workout workout = _bigBrain.GetWorkoutWithMeasurementsById(workoutId);
-        return WorkoutMeasurementsDto.FromWorkout(workout);
+        return workout.ToMeasurementsListDto();
     }
 
     public void AddMeasurementToWorkout(string workoutId, MeasurementDto dto)

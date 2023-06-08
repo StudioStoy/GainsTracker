@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace GainsTracker.CoreAPI.Components.Workouts.Models.Measurements.Units;
+namespace GainsTracker.Common.Models.Measurements.Units;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum DistanceUnits

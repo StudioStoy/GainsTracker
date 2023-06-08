@@ -1,4 +1,6 @@
-﻿namespace GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
+﻿using GainsTracker.Common.Models.Workouts;
+
+namespace GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
 
 public static class WorkoutUtils
 {

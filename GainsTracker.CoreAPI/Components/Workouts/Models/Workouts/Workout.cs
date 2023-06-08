@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using GainsTracker.Common.Models.Workouts;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
 
 namespace GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;

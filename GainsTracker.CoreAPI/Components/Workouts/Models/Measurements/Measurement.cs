@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using GainsTracker.Common.Models.Generic;
-using GainsTracker.CoreAPI.Components.Workouts.Models.Measurements.Units;
+using GainsTracker.Common.Models.Measurements.Units;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
 
 namespace GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;

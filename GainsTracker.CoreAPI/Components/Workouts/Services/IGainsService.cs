@@ -1,5 +1,5 @@
-﻿using GainsTracker.CoreAPI.Components.Workouts.Models;
-using GainsTracker.CoreAPI.Components.Workouts.Services.Dto;
+﻿using GainsTracker.Common.Models.Workouts.Dto;
+using GainsTracker.CoreAPI.Components.Workouts.Models;
 
 namespace GainsTracker.CoreAPI.Components.Workouts.Services;
 
