@@ -12,11 +12,11 @@ public class BigBrainWorkout : BigBrain
     {
     }
 
-    public Task<List<Workout>> GetWorkoutsByGainsId(string gainsId)
+    public List<Workout> GetWorkoutsByGainsId(string gainsId)
     {
         return Context.Workouts
             .Include(w => w.PersonalBest)
-            .Where(w => w.GainsAccountId == gainsId).ToListAsync();
+            .Where(w => w.GainsAccountId == gainsId).ToList();
     }
 
     public Workout GetWorkoutById(string id)

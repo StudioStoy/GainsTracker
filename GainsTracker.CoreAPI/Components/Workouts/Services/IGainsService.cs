@@ -9,7 +9,7 @@ public interface IGainsService
     GainsAccount GetGainsAccountFromUser(string username);
 
     // Workouts
-    Task<List<WorkoutDto>> GetWorkoutsByUsername(string username);
+    List<WorkoutDto>  GetWorkoutsByUsername(string username);
     void AddWorkoutToGainsAccount(string username, CreateWorkoutDto workout);
 
     // Measurements

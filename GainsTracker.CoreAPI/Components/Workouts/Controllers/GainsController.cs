@@ -27,9 +27,9 @@ public class GainsController : ExtendedControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetUserWorkouts()
+    public IActionResult GetUserWorkouts()
     {
-        List<WorkoutDto> workouts = await _gainsService.GetWorkoutsByUsername(CurrentUsername);
+        List<WorkoutDto> workouts = _gainsService.GetWorkoutsByUsername(CurrentUsername);
         return Ok(workouts);
     }
 

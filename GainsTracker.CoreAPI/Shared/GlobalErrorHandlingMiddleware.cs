@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 using GainsTracker.Common.Exceptions;
+using Microsoft.CodeAnalysis;
 
 namespace GainsTracker.CoreAPI.Shared;
 
@@ -29,39 +30,27 @@ public class GlobalErrorHandlingMiddleware
     {
         HttpStatusCode status;
         string stackTrace = string.Empty;
-        string message;
-
-        Type exceptionType = exception.GetType();
-
-        if (exceptionType == typeof(BadRequestException))
+        string message = exception.Message;
+        
+        switch (exception)
         {
-            message = exception.Message;
-            status = HttpStatusCode.BadRequest;
-        }
-        else if (exceptionType == typeof(NotFoundException))
-        {
-            message = exception.Message;
-            status = HttpStatusCode.NotFound;
-        }
-        else if (exceptionType == typeof(UnauthorizedException))
-        {
-            status = HttpStatusCode.Unauthorized;
-            message = exception.Message;
-        }
-        else if (exceptionType == typeof(UnauthorizedAccessException))
-        {
-            status = HttpStatusCode.Unauthorized;
-            message = exception.Message;
-        }
-        else if (exceptionType == typeof(KeyNotFoundException))
-        {
-            status = HttpStatusCode.Unauthorized;
-            message = exception.Message;
-        }
-        else
-        {
-            status = HttpStatusCode.InternalServerError;
-            message = exception.Message;
+            case BadRequestException:
+                status = HttpStatusCode.BadRequest;
+                break;
+            case NotFoundException:
+                status = HttpStatusCode.NotFound;
+                break;
+            case ConflictException:
+                status = HttpStatusCode.Conflict;
+                break;
+            case UnauthorizedException:
+            case UnauthorizedAccessException:
+            case KeyNotFoundException:
+                status = HttpStatusCode.Unauthorized;
+                break;
+            default:
+                status = HttpStatusCode.InternalServerError;
+                break;
         }
 
         string exceptionResult = JsonSerializer.Serialize(new { error = message, stackTrace });

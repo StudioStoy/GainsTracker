@@ -1,4 +1,6 @@
-﻿using GainsTracker.Common.Models.Workouts.Dto;
+﻿using GainsTracker.Common.Exceptions;
+using GainsTracker.Common.Models.Workouts;
+using GainsTracker.Common.Models.Workouts.Dto;
 using GainsTracker.CoreAPI.Components.Workouts.Data;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
@@ -22,10 +24,10 @@ public class GainsService : IGainsService
         return _bigBrain.GetGainsAccountByUsername(username);
     }
 
-    public async Task<List<WorkoutDto>> GetWorkoutsByUsername(string username)
+    public List<WorkoutDto> GetWorkoutsByUsername(string username)
     {
         string id = _bigBrain.GetGainsIdByUsername(username);
-        return (await _bigBrain.GetWorkoutsByGainsId(id))
+        return (_bigBrain.GetWorkoutsByGainsId(id))
             .Select(w => w.ToDto())
             .ToList();
     }
@@ -33,6 +35,8 @@ public class GainsService : IGainsService
     public void AddWorkoutToGainsAccount(string username, CreateWorkoutDto workoutDto)
     {
         GainsAccount gainsAccount = _bigBrain.GetGainsAccountByUsername(username);
+        WorkoutTypeAlreadyUsed(gainsAccount.Id, workoutDto.WorkoutType);
+        
         Workout workout = new(gainsAccount.Id, workoutDto.WorkoutType, new List<Measurement>());
         gainsAccount.AddWorkout(workout);
 
@@ -64,5 +68,12 @@ public class GainsService : IGainsService
         gainsAccount.DisplayName = newDisplayName;
 
         _bigBrain.SaveContext();
+    }
+
+    private void WorkoutTypeAlreadyUsed(string gainsId, WorkoutType type)
+    {
+        var workouts = _bigBrain.GetWorkoutsByGainsId(gainsId);
+        if (workouts.Any(w => w.WorkoutType == type))
+            throw new ConflictException($"Workout with type {type} is already added to this account!");
     }
 }

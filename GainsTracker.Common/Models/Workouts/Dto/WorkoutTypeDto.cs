@@ -1,4 +1,4 @@
-﻿namespace GainsTracker.Common.DTO;
+﻿namespace GainsTracker.Common.Models.Workouts.Dto;
 
 public class WorkoutTypeDto
 {
