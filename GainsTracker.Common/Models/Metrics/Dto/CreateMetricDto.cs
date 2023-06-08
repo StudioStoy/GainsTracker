@@ -1,7 +1,6 @@
 using System.Text.Json;
-using GainsTracker.CoreAPI.Components.HealthMetrics.Models;
 
-namespace GainsTracker.CoreAPI.Components.HealthMetrics.Services.Dto;
+namespace GainsTracker.Common.Models.Metrics.Dto;
 
 public class CreateMetricDto
 {

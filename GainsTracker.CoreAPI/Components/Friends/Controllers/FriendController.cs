@@ -1,5 +1,4 @@
-﻿using GainsTracker.Common.Models.Friends.Dto;
-using GainsTracker.CoreAPI.Components.Friends.Models;
+﻿using GainsTracker.CoreAPI.Components.Friends.Models;
 using GainsTracker.CoreAPI.Components.Friends.Services;
 using GainsTracker.CoreAPI.Shared;
 using Microsoft.AspNetCore.Authorization;
@@ -12,38 +11,17 @@ namespace GainsTracker.CoreAPI.Components.Friends.Controllers;
 [Route("friend")]
 public class FriendController : ExtendedControllerBase
 {
-    private readonly IFriendService _friendService;
+    private IFriendService _friendService { get; }
 
     public FriendController(IFriendService friendService)
     {
         _friendService = friendService;
     }
-
+    
     [HttpGet]
     public IActionResult GetFriends()
     {
         List<Friend> friends = _friendService.GetFriends(CurrentUsername);
         return Ok(friends);
-    }
-
-    [HttpGet("request")]
-    public IActionResult GetFriendRequests()
-    {
-        FriendRequestOverviewDto overview = _friendService.GetFriendRequests(CurrentUsername);
-        return Ok(overview);
-    }
-
-    [HttpPost("request")]
-    public IActionResult SendFriendRequest(string friendName)
-    {
-        _friendService.SendFriendRequest(CurrentUsername, friendName);
-        return NoContent();
-    }
-
-    [HttpPut("request")]
-    public IActionResult HandleFriendRequest(string requestId, bool accept = true)
-    {
-        _friendService.HandleFriendRequestState(CurrentUsername, requestId, accept);
-        return NoContent();
     }
 }

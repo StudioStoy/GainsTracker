@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using GainsTracker.Common.Models.Generic;
+using GainsTracker.Common.Models.Metrics;
 
 namespace GainsTracker.CoreAPI.Components.HealthMetrics.Models;
 

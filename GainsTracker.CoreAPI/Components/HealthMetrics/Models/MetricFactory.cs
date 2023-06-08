@@ -1,4 +1,5 @@
 using System.Text.Json;
+using GainsTracker.Common.Models.Metrics;
 
 namespace GainsTracker.CoreAPI.Components.HealthMetrics.Models;
 

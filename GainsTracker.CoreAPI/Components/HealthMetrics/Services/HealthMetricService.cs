@@ -1,7 +1,7 @@
 ﻿using GainsTracker.Common.Models.Generic;
+using GainsTracker.Common.Models.Metrics.Dto;
 using GainsTracker.CoreAPI.Components.HealthMetrics.Data;
 using GainsTracker.CoreAPI.Components.HealthMetrics.Models;
-using GainsTracker.CoreAPI.Components.HealthMetrics.Services.Dto;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
 
 namespace GainsTracker.CoreAPI.Components.HealthMetrics.Services;

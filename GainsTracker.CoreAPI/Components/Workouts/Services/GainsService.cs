@@ -32,7 +32,7 @@ public class GainsService : IGainsService
 
     public void AddWorkoutToGainsAccount(string username, CreateWorkoutDto workoutDto)
     {
-        GainsAccount gainsAccount = GetGainsAccountFromUser(username);
+        GainsAccount gainsAccount = _bigBrain.GetGainsAccountByUsername(username);
         Workout workout = new(gainsAccount.Id, workoutDto.WorkoutType, new List<Measurement>());
         gainsAccount.AddWorkout(workout);
 
@@ -58,7 +58,7 @@ public class GainsService : IGainsService
 
     public void UpdateDisplayName(string userHandle, string newDisplayName)
     {
-        GainsAccount gainsAccount = GetGainsAccountFromUser(userHandle);
+        GainsAccount gainsAccount = _bigBrain.GetGainsAccountByUsername(userHandle);
 
         //TODO: apply filters here for bad words n shizzle
         gainsAccount.DisplayName = newDisplayName;

@@ -1,4 +1,4 @@
-using GainsTracker.CoreAPI.Components.HealthMetrics.Services.Dto;
+using GainsTracker.Common.Models.Metrics.Dto;
 
 namespace GainsTracker.CoreAPI.Components.HealthMetrics.Services;
 
