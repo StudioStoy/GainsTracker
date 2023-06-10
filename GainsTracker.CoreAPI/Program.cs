@@ -31,7 +31,7 @@ public static class Program
         app.ResetAndUpdateDatabase(args.Length > 0 && args[0].ToBool());
 
         // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
+        if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docker")
         {
             app.UseSwagger();
             app.UseSwaggerUI();

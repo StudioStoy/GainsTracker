@@ -10,4 +10,17 @@ public class WorkoutTypeDto
 
     public string Type { get; set; }
     public string Category { get; set; }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null || obj.GetType() != typeof(WorkoutTypeDto)) return false;
+
+        var typeDto = obj as WorkoutTypeDto;
+        return Type == typeDto?.Type;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Type);
+    }
 }
