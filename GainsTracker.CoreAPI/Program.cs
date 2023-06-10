@@ -28,7 +28,10 @@ public static class Program
 
         WebApplication app = builder.Build();
 
-        app.ResetAndUpdateDatabase(args.Length > 0 && args[0].ToBool());
+        var resetDatabase = args.Length > 0 && args[0].ToBool();
+        app.ResetAndUpdateDatabase(resetDatabase);
+        if (!resetDatabase)
+            app.EnsureDatabaseIsCreated();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docker")

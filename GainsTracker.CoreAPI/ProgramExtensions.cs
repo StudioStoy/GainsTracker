@@ -199,6 +199,15 @@ public static class ProgramExtensions
         db.Database.EnsureCreated();
         db.Database.Migrate();
     }
+    
+    public static void EnsureDatabaseIsCreated(this WebApplication app)
+    {
+        using IServiceScope scope = app.Services.CreateScope();
+        AppDbContext db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+        Console.WriteLine("Ensuring database is filled..");
+        db.Database.EnsureCreated();
+    }
 
     /// <summary>
     ///     Configure global exception handling.
