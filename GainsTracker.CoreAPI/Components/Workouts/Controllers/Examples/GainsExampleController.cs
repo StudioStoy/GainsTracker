@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace GainsTracker.CoreAPI.Components.Workouts.Controllers.Examples;
 
 [ApiController]
-[Route("gains/workout/example")]
+[Route("catalog/measurement")]
 public class GainsExampleController : ControllerBase
 {
     [HttpGet]
     public IActionResult GetExampleMeasurementRequests()
     {
-        Dictionary<string, JsonDocument> examples = new Dictionary<string, JsonDocument>();
+        Dictionary<string, JsonDocument> examples = new();
 
         examples.Add("strengthMeasurement", GenericJsonSerializer.SerializeObjectToJson(new StrengthMeasurementDto()));
         examples.Add("runningEnduranceMeasurement", GenericJsonSerializer.SerializeObjectToJson(new RunningEnduranceMeasurementDto()));
