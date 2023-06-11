@@ -2,8 +2,7 @@
 
 namespace GainsTracker.CoreAPI.Components.Workouts.Services;
 
-public interface IWorkoutCatalogService
+public interface ICatalogService
 {
     List<WorkoutTypeDto> GetAvailableWorkoutTypesForUser(string username);
-    List<WorkoutTypeDto> GetAllWorkoutTypes();
 }

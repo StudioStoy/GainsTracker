@@ -1,15 +1,32 @@
 ﻿using System.Text.Json;
 using GainsTracker.Common.Models.Generic;
 using GainsTracker.Common.Models.Workouts.Dto;
+using GainsTracker.CoreAPI.Components.Workouts.Services;
+using GainsTracker.CoreAPI.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GainsTracker.CoreAPI.Components.Workouts.Controllers.Examples;
+namespace GainsTracker.CoreAPI.Components.Workouts.Controllers;
 
 [ApiController]
-[Route("catalog/measurement")]
-public class GainsExampleController : ControllerBase
+[Authorize]
+[Route("catalog")]
+public class CatalogController : ExtendedControllerBase
 {
-    [HttpGet]
+    private readonly ICatalogService _catalogService;
+
+    public CatalogController(ICatalogService catalogService)
+    {
+        _catalogService = catalogService;
+    }
+
+    [HttpGet("workout")]
+    public IActionResult GetAvailableWorkoutsForUser()
+    {
+        return Ok(_catalogService.GetAvailableWorkoutTypesForUser(CurrentUsername));
+    }
+
+    [HttpGet("measurement")]
     public IActionResult GetExampleMeasurementRequests()
     {
         Dictionary<string, JsonDocument> examples = new();
