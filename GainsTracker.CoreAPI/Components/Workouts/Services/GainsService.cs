@@ -37,7 +37,8 @@ public class GainsService : IGainsService
         GainsAccount gainsAccount = _bigBrain.GetGainsAccountByUsername(username);
         WorkoutTypeAlreadyUsed(gainsAccount.Id, workoutDto.WorkoutType);
         
-        Workout workout = new(gainsAccount.Id, workoutDto.WorkoutType, new List<Measurement>());
+        Workout workout = new(gainsAccount.Id, workoutDto.WorkoutType, workoutDto.WorkoutType.GetCategoryFromType(), 
+            new List<Measurement>());
         gainsAccount.AddWorkout(workout);
 
         _bigBrain.SaveContext();

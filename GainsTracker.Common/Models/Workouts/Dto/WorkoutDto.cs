@@ -10,5 +10,6 @@ public class WorkoutDto
     public string Id { get; set; } = "";
     public string GainsAccountId { get; set; }
     public WorkoutType WorkoutType { get; set; }
+    public ExerciseCategory Category { get; set; }
     public MeasurementDto? PersonalBest { get; set; }
 }

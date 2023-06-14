@@ -23,6 +23,7 @@ public static class WorkoutExtensions
         {
             Id = workout.Id,
             WorkoutType = workout.WorkoutType,
+            Category = workout.Category,
             PersonalBest = bestMeasurement
         };
     }
