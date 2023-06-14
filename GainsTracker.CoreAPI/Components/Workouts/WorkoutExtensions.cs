@@ -22,7 +22,7 @@ public static class WorkoutExtensions
         return new WorkoutDto(workout.GainsAccountId)
         {
             Id = workout.Id,
-            WorkoutType = workout.Type,
+            Type = workout.Type,
             Category = workout.Category,
             PersonalBest = bestMeasurement
         };

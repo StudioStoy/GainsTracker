@@ -8,7 +8,7 @@ public class WorkoutTypeDto
         Category = category ?? throw new ArgumentNullException(nameof(category));
     }
 
-    public string Type { get; set; }
+    public string Type { get; }
     public string Category { get; set; }
 
     public override bool Equals(object? obj)
