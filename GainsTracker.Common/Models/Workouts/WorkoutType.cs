@@ -28,5 +28,6 @@ public enum WorkoutType
     JumpingRope,
 
     Running,
-    Walking
+    Walking,
+    Cycling
 }

@@ -6,7 +6,7 @@ namespace GainsTracker.Common.Models.Workouts;
 public enum ExerciseCategory
 {
     Strength,
-    SimpleRep,
-    SimpleEndurance,
-    RunningEndurance
+    Reps,
+    TimeEndurance,
+    TimeAndDistanceEndurance
 }

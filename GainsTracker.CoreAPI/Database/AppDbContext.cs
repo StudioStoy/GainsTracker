@@ -25,9 +25,9 @@ public sealed class AppDbContext : IdentityDbContext<User>
     public DbSet<Metric> Metrics { get; set; }
 
     // Derived classes of Measurement
-    public DbSet<SimpleRepMeasurement> SimpleRepMeasurements { get; set; }
-    public DbSet<SimpleEnduranceMeasurement> SimpleEnduranceMeasurements { get; set; }
-    public DbSet<RunningEnduranceMeasurement> RunningMeasurements { get; set; }
+    public DbSet<RepsMeasurement> SimpleRepMeasurements { get; set; }
+    public DbSet<TimeEnduranceMeasurement> SimpleEnduranceMeasurements { get; set; }
+    public DbSet<TimeAndDistanceEnduranceMeasurement> RunningMeasurements { get; set; }
     public DbSet<StrengthMeasurement> WeightMeasurements { get; set; }
 
     // Derived classes of Metric

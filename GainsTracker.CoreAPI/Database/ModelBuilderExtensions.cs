@@ -36,15 +36,15 @@ public static class ModelBuilderExtensions
             .Property(measurement => measurement.WeightUnit)
             .HasConversion<string>();
 
-        builder.Entity<RunningEnduranceMeasurement>()
+        builder.Entity<TimeAndDistanceEnduranceMeasurement>()
             .Property(measurement => measurement.DistanceUnit)
             .HasConversion<string>();
 
-        builder.Entity<RunningEnduranceMeasurement>()
+        builder.Entity<TimeAndDistanceEnduranceMeasurement>()
             .Property(measurement => measurement.TimeUnit)
             .HasConversion<string>();
 
-        builder.Entity<SimpleEnduranceMeasurement>()
+        builder.Entity<TimeEnduranceMeasurement>()
             .Property(measurement => measurement.TimeUnit)
             .HasConversion<string>();
     }

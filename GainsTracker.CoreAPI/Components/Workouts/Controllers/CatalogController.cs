@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using GainsTracker.Common.Models.Generic;
+using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Common.Models.Workouts.Dto;
 using GainsTracker.CoreAPI.Components.Workouts.Services;
 using GainsTracker.CoreAPI.Shared;
@@ -31,10 +32,10 @@ public class CatalogController : ExtendedControllerBase
     {
         Dictionary<string, JsonDocument> examples = new();
 
-        examples.Add("strengthMeasurement", GenericJsonSerializer.SerializeObjectToJson(new StrengthMeasurementDto()));
-        examples.Add("runningEnduranceMeasurement", GenericJsonSerializer.SerializeObjectToJson(new RunningEnduranceMeasurementDto()));
-        examples.Add("simpleRepMeasurement", GenericJsonSerializer.SerializeObjectToJson(new SimpleRepMeasurementDto()));
-        examples.Add("SimpleEnduranceMeasurement", GenericJsonSerializer.SerializeObjectToJson(new SimpleEnduranceMeasurementDto()));
+        examples.Add(ExerciseCategory.Reps.ToString(), GenericJsonSerializer.SerializeObjectToJson(new RepsMeasurementDto()));
+        examples.Add(ExerciseCategory.Strength.ToString(), GenericJsonSerializer.SerializeObjectToJson(new StrengthMeasurementDto()));
+        examples.Add(ExerciseCategory.TimeEndurance.ToString(), GenericJsonSerializer.SerializeObjectToJson(new TimeEnduranceMeasurementDto()));
+        examples.Add(ExerciseCategory.TimeAndDistanceEndurance.ToString(), GenericJsonSerializer.SerializeObjectToJson(new TimeAndDistanceEnduranceMeasurementDto()));
 
         return Ok(examples);
     }

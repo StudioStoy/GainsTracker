@@ -52,12 +52,12 @@ public class Workout
         {
             StrengthMeasurement measurement =>
                 measurement.Weight > (oldPersonalBest as StrengthMeasurement)!.Weight ? newMeasurement : oldPersonalBest,
-            SimpleRepMeasurement measurement =>
-                measurement.Reps > (oldPersonalBest as SimpleRepMeasurement)!.Reps ? newMeasurement : oldPersonalBest,
-            SimpleEnduranceMeasurement measurement =>
-                measurement.Time > (oldPersonalBest as SimpleEnduranceMeasurement)!.Time ? newMeasurement : oldPersonalBest,
-            RunningEnduranceMeasurement measurement =>
-                measurement.Time > (oldPersonalBest as RunningEnduranceMeasurement)!.Time ? newMeasurement : oldPersonalBest,
+            RepsMeasurement measurement =>
+                measurement.Reps > (oldPersonalBest as RepsMeasurement)!.Reps ? newMeasurement : oldPersonalBest,
+            TimeEnduranceMeasurement measurement =>
+                measurement.Time > (oldPersonalBest as TimeEnduranceMeasurement)!.Time ? newMeasurement : oldPersonalBest,
+            TimeAndDistanceEnduranceMeasurement measurement =>
+                measurement.Time > (oldPersonalBest as TimeAndDistanceEnduranceMeasurement)!.Time ? newMeasurement : oldPersonalBest,
             _ => throw new ArgumentOutOfRangeException(nameof(newMeasurement), newMeasurement, "This type is not supported.")
         };
     }

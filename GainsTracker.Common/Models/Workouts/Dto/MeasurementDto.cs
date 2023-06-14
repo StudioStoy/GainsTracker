@@ -18,7 +18,7 @@ public class StrengthMeasurementDto
     public int TotalReps { get; set; }
 }
 
-public class RunningEnduranceMeasurementDto
+public class TimeAndDistanceEnduranceMeasurementDto
 {
     public TimeUnits TimeUnit { get; set; }
     public double Time { get; set; }
@@ -26,13 +26,13 @@ public class RunningEnduranceMeasurementDto
     public double Distance { get; set; }
 }
 
-public class SimpleEnduranceMeasurementDto
+public class TimeEnduranceMeasurementDto
 {
     public TimeUnits TimeUnit { get; set; }
     public double Time { get; set; }
 }
 
-public class SimpleRepMeasurementDto
+public class RepsMeasurementDto
 {
     public int Reps { get; set; }
 }

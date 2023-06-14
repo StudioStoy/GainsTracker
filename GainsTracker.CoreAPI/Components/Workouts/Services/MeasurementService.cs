@@ -18,18 +18,18 @@ public class MeasurementService : IMeasurementService
                 if (strength!.Weight <= 0 || strength.TotalReps <= 0)
                     throw new BadRequestException("No negative or zero measurements.");
                 break;
-            case ExerciseCategory.SimpleRep:
-                SimpleRepMeasurement? simpleRep = measurement as SimpleRepMeasurement;
+            case ExerciseCategory.Reps:
+                RepsMeasurement? simpleRep = measurement as RepsMeasurement;
                 if (simpleRep!.Reps <= 0)
                     throw new BadRequestException("No negative or zero measurements.");
                 break;
-            case ExerciseCategory.SimpleEndurance:
-                SimpleEnduranceMeasurement? simpleEndurance = measurement as SimpleEnduranceMeasurement;
+            case ExerciseCategory.TimeEndurance:
+                TimeEnduranceMeasurement? simpleEndurance = measurement as TimeEnduranceMeasurement;
                 if (simpleEndurance!.Time <= 0)
                     throw new BadRequestException("No negative or zero measurements.");
                 break;
-            case ExerciseCategory.RunningEndurance:
-                RunningEnduranceMeasurement? running = measurement as RunningEnduranceMeasurement;
+            case ExerciseCategory.TimeAndDistanceEndurance:
+                TimeAndDistanceEnduranceMeasurement? running = measurement as TimeAndDistanceEnduranceMeasurement;
                 if (running!.Time <= 0 || running.Distance <= 0)
                     throw new BadRequestException("No negative or zero measurements.");
                 break;

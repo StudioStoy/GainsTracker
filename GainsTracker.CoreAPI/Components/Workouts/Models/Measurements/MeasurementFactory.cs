@@ -18,9 +18,9 @@ public static class MeasurementFactory
         return (category switch
         {
             ExerciseCategory.Strength => measurementData.Deserialize<StrengthMeasurement>(options),
-            ExerciseCategory.RunningEndurance => measurementData.Deserialize<RunningEnduranceMeasurement>(options),
-            ExerciseCategory.SimpleEndurance => measurementData.Deserialize<SimpleEnduranceMeasurement>(options),
-            ExerciseCategory.SimpleRep => measurementData.Deserialize<SimpleRepMeasurement>(options),
+            ExerciseCategory.TimeAndDistanceEndurance => measurementData.Deserialize<TimeAndDistanceEnduranceMeasurement>(options),
+            ExerciseCategory.TimeEndurance => measurementData.Deserialize<TimeEnduranceMeasurement>(options),
+            ExerciseCategory.Reps => measurementData.Deserialize<RepsMeasurement>(options),
             _ => throw new NotImplementedException()
         })!;
     }

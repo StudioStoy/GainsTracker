@@ -29,14 +29,15 @@ public static class WorkoutUtils
             case WorkoutType.DiamondPushUp:
             case WorkoutType.ClosePushUp:
             case WorkoutType.WidePushUp:
-                return ExerciseCategory.SimpleRep;
+                return ExerciseCategory.Reps;
             case WorkoutType.Planking:
             case WorkoutType.JumpingJacks:
             case WorkoutType.JumpingRope:
+                return ExerciseCategory.TimeEndurance;
             case WorkoutType.Walking:
-                return ExerciseCategory.SimpleEndurance;
             case WorkoutType.Running:
-                return ExerciseCategory.RunningEndurance;
+            case WorkoutType.Cycling:
+                return ExerciseCategory.TimeAndDistanceEndurance;
             default:
                 throw new ArgumentOutOfRangeException(null, "This type is not supported.");
         }

@@ -8,9 +8,9 @@ namespace GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
 
 [Table("measurement")]
 [JsonDerivedType(typeof(StrengthMeasurement))]
-[JsonDerivedType(typeof(RunningEnduranceMeasurement))]
-[JsonDerivedType(typeof(SimpleEnduranceMeasurement))]
-[JsonDerivedType(typeof(SimpleRepMeasurement))]
+[JsonDerivedType(typeof(TimeAndDistanceEnduranceMeasurement))]
+[JsonDerivedType(typeof(TimeEnduranceMeasurement))]
+[JsonDerivedType(typeof(RepsMeasurement))]
 public abstract class Measurement : ITrackableGoal
 {
     // It's a bit odd how this jsonignore one works. It's only excluding the second TimeOfRecord in the 'data'
@@ -36,27 +36,27 @@ public class StrengthMeasurement : Measurement
     protected internal override ExerciseCategory Category => ExerciseCategory.Strength;
 }
 
-public class RunningEnduranceMeasurement : Measurement
+public class TimeAndDistanceEnduranceMeasurement : Measurement
 {
     public TimeUnits TimeUnit { get; set; }
     public double Time { get; set; }
     public DistanceUnits DistanceUnit { get; set; }
     public double Distance { get; set; }
 
-    protected internal override ExerciseCategory Category => ExerciseCategory.RunningEndurance;
+    protected internal override ExerciseCategory Category => ExerciseCategory.TimeAndDistanceEndurance;
 }
 
-public class SimpleEnduranceMeasurement : Measurement
+public class TimeEnduranceMeasurement : Measurement
 {
     public TimeUnits TimeUnit { get; set; }
     public double Time { get; set; }
 
-    protected internal override ExerciseCategory Category => ExerciseCategory.SimpleEndurance;
+    protected internal override ExerciseCategory Category => ExerciseCategory.TimeEndurance;
 }
 
-public class SimpleRepMeasurement : Measurement
+public class RepsMeasurement : Measurement
 {
     public int Reps { get; set; }
 
-    protected internal override ExerciseCategory Category => ExerciseCategory.SimpleRep;
+    protected internal override ExerciseCategory Category => ExerciseCategory.Reps;
 }
