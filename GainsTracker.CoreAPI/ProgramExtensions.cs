@@ -36,7 +36,7 @@ public static class ProgramExtensions
         builder.Services.AddScoped<IHealthMetricService, HealthMetricService>();
         builder.Services.AddScoped<IFriendRequestService, FriendRequestService>();
         builder.Services.AddScoped<IFriendService, FriendService>();
-        builder.Services.AddScoped<IWorkoutCatalogService, WorkoutCatalogService>();
+        builder.Services.AddScoped<ICatalogService, CatalogService>();
         builder.Services.AddScoped<BigBrainFriend>();
         builder.Services.AddScoped<BigBrainWorkout>();
         builder.Services.AddScoped<BigBrainHealthMetric>();
