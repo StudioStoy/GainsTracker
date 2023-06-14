@@ -52,12 +52,12 @@ public class DbInitializer
         User simpleUser = new()
         {
             Id = SIMPLE_USER_ID,
-            UserName = "Patrick",
-            NormalizedUserName = "PATRICK",
-            Email = "test@studiostoy.nl",
+            UserName = "Joy",
+            NormalizedUserName = "JOY",
+            Email = "joy@studiostoy.nl",
             EmailConfirmed = false,
-            NormalizedEmail = "TEST@STUDIOSTOY.NL",
-            PasswordHash = hasher.HashPassword(user, "sniper"),
+            NormalizedEmail = "JOY@STUDIOSTOY.NL",
+            PasswordHash = hasher.HashPassword(user, "bob"),
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
@@ -96,6 +96,7 @@ public class DbInitializer
                 Id = GAINSACCOUNT_ID2,
                 UserId = SIMPLE_USER_ID,
                 UserHandle = simpleUser.UserName,
+                DisplayName = "DinosaurEnjoyer",
                 Workouts = new List<Workout>()
             });
 
