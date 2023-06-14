@@ -28,7 +28,7 @@ public static class ModelBuilderExtensions
     {
         // Workout types
         builder.Entity<Workout>()
-            .Property(workout => workout.WorkoutType)
+            .Property(workout => workout.Type)
             .HasConversion<string>();
 
         // Measurement types

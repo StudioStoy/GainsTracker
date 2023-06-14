@@ -17,14 +17,14 @@ public class Workout
     public Workout(string gainsAccountId, WorkoutType type, ExerciseCategory category, List<Measurement> measurements)
     {
         GainsAccountId = gainsAccountId;
-        WorkoutType = type;
+        Type = type;
         Category = category;
         Measurements = measurements;
         if (measurements.Any())
             PersonalBest = measurements.First();
     }
 
-    public WorkoutType WorkoutType { get; set; }
+    public WorkoutType Type { get; set; }
     public ExerciseCategory Category { get; set; }
     [ForeignKey("BestMeasurementId")] public Measurement? PersonalBest { get; set; }
     public List<Measurement> Measurements { get; set; } = new();

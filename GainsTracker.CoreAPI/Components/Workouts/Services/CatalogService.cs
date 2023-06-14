@@ -19,7 +19,7 @@ public class CatalogService : ICatalogService
     {
         string gainsId = _bigBrain.GetGainsIdByUsername(username);
         List<WorkoutTypeDto> allWorkoutTypes = GetAllWorkoutTypes();
-        IEnumerable<WorkoutTypeDto> activeWorkoutTypes = _bigBrain.GetWorkoutsByGainsId(gainsId).Select(w => new WorkoutTypeDto(w.WorkoutType.ToString(), ""));
+        IEnumerable<WorkoutTypeDto> activeWorkoutTypes = _bigBrain.GetWorkoutsByGainsId(gainsId).Select(w => new WorkoutTypeDto(w.Type.ToString(), ""));
 
         return allWorkoutTypes.Except(activeWorkoutTypes).ToList();
     }

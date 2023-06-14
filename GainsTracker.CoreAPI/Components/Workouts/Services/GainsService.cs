@@ -74,7 +74,7 @@ public class GainsService : IGainsService
     private void WorkoutTypeAlreadyUsed(string gainsId, WorkoutType type)
     {
         var workouts = _bigBrain.GetWorkoutsByGainsId(gainsId);
-        if (workouts.Any(w => w.WorkoutType == type))
+        if (workouts.Any(w => w.Type == type))
             throw new ConflictException($"Workout with type {type} is already added to this account!");
     }
 }
