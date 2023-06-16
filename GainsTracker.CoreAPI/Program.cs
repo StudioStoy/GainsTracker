@@ -40,8 +40,10 @@ public static class Program
             app.UseSwaggerUI();
         }
 
+        if (!app.Environment.IsDevelopment())
+            app.UseHttpsRedirection();
+
         app.UseCors("AllowBlazorDevClient");
-        app.UseHttpsRedirection();
 
         // Authentication
         app.UseAuthentication();
