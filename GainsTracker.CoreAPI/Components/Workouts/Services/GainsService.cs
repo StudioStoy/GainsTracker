@@ -32,7 +32,7 @@ public class GainsService : IGainsService
             .ToList();
     }
 
-    public void AddWorkoutToGainsAccount(string username, CreateWorkoutDto workoutDto)
+    public string AddWorkoutToGainsAccount(string username, CreateWorkoutDto workoutDto)
     {
         GainsAccount gainsAccount = _bigBrain.GetGainsAccountByUsername(username);
         WorkoutTypeAlreadyUsed(gainsAccount.Id, workoutDto.WorkoutType);
@@ -42,6 +42,7 @@ public class GainsService : IGainsService
         gainsAccount.AddWorkout(workout);
 
         _bigBrain.SaveContext();
+        return workout.Id;
     }
 
     public WorkoutMeasurementsDto GetWorkoutMeasurementsById(string workoutId)
