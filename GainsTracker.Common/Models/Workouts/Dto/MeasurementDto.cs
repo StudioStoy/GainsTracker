@@ -27,7 +27,6 @@ public class TimeAndDistanceEnduranceMeasurementDto
 
 public class TimeEnduranceMeasurementDto
 {
-    public TimeUnits TimeUnit { get; set; }
     public double Time { get; set; }
 }
 

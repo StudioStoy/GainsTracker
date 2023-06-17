@@ -39,13 +39,5 @@ public static class ModelBuilderExtensions
         builder.Entity<TimeAndDistanceEnduranceMeasurement>()
             .Property(measurement => measurement.DistanceUnit)
             .HasConversion<string>();
-
-        builder.Entity<TimeAndDistanceEnduranceMeasurement>()
-            .Property(measurement => measurement.TimeUnit)
-            .HasConversion<string>();
-
-        builder.Entity<TimeEnduranceMeasurement>()
-            .Property(measurement => measurement.TimeUnit)
-            .HasConversion<string>();
     }
 }
