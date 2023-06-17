@@ -31,15 +31,14 @@ public class StrengthMeasurement : Measurement
 {
     public WeightUnits WeightUnit { get; set; }
     public double Weight { get; set; }
-    public int TotalReps { get; set; }
+    public int Reps { get; set; }
 
     protected internal override ExerciseCategory Category => ExerciseCategory.Strength;
 }
 
 public class TimeAndDistanceEnduranceMeasurement : Measurement
 {
-    public TimeUnits TimeUnit { get; set; }
-    public double Time { get; set; }
+    public string Time { get; set; }
     public DistanceUnits DistanceUnit { get; set; }
     public double Distance { get; set; }
 
@@ -48,8 +47,7 @@ public class TimeAndDistanceEnduranceMeasurement : Measurement
 
 public class TimeEnduranceMeasurement : Measurement
 {
-    public TimeUnits TimeUnit { get; set; }
-    public double Time { get; set; }
+    public string Time { get; set; }
 
     protected internal override ExerciseCategory Category => ExerciseCategory.TimeEndurance;
 }
