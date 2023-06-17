@@ -1,4 +1,5 @@
-﻿using GainsTracker.CoreAPI.Components.Security.Models;
+﻿using DotNetEnv;
+using GainsTracker.CoreAPI.Components.Security.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
 using Microsoft.AspNetCore.Identity;
@@ -18,12 +19,6 @@ public class DbInitializer
     public void Seed()
     {
         const string ADMIN_ID = "a18be9c0-aa65-4af8-bd17-00bd9344e575";
-        const string SIMPLE_USER_ID = "e18be9c0-aa65-4af8-bd17-00bd9344e575";
-        const string SIMPLE_USER_ID2 = "B18be9c0-aa65-4af8-bd17-00bd9344e575";
-
-        const string GAINSACCOUNT_ID = "e58eddff-d5be-46c1-9c99-1283d54152d1";
-        const string GAINSACCOUNT_ID2 = "e58addff-d5be-46c1-9c99-1283d54152d1";
-
         const string ROLE_ID = ADMIN_ID;
 
         _builder.Entity<IdentityRole>().HasData(new IdentityRole
@@ -36,77 +31,126 @@ public class DbInitializer
         User user = new();
         PasswordHasher<User> hasher = new();
 
-        // When creating a default user, it is necessary to fill in the normalized fields as well as the security stamp.
-        User admin = new()
+        // When creating a default user, it is necessary to fill in the normalized fields as well as the security stam
+        User stije = new()
         {
-            Id = ADMIN_ID,
+            Id = CreateId(),
             UserName = "stije",
             NormalizedUserName = "STIJE",
             Email = "stije@studiostoy.nl",
             EmailConfirmed = true,
             NormalizedEmail = "STIJE@STUDIOSTOY.NL",
-            PasswordHash = hasher.HashPassword(user, "admin"),
+            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "admin"),
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
-        User simpleUser = new()
+        User joyo = new()
         {
-            Id = SIMPLE_USER_ID,
-            UserName = "Joy",
-            NormalizedUserName = "JOY",
+            Id = CreateId(),
+            UserName = "Joyo",
+            NormalizedUserName = "JOYO",
             Email = "joy@studiostoy.nl",
             EmailConfirmed = false,
             NormalizedEmail = "JOY@STUDIOSTOY.NL",
-            PasswordHash = hasher.HashPassword(user, "bob"),
+            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "user"),
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
-        User simpleUser2 = new()
+        User damian = new()
         {
-            Id = SIMPLE_USER_ID2,
-            UserName = "cheeseman",
-            NormalizedUserName = "CHEESEMAN",
+            Id = CreateId(),
+            UserName = "BINO",
+            NormalizedUserName = "BINO",
             Email = "test@studiostoy.nl",
             EmailConfirmed = false,
             NormalizedEmail = "TEST@STUDIOSTOY.NL",
-            PasswordHash = hasher.HashPassword(user, "cheese"),
+            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "user"),
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
-        _builder.Entity<User>(a =>
+        User soep = new()
         {
-            a.HasData(admin);
-            a.HasData(simpleUser);
-            a.HasData(simpleUser2);
-        });
+            Id = CreateId(),
+            UserName = "soep",
+            NormalizedUserName = "SOEP",
+            Email = "test@studiostoy.nl",
+            EmailConfirmed = false,
+            NormalizedEmail = "TEST@STUDIOSTOY.NL",
+            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "user"),
+            SecurityStamp = Guid.NewGuid().ToString()
+        };
 
-        _builder.Entity<GainsAccount>(g =>
+        User eef = new()
         {
-            g.HasData(new GainsAccount
-            {
-                Id = GAINSACCOUNT_ID,
-                UserId = ADMIN_ID,
-                UserHandle = admin.UserName,
-                DisplayName = "DavrozzGaining",
-                Workouts = new List<Workout>()
-            });
+            Id = CreateId(),
+            UserName = "eef",
+            NormalizedUserName = "EEF",
+            Email = "test@studiostoy.nl",
+            EmailConfirmed = false,
+            NormalizedEmail = "TEST@STUDIOSTOY.NL",
+            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "user"),
+            SecurityStamp = Guid.NewGuid().ToString()
+        };
 
-            g.HasData(new GainsAccount
-            {
-                Id = GAINSACCOUNT_ID2,
-                UserId = SIMPLE_USER_ID,
-                UserHandle = simpleUser.UserName,
-                DisplayName = "DinosaurEnjoyer",
-                Workouts = new List<Workout>()
-            });
+        User jordt = new()
+        {
+            Id = CreateId(),
+            UserName = "jordt",
+            NormalizedUserName = "JORDT",
+            Email = "test@studiostoy.nl",
+            EmailConfirmed = false,
+            NormalizedEmail = "TEST@STUDIOSTOY.NL",
+            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "user"),
+            SecurityStamp = Guid.NewGuid().ToString()
+        };
 
-            g.HasData(new GainsAccount
-            {
-                Id = Guid.NewGuid().ToString(),
-                UserId = SIMPLE_USER_ID2,
-                UserHandle = simpleUser2.UserName,
-                Workouts = new List<Workout>()
-            });
-        });
+        User sanda = new()
+        {
+            Id = CreateId(),
+            UserName = "sanda",
+            NormalizedUserName = "SANDA",
+            Email = "test@studiostoy.nl",
+            EmailConfirmed = false,
+            NormalizedEmail = "TEST@STUDIOSTOY.NL",
+            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "user"),
+            SecurityStamp = Guid.NewGuid().ToString()
+        };
+
+        User naoh = new()
+        {
+            Id = CreateId(),
+            UserName = "naoh",
+            NormalizedUserName = "NAOH",
+            Email = "test@studiostoy.nl",
+            EmailConfirmed = false,
+            NormalizedEmail = "TEST@STUDIOSTOY.NL",
+            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "user"),
+            SecurityStamp = Guid.NewGuid().ToString()
+        };
+
+        List<User> defaultUsers = new()
+        {
+            stije, joyo, damian, soep, eef, jordt, sanda, naoh
+        };
+
+        foreach (User u in defaultUsers)
+        {
+            _builder.Entity<User>(userTable => userTable.HasData(u));
+            _builder.Entity<GainsAccount>(gainsTable => gainsTable.HasData(
+                new GainsAccount
+                {
+                    Id = CreateId(),
+                    UserId = u.Id,
+                    DisplayName = u.UserName == "stije" ? "DavrozzGaining" : u.UserName == "joyo" ? "DinosaurEnjoyer" : "",
+                    UserHandle = u.UserName,
+                    Workouts = new List<Workout>()
+                }
+            ));
+        }
+    }
+
+    public static string CreateId()
+    {
+        return Guid.NewGuid().ToString();
     }
 }

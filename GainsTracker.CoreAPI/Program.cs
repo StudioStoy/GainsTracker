@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using DotNetEnv;
 using GainsTracker.Common.Extensions;
 
 namespace GainsTracker.CoreAPI;
@@ -19,6 +20,7 @@ public static class Program
         builder.Services.AddEndpointsApiExplorer();
 
         // Configuration.
+        Env.Load();
         builder.RegisterEpicDependencies();
         builder.ConfigureContextAndIdentity();
         builder.ConfigureAuthentication();
@@ -28,7 +30,7 @@ public static class Program
 
         WebApplication app = builder.Build();
 
-        var resetDatabase = args.Length > 0 && args[0].ToBool();
+        bool resetDatabase = args.Length > 0 && args[0].ToBool();
         app.ResetAndUpdateDatabase(resetDatabase);
         if (!resetDatabase)
             app.EnsureDatabaseIsCreated();
