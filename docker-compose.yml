@@ -29,3 +29,5 @@ services:
       - db
     ports:
       - "420:4040" # funny
+    env_file:
+      - stack.env

@@ -8,6 +8,7 @@ public class MeasurementDto
     public string WorkoutId { get; set; } = string.Empty;
     public ExerciseCategory Category { get; set; }
     public DateTime TimeOfRecord { get; set; }
+    public string Notes { get; set; } = string.Empty;
     public JsonDocument? Data { get; set; }
 }
 

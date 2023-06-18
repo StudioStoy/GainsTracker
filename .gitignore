@@ -14,6 +14,8 @@ src/SignalR/clients/**/dist/
 modules/
 .ionide/
 
+stack.env
+
 # File extensions
 *.aps
 *.binlog

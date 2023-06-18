@@ -17,6 +17,7 @@ public abstract class Measurement : ITrackableGoal
     // part of dto's. This is what I want, but it's weird that it's actually working like this. ¯\_(ツ)_/¯
     [JsonIgnore] public DateTime TimeOfRecord { get; } = DateTime.Now;
     protected internal abstract ExerciseCategory Category { get; }
+    public string Notes { get; set; } = string.Empty;
     public bool IsInGoal { get; set; }
 
     #region Relations
@@ -38,7 +39,7 @@ public class StrengthMeasurement : Measurement
 
 public class TimeAndDistanceEnduranceMeasurement : Measurement
 {
-    public string Time { get; set; }
+    public string Time { get; set; } = "00:00:00";
     public DistanceUnits DistanceUnit { get; set; }
     public double Distance { get; set; }
 
@@ -47,7 +48,7 @@ public class TimeAndDistanceEnduranceMeasurement : Measurement
 
 public class TimeEnduranceMeasurement : Measurement
 {
-    public string Time { get; set; }
+    public string Time { get; set; } = "00:00:00";
 
     protected internal override ExerciseCategory Category => ExerciseCategory.TimeEndurance;
 }

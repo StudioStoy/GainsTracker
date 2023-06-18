@@ -55,9 +55,9 @@ public class Workout
             RepsMeasurement measurement =>
                 measurement.Reps > (oldPersonalBest as RepsMeasurement)!.Reps ? newMeasurement : oldPersonalBest,
             TimeEnduranceMeasurement measurement =>
-                measurement.Time.CompareTo((oldPersonalBest as TimeEnduranceMeasurement)!.Time) > 0 ? newMeasurement : oldPersonalBest,
+                string.Compare(measurement.Time, (oldPersonalBest as TimeEnduranceMeasurement)!.Time, StringComparison.Ordinal) > 0 ? newMeasurement : oldPersonalBest,
             TimeAndDistanceEnduranceMeasurement measurement =>
-                measurement.Time.CompareTo((oldPersonalBest as TimeAndDistanceEnduranceMeasurement)!.Time) > 0 ? newMeasurement : oldPersonalBest,
+                string.Compare(measurement.Time, (oldPersonalBest as TimeAndDistanceEnduranceMeasurement)!.Time, StringComparison.Ordinal) > 0 ? newMeasurement : oldPersonalBest,
             _ => throw new ArgumentOutOfRangeException(nameof(newMeasurement), newMeasurement, "This type is not supported.")
         };
     }

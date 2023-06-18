@@ -16,6 +16,7 @@ public static class WorkoutExtensions
                 WorkoutId = workout.PersonalBest.WorkoutId,
                 TimeOfRecord = workout.PersonalBest.TimeOfRecord,
                 Category = workout.PersonalBest.Category,
+                Notes = workout.PersonalBest.Notes,
                 Data = MeasurementFactory.SerializeMeasurementToJson(workout.PersonalBest)
             };
 
@@ -39,6 +40,7 @@ public static class WorkoutExtensions
                     WorkoutId = m.WorkoutId,
                     Category = m.Category,
                     TimeOfRecord = m.TimeOfRecord,
+                    Notes = m.Notes,
                     Data = MeasurementFactory.SerializeMeasurementToJson(m)
                 }).ToList()
         };

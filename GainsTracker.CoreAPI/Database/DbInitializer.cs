@@ -18,6 +18,7 @@ public class DbInitializer
 
     public void Seed()
     {
+        Console.WriteLine("seeding db..");
         const string ADMIN_ID = "a18be9c0-aa65-4af8-bd17-00bd9344e575";
         const string ROLE_ID = ADMIN_ID;
 
@@ -40,7 +41,7 @@ public class DbInitializer
             Email = "stije@studiostoy.nl",
             EmailConfirmed = true,
             NormalizedEmail = "STIJE@STUDIOSTOY.NL",
-            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "admin"),
+            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "adminn"),
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
@@ -142,7 +143,7 @@ public class DbInitializer
                     Id = CreateId(),
                     UserId = u.Id,
                     DisplayName = u.UserName == "stije" ? "DavrozzGaining" : u.UserName == "joyo" ? "DinosaurEnjoyer" : "",
-                    UserHandle = u.UserName,
+                    UserHandle = u.UserName!,
                     Workouts = new List<Workout>()
                 }
             ));
