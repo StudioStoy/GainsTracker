@@ -36,6 +36,7 @@ public class CatalogController : ExtendedControllerBase
         examples.Add(ExerciseCategory.Strength.ToString(), GenericJsonSerializer.SerializeObjectToJson(new StrengthMeasurementDto()));
         examples.Add(ExerciseCategory.TimeEndurance.ToString(), GenericJsonSerializer.SerializeObjectToJson(new TimeEnduranceMeasurementDto()));
         examples.Add(ExerciseCategory.TimeAndDistanceEndurance.ToString(), GenericJsonSerializer.SerializeObjectToJson(new TimeAndDistanceEnduranceMeasurementDto()));
+        examples.Add(ExerciseCategory.General.ToString(), GenericJsonSerializer.SerializeObjectToJson(new GeneralMeasurementDto()));
 
         return Ok(examples);
     }

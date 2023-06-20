@@ -33,8 +33,15 @@ public class MeasurementService : IMeasurementService
                 if (running!.Time == "00:00:00" || running.Distance <= 0)
                     throw new BadRequestException("No negative or zero measurements.");
                 break;
+            case ExerciseCategory.General:
+                GeneralMeasurement? general = measurement as GeneralMeasurement;
+                // TODO: Add validation for every edge type. Like with bouldering,
+                // TODO: max three letters (5a+), no higher than 9c, etc.
+                if (string.IsNullOrEmpty(general?.GeneralAchievement))
+                    throw new ArgumentException("Please provide a valid value.");
+                break;
             default:
-                throw new ArgumentOutOfRangeException("egg");
+                throw new ArgumentOutOfRangeException(nameof(ExerciseCategory), "This category is unknown.");
         }
     }
 }

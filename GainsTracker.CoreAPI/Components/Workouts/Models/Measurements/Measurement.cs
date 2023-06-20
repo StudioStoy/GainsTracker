@@ -11,6 +11,7 @@ namespace GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
 [JsonDerivedType(typeof(TimeAndDistanceEnduranceMeasurement))]
 [JsonDerivedType(typeof(TimeEnduranceMeasurement))]
 [JsonDerivedType(typeof(RepsMeasurement))]
+[JsonDerivedType(typeof(GeneralMeasurement))]
 public abstract class Measurement : ITrackableGoal
 {
     // It's a bit odd how this jsonignore one works. It's only excluding the second TimeOfRecord in the 'data'
@@ -58,4 +59,11 @@ public class RepsMeasurement : Measurement
     public int Reps { get; set; }
 
     protected internal override ExerciseCategory Category => ExerciseCategory.Reps;
+}
+
+public class GeneralMeasurement : Measurement
+{
+    public string GeneralAchievement { get; set; } = string.Empty;
+
+    protected internal override ExerciseCategory Category => ExerciseCategory.General;
 }

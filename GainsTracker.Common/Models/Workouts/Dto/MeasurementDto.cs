@@ -21,7 +21,7 @@ public class StrengthMeasurementDto
 
 public class TimeAndDistanceEnduranceMeasurementDto
 {
-    public string Time { get; set; }
+    public string Time { get; set; } = "00:00:00";
     public DistanceUnits DistanceUnit { get; set; }
     public double Distance { get; set; }
 }
@@ -34,4 +34,9 @@ public class TimeEnduranceMeasurementDto
 public class RepsMeasurementDto
 {
     public int Reps { get; set; }
+}
+
+public class GeneralMeasurementDto
+{
+    public string General { get; set; } = string.Empty;
 }

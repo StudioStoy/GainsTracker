@@ -21,6 +21,7 @@ public static class MeasurementFactory
             ExerciseCategory.TimeAndDistanceEndurance => measurementData.Deserialize<TimeAndDistanceEnduranceMeasurement>(options),
             ExerciseCategory.TimeEndurance => measurementData.Deserialize<TimeEnduranceMeasurement>(options),
             ExerciseCategory.Reps => measurementData.Deserialize<RepsMeasurement>(options),
+            ExerciseCategory.General => measurementData.Deserialize<GeneralMeasurement>(options),
             _ => throw new NotImplementedException()
         })!;
     }

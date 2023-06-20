@@ -38,6 +38,8 @@ public static class WorkoutUtils
             case WorkoutType.Running:
             case WorkoutType.Cycling:
                 return ExerciseCategory.TimeAndDistanceEndurance;
+            case WorkoutType.Bouldering:
+                return ExerciseCategory.General;
             default:
                 throw new ArgumentOutOfRangeException(null, "This type is not supported.");
         }

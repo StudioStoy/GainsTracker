@@ -47,17 +47,37 @@ public class Workout
             throw new ArgumentException("Cannot compare measurements as they're not the same type.");
 
         // Sets the PersonalBest to the new measurement if its values are higher,
-        // otherwise keep the old one. 
+        // otherwise keep the old one.
+        // TODO: Also, what in the holy grace of fuck is this abomination that calls itself a "method". Burn this please.
         PersonalBest = newMeasurement switch
         {
             StrengthMeasurement measurement =>
-                measurement.Weight > (oldPersonalBest as StrengthMeasurement)!.Weight ? newMeasurement : oldPersonalBest,
+                measurement.Weight > (oldPersonalBest as StrengthMeasurement)!.Weight
+                    ? newMeasurement
+                    : oldPersonalBest,
+
             RepsMeasurement measurement =>
-                measurement.Reps > (oldPersonalBest as RepsMeasurement)!.Reps ? newMeasurement : oldPersonalBest,
+                measurement.Reps > (oldPersonalBest as RepsMeasurement)!.Reps
+                    ? newMeasurement
+                    : oldPersonalBest,
+
             TimeEnduranceMeasurement measurement =>
-                string.Compare(measurement.Time, (oldPersonalBest as TimeEnduranceMeasurement)!.Time, StringComparison.Ordinal) > 0 ? newMeasurement : oldPersonalBest,
+                string.Compare(measurement.Time, (oldPersonalBest as TimeEnduranceMeasurement)!.Time,
+                    StringComparison.Ordinal) > 0
+                    ? newMeasurement
+                    : oldPersonalBest,
+
             TimeAndDistanceEnduranceMeasurement measurement =>
-                string.Compare(measurement.Time, (oldPersonalBest as TimeAndDistanceEnduranceMeasurement)!.Time, StringComparison.Ordinal) > 0 ? newMeasurement : oldPersonalBest,
+                string.Compare(measurement.Time, (oldPersonalBest as TimeAndDistanceEnduranceMeasurement)!.Time,
+                    StringComparison.Ordinal) > 0
+                    ? newMeasurement
+                    : oldPersonalBest,
+
+            GeneralMeasurement measurement => new GeneralMeasurementValidator(Type, oldPersonalBest, measurement)
+                .CheckImprovement()
+                ? newMeasurement
+                : oldPersonalBest,
+
             _ => throw new ArgumentOutOfRangeException(nameof(newMeasurement), newMeasurement, "This type is not supported.")
         };
     }

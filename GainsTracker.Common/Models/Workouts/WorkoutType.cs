@@ -29,5 +29,7 @@ public enum WorkoutType
 
     Running,
     Walking,
-    Cycling
+    Cycling,
+
+    Bouldering
 }

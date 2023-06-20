@@ -8,5 +8,6 @@ public enum ExerciseCategory
     Strength,
     Reps,
     TimeEndurance,
-    TimeAndDistanceEndurance
+    TimeAndDistanceEndurance,
+    General
 }
