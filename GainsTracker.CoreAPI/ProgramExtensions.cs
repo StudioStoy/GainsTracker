@@ -199,7 +199,7 @@ public static class ProgramExtensions
         db.Database.EnsureCreated();
         db.Database.Migrate();
     }
-    
+
     public static void EnsureDatabaseIsCreated(this WebApplication app)
     {
         using IServiceScope scope = app.Services.CreateScope();

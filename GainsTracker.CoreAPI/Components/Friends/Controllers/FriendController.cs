@@ -11,13 +11,13 @@ namespace GainsTracker.CoreAPI.Components.Friends.Controllers;
 [Route("friend")]
 public class FriendController : ExtendedControllerBase
 {
-    private IFriendService _friendService { get; }
-
     public FriendController(IFriendService friendService)
     {
         _friendService = friendService;
     }
-    
+
+    private IFriendService _friendService { get; }
+
     [HttpGet]
     public IActionResult GetFriends()
     {

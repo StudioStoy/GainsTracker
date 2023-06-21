@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
 using GainsTracker.Common.Exceptions;
-using Microsoft.CodeAnalysis;
 
 namespace GainsTracker.CoreAPI.Shared;
 
@@ -31,7 +30,7 @@ public class GlobalErrorHandlingMiddleware
         HttpStatusCode status;
         string stackTrace = string.Empty;
         string message = exception.Message;
-        
+
         switch (exception)
         {
             case BadRequestException:

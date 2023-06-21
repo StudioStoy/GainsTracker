@@ -27,7 +27,7 @@ public class GainsService : IGainsService
     public List<WorkoutDto> GetWorkoutsByUsername(string username)
     {
         string id = _bigBrain.GetGainsIdByUsername(username);
-        return (_bigBrain.GetWorkoutsByGainsId(id))
+        return _bigBrain.GetWorkoutsByGainsId(id)
             .Select(w => w.ToDto())
             .ToList();
     }
@@ -36,8 +36,8 @@ public class GainsService : IGainsService
     {
         GainsAccount gainsAccount = _bigBrain.GetGainsAccountByUsername(username);
         WorkoutTypeAlreadyUsed(gainsAccount.Id, workoutDto.WorkoutType);
-        
-        Workout workout = new(gainsAccount.Id, workoutDto.WorkoutType, workoutDto.WorkoutType.GetCategoryFromType(), 
+
+        Workout workout = new(gainsAccount.Id, workoutDto.WorkoutType, workoutDto.WorkoutType.GetCategoryFromType(),
             new List<Measurement>());
         gainsAccount.AddWorkout(workout);
 
@@ -74,7 +74,7 @@ public class GainsService : IGainsService
 
     private void WorkoutTypeAlreadyUsed(string gainsId, WorkoutType type)
     {
-        var workouts = _bigBrain.GetWorkoutsByGainsId(gainsId);
+        List<Workout> workouts = _bigBrain.GetWorkoutsByGainsId(gainsId);
         if (workouts.Any(w => w.Type == type))
             throw new ConflictException($"Workout with type {type} is already added to this account!");
     }

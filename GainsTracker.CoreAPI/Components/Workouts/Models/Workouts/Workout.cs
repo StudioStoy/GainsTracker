@@ -74,7 +74,7 @@ public class Workout
                     : oldPersonalBest,
 
             GeneralMeasurement measurement => new GeneralMeasurementValidator(Type, oldPersonalBest, measurement)
-                .CheckImprovement()
+                .CheckIfImproved()
                 ? newMeasurement
                 : oldPersonalBest,
 

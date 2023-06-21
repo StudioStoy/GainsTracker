@@ -28,7 +28,7 @@ public static class WorkoutExtensions
             PersonalBest = bestMeasurement
         };
     }
-    
+
     public static WorkoutMeasurementsDto ToMeasurementsListDto(this Workout workout)
     {
         return new WorkoutMeasurementsDto

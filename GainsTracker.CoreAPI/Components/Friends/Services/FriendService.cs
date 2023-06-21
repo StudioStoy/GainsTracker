@@ -10,8 +10,8 @@ public class FriendService : IFriendService
         _bigBrain = bigBrain;
     }
 
-    private BigBrainFriend _bigBrain { get; set; }
-    
+    private BigBrainFriend _bigBrain { get; }
+
     public List<Friend> GetFriends(string username)
     {
         string gainsId = _bigBrain.GetGainsIdByUsername(username);
