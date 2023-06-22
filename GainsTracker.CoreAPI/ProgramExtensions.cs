@@ -2,6 +2,7 @@
 
 using System.Security.Claims;
 using System.Text;
+using DotNetEnv;
 using GainsTracker.CoreAPI.Components.Friends.Data;
 using GainsTracker.CoreAPI.Components.Friends.Services;
 using GainsTracker.CoreAPI.Components.HealthMetrics.Data;
@@ -56,7 +57,16 @@ public static class ProgramExtensions
             .Value;
         builder.Configuration.GetSection("ConnectionStrings:connection").Value = connection;
 
-        builder.Services.AddDbContext<AppDbContext>(options => { options.UseNpgsql(builder.Configuration.GetConnectionString("connection")); });
+        // TODO: builder.Environment.EnvironmentName
+        builder.Services.AddDbContext<AppDbContext>(options =>
+        {
+            options.UseNpgsql(builder.Configuration.GetConnectionString("connection")!
+                .Replace("{host}", Env.GetString("DB_HOST"))
+                .Replace("{database}", Env.GetString("DB_NAME"))
+                .Replace("{password}", Env.GetString("DB_PASS"))
+                .Replace("{username}", Env.GetString("DB_USER"))
+            );
+        });
 
         // Map Identity to User and the database.
         builder.Services.AddIdentity<User, IdentityRole>()
@@ -207,6 +217,8 @@ public static class ProgramExtensions
 
         Console.WriteLine("Ensuring database is filled..");
         db.Database.EnsureCreated();
+        Console.WriteLine("Applying possible migrations..");
+        db.Database.Migrate();
     }
 
     /// <summary>

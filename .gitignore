@@ -14,7 +14,7 @@ src/SignalR/clients/**/dist/
 modules/
 .ionide/
 
-stack.env
+*.env
 
 # File extensions
 *.aps

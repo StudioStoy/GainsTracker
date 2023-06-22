@@ -16,9 +16,21 @@ services:
       - "15432:5432"
     environment:
       POSTGRES_USER: stoy
-      POSTGRES_PASSWORD: gainstracker_local
-      DB_PASS: gainstracker_local
+      POSTGRES_PASSWORD: gainstracker_docker
       DB_NAME: gainstracker_db
       DB_USER: stoy
+      DB_PASS: gainstracker_docker
+      DB_HOST: db:5432
     volumes:
-      - ./GainsTracker.CoreAPI/development/postgres/local_data:/var/lib/postgresql/data
+      - ./GainsTracker.CoreAPI/development/postgres/docker_data:/var/lib/postgresql/data
+  api:
+    build: ./
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "420:4040" # funny
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    env_file:
+      - docker.env

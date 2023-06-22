@@ -35,8 +35,8 @@ public static class Program
         if (!resetDatabase)
             app.EnsureDatabaseIsCreated();
 
-        // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docker")
+        // Configure the HTTP request pipeline. TODO: maybe no swagger on production.
+        if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docker" || app.Environment.EnvironmentName == "Production")
         {
             app.UseSwagger();
             app.UseSwaggerUI();

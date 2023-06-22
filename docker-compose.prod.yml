@@ -1,0 +1,11 @@
+﻿version: "3.7"
+services:
+  api:
+    build: ./
+    restart: always
+    ports:
+      - "420:4040" # funny
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    env_file:
+      - stack.env
