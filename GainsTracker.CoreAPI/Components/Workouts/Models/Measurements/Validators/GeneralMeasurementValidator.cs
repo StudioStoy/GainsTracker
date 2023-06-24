@@ -1,31 +1,17 @@
 ﻿using GainsTracker.Common.Models.Workouts;
 
-namespace GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
+namespace GainsTracker.CoreAPI.Components.Workouts.Models.Measurements.Validators;
 
-// TODO: Create an abstract measurement validator out of this, for every measurement type.
-// TODO: No switch cases like here should be necessary then.
-public class GeneralMeasurementValidator
+public class GeneralMeasurementValidator : MeasurementValidator<GeneralMeasurement>
 {
-    private readonly WorkoutType _type;
-
-    public GeneralMeasurementValidator(WorkoutType type, Measurement previousBest, Measurement newMeasurement)
+    public GeneralMeasurementValidator(WorkoutType type, Measurement previousBest, Measurement newMeasurement) 
+        : base(type, previousBest, newMeasurement)
     {
-        _type = type;
-        PreviousBest = previousBest as GeneralMeasurement
-                       ?? throw new NullReferenceException("Could not convert General measurement");
-        NewMeasurement = newMeasurement as GeneralMeasurement
-                         ?? throw new NullReferenceException("Could not convert General measurement");
     }
 
-    private GeneralMeasurement PreviousBest { get; }
-    private GeneralMeasurement NewMeasurement { get; }
-
-    public bool CheckIfImproved()
+    public override bool CheckIfImproved()
     {
-        if (PreviousBest.Category != NewMeasurement.Category)
-            throw new ArgumentException("Can't compare measurements with different categories.");
-
-        return _type switch
+        return Type switch
         {
             WorkoutType.Bouldering => BoulderGradeImproved(),
             // Add other edge cases here.

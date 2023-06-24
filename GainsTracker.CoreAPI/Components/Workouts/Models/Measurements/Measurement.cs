@@ -14,11 +14,11 @@ namespace GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
 [JsonDerivedType(typeof(GeneralMeasurement))]
 public abstract class Measurement : ITrackableGoal
 {
-    // It's a bit odd how this jsonignore one works. It's only excluding the second TimeOfRecord in the 'data'
-    // part of dto's. This is what I want, but it's weird that it's actually working like this. ¯\_(ツ)_/¯
+    // It's a bit odd how this JsonIgnore one works. It's only excluding the second TimeOfRecord in the 'data'
+    // part of DTO's. This is what I want, but it's weird that it's actually working like this. ¯\_(ツ)_/¯
     [JsonIgnore] public DateTime TimeOfRecord { get; } = DateTime.Now;
     protected internal abstract ExerciseCategory Category { get; }
-    public string Notes { get; set; } = string.Empty;
+    [JsonIgnore] public string Notes { get; set; } = string.Empty;
     public bool IsInGoal { get; set; }
 
     #region Relations

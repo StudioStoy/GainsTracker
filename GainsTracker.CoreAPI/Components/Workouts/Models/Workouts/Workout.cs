@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 using GainsTracker.Common.Models.Workouts;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
+using GainsTracker.CoreAPI.Components.Workouts.Models.Measurements.Validators;
 
 namespace GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
 
@@ -45,6 +46,11 @@ public class Workout
 
         if (newMeasurement.GetType() != oldPersonalBest.GetType())
             throw new ArgumentException("Cannot compare measurements as they're not the same type.");
+
+        PersonalBest = MeasurementFactory.GetValidator<Measurement>(Type, oldPersonalBest, newMeasurement)
+            .CheckIfImproved()
+            ? newMeasurement
+            : oldPersonalBest;
 
         // Sets the PersonalBest to the new measurement if its values are higher,
         // otherwise keep the old one.
