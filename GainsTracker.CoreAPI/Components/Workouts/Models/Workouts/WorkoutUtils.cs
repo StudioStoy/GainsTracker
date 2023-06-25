@@ -1,4 +1,5 @@
-﻿using GainsTracker.Common.Models.Workouts;
+﻿using GainsTracker.Common.Exceptions;
+using GainsTracker.Common.Models.Workouts;
 
 namespace GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
 
@@ -41,7 +42,7 @@ public static class WorkoutUtils
             case WorkoutType.Bouldering:
                 return ExerciseCategory.General;
             default:
-                throw new ArgumentOutOfRangeException(null, "This type is not supported.");
+                throw new NotFoundException($"Type {workoutType} is not supported.");
         }
     }
 }

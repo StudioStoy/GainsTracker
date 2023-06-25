@@ -38,7 +38,7 @@ public class MeasurementService : IMeasurementService
                 // TODO: Add validation for every edge type. Like with bouldering,
                 // TODO: max three letters (5a+), no higher than 9c, etc.
                 if (string.IsNullOrEmpty(general?.GeneralAchievement))
-                    throw new ArgumentException("Please provide a valid value.");
+                    throw new BadRequestException("Please provide a valid value.");
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(ExerciseCategory), "This category is unknown.");
