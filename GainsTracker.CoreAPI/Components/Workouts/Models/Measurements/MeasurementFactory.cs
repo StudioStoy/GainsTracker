@@ -39,24 +39,21 @@ public static class MeasurementFactory
 
     public static MeasurementValidator<T> GetValidator<T>(WorkoutType type, Measurement previousBest, Measurement newMeasurement) where T : Measurement
     {
-        return previousBest switch
+        Dictionary<Type, Type> validatorMap = new()
         {
-            RepsMeasurement => 
-                new RepsMeasurementValidator(type, previousBest, newMeasurement) as MeasurementValidator<T> 
-                    ?? throw new InvalidOperationException(),
-            StrengthMeasurement =>
-                new RepsMeasurementValidator(type, previousBest, newMeasurement) as MeasurementValidator<T> 
-                    ?? throw new InvalidOperationException(),
-            TimeEnduranceMeasurement => 
-                new TimeMeasurementValidator(type, previousBest, newMeasurement) as MeasurementValidator<T> 
-                    ?? throw new InvalidOperationException(),
-            TimeAndDistanceEnduranceMeasurement => 
-                new TimeAndDistanceMeasurementValidator(type, previousBest, newMeasurement) as MeasurementValidator<T>
-                    ?? throw new InvalidOperationException(),
-            GeneralMeasurement => 
-                new GeneralMeasurementValidator(type, previousBest, newMeasurement) as MeasurementValidator<T> 
-                    ?? throw new InvalidOperationException(),
-            _ => throw new ArgumentOutOfRangeException(nameof(previousBest), previousBest, "MeasurementValidator could not be instantiated")
+            { typeof(RepsMeasurement), typeof(RepsMeasurementValidator) },
+            { typeof(StrengthMeasurement), typeof(RepsMeasurementValidator) },
+            { typeof(TimeEnduranceMeasurement), typeof(TimeMeasurementValidator) },
+            { typeof(TimeAndDistanceEnduranceMeasurement), typeof(TimeAndDistanceMeasurementValidator) },
+            { typeof(GeneralMeasurement), typeof(GeneralMeasurementValidator) }
         };
+
+        if (validatorMap.TryGetValue(typeof(T), out Type? validatorType))
+        {
+            return Activator.CreateInstance(type: validatorType, type, previousBest, newMeasurement) 
+                       as MeasurementValidator<T> ?? throw new InvalidOperationException();
+        }
+
+        throw new ArgumentOutOfRangeException(nameof(previousBest), previousBest, "MeasurementValidator could not be instantiated");
     }
 }
