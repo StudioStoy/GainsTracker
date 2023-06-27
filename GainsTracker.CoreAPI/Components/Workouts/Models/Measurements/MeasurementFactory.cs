@@ -37,21 +37,22 @@ public static class MeasurementFactory
         return JsonSerializer.SerializeToDocument(measurement, measurement.GetType(), options);
     }
 
-    public static MeasurementValidator<T> GetValidator<T>(WorkoutType type, Measurement previousBest, Measurement newMeasurement) where T : Measurement
+    public static MeasurementValidator GetValidator<T>(WorkoutType type, Measurement previousBest, Measurement newMeasurement) where T : Measurement
     {
         Dictionary<Type, Type> validatorMap = new()
         {
             { typeof(RepsMeasurement), typeof(RepsMeasurementValidator) },
-            { typeof(StrengthMeasurement), typeof(RepsMeasurementValidator) },
+            { typeof(StrengthMeasurement), typeof(StrengthMeasurementValidator) },
             { typeof(TimeEnduranceMeasurement), typeof(TimeMeasurementValidator) },
             { typeof(TimeAndDistanceEnduranceMeasurement), typeof(TimeAndDistanceMeasurementValidator) },
             { typeof(GeneralMeasurement), typeof(GeneralMeasurementValidator) }
         };
-
-        if (validatorMap.TryGetValue(typeof(T), out Type? validatorType))
+        
+        if (validatorMap.TryGetValue(previousBest.GetType(), out Type? validatorType))
         {
-            return Activator.CreateInstance(type: validatorType, type, previousBest, newMeasurement) 
-                       as MeasurementValidator<T> ?? throw new InvalidOperationException();
+            var validatorInstance = Activator.CreateInstance(validatorType, type, previousBest, newMeasurement);
+            if (validatorInstance is MeasurementValidator result)
+                return result;
         }
 
         throw new ArgumentOutOfRangeException(nameof(previousBest), previousBest, "MeasurementValidator could not be instantiated");

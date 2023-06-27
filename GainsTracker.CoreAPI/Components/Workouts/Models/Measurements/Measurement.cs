@@ -18,8 +18,8 @@ public abstract class Measurement : ITrackableGoal
     // part of DTO's. This is what I want, but it's weird that it's actually working like this. ¯\_(ツ)_/¯
     [JsonIgnore] public DateTime TimeOfRecord { get; } = DateTime.Now;
     protected internal abstract ExerciseCategory Category { get; }
-    [JsonIgnore] public string Notes { get; set; } = string.Empty;
-    public bool IsInGoal { get; set; }
+    public string Notes { get; set; } = string.Empty;
+    public bool IsInGoal { get; set; } = false;
 
     #region Relations
 
@@ -31,7 +31,7 @@ public abstract class Measurement : ITrackableGoal
 
 public class StrengthMeasurement : Measurement
 {
-    public WeightUnits WeightUnit { get; set; }
+    public WeightUnits WeightUnit { get; set; } = WeightUnits.Kilograms;
     public double Weight { get; set; }
     public int Reps { get; set; }
 

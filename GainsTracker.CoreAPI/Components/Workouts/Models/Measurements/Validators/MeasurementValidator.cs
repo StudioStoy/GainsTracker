@@ -2,7 +2,13 @@ using GainsTracker.Common.Models.Workouts;
 
 namespace GainsTracker.CoreAPI.Components.Workouts.Models.Measurements.Validators;
 
-public abstract class MeasurementValidator<T> where T : Measurement
+
+public abstract class MeasurementValidator
+{
+    public abstract bool CheckIfImproved();
+}
+
+public abstract class MeasurementValidator<T> : MeasurementValidator where T : Measurement
 {
     protected readonly T NewMeasurement;
     protected readonly T PreviousBest;
@@ -20,5 +26,4 @@ public abstract class MeasurementValidator<T> where T : Measurement
                           ?? throw new NullReferenceException($"Could not convert {nameof(T)}");
     }
 
-    public abstract bool CheckIfImproved();
 }
