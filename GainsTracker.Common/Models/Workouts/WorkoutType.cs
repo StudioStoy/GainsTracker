@@ -7,6 +7,10 @@ public enum WorkoutType
 {
     ClosePullUp,
     WidePullUp,
+    LatPullDown,
+    BicepPullDown,
+    PectoralFly,
+    LowRows,
 
     Squat,
     HackSquat,
@@ -14,6 +18,7 @@ public enum WorkoutType
     Abduction,
     Adduction,
     CalfExtensions,
+    DeadLift,
 
     DiamondPushUp,
     ClosePushUp,
@@ -22,14 +27,18 @@ public enum WorkoutType
     BenchPress,
     DumbbellPress,
     DumbbellCurl,
+    HammerCurl,
 
+    // Time
     Planking,
     JumpingJacks,
     JumpingRope,
 
+    // Time and distance
     Running,
     Walking,
     Cycling,
 
+    // General
     Bouldering
 }

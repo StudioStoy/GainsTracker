@@ -24,6 +24,12 @@ public static class WorkoutUtils
             case WorkoutType.ShoulderPress:
             case WorkoutType.DumbbellPress:
             case WorkoutType.DumbbellCurl:
+            case WorkoutType.LatPullDown:
+            case WorkoutType.BicepPullDown:
+            case WorkoutType.PectoralFly:
+            case WorkoutType.LowRows:
+            case WorkoutType.DeadLift:
+            case WorkoutType.HammerCurl:
                 return ExerciseCategory.Strength;
             case WorkoutType.ClosePullUp:
             case WorkoutType.WidePullUp:
