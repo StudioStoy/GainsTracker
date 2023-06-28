@@ -19,7 +19,6 @@ public static class WorkoutUtils
             case WorkoutType.Adduction:
             case WorkoutType.BenchPress:
             case WorkoutType.CalfExtensions:
-            case WorkoutType.HackSquat:
             case WorkoutType.LegPress:
             case WorkoutType.ShoulderPress:
             case WorkoutType.DumbbellPress:
@@ -29,7 +28,6 @@ public static class WorkoutUtils
             case WorkoutType.PectoralFly:
             case WorkoutType.LowRows:
             case WorkoutType.DeadLift:
-            case WorkoutType.HammerCurl:
                 return ExerciseCategory.Strength;
             case WorkoutType.ClosePullUp:
             case WorkoutType.WidePullUp:
@@ -38,7 +36,6 @@ public static class WorkoutUtils
             case WorkoutType.WidePushUp:
                 return ExerciseCategory.Reps;
             case WorkoutType.Planking:
-            case WorkoutType.JumpingJacks:
             case WorkoutType.JumpingRope:
                 return ExerciseCategory.TimeEndurance;
             case WorkoutType.Walking:
