@@ -13,7 +13,6 @@ public enum WorkoutType
     LowRows,
 
     Squat,
-    HackSquat,
     LegPress,
     Abduction,
     Adduction,
@@ -27,11 +26,9 @@ public enum WorkoutType
     BenchPress,
     DumbbellPress,
     DumbbellCurl,
-    HammerCurl,
 
     // Time
     Planking,
-    JumpingJacks,
     JumpingRope,
 
     // Time and distance
