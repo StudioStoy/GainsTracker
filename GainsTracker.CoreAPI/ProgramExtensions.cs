@@ -215,7 +215,6 @@ public static class ProgramExtensions
 
         Console.WriteLine("Resetting database..");
         db.Database.EnsureDeleted();
-        db.Database.EnsureCreated();
         db.Database.Migrate();
     }
 
@@ -223,9 +222,7 @@ public static class ProgramExtensions
     {
         using IServiceScope scope = app.Services.CreateScope();
         AppDbContext db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-        Console.WriteLine("Ensuring database is filled..");
-        db.Database.EnsureCreated();
+        
         Console.WriteLine("Applying possible migrations..");
         db.Database.Migrate();
     }
