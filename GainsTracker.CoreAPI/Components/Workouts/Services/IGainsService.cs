@@ -15,7 +15,4 @@ public interface IGainsService
     // Measurements
     WorkoutMeasurementsDto GetWorkoutMeasurementsById(string workoutId);
     void AddMeasurementToWorkout(string id, CreateMeasurementDto measurementRequestDto);
-
-    // User
-    void UpdateDisplayName(string userHandle, string newDisplayName);
 }

@@ -19,8 +19,8 @@ public class GainsController : ExtendedControllerBase
         _gainsService = service;
     }
 
-    [HttpGet("/gains/user")]
-    public IActionResult GetUserGains()
+    [HttpGet("/user")]
+    public IActionResult GetUserInfo()
     {
         GainsAccount account = _gainsService.GetGainsAccountFromUser(CurrentUsername);
         return Ok(account);

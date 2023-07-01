@@ -1,4 +1,5 @@
-﻿using GainsTracker.CoreAPI.Components.Workouts.Services;
+﻿using GainsTracker.Common.Models.UserProfiles;
+using GainsTracker.CoreAPI.Components.UserProfiles.Services;
 using GainsTracker.CoreAPI.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,20 +8,33 @@ namespace GainsTracker.CoreAPI.Components.UserProfiles.Controllers;
 
 [ApiController]
 [Authorize]
-[Route("/profile")]
+[Route("user/profile")]
 public class UserProfileController : ExtendedControllerBase
 {
-    private readonly IGainsService _gainsService;
+    private readonly IUserProfileService _userProfileService;
 
-    public UserProfileController(IGainsService gainsService)
+    public UserProfileController(IUserProfileService userProfileService)
     {
-        _gainsService = gainsService;
+        _userProfileService = userProfileService;
     }
 
-    //TODO: make this into a bigger updating profile thing with a dto, not little parts like this.
-    [HttpGet("displayname")]
-    public void UpdateDisplayName(string displayName)
+    [HttpGet]
+    public IActionResult GetUserProfile()
     {
-        _gainsService.UpdateDisplayName(CurrentUsername, displayName);
+        return Ok(_userProfileService.GetUserProfile(CurrentUsername));
+    }
+
+    [HttpPut]
+    public IActionResult UpdateUserProfile(UpdateUserProfileDto userProfileDto)
+    {
+        _userProfileService.UpdateUserProfile(CurrentUsername, userProfileDto);
+        return NoContent();
+    }
+    
+    [HttpPatch("pinned-pbs")]
+    public IActionResult UpdatePinnedPBs(UpdatePinnedPBsDto pinnedPBsDto)
+    {
+        _userProfileService.UpdatePinnedPBs(CurrentUsername, pinnedPBsDto);
+        return NoContent();
     }
 }

@@ -9,6 +9,8 @@ using GainsTracker.CoreAPI.Components.HealthMetrics.Data;
 using GainsTracker.CoreAPI.Components.HealthMetrics.Services;
 using GainsTracker.CoreAPI.Components.Security.Models;
 using GainsTracker.CoreAPI.Components.Security.Services;
+using GainsTracker.CoreAPI.Components.UserProfiles.Data;
+using GainsTracker.CoreAPI.Components.UserProfiles.Services;
 using GainsTracker.CoreAPI.Components.Workouts.Data;
 using GainsTracker.CoreAPI.Components.Workouts.Services;
 using GainsTracker.CoreAPI.Database;
@@ -38,9 +40,11 @@ public static class ProgramExtensions
         builder.Services.AddScoped<IFriendRequestService, FriendRequestService>();
         builder.Services.AddScoped<IFriendService, FriendService>();
         builder.Services.AddScoped<ICatalogService, CatalogService>();
+        builder.Services.AddScoped<IUserProfileService, UserProfileService>();
         builder.Services.AddScoped<BigBrainFriend>();
         builder.Services.AddScoped<BigBrainWorkout>();
         builder.Services.AddScoped<BigBrainHealthMetric>();
+        builder.Services.AddScoped<BigBrainUserProfile>();
     }
 
     /// <summary>
@@ -57,7 +61,6 @@ public static class ProgramExtensions
             .Value;
         builder.Configuration.GetSection("ConnectionStrings:connection").Value = connection;
 
-        // TODO: builder.Environment.EnvironmentName
         builder.Services.AddDbContext<AppDbContext>(options =>
         {
             options.UseNpgsql(builder.Configuration.GetConnectionString("connection")!
@@ -201,6 +204,12 @@ public static class ProgramExtensions
         if (!execute)
             return;
 
+        if (Env.GetString("ASPNETCORE_ENVIRONMENT") == "Production")
+        {
+            Console.WriteLine("nuh uh no resetting in production");
+            return;
+        }
+            
         using IServiceScope scope = app.Services.CreateScope();
         AppDbContext db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
