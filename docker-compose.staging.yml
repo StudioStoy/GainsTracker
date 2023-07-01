@@ -1,0 +1,12 @@
+﻿version: "3.7"
+services:
+  api:
+    build: ./
+    pull_policy: build
+    restart: always
+    ports:
+      - "1234:4040"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Staging
+    env_file:
+      - staging.env

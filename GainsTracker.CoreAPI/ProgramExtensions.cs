@@ -51,7 +51,7 @@ public static class ProgramExtensions
     ///     Register the AppDbContext and map Identity to the user.
     ///     Also configure user account options (password, lockout settings, etc.)
     /// </summary>
-    public static void ConfigureContextAndIdentity(this WebApplicationBuilder builder)
+    public static void ConfigureDatabaseAndIdentity(this WebApplicationBuilder builder)
     {
         // Load the appsettings.json file
         builder.Configuration.AddJsonFile("appsettings.json", true, true);
