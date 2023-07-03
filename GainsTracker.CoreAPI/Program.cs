@@ -22,7 +22,7 @@ public static class Program
         // Configuration.
         Env.Load();
         builder.RegisterEpicDependencies();
-        builder.ConfigureContextAndIdentity();
+        builder.ConfigureDatabaseAndIdentity();
         builder.ConfigureAuthentication();
         builder.AddSwaggerDocumentation();
         builder.ConfigureCors();
@@ -30,16 +30,17 @@ public static class Program
 
         WebApplication app = builder.Build();
 
-        bool resetDatabase = args.Length > 0 && args[0].ToBool();
-        app.ResetAndUpdateDatabase(resetDatabase);
-        if (!resetDatabase)
-            app.EnsureDatabaseIsCreated();
-
-        // Configure the HTTP request pipeline. TODO: maybe no swagger on production.
-        if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docker" || app.Environment.EnvironmentName == "Production")
+        var env = app.Environment;
+        // Configure the HTTP request pipeline.
+        if (env.IsDevelopment() || env.IsEnvironment("Docker") || env.EnvironmentName == "Staging")
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+            
+            bool resetDatabase = args.Length > 0 && args[0].ToBool();
+            app.ResetAndUpdateDatabase(resetDatabase);
+            // if (!resetDatabase)
+            //     app.EnsureDatabaseIsCreated();
         }
 
         if (!app.Environment.IsDevelopment())

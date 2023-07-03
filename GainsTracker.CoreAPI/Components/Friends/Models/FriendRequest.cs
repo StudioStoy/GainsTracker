@@ -25,8 +25,8 @@ public class FriendRequest
     public string RequesterId { get; set; } = string.Empty;
     public string RecipientId { get; set; } = string.Empty;
 
-    public GainsAccount Requester { get; set; } = new();
-    public GainsAccount Recipient { get; set; } = new();
+    public GainsAccount Requester { get; set; }
+    public GainsAccount Recipient { get; set; }
 
     public DateTime RequestTime { get; private set; }
     public FriendRequestStatus Status { get; set; }

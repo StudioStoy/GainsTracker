@@ -14,7 +14,7 @@ namespace GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
 [JsonDerivedType(typeof(GeneralMeasurement))]
 public abstract class Measurement : ITrackableGoal
 {
-    [JsonIgnore] public DateTime TimeOfRecord { get; private set; } = DateTime.UtcNow;
+    public DateTime TimeOfRecord { get; private set; } = DateTime.UtcNow;
     protected internal abstract ExerciseCategory Category { get; }
     public string Notes { get; set; } = string.Empty;
     public bool IsInGoal { get; set; }

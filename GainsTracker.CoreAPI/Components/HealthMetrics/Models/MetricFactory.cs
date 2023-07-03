@@ -19,6 +19,7 @@ public static class MetricFactory
         {
             MetricType.Protein => metricData.Deserialize<ProteinMetric>(options),
             MetricType.Weight => metricData.Deserialize<WeightMetric>(options),
+            MetricType.LiterWater => metricData.Deserialize<LiterWaterMetric>(options),
             _ => throw new NotImplementedException()
         })!;
     }

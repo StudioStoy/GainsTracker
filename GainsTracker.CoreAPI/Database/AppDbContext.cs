@@ -2,6 +2,7 @@
 using GainsTracker.CoreAPI.Components.Friends.Models;
 using GainsTracker.CoreAPI.Components.HealthMetrics.Models;
 using GainsTracker.CoreAPI.Components.Security.Models;
+using GainsTracker.CoreAPI.Components.UserProfiles.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
@@ -18,6 +19,7 @@ public sealed class AppDbContext : IdentityDbContext<User>
 
     public override DbSet<User> Users { get; set; }
     public DbSet<GainsAccount> GainsAccounts { get; set; }
+    public DbSet<UserProfile> UserProfiles { get; set; }
     public DbSet<FriendRequest> FriendRequests { get; set; }
     public DbSet<Friend> Friends { get; set; }
     public DbSet<Workout> Workouts { get; set; }
@@ -34,6 +36,7 @@ public sealed class AppDbContext : IdentityDbContext<User>
     // Derived classes of Metric
     public DbSet<WeightMetric> WeightMetrics { get; set; }
     public DbSet<ProteinMetric> ProteinMetrics { get; set; }
+    public DbSet<LiterWaterMetric> LiterWaterMetrics { get; set; }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
@@ -46,6 +49,16 @@ public sealed class AppDbContext : IdentityDbContext<User>
     {
         modelBuilder.ConfigureRelationModels();
         modelBuilder.ConvertEnumsToStrings();
+
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.GainsAccount)
+            .WithOne()
+            .HasForeignKey<User>(u => u.GainsAccountId);
+        
+        modelBuilder.Entity<GainsAccount>()
+            .HasOne(u => u.UserProfile)
+            .WithOne()
+            .HasForeignKey<GainsAccount>(u => u.UserProfileId);
 
         new DbInitializer(modelBuilder).Seed();
 

@@ -13,7 +13,7 @@ services:
     build: GainsTracker.CoreAPI/development/db
     restart: always
     ports:
-      - "15432:5432"
+      - "25432:5432"
     environment:
       POSTGRES_USER: stoy
       POSTGRES_PASSWORD: gainstracker_local

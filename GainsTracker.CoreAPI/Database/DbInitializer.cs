@@ -1,5 +1,6 @@
 ﻿using DotNetEnv;
 using GainsTracker.CoreAPI.Components.Security.Models;
+using GainsTracker.CoreAPI.Components.UserProfiles.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
 using Microsoft.AspNetCore.Identity;
@@ -29,14 +30,13 @@ public class DbInitializer
             NormalizedName = "ADMIN"
         });
 
-        User user = new();
+        User user = new("");
         PasswordHasher<User> hasher = new();
 
         // When creating a default user, it is necessary to fill in the normalized fields as well as the security stam
-        User stije = new()
+        User stije = new("stije")
         {
             Id = CreateId(),
-            UserName = "stije",
             NormalizedUserName = "STIJE",
             Email = "stije@studiostoy.nl",
             EmailConfirmed = true,
@@ -45,10 +45,9 @@ public class DbInitializer
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
-        User joyo = new()
+        User joyo = new("Joyo")
         {
             Id = CreateId(),
-            UserName = "Joyo",
             NormalizedUserName = "JOYO",
             Email = "joy@studiostoy.nl",
             EmailConfirmed = false,
@@ -57,10 +56,9 @@ public class DbInitializer
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
-        User damian = new()
+        User damian = new("BINO")
         {
             Id = CreateId(),
-            UserName = "BINO",
             NormalizedUserName = "BINO",
             Email = "test@studiostoy.nl",
             EmailConfirmed = false,
@@ -69,10 +67,9 @@ public class DbInitializer
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
-        User soep = new()
+        User soep = new("soep")
         {
             Id = CreateId(),
-            UserName = "soep",
             NormalizedUserName = "SOEP",
             Email = "test@studiostoy.nl",
             EmailConfirmed = false,
@@ -81,10 +78,9 @@ public class DbInitializer
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
-        User eef = new()
+        User eef = new("eef")
         {
             Id = CreateId(),
-            UserName = "eef",
             NormalizedUserName = "EEF",
             Email = "test@studiostoy.nl",
             EmailConfirmed = false,
@@ -93,10 +89,9 @@ public class DbInitializer
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
-        User jordt = new()
+        User jordt = new("jordt")
         {
             Id = CreateId(),
-            UserName = "jordt",
             NormalizedUserName = "JORDT",
             Email = "test@studiostoy.nl",
             EmailConfirmed = false,
@@ -105,10 +100,9 @@ public class DbInitializer
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
-        User sanda = new()
+        User sanda = new("sanda")
         {
             Id = CreateId(),
-            UserName = "sanda",
             NormalizedUserName = "SANDA",
             Email = "test@studiostoy.nl",
             EmailConfirmed = false,
@@ -117,10 +111,9 @@ public class DbInitializer
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
-        User naoh = new()
+        User naoh = new("naoh")
         {
             Id = CreateId(),
-            UserName = "naoh",
             NormalizedUserName = "NAOH",
             Email = "test@studiostoy.nl",
             EmailConfirmed = false,
@@ -136,17 +129,22 @@ public class DbInitializer
 
         foreach (User u in defaultUsers)
         {
+            u.GainsAccount = null;
+            var gains = new GainsAccount(u.UserName!)
+            {
+                UserId = u.Id,
+                DisplayName = u.UserName == "stije" ? "DavrozzGaining" : u.UserName == "joyo" ? "DinosaurEnjoyer" : "",
+                Workouts = new List<Workout>()
+            };
+            u.GainsAccountId = gains.Id;
+            
+            gains.UserProfile = null;
+            var profile = new UserProfile(gains.Id);
+            gains.UserProfileId = profile.Id;
+            
+            _builder.Entity<GainsAccount>(gainsTable => gainsTable.HasData(gains));
             _builder.Entity<User>(userTable => userTable.HasData(u));
-            _builder.Entity<GainsAccount>(gainsTable => gainsTable.HasData(
-                new GainsAccount
-                {
-                    Id = CreateId(),
-                    UserId = u.Id,
-                    DisplayName = u.UserName == "stije" ? "DavrozzGaining" : u.UserName == "joyo" ? "DinosaurEnjoyer" : "",
-                    UserHandle = u.UserName!,
-                    Workouts = new List<Workout>()
-                }
-            ));
+            _builder.Entity<UserProfile>(userTable => userTable.HasData(profile));
         }
     }
 

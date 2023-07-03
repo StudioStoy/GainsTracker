@@ -23,7 +23,7 @@ public static class MeasurementFactory
             ExerciseCategory.TimeEndurance => measurementData.Deserialize<TimeEnduranceMeasurement>(options),
             ExerciseCategory.Reps => measurementData.Deserialize<RepsMeasurement>(options),
             ExerciseCategory.General => measurementData.Deserialize<GeneralMeasurement>(options),
-            _ => throw new NotImplementedException()
+            _ => throw new ArgumentOutOfRangeException(nameof(category), "That exercise is not supported")
         })!;
     }
 

@@ -62,16 +62,6 @@ public class GainsService : IGainsService
         _bigBrain.SaveContext();
     }
 
-    public void UpdateDisplayName(string userHandle, string newDisplayName)
-    {
-        GainsAccount gainsAccount = _bigBrain.GetGainsAccountByUsername(userHandle);
-
-        //TODO: apply filters here for bad words n shizzle
-        gainsAccount.DisplayName = newDisplayName;
-
-        _bigBrain.SaveContext();
-    }
-
     private void WorkoutTypeAlreadyUsed(string gainsId, WorkoutType type)
     {
         List<Workout> workouts = _bigBrain.GetWorkoutsByGainsId(gainsId);

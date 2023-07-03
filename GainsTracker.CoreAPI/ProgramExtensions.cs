@@ -9,6 +9,8 @@ using GainsTracker.CoreAPI.Components.HealthMetrics.Data;
 using GainsTracker.CoreAPI.Components.HealthMetrics.Services;
 using GainsTracker.CoreAPI.Components.Security.Models;
 using GainsTracker.CoreAPI.Components.Security.Services;
+using GainsTracker.CoreAPI.Components.UserProfiles.Data;
+using GainsTracker.CoreAPI.Components.UserProfiles.Services;
 using GainsTracker.CoreAPI.Components.Workouts.Data;
 using GainsTracker.CoreAPI.Components.Workouts.Services;
 using GainsTracker.CoreAPI.Database;
@@ -38,16 +40,18 @@ public static class ProgramExtensions
         builder.Services.AddScoped<IFriendRequestService, FriendRequestService>();
         builder.Services.AddScoped<IFriendService, FriendService>();
         builder.Services.AddScoped<ICatalogService, CatalogService>();
+        builder.Services.AddScoped<IUserProfileService, UserProfileService>();
         builder.Services.AddScoped<BigBrainFriend>();
         builder.Services.AddScoped<BigBrainWorkout>();
         builder.Services.AddScoped<BigBrainHealthMetric>();
+        builder.Services.AddScoped<BigBrainUserProfile>();
     }
 
     /// <summary>
     ///     Register the AppDbContext and map Identity to the user.
     ///     Also configure user account options (password, lockout settings, etc.)
     /// </summary>
-    public static void ConfigureContextAndIdentity(this WebApplicationBuilder builder)
+    public static void ConfigureDatabaseAndIdentity(this WebApplicationBuilder builder)
     {
         // Load the appsettings.json file
         builder.Configuration.AddJsonFile("appsettings.json", true, true);
@@ -57,7 +61,6 @@ public static class ProgramExtensions
             .Value;
         builder.Configuration.GetSection("ConnectionStrings:connection").Value = connection;
 
-        // TODO: builder.Environment.EnvironmentName
         builder.Services.AddDbContext<AppDbContext>(options =>
         {
             options.UseNpgsql(builder.Configuration.GetConnectionString("connection")!
@@ -201,12 +204,17 @@ public static class ProgramExtensions
         if (!execute)
             return;
 
+        if (Env.GetString("ASPNETCORE_ENVIRONMENT") == "Production")
+        {
+            Console.WriteLine("nuh uh no resetting in production");
+            return;
+        }
+            
         using IServiceScope scope = app.Services.CreateScope();
         AppDbContext db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
         Console.WriteLine("Resetting database..");
         db.Database.EnsureDeleted();
-        db.Database.EnsureCreated();
         db.Database.Migrate();
     }
 
@@ -214,9 +222,7 @@ public static class ProgramExtensions
     {
         using IServiceScope scope = app.Services.CreateScope();
         AppDbContext db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-        Console.WriteLine("Ensuring database is filled..");
-        db.Database.EnsureCreated();
+        
         Console.WriteLine("Applying possible migrations..");
         db.Database.Migrate();
     }

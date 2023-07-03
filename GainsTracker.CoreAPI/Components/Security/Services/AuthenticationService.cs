@@ -4,7 +4,7 @@ using System.Text;
 using GainsTracker.Common.Exceptions;
 using GainsTracker.CoreAPI.Components.Security.Controllers.DTO;
 using GainsTracker.CoreAPI.Components.Security.Models;
-using GainsTracker.CoreAPI.Components.Workouts.Models;
+using GainsTracker.CoreAPI.Database;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
@@ -13,12 +13,14 @@ namespace GainsTracker.CoreAPI.Components.Security.Services;
 public class AuthenticationService : IAuthenticationService
 {
     private readonly IConfiguration _configuration;
+    protected readonly AppDbContext Context;
     private readonly UserManager<User> _userManager;
 
-    public AuthenticationService(UserManager<User> userManager, IConfiguration configuration)
+    public AuthenticationService(UserManager<User> userManager, IConfiguration configuration, AppDbContext context)
     {
         _userManager = userManager;
         _configuration = configuration;
+        Context = context;
     }
 
     public async Task<string> Register(RegisterRequestDto request)
@@ -29,21 +31,18 @@ public class AuthenticationService : IAuthenticationService
         if (userByEmail is not null || userByUsername is not null)
             throw new ArgumentException($"User with email {request.Email} or username {request.UserHandle} already exists.");
 
-        User user = new()
+        User user = new(request.UserHandle)
         {
             Email = request.Email,
-            UserName = request.UserHandle,
             SecurityStamp = Guid.NewGuid().ToString(),
-            GainsAccount = new GainsAccount
-            {
-                UserHandle = request.UserHandle
-            }
         };
 
         IdentityResult result = await _userManager.CreateAsync(user, request.Password);
 
         if (!result.Succeeded) throw new ArgumentException($"Unable to register user {request.UserHandle} errors: {GetErrorsText(result.Errors)}");
 
+        await Context.SaveChangesAsync();
+        
         return await Login(new LoginRequestDto { UserHandle = request.Email, Password = request.Password });
     }
 

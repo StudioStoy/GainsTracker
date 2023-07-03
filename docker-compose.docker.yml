@@ -5,7 +5,7 @@
 # One can connect to it using your DB client
 # (Rider, pqadmin, psql, ...),
 # using the following parameters (see: appsettings.json):
-# Host=localhost:15432; Database=gainstracker_db; Username=stoy; Password=postman
+# Host=localhost:15432; Database=gainstracker_db; Username=stoy; Password=gainstracker_docker
 
 version: "3.7"
 services:
