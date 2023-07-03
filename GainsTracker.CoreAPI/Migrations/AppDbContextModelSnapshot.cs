@@ -223,137 +223,137 @@ namespace GainsTracker.CoreAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9f08ac17-25ab-4e09-bf52-53f11619cabf",
+                            Id = "bc15522d-ea20-47d3-954d-4639a8ad63a5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7e6f51b0-315c-42d3-b90d-6c91af40fe7e",
+                            ConcurrencyStamp = "4b58eecb-298d-4480-8b37-01d65f5efde3",
                             Email = "stije@studiostoy.nl",
                             EmailConfirmed = true,
-                            GainsAccountId = "2868c6c5-a06a-4b3d-acf5-c2a571edd0bd",
+                            GainsAccountId = "cddf167b-e989-4d8b-bd5c-1e6a55aa19fb",
                             LockoutEnabled = false,
                             NormalizedEmail = "STIJE@STUDIOSTOY.NL",
                             NormalizedUserName = "STIJE",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOHTqWBAAgF1kN/3gbtJClBF3eJ70JJNZXKhdphgfTGJTuaA0MfY1LgoUPOMVrPT/A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPsLY/qdFMZzF8sF2gc2Kz90bqhlkM0wPW7uyp3G6L+t2Q6UmnI/iUc2TlgGBsq4Vg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5163335c-1f4a-4cf3-bc94-22dc86bfcfd3",
+                            SecurityStamp = "22a5794c-1fda-45bb-b4aa-e0cfe4212ff8",
                             TwoFactorEnabled = false,
                             UserName = "stije"
                         },
                         new
                         {
-                            Id = "6aa2b993-f6f5-4066-9fa3-2ef8beb702e5",
+                            Id = "931c47b5-2378-42a6-8154-5e6a1add3907",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4f558cb7-fda5-458a-b170-c43c0a0f3bd3",
+                            ConcurrencyStamp = "eebb7faa-2812-4da6-9b9a-f45edbec01c9",
                             Email = "joy@studiostoy.nl",
                             EmailConfirmed = false,
-                            GainsAccountId = "d54014ea-090e-432f-82ed-d7e78aa2b2af",
+                            GainsAccountId = "b2996ab3-a532-4cd9-8cc0-674df3e525e7",
                             LockoutEnabled = false,
                             NormalizedEmail = "JOY@STUDIOSTOY.NL",
                             NormalizedUserName = "JOYO",
-                            PasswordHash = "AQAAAAIAAYagAAAAELGp/MGrKI1gPq4KcxrPZ0Ytu/37WZBWPmeXHaoSfRf+aTXcua/amNUIgHpstK/g/w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIgthvIy9xpT65Ds+e45qUgGxu/Cq1oMt0AHI6SnK8o+W/etEXwH/cvdPbWjiq3GKg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f28a3584-bc03-4467-90bf-b2f4a487cd73",
+                            SecurityStamp = "3dab4756-7d5f-4a2f-8cb8-8d83896a22ed",
                             TwoFactorEnabled = false,
                             UserName = "Joyo"
                         },
                         new
                         {
-                            Id = "437a8c50-2959-4e24-bc1e-3b1712dbf846",
+                            Id = "cb66ef76-1a61-4ce5-ba87-e125b31ff0a6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f0fb0c4d-e5b9-4767-a06c-c665b269a135",
+                            ConcurrencyStamp = "5800a7f7-6bfe-46cb-bfb1-9519d87cf824",
                             Email = "test@studiostoy.nl",
                             EmailConfirmed = false,
-                            GainsAccountId = "241699b2-35bf-46b4-8a31-4d9b44035935",
+                            GainsAccountId = "3ac56558-fa6e-4dbb-a203-0d3e818d3f24",
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@STUDIOSTOY.NL",
                             NormalizedUserName = "BINO",
-                            PasswordHash = "AQAAAAIAAYagAAAAELchummlrS9kVqa2jNwoY3TTugF9PH0mVsrVPWQjwEXHD82vgE9Xp4FJ9sBqxTYPxA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEELxBDdU6yQGqoGRaL7Ngd8TxSmuoXVQOakWOfyf4hxZ46y7Rz1B1iR4aoBCWwZzeg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f1dd6fed-6a14-479e-8285-24e51fe8db17",
+                            SecurityStamp = "c1b04692-99f5-4e9c-863a-35ba94832659",
                             TwoFactorEnabled = false,
                             UserName = "BINO"
                         },
                         new
                         {
-                            Id = "189e2b78-a5ab-438d-af6f-3a7632916608",
+                            Id = "4f32b8a2-2753-4f1b-8627-2f774aa5acfe",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d8defe1e-f0a9-4a6f-a6e7-c4193dbc5687",
+                            ConcurrencyStamp = "49af0184-e854-4f2e-8479-caed2d46545c",
                             Email = "test@studiostoy.nl",
                             EmailConfirmed = false,
-                            GainsAccountId = "0fc50d77-ef45-4cea-bc0a-bfb8633098c8",
+                            GainsAccountId = "002e7ade-0412-4b92-b736-3bd3c20b1c7f",
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@STUDIOSTOY.NL",
                             NormalizedUserName = "SOEP",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAYvG/01G6DC01uDskv9TtCPKilwbynmX98a3rh6u9OindhOpdWX/Nqy502sdz1nOw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEByTfskzdMIWgqQGDHTu1hiXE2YxhTVMKBBI6+2vWNswegsUQ3y1H6LT2K/8FT204w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d33e0630-6bea-4732-83bf-4c16842d40c2",
+                            SecurityStamp = "5b1ad46a-beab-4d84-9a0d-692eb6bf1f4f",
                             TwoFactorEnabled = false,
                             UserName = "soep"
                         },
                         new
                         {
-                            Id = "03e60fc6-121f-4b97-bcca-3fdfed1a2f35",
+                            Id = "8084614b-10da-4fe8-8a34-e9cb2c6cff38",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c25bd3f2-871d-4127-9d7f-ca70ee59d5bc",
+                            ConcurrencyStamp = "90ddafe6-111c-4884-a1c5-cd75423eb9db",
                             Email = "test@studiostoy.nl",
                             EmailConfirmed = false,
-                            GainsAccountId = "fd2bb47b-5b5e-4cb6-aac4-d426b8731229",
+                            GainsAccountId = "ec78f54c-5ec3-47de-b87e-f463ca6e7a60",
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@STUDIOSTOY.NL",
                             NormalizedUserName = "EEF",
-                            PasswordHash = "AQAAAAIAAYagAAAAEA+R9Q+a8HMO2q0/3cAJ8rcPlIUTMlOn2kXFm4ZPlaE9ii/roqKF4ryekvILep8X0A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIFuc4yqv4QD7oQ/KFiLkaIUoODUXz2MvPcDMmdp6TyxlVWHLBtJXJcCdNKSfAcgpA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "74b41bc3-8e9f-4356-a568-8e9154fc8532",
+                            SecurityStamp = "1db0c8c0-fd7f-4b47-ae4e-aa43d3c7bb88",
                             TwoFactorEnabled = false,
                             UserName = "eef"
                         },
                         new
                         {
-                            Id = "94791753-f637-47a0-a59c-ec6c10b99601",
+                            Id = "c3b64cba-b0ef-44c7-af1e-22624fdb20ff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "038998bf-9f5a-4f7f-a28e-731507a7ffa5",
+                            ConcurrencyStamp = "eadd0cfb-94f9-4e5a-83c5-dcf3ebc7c9ab",
                             Email = "test@studiostoy.nl",
                             EmailConfirmed = false,
-                            GainsAccountId = "fe4c8bcf-2a4a-44eb-900d-6632f0ddcdac",
+                            GainsAccountId = "e07e2bfa-9395-4d2c-8a1f-807cbe2ff361",
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@STUDIOSTOY.NL",
                             NormalizedUserName = "JORDT",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOgmVM896BI4pTmbCu3fwTixHXdjQkbeV7CfBumAHZMFOtE12iMVnRFMDk7u1vwXJw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMyCZTxeT2iisMTiCl9w2q5KQt+GE+CTYVe/ygRkYGYzaRrSGMRjnBOkoFUgVABhEA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b4f9946f-a1be-4b28-ad54-1e80dfce5877",
+                            SecurityStamp = "507dd6a3-dcea-40e4-aca7-574ff78f073c",
                             TwoFactorEnabled = false,
                             UserName = "jordt"
                         },
                         new
                         {
-                            Id = "e37d81fa-7227-4ef4-bd0a-05d8be5941c7",
+                            Id = "f67708e4-07de-499b-8167-a668d79de1f9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "687d3e25-dba4-4d1f-8dee-5fbec7e6b7a3",
+                            ConcurrencyStamp = "169ff8d6-561c-4124-ba45-39fee6fcc4da",
                             Email = "test@studiostoy.nl",
                             EmailConfirmed = false,
-                            GainsAccountId = "8392dbc3-47db-4377-a36e-8b5208444a51",
+                            GainsAccountId = "0f7cc709-5823-42ed-b708-d47ee2add916",
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@STUDIOSTOY.NL",
                             NormalizedUserName = "SANDA",
-                            PasswordHash = "AQAAAAIAAYagAAAAENZiTWYeM+nEZ/quVa4puOFyenTR2Vf8pfpVLcfOCHXrUr1lLYvChuY9JX8fOc+SPA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDN2MBrPxR06cmx7P8Bavn1mRVVGzxDY8yDmeLz+YcYugsHZ0SYLFP8qWs0JYqZixQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "16b67c7d-fc1f-43a7-8443-a77d3f442e42",
+                            SecurityStamp = "da00a40e-357f-4270-a36e-2e990c3909fa",
                             TwoFactorEnabled = false,
                             UserName = "sanda"
                         },
                         new
                         {
-                            Id = "d0e673e5-292e-4004-b2bd-1ba64ba5e80e",
+                            Id = "699f2dc7-80fd-4492-b384-3353ea3ff215",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "04921017-996b-49fa-aadf-b98d1f1e0bbc",
+                            ConcurrencyStamp = "e767fd9b-df31-4ae6-beca-68a7a437891c",
                             Email = "test@studiostoy.nl",
                             EmailConfirmed = false,
-                            GainsAccountId = "0c844c83-2c99-4235-9245-7281d827f93e",
+                            GainsAccountId = "47769e5f-0e37-4cfa-a53e-0462887e691d",
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@STUDIOSTOY.NL",
                             NormalizedUserName = "NAOH",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKVU0baNYGkFuj0KrWasLFJqFH61mtb1xHrd5SGQ0lWDUrAjNPy6JMDhVbOLJCczxQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELokn2vtx1pl1wUZYm/Dcuz5qfh/xO+o2ivOP7uZk3oY625EUDkVY9zA4PjNttWZgw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ef246f8a-2536-4654-acb7-3255e5092b37",
+                            SecurityStamp = "acbe0fc0-accc-4be8-8b03-e5797fef0a24",
                             TwoFactorEnabled = false,
                             UserName = "naoh"
                         });
@@ -388,58 +388,58 @@ namespace GainsTracker.CoreAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "787965bb-11b7-4d08-8aaf-c6060399ea10",
+                            Id = "5b340191-266e-4aed-98fc-175d938419ae",
                             Description = "",
-                            GainsAccountId = "2868c6c5-a06a-4b3d-acf5-c2a571edd0bd",
+                            GainsAccountId = "cddf167b-e989-4d8b-bd5c-1e6a55aa19fb",
                             PictureUrl = ""
                         },
                         new
                         {
-                            Id = "e82b7615-a8bb-493f-b514-96ebd2aa9721",
+                            Id = "93991ba1-47f5-4af8-8319-fb181ccbe0ba",
                             Description = "",
-                            GainsAccountId = "d54014ea-090e-432f-82ed-d7e78aa2b2af",
+                            GainsAccountId = "b2996ab3-a532-4cd9-8cc0-674df3e525e7",
                             PictureUrl = ""
                         },
                         new
                         {
-                            Id = "eae7e4f0-3e4e-45ab-aadf-7779998fa018",
+                            Id = "2022769e-9062-42c5-873f-e5e292934e2f",
                             Description = "",
-                            GainsAccountId = "241699b2-35bf-46b4-8a31-4d9b44035935",
+                            GainsAccountId = "3ac56558-fa6e-4dbb-a203-0d3e818d3f24",
                             PictureUrl = ""
                         },
                         new
                         {
-                            Id = "94f8ec48-86dd-457d-bb5c-83e40d7e39c6",
+                            Id = "a260b16d-e645-44c9-bf19-2b4ca593ccc1",
                             Description = "",
-                            GainsAccountId = "0fc50d77-ef45-4cea-bc0a-bfb8633098c8",
+                            GainsAccountId = "002e7ade-0412-4b92-b736-3bd3c20b1c7f",
                             PictureUrl = ""
                         },
                         new
                         {
-                            Id = "77ccdf99-3537-4a9c-b09c-ab8befa61a50",
+                            Id = "67348b58-3deb-4721-aea6-6fc8486c3933",
                             Description = "",
-                            GainsAccountId = "fd2bb47b-5b5e-4cb6-aac4-d426b8731229",
+                            GainsAccountId = "ec78f54c-5ec3-47de-b87e-f463ca6e7a60",
                             PictureUrl = ""
                         },
                         new
                         {
-                            Id = "2166a230-dcd5-461c-9a11-03a86e5d56ad",
+                            Id = "8f542d20-3375-4c38-a63f-b775a68ee57d",
                             Description = "",
-                            GainsAccountId = "fe4c8bcf-2a4a-44eb-900d-6632f0ddcdac",
+                            GainsAccountId = "e07e2bfa-9395-4d2c-8a1f-807cbe2ff361",
                             PictureUrl = ""
                         },
                         new
                         {
-                            Id = "a968d521-e23c-4af2-8a7c-a1d92bbee42d",
+                            Id = "298fb4d2-43f8-44e3-ac5c-3e4293eb386f",
                             Description = "",
-                            GainsAccountId = "8392dbc3-47db-4377-a36e-8b5208444a51",
+                            GainsAccountId = "0f7cc709-5823-42ed-b708-d47ee2add916",
                             PictureUrl = ""
                         },
                         new
                         {
-                            Id = "276d34a6-b8d7-43d7-8692-54b7f30d1499",
+                            Id = "aafe35a2-ff8d-4bd0-a702-34479e1b0533",
                             Description = "",
-                            GainsAccountId = "0c844c83-2c99-4235-9245-7281d827f93e",
+                            GainsAccountId = "47769e5f-0e37-4cfa-a53e-0462887e691d",
                             PictureUrl = ""
                         });
                 });
@@ -482,67 +482,67 @@ namespace GainsTracker.CoreAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2868c6c5-a06a-4b3d-acf5-c2a571edd0bd",
+                            Id = "cddf167b-e989-4d8b-bd5c-1e6a55aa19fb",
                             DisplayName = "DavrozzGaining",
                             UserHandle = "stije",
-                            UserId = "9f08ac17-25ab-4e09-bf52-53f11619cabf",
-                            UserProfileId = "787965bb-11b7-4d08-8aaf-c6060399ea10"
+                            UserId = "bc15522d-ea20-47d3-954d-4639a8ad63a5",
+                            UserProfileId = "5b340191-266e-4aed-98fc-175d938419ae"
                         },
                         new
                         {
-                            Id = "d54014ea-090e-432f-82ed-d7e78aa2b2af",
+                            Id = "b2996ab3-a532-4cd9-8cc0-674df3e525e7",
                             DisplayName = "",
                             UserHandle = "Joyo",
-                            UserId = "6aa2b993-f6f5-4066-9fa3-2ef8beb702e5",
-                            UserProfileId = "e82b7615-a8bb-493f-b514-96ebd2aa9721"
+                            UserId = "931c47b5-2378-42a6-8154-5e6a1add3907",
+                            UserProfileId = "93991ba1-47f5-4af8-8319-fb181ccbe0ba"
                         },
                         new
                         {
-                            Id = "241699b2-35bf-46b4-8a31-4d9b44035935",
+                            Id = "3ac56558-fa6e-4dbb-a203-0d3e818d3f24",
                             DisplayName = "",
                             UserHandle = "BINO",
-                            UserId = "437a8c50-2959-4e24-bc1e-3b1712dbf846",
-                            UserProfileId = "eae7e4f0-3e4e-45ab-aadf-7779998fa018"
+                            UserId = "cb66ef76-1a61-4ce5-ba87-e125b31ff0a6",
+                            UserProfileId = "2022769e-9062-42c5-873f-e5e292934e2f"
                         },
                         new
                         {
-                            Id = "0fc50d77-ef45-4cea-bc0a-bfb8633098c8",
+                            Id = "002e7ade-0412-4b92-b736-3bd3c20b1c7f",
                             DisplayName = "",
                             UserHandle = "soep",
-                            UserId = "189e2b78-a5ab-438d-af6f-3a7632916608",
-                            UserProfileId = "94f8ec48-86dd-457d-bb5c-83e40d7e39c6"
+                            UserId = "4f32b8a2-2753-4f1b-8627-2f774aa5acfe",
+                            UserProfileId = "a260b16d-e645-44c9-bf19-2b4ca593ccc1"
                         },
                         new
                         {
-                            Id = "fd2bb47b-5b5e-4cb6-aac4-d426b8731229",
+                            Id = "ec78f54c-5ec3-47de-b87e-f463ca6e7a60",
                             DisplayName = "",
                             UserHandle = "eef",
-                            UserId = "03e60fc6-121f-4b97-bcca-3fdfed1a2f35",
-                            UserProfileId = "77ccdf99-3537-4a9c-b09c-ab8befa61a50"
+                            UserId = "8084614b-10da-4fe8-8a34-e9cb2c6cff38",
+                            UserProfileId = "67348b58-3deb-4721-aea6-6fc8486c3933"
                         },
                         new
                         {
-                            Id = "fe4c8bcf-2a4a-44eb-900d-6632f0ddcdac",
+                            Id = "e07e2bfa-9395-4d2c-8a1f-807cbe2ff361",
                             DisplayName = "",
                             UserHandle = "jordt",
-                            UserId = "94791753-f637-47a0-a59c-ec6c10b99601",
-                            UserProfileId = "2166a230-dcd5-461c-9a11-03a86e5d56ad"
+                            UserId = "c3b64cba-b0ef-44c7-af1e-22624fdb20ff",
+                            UserProfileId = "8f542d20-3375-4c38-a63f-b775a68ee57d"
                         },
                         new
                         {
-                            Id = "8392dbc3-47db-4377-a36e-8b5208444a51",
+                            Id = "0f7cc709-5823-42ed-b708-d47ee2add916",
                             DisplayName = "",
                             UserHandle = "sanda",
-                            UserId = "e37d81fa-7227-4ef4-bd0a-05d8be5941c7",
-                            UserProfileId = "a968d521-e23c-4af2-8a7c-a1d92bbee42d"
+                            UserId = "f67708e4-07de-499b-8167-a668d79de1f9",
+                            UserProfileId = "298fb4d2-43f8-44e3-ac5c-3e4293eb386f"
                         },
                         new
                         {
-                            Id = "0c844c83-2c99-4235-9245-7281d827f93e",
+                            Id = "47769e5f-0e37-4cfa-a53e-0462887e691d",
                             DisplayName = "",
                             UserHandle = "naoh",
-                            UserId = "d0e673e5-292e-4004-b2bd-1ba64ba5e80e",
-                            UserProfileId = "276d34a6-b8d7-43d7-8692-54b7f30d1499"
+                            UserId = "699f2dc7-80fd-4492-b384-3353ea3ff215",
+                            UserProfileId = "aafe35a2-ff8d-4bd0-a702-34479e1b0533"
                         });
                 });
 
@@ -571,6 +571,7 @@ namespace GainsTracker.CoreAPI.Migrations
                         .HasColumnName("time_of_record");
 
                     b.Property<string>("UserProfileId")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("user_profile_id");
 
@@ -1004,6 +1005,8 @@ namespace GainsTracker.CoreAPI.Migrations
                     b.HasOne("GainsTracker.CoreAPI.Components.UserProfiles.Models.UserProfile", null)
                         .WithMany("PinnedPBs")
                         .HasForeignKey("UserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
                         .HasConstraintName("fk_measurement_user_profiles_user_profile_id");
 
                     b.HasOne("GainsTracker.CoreAPI.Components.Workouts.Models.Workouts.Workout", null)

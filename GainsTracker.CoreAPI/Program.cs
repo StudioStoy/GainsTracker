@@ -48,6 +48,9 @@ public static class Program
 
         app.UseCors("AllowBlazorDevClient");
 
+        app.UseSwagger();
+        app.UseSwaggerUI();
+        
         // Authentication
         app.UseAuthentication();
         app.UseAuthorization();
