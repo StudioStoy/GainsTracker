@@ -36,6 +36,7 @@ public sealed class AppDbContext : IdentityDbContext<User>
     // Derived classes of Metric
     public DbSet<WeightMetric> WeightMetrics { get; set; }
     public DbSet<ProteinMetric> ProteinMetrics { get; set; }
+    public DbSet<LiterWaterMetric> LiterWaterMetrics { get; set; }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {

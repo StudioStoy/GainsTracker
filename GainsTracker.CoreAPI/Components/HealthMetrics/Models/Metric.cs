@@ -8,6 +8,7 @@ namespace GainsTracker.CoreAPI.Components.HealthMetrics.Models;
 [Table("metric")]
 [JsonDerivedType(typeof(ProteinMetric))]
 [JsonDerivedType(typeof(WeightMetric))]
+[JsonDerivedType(typeof(LiterWaterMetric))]
 public abstract class Metric : ITrackableGoal
 {
     [JsonIgnore] public string Id { get; set; } = Guid.NewGuid().ToString();
@@ -24,4 +25,9 @@ public class ProteinMetric : Metric
 public class WeightMetric : Metric
 {
     public long Weight { get; set; }
+}
+
+public class LiterWaterMetric : Metric
+{
+    public double Liters { get; set; }
 }
