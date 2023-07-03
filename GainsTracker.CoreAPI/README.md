@@ -11,9 +11,9 @@ ___
   <ul>
     <li><a href="#1. Getting Ready">1-Getting-ready</a>
       <ul>
-        <li><a href="#1.1 Prerequisites">11-prerequisites</a></li>
-        <li><a href="#1.2 Installers">12-installers</a></li>
-        <li><a href="#1.3 Setting up the project and environments">13-setting-up-the-project-and-environments</a></li>
+        <li><a href="#11-prerequisites">1.1 Prerequisites</a></li>
+        <li><a href="#12-installers">1.2 Installers</a></li>
+        <li><a href="#13-setting-up-the-project-and-environments">1.3 Setting up the project and environments</a></li>
       </ul>
     </li>
   </ul>
