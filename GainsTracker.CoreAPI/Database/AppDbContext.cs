@@ -60,6 +60,11 @@ public sealed class AppDbContext : IdentityDbContext<User>
             .WithOne()
             .HasForeignKey<GainsAccount>(u => u.UserProfileId);
 
+        modelBuilder.Entity<UserProfile>()
+            .HasMany(u => u.PinnedPBs)
+            .WithOne()
+            .HasForeignKey(u => u.UserProfileId);
+
         new DbInitializer(modelBuilder).Seed();
 
         base.OnModelCreating(modelBuilder);
