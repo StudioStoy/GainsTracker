@@ -20,7 +20,7 @@ public static class MauiProgram
 #endif
 
         // Register dependencies for injection.
-        builder.Services.AddScoped<IGainsAuthService, GainsAuthService>();
+        builder.Services.AddScoped<IGainsAuthService, DummyAuthService>();
         builder.Services.AddScoped<IGainsTrackerService, GainsTrackerService>();
         builder.Services.AddSingleton<HttpClient>();
 

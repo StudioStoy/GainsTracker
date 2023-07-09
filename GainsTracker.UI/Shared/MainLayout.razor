@@ -1,14 +1,20 @@
 ﻿@using GainsTracker.UI.Components
 @inherits LayoutComponentBase
+@inject NavigationManager NavManager
 <ElementManipulator IsDarkTheme="IsDark"></ElementManipulator>
+<link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 
 <div class="page">
-    <header class="navigation">
-        <NavMenu/>
-    </header>
+    @if (NavManager.Uri.Split("/").Last() != "login")
+    {
+        <header class="navigation">
+            <NavMenu/>
+        </header>
+
+    }
 
     <main>
-        <button id="toggleThemeButton" @onclick="ToggleDarkMode">Toggle theme</button>
+        @* <button id="toggleThemeButton" @onclick="ToggleDarkMode">Toggle theme</button> *@
 
         <article class="content">
             @Body

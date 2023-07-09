@@ -1,13 +1,18 @@
 ﻿@page "/login"
 @using GainsTracker.UI.Services
-@inject IGainsAuthService AuthService;
+@inject IGainsAuthService AuthService;  
 
-<h1>Login</h1>
-
-<input id="username-input" placeholder="Username" @bind="UserHandle"/>
-<input id="password-input" type="password" placeholder="Password" @bind="Password"/>
-
-<button class="btn btn-primary" @onclick="Login">Login</button>
+<div class="div-holder">
+    <img src="/Images/logo.png" alt="Gainstracker Logo"/>
+    <div class="login-input-holder">
+        <h1>Welcome to the Gains Tracker!</h1>
+        <input id="username-input" placeholder=" Username" @bind="UserHandle"/>
+        <input id="password-input" type="password" placeholder=" Password" @bind="Password"/>
+        <button class="btn btn-primary" @onclick="Login">Login</button>
+        <p>Don't have an account yet? No worries! You can make one <a href="">here</a>.</p>
+        <a id="forgot-password">Forgot password?</a>
+    </div>
+</div>
 
 @code {
     private string UserHandle = "";
@@ -17,5 +22,4 @@
     {
         await AuthService.Login(UserHandle, Password);
     }
-
 }
