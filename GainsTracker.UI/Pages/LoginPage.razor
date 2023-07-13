@@ -1,6 +1,7 @@
 ﻿@page "/login"
 @using GainsTracker.UI.Services
 @inject IGainsAuthService AuthService;  
+@inject NavigationManager NavigationManager
 
 <div class="div-holder">
     <img src="/Images/logo.png" alt="Gainstracker Logo"/>
@@ -21,5 +22,7 @@
     private async void Login()
     {
         await AuthService.Login(UserHandle, Password);
+        NavigationManager.NavigateTo("/dashboard");
+
     }
 }
