@@ -8,26 +8,6 @@ namespace GainsTracker.CoreAPI.Components.Workouts.Models;
 
 public class GainsAccount
 {
-    #region Relations
-
-    public string Id { get; set; }
-    public string UserId { get; set; }
-    public string UserProfileId { get; set; }
-    
-    #endregion
-    
-    public string UserHandle { get; set; }
-    public string DisplayName { get; set; } = string.Empty;
-
-    public UserProfile UserProfile { get; set; }
-
-    public List<Workout> Workouts { get; set; } = new();
-    public List<Metric> Metrics { get; set; } = new();
-    
-    public List<Friend> Friends { get; set; } = new();
-    public List<FriendRequest> ReceivedFriendRequests { get; set; } = new();
-    public List<FriendRequest> SentFriendRequests { get; set; } = new();
-
     public GainsAccount(string userHandle)
     {
         Id = Guid.NewGuid().ToString();
@@ -35,7 +15,21 @@ public class GainsAccount
         UserProfile = new UserProfile(Id);
         UserProfileId = UserProfile.Id;
     }
-    
+
+    public string UserHandle { get; set; }
+
+    // TODO: move DisplayName to UserProfile.
+    public string DisplayName { get; set; } = string.Empty;
+
+    public UserProfile UserProfile { get; set; }
+
+    public List<Workout> Workouts { get; set; } = new();
+    public List<Metric> Metrics { get; set; } = new();
+
+    public List<Friend> Friends { get; set; } = new();
+    public List<FriendRequest> ReceivedFriendRequests { get; set; } = new();
+    public List<FriendRequest> SentFriendRequests { get; set; } = new();
+
     public void SentFriendRequest(GainsAccount toPotentialFriend)
     {
         CheckFriendRequests(toPotentialFriend.UserHandle);
@@ -68,4 +62,12 @@ public class GainsAccount
                     StringComparison.InvariantCultureIgnoreCase)))
             throw new FriendRequestAlreadySentException($"You already sent a friend request to {friendName}!");
     }
+
+    #region Relations
+
+    public string Id { get; set; }
+    public string UserId { get; set; }
+    public string UserProfileId { get; set; }
+
+    #endregion
 }

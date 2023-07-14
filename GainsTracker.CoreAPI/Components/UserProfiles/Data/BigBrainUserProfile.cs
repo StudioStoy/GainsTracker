@@ -20,11 +20,14 @@ public class BigBrainUserProfile : BigBrain
 
     public void UpdateUserProfileByUserHandle(string userHandle, UpdateUserProfileDto userProfileDto)
     {
-        var current = GetUserProfileByUserHandle(userHandle);
+        UserProfile current = GetUserProfileByUserHandle(userHandle);
 
         current.Description = userProfileDto.Description ?? current.Description;
         current.PictureUrl = userProfileDto.PictureUrl ?? current.PictureUrl;
-        
+
+        if (userProfileDto.DisplayName != null)
+            GetGainsAccountByUserHandle(userHandle).DisplayName = userProfileDto.DisplayName;
+
         SaveContext();
     }
 }

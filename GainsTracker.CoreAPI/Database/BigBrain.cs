@@ -23,7 +23,7 @@ public abstract class BigBrain
         Context.SaveChanges();
     }
 
-    public GainsAccount GetGainsAccountByUsername(string userHandle)
+    public GainsAccount GetGainsAccountByUserHandle(string userHandle)
     {
         GainsAccount? gains = Context.GainsAccounts.FirstOrDefault(gains =>
             string.Equals(gains.UserHandle.ToLower(), userHandle.ToLower()));

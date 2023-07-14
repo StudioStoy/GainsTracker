@@ -7,12 +7,13 @@ namespace GainsTracker.CoreAPI.Components.UserProfiles;
 
 public static class UserProfileExtensions
 {
-    public static UserProfileDto ToDto(this UserProfile userProfile)
+    public static UserProfileDto ToDto(this UserProfile userProfile, string displayName = "")
     {
         return new UserProfileDto
         {
             Description = userProfile.Description,
             PictureUrl = userProfile.PictureUrl,
+            DisplayName = displayName,
             PinnedPBs = userProfile.PinnedPBs.Select(pb => new MeasurementDto
             {
                 WorkoutId = pb.WorkoutId,

@@ -21,7 +21,7 @@ public class GainsService : IGainsService
 
     public GainsAccount GetGainsAccountFromUser(string username)
     {
-        return _bigBrain.GetGainsAccountByUsername(username);
+        return _bigBrain.GetGainsAccountByUserHandle(username);
     }
 
     public List<WorkoutDto> GetWorkoutsByUsername(string username)
@@ -34,7 +34,7 @@ public class GainsService : IGainsService
 
     public string AddWorkoutToGainsAccount(string username, CreateWorkoutDto workoutDto)
     {
-        GainsAccount gainsAccount = _bigBrain.GetGainsAccountByUsername(username);
+        GainsAccount gainsAccount = _bigBrain.GetGainsAccountByUserHandle(username);
         WorkoutTypeAlreadyUsed(gainsAccount.Id, workoutDto.WorkoutType);
 
         Workout workout = new(gainsAccount.Id, workoutDto.WorkoutType, workoutDto.WorkoutType.GetCategoryFromType(),
