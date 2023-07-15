@@ -18,7 +18,7 @@ public class HealthMetricService : IHealthMetricService
     public void AddMetricToGainsAccount(string userHandle, CreateMetricDto createMetricDto)
     {
         Metric metric = MetricFactory.DeserializeMetricFromJson(createMetricDto.Type, createMetricDto.Data!);
-        GainsAccount gains = _bigBrain.GetGainsAccountByUsername(userHandle);
+        GainsAccount gains = _bigBrain.GetGainsAccountByUserHandle(userHandle);
         gains.AddMetric(metric);
 
         _bigBrain.SaveContext();

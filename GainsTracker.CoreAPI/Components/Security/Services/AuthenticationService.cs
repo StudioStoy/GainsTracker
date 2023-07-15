@@ -13,14 +13,14 @@ namespace GainsTracker.CoreAPI.Components.Security.Services;
 public class AuthenticationService : IAuthenticationService
 {
     private readonly IConfiguration _configuration;
-    protected readonly AppDbContext Context;
+    private readonly AppDbContext _context;
     private readonly UserManager<User> _userManager;
 
     public AuthenticationService(UserManager<User> userManager, IConfiguration configuration, AppDbContext context)
     {
         _userManager = userManager;
         _configuration = configuration;
-        Context = context;
+        _context = context;
     }
 
     public async Task<string> Register(RegisterRequestDto request)
@@ -31,18 +31,19 @@ public class AuthenticationService : IAuthenticationService
         if (userByEmail is not null || userByUsername is not null)
             throw new ArgumentException($"User with email {request.Email} or username {request.UserHandle} already exists.");
 
-        User user = new(request.UserHandle)
+        string displayName = string.IsNullOrEmpty(request.DisplayName) ? "" : request.DisplayName;
+        User user = new(request.UserHandle, displayName)
         {
             Email = request.Email,
-            SecurityStamp = Guid.NewGuid().ToString(),
+            SecurityStamp = Guid.NewGuid().ToString()
         };
 
         IdentityResult result = await _userManager.CreateAsync(user, request.Password);
 
         if (!result.Succeeded) throw new ArgumentException($"Unable to register user {request.UserHandle} errors: {GetErrorsText(result.Errors)}");
 
-        await Context.SaveChangesAsync();
-        
+        await _context.SaveChangesAsync();
+
         return await Login(new LoginRequestDto { UserHandle = request.Email, Password = request.Password });
     }
 

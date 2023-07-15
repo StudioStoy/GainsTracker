@@ -18,19 +18,27 @@ public class UserProfileController : ExtendedControllerBase
         _userProfileService = userProfileService;
     }
 
+    /// <summary>
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     public IActionResult GetUserProfile()
     {
         return Ok(_userProfileService.GetUserProfile(CurrentUsername));
     }
 
+    /// <summary>
+    ///     Updates all supplied fields of the user profile, including the account's display name.
+    /// </summary>
+    /// <param name="userProfileDto">The fields to update.</param>
+    /// <returns></returns>
     [HttpPut]
     public IActionResult UpdateUserProfile(UpdateUserProfileDto userProfileDto)
     {
         _userProfileService.UpdateUserProfile(CurrentUsername, userProfileDto);
         return NoContent();
     }
-    
+
     [HttpPatch("pinned-pbs")]
     public IActionResult UpdatePinnedPBs(UpdatePinnedPBsDto pinnedPBsDto)
     {

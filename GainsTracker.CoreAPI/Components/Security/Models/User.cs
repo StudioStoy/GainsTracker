@@ -5,16 +5,24 @@ namespace GainsTracker.CoreAPI.Components.Security.Models;
 
 public sealed class User : IdentityUser
 {
-    public override string Id { get; set; } = Guid.NewGuid().ToString();
-    public string GainsAccountId { get; set; }
-    public GainsAccount? GainsAccount { get; set; }
+    private User()
+    {
+    }
 
-    private User() {}
-    
-    public User(string userHandle)
+    public User(string userHandle, string displayName = "")
     {
         UserName = userHandle;
-        GainsAccount = new GainsAccount(userHandle);
+        GainsAccount = new GainsAccount(userHandle)
+        {
+            DisplayName = displayName
+        };
+
+        // Id stuff for EF.
         GainsAccountId = GainsAccount.Id;
+        GainsAccount.UserId = Id;
     }
+
+    public override string Id { get; set; } = Guid.NewGuid().ToString();
+    public string GainsAccountId { get; set; }
+    public GainsAccount GainsAccount { get; set; }
 }
