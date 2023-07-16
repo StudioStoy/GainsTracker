@@ -8,18 +8,17 @@ namespace GainsTracker.CoreAPI.Components.Workouts.Models;
 
 public class GainsAccount
 {
-    public GainsAccount(string userHandle)
+    public GainsAccount() {}
+    
+    public GainsAccount(string userHandle, string displayName = "")
     {
         Id = Guid.NewGuid().ToString();
         UserHandle = userHandle;
-        UserProfile = new UserProfile(Id);
+        UserProfile = new UserProfile(Id, displayName);
         UserProfileId = UserProfile.Id;
     }
 
     public string UserHandle { get; set; }
-
-    // TODO: move DisplayName to UserProfile.
-    public string DisplayName { get; set; } = string.Empty;
 
     public UserProfile UserProfile { get; set; }
 

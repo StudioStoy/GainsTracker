@@ -23,17 +23,18 @@ public sealed class AppDbContext : IdentityDbContext<User>
     public DbSet<FriendRequest> FriendRequests { get; set; }
     public DbSet<Friend> Friends { get; set; }
     public DbSet<Workout> Workouts { get; set; }
-    public DbSet<Measurement> Measurements { get; set; }
-    public DbSet<Metric> Metrics { get; set; }
+    public DbSet<ProfileIcon> ProfileIcons { get; set; }
 
-    // Derived classes of Measurement
+    // Measurements and its derived classes.
+    public DbSet<Measurement> Measurements { get; set; }
     public DbSet<RepsMeasurement> SimpleRepMeasurements { get; set; }
     public DbSet<TimeEnduranceMeasurement> SimpleEnduranceMeasurements { get; set; }
     public DbSet<TimeAndDistanceEnduranceMeasurement> RunningMeasurements { get; set; }
     public DbSet<StrengthMeasurement> WeightMeasurements { get; set; }
     public DbSet<GeneralMeasurement> GeneralMeasurements { get; set; }
 
-    // Derived classes of Metric
+    // Metrics and its derived classes.
+    public DbSet<Metric> Metrics { get; set; }
     public DbSet<WeightMetric> WeightMetrics { get; set; }
     public DbSet<ProteinMetric> ProteinMetrics { get; set; }
     public DbSet<LiterWaterMetric> LiterWaterMetrics { get; set; }
@@ -64,6 +65,10 @@ public sealed class AppDbContext : IdentityDbContext<User>
             .HasMany(u => u.PinnedPBs)
             .WithOne()
             .HasForeignKey(u => u.UserProfileId);
+
+        modelBuilder.Entity<UserProfile>()
+            .HasOne(u => u.Icon)
+            .WithOne();
 
         new DbInitializer(modelBuilder).Seed();
 

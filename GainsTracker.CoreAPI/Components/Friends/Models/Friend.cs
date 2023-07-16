@@ -19,7 +19,7 @@ public class Friend
 
     public Friend(GainsAccount account, DateTime friendsSince)
     {
-        FriendName = !string.IsNullOrEmpty(account.DisplayName) ? account.DisplayName : account.UserHandle;
+        FriendName = !string.IsNullOrEmpty(account.UserProfile.DisplayName) ? account.UserProfile.DisplayName : account.UserHandle;
         FriendHandle = account.UserHandle;
         GainsAccountId = account.Id;
         FriendsSince = friendsSince;
