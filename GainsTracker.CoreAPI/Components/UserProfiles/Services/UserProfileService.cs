@@ -28,7 +28,7 @@ public class UserProfileService : IUserProfileService
     public UserProfileDto GetUserProfile(string userHandle)
     {
         UserProfile userProfile = _bigBrain.GetUserProfileByUserHandle(userHandle);
-        return userProfile.ToDto(_bigBrain.GetGainsAccountByUserHandle(userHandle).DisplayName);
+        return userProfile.ToDto(_bigBrain.GetGainsAccountByUserHandle(userHandle).UserProfile.DisplayName);
     }
 
     public void UpdatePinnedPBs(string userHandle, UpdatePinnedPBsDto pinnedPBsDto)

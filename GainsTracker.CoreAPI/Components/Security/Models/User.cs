@@ -12,10 +12,7 @@ public sealed class User : IdentityUser
     public User(string userHandle, string displayName = "")
     {
         UserName = userHandle;
-        GainsAccount = new GainsAccount(userHandle)
-        {
-            DisplayName = displayName
-        };
+        GainsAccount = new GainsAccount(userHandle, displayName);
 
         // Id stuff for EF.
         GainsAccountId = GainsAccount.Id;

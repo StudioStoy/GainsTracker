@@ -7,8 +7,9 @@ public static class FriendExtensions
 {
     public static FriendRequestDto ToDto(this FriendRequest request)
     {
-        string byName = request.Requester.DisplayName;
-        string toName = request.Recipient.DisplayName;
+        string byName = request.Requester.UserProfile.DisplayName;
+        string toName = request.Recipient.UserProfile.DisplayName;
+        
         byName = !string.IsNullOrEmpty(byName)
             ? byName + $" (@{request.Requester.UserHandle})"
             : request.Requester.UserHandle;

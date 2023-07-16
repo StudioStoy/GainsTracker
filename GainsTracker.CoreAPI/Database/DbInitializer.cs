@@ -130,10 +130,10 @@ public class DbInitializer
         foreach (User u in defaultUsers)
         {
             u.GainsAccount = null;
-            var gains = new GainsAccount(u.UserName!)
+            string display = u.UserName == "stije" ? "DavrozzGaining" : u.UserName == "joyo" ? "DinosaurEnjoyer" : "";
+            var gains = new GainsAccount(u.UserName!, display)
             {
                 UserId = u.Id,
-                DisplayName = u.UserName == "stije" ? "DavrozzGaining" : u.UserName == "joyo" ? "DinosaurEnjoyer" : "",
                 Workouts = new List<Workout>()
             };
             u.GainsAccountId = gains.Id;
@@ -141,10 +141,14 @@ public class DbInitializer
             gains.UserProfile = null;
             var profile = new UserProfile(gains.Id);
             gains.UserProfileId = profile.Id;
+
+            profile.Icon = null;
+            ProfileIcon icon = new(profile.Id);
             
             _builder.Entity<GainsAccount>(gainsTable => gainsTable.HasData(gains));
             _builder.Entity<User>(userTable => userTable.HasData(u));
             _builder.Entity<UserProfile>(userTable => userTable.HasData(profile));
+            _builder.Entity<ProfileIcon>(userTable => userTable.HasData(icon));
         }
     }
 

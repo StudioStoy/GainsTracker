@@ -12,7 +12,7 @@ public static class UserProfileExtensions
         return new UserProfileDto
         {
             Description = userProfile.Description,
-            PictureUrl = userProfile.PictureUrl,
+            IconUrl = userProfile.Icon.Url,
             DisplayName = displayName,
             PinnedPBs = userProfile.PinnedPBs.Select(pb => new MeasurementDto
             {
