@@ -28,7 +28,7 @@ public class UserProfileController : ExtendedControllerBase
     }
 
     /// <summary>
-    ///     Updates all supplied fields of the user profile, including the account's display name.
+    ///     Updates all supplied fields of the user profile.
     /// </summary>
     /// <param name="userProfileDto">The fields to update.</param>
     /// <returns></returns>

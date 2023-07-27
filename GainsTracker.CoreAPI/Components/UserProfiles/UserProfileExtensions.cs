@@ -1,4 +1,5 @@
-﻿using GainsTracker.Common.Models.UserProfiles;
+﻿using System.Drawing;
+using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Common.Models.Workouts.Dto;
 using GainsTracker.CoreAPI.Components.UserProfiles.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
@@ -13,6 +14,7 @@ public static class UserProfileExtensions
         {
             Description = userProfile.Description,
             IconUrl = userProfile.Icon.Url,
+            IconColor = ColorTranslator.ToHtml(Color.FromArgb(userProfile.Icon.PictureColor)),
             DisplayName = displayName,
             PinnedPBs = userProfile.PinnedPBs.Select(pb => new MeasurementDto
             {

@@ -45,7 +45,6 @@
 
     <ItemGroup>
         <Folder Include="wwwroot\css\" />
-        <Folder Include="wwwroot\raw\" />
         <Folder Include="wwwroot\script\" />
     </ItemGroup>
 
