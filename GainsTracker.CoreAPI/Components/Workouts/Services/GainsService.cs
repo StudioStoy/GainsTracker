@@ -5,6 +5,7 @@ using GainsTracker.CoreAPI.Components.Workouts.Data;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Measurements;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
+using GainsTracker.CoreAPI.Shared;
 
 namespace GainsTracker.CoreAPI.Components.Workouts.Services;
 

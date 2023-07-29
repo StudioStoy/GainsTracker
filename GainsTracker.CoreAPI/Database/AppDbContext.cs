@@ -55,7 +55,7 @@ public sealed class AppDbContext : IdentityDbContext<User>
             .HasOne(u => u.GainsAccount)
             .WithOne()
             .HasForeignKey<User>(u => u.GainsAccountId);
-        
+
         modelBuilder.Entity<GainsAccount>()
             .HasOne(u => u.UserProfile)
             .WithOne()
@@ -64,7 +64,8 @@ public sealed class AppDbContext : IdentityDbContext<User>
         modelBuilder.Entity<UserProfile>()
             .HasMany(u => u.PinnedPBs)
             .WithOne()
-            .HasForeignKey(u => u.UserProfileId);
+            .HasForeignKey(u => u.UserProfileId)
+            .IsRequired(false);
 
         modelBuilder.Entity<UserProfile>()
             .HasOne(u => u.Icon)

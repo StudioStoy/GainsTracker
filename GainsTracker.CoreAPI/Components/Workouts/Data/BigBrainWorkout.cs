@@ -1,5 +1,4 @@
 ﻿using GainsTracker.Common.Exceptions;
-using GainsTracker.CoreAPI.Components.Workouts.Models;
 using GainsTracker.CoreAPI.Components.Workouts.Models.Workouts;
 using GainsTracker.CoreAPI.Database;
 using Microsoft.EntityFrameworkCore;

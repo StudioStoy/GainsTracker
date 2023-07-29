@@ -3,6 +3,7 @@ using GainsTracker.CoreAPI.Components.Friends.Data;
 using GainsTracker.CoreAPI.Components.Friends.Models;
 using GainsTracker.CoreAPI.Components.Friends.Models.Exceptions;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
+using GainsTracker.CoreAPI.Shared;
 
 namespace GainsTracker.CoreAPI.Components.Friends.Services;
 
