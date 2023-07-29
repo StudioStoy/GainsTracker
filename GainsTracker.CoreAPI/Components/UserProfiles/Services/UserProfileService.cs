@@ -1,7 +1,8 @@
 using DotnetBadWordDetector;
 using GainsTracker.Common.Models.UserProfiles;
+using GainsTracker.Common.Models.Workouts.Dto;
 using GainsTracker.CoreAPI.Components.UserProfiles.Data;
-using GainsTracker.CoreAPI.Components.UserProfiles.Models;
+using GainsTracker.CoreAPI.Shared;
 
 namespace GainsTracker.CoreAPI.Components.UserProfiles.Services;
 
@@ -27,12 +28,18 @@ public class UserProfileService : IUserProfileService
 
     public UserProfileDto GetUserProfile(string userHandle)
     {
-        UserProfile userProfile = _bigBrain.GetUserProfileByUserHandle(userHandle);
-        return userProfile.ToDto(_bigBrain.GetGainsAccountByUserHandle(userHandle).UserProfile.DisplayName);
+        return _bigBrain
+            .GetUserProfileByUserHandle(userHandle, () => u => u.Icon)
+            .ToDto();
+    }
+
+    public List<MeasurementDto> GetPinnedPBs(string userHandle)
+    {
+        return _bigBrain.GetPinnedPBs(userHandle);
     }
 
     public void UpdatePinnedPBs(string userHandle, UpdatePinnedPBsDto pinnedPBsDto)
     {
-        throw new NotImplementedException();
+        _bigBrain.AddAndRemovePBs(userHandle, pinnedPBsDto);
     }
 }

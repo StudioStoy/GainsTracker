@@ -19,6 +19,7 @@ public class UserProfileController : ExtendedControllerBase
     }
 
     /// <summary>
+    ///     Get the user's profile (icon is included).
     /// </summary>
     /// <returns></returns>
     [HttpGet]
@@ -39,10 +40,25 @@ public class UserProfileController : ExtendedControllerBase
         return NoContent();
     }
 
+    /// <summary>
+    ///     Add or remove pinned PB's to the user's profile.
+    /// </summary>
+    /// <param name="pinnedPBsDto">The PBs to add and to remove.</param>
+    /// <returns></returns>
     [HttpPatch("pinned-pbs")]
     public IActionResult UpdatePinnedPBs(UpdatePinnedPBsDto pinnedPBsDto)
     {
         _userProfileService.UpdatePinnedPBs(CurrentUsername, pinnedPBsDto);
         return NoContent();
+    }
+
+    /// <summary>
+    ///     Get the pinned PB's of the user's profile.
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("pinned-pbs")]
+    public IActionResult GetPinnedPBs()
+    {
+        return Ok(_userProfileService.GetPinnedPBs(CurrentUsername));
     }
 }

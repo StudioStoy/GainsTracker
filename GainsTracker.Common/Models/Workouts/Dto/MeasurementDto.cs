@@ -5,6 +5,7 @@ namespace GainsTracker.Common.Models.Workouts.Dto;
 
 public class MeasurementDto
 {
+    public string Id { get; set; } = string.Empty;
     public string WorkoutId { get; set; } = string.Empty;
     public ExerciseCategory Category { get; set; }
     public DateTime TimeOfRecord { get; set; }

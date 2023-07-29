@@ -1,4 +1,5 @@
-﻿using GainsTracker.Common.Exceptions;
+﻿using System.Linq.Expressions;
+using GainsTracker.Common.Exceptions;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
 
 namespace GainsTracker.CoreAPI.Database;
@@ -11,6 +12,8 @@ namespace GainsTracker.CoreAPI.Database;
 /// </remarks>
 public abstract class BigBrain
 {
+    public delegate Expression<Func<T, object>> PropertyToInclude<T>();
+
     protected readonly AppDbContext Context;
 
     protected BigBrain(AppDbContext context)
