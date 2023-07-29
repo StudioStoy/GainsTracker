@@ -19,13 +19,14 @@ public class BigBrainUserProfile : BigBrain
     public UserProfile GetUserProfileByUserHandle(string userHandle, params PropertyToInclude<UserProfile>[] properties)
     {
         string gainsId = GetGainsIdByUsername(userHandle);
+        List<PropertyToInclude<UserProfile>> includes = properties.ToList();
 
         // If there's no include expression provided, get the standard user profile with icon.
-        if (properties.Length <= 0)
-            properties.ToList().Add(() => up => up.Icon);
+        if (includes.Count <= 0)
+            includes.Add(() => up => up.Icon);
 
         IQueryable<UserProfile> query = Context.UserProfiles.AsQueryable();
-        foreach (PropertyToInclude<UserProfile> property in properties)
+        foreach (PropertyToInclude<UserProfile> property in includes)
             query = query.Include(property.Invoke());
 
         return query.FirstOrDefault(e => e.GainsAccountId == gainsId)
