@@ -16,6 +16,11 @@ public class AuthenticationController : ControllerBase
         _authenticationService = authenticationService;
     }
 
+    /// <summary>
+    ///     Login with the given credentials. If valid, returns a JWT.
+    /// </summary>
+    /// <param name="request">The DTO containing the user credentials</param>
+    /// <returns>A JWT Bearer token to make subsequent requests with.</returns>
     [AllowAnonymous]
     [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
@@ -25,6 +30,11 @@ public class AuthenticationController : ControllerBase
         return Ok(await _authenticationService.Login(request));
     }
 
+    /// <summary>
+    ///     Registers a new user with the given fields.
+    /// </summary>
+    /// <param name="request">The DTO containing the user data, optionally a display name.</param>
+    /// <returns></returns>
     [AllowAnonymous]
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]

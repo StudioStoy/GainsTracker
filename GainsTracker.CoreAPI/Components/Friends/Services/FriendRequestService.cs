@@ -3,6 +3,7 @@ using GainsTracker.CoreAPI.Components.Friends.Data;
 using GainsTracker.CoreAPI.Components.Friends.Models;
 using GainsTracker.CoreAPI.Components.Friends.Models.Exceptions;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
+using GainsTracker.CoreAPI.Shared;
 
 namespace GainsTracker.CoreAPI.Components.Friends.Services;
 
@@ -17,7 +18,7 @@ public class FriendRequestService : IFriendRequestService
 
     public FriendRequestOverviewDto GetFriendRequests(string userHandle)
     {
-        string accountId = _bigBrain.GetGainsAccountByUsername(userHandle).Id;
+        string accountId = _bigBrain.GetGainsAccountByUserHandle(userHandle).Id;
         GainsAccount user = _bigBrain.GetFriendInfoByGainsId(accountId);
 
         return new FriendRequestOverviewDto
@@ -31,8 +32,8 @@ public class FriendRequestService : IFriendRequestService
     {
         CheckFriendshipStatus(userHandle, friendHandle);
 
-        GainsAccount user = _bigBrain.GetGainsAccountByUsername(userHandle);
-        GainsAccount potentialFriend = _bigBrain.GetGainsAccountByUsername(friendHandle);
+        GainsAccount user = _bigBrain.GetGainsAccountByUserHandle(userHandle);
+        GainsAccount potentialFriend = _bigBrain.GetGainsAccountByUserHandle(friendHandle);
 
         user.SentFriendRequest(potentialFriend);
         _bigBrain.SaveContext();
@@ -54,7 +55,7 @@ public class FriendRequestService : IFriendRequestService
 
     public List<Friend> GetFriends(string userHandle)
     {
-        GainsAccount gainsAccount = _bigBrain.GetGainsAccountByUsername(userHandle);
+        GainsAccount gainsAccount = _bigBrain.GetGainsAccountByUserHandle(userHandle);
         List<Friend> friends = _bigBrain.GetFriendsByGainsId(gainsAccount.Id);
 
         return friends;

@@ -39,8 +39,6 @@ public static class Program
             
             bool resetDatabase = args.Length > 0 && args[0].ToBool();
             app.ResetAndUpdateDatabase(resetDatabase);
-            // if (!resetDatabase)
-            //     app.EnsureDatabaseIsCreated();
         }
 
         if (!app.Environment.IsDevelopment())

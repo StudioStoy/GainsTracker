@@ -1,4 +1,5 @@
-﻿using GainsTracker.Common.Exceptions;
+﻿using System.Linq.Expressions;
+using GainsTracker.Common.Exceptions;
 using GainsTracker.CoreAPI.Components.Workouts.Models;
 
 namespace GainsTracker.CoreAPI.Database;
@@ -11,6 +12,8 @@ namespace GainsTracker.CoreAPI.Database;
 /// </remarks>
 public abstract class BigBrain
 {
+    public delegate Expression<Func<T, object>> PropertyToInclude<T>();
+
     protected readonly AppDbContext Context;
 
     protected BigBrain(AppDbContext context)
@@ -23,7 +26,7 @@ public abstract class BigBrain
         Context.SaveChanges();
     }
 
-    public GainsAccount GetGainsAccountByUsername(string userHandle)
+    public GainsAccount GetGainsAccountByUserHandle(string userHandle)
     {
         GainsAccount? gains = Context.GainsAccounts.FirstOrDefault(gains =>
             string.Equals(gains.UserHandle.ToLower(), userHandle.ToLower()));
