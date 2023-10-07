@@ -8,6 +8,8 @@ namespace GainsTracker.UI.Services;
 
 public class GainsAuthService : IGainsAuthService
 {
+    const string url = $"{BaseUrl}/auth";
+
     private readonly HttpClient _httpClient;
 
     public GainsAuthService(HttpClient httpClient)
@@ -39,8 +41,6 @@ public class GainsAuthService : IGainsAuthService
 
     public async Task<bool> SignUp(string email, string password)
     {
-        const string url = $"{BaseUrl}/authentication/register";
-
         try
         {
             JsonObject loginDto = new()
@@ -54,7 +54,7 @@ public class GainsAuthService : IGainsAuthService
             };
 
             StringContent content = new(loginDto.ToString(), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _httpClient.PostAsync(url, content);
+            HttpResponseMessage response = await _httpClient.PostAsync($"{url}/register", content);
 
             ValidateResponse(response);
 
@@ -71,8 +71,6 @@ public class GainsAuthService : IGainsAuthService
 
     public async Task<bool> Login(string email, string password)
     {
-        const string url = $"{BaseUrl}/authentication/login";
-
         try
         {
             JsonObject loginDto = new()
@@ -81,7 +79,7 @@ public class GainsAuthService : IGainsAuthService
                 { "password", password }
             };
             StringContent content = new(loginDto.ToString(), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _httpClient.PostAsync(url, content);
+            HttpResponseMessage response = await _httpClient.PostAsync($"{url}/login", content);
 
             ValidateResponse(response);
 
@@ -102,18 +100,22 @@ public class GainsAuthService : IGainsAuthService
     // For now a quick and dirty way :).
     private async void ValidateResponse(HttpResponseMessage response)
     {
-        if (response == null) throw new ArgumentException("no response.");
-
-        string token = await response.Content.ReadAsStringAsync();
-        if (string.IsNullOrEmpty(token)) throw new ArgumentException("No valid token.");
+        if (response == null) 
+            throw new ArgumentException("no response.");
 
         if (response.IsSuccessStatusCode) return;
 
-        throw response.StatusCode switch
+        Exception throwable = response.StatusCode switch
         {
-            HttpStatusCode.NotFound => new ArgumentException("not found."),
+            HttpStatusCode.NotFound => new ArgumentException("Not found."),
             HttpStatusCode.BadRequest => new ArgumentException("Credentials not valid."),
-            _ => new ArgumentOutOfRangeException()
         };
+
+        if (throwable != null)
+            throw throwable;
+        
+        string token = await response.Content.ReadAsStringAsync();
+        if (string.IsNullOrEmpty(token)) 
+            throw new ArgumentException("No valid token.");
     }
 }

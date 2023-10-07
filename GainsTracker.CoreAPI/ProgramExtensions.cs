@@ -3,6 +3,8 @@
 using System.Security.Claims;
 using System.Text;
 using DotNetEnv;
+using GainsTracker.CoreAPI.Components.Friends.Data;
+using GainsTracker.CoreAPI.Components.Friends.Services;
 using GainsTracker.CoreAPI.Components.HealthMetrics.Data;
 using GainsTracker.CoreAPI.Components.HealthMetrics.Services;
 using GainsTracker.CoreAPI.Components.Security.Models;
@@ -33,6 +35,7 @@ public static class ProgramExtensions
     {
         builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
         builder.Services.AddScoped<IGainsService, GainsService>();
+        builder.Services.AddScoped<IFriendService, FriendService>();
         builder.Services.AddScoped<IMeasurementService, MeasurementService>();
         builder.Services.AddScoped<IHealthMetricService, HealthMetricService>();
         builder.Services.AddScoped<ICatalogService, CatalogService>();
@@ -40,6 +43,7 @@ public static class ProgramExtensions
         builder.Services.AddScoped<BigBrainWorkout>();
         builder.Services.AddScoped<BigBrainHealthMetric>();
         builder.Services.AddScoped<BigBrainUserProfile>();
+        builder.Services.AddScoped<BigBrainFriend>();
     }
 
     /// <summary>
