@@ -32,8 +32,8 @@ img {
     align-items: center;
     border-radius: 10px;
     
-    height: 15vh;
-    max-width: 400px;
+    height: 12vh;
+    width: 80%;
     padding: 1rem;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -47,4 +47,15 @@ h1 {
 p {
     margin: 0.5rem 0 1rem 0;
     font-size: 18px;
+}
+
+h2 {
+     color: white;
+}
+
+.recent-pbs, .goals {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    margin-left: 3rem;
 }

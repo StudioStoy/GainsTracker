@@ -1,4 +1,6 @@
 ﻿@page "/dashboard"
+@using GainsTracker.UI.Services
+@inject IGainsTrackerService GainsTrackerService;
 <!doctype html>
     <meta name="viewport" content="width=device-width"/>
 <div class="content-holder">
@@ -8,7 +10,26 @@
             <h1>Welcome, gainer!</h1>
             <p>Swole is the goal, size is the price</p>
         </div>
-        <div class="recent-pbs"></div>
-        <div class="goals"></div>
+        <div class="recent-pbs">
+            <h2>Recent personal bests</h2>
+            <button @onclick="GetPbs">aaa</button>
+            <ul class="recent-pbs-list"></ul>
+        </div>
+        <div class="goals">
+            <h2>Your goals</h2>
+        </div>
     </div>
 </div>
+
+@code {
+    private async void GetPbs()
+    {
+        var pbs = await GainsTrackerService.GetUserWorkouts();
+        Console.WriteLine(pbs);
+    }
+
+    private async void GetGoals()
+    {
+        
+    }
+}

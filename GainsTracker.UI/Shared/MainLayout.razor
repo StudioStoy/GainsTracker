@@ -5,7 +5,7 @@
 <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 
 <div class="page">
-    @if (NavManager.Uri.Split("/").Last() != "login")
+    @if (NavManager.Uri.Split("/").Last() != "login" && NavManager.Uri.Split("/").Last() != "register" && NavManager.Uri.Split("/").Last() != "forgot")
     {
         <header class="navigation">
             <NavMenu/>

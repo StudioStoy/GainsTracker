@@ -10,8 +10,8 @@
         <input id="username-input" placeholder=" Username" @bind="UserHandle"/>
         <input id="password-input" type="password" placeholder=" Password" @bind="Password"/>
         <button class="btn btn-primary" @onclick="Login">Login</button>
-        <p>Don't have an account yet? No worries! You can make one <a href="">here</a>.</p>
-        <a id="forgot-password">Forgot password?</a>
+        <p>Don't have an account yet? No worries! You can make one <a href="/register">here</a>.</p>
+        <a id="forgot-password" href="/forgot">Forgot password?</a>
     </div>
 </div>
 
@@ -21,8 +21,10 @@
 
     private async void Login()
     {
-        await AuthService.Login(UserHandle, Password);
-        NavigationManager.NavigateTo("/dashboard");
-
+        var loggedIn = await AuthService.Login(UserHandle, Password);
+        if (loggedIn)
+            NavigationManager.NavigateTo("/dashboard");
+        else
+            Console.WriteLine("uh oh");
     }
 }
