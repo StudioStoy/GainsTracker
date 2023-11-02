@@ -14,7 +14,7 @@ public class GainsAccount
     {
         Id = Guid.NewGuid().ToString();
         UserHandle = userHandle;
-        UserProfile = new UserProfile(Id, displayName);
+        UserProfile = new UserProfile(Id, string.IsNullOrWhiteSpace(displayName) ? userHandle : displayName);
         UserProfileId = UserProfile.Id;
     }
 
@@ -49,8 +49,6 @@ public class GainsAccount
         Metrics.Add(trackableGoal);
     }
 
-    // This method is not always reliable, as EF core usually loads entities in without all properties.
-    // Because of this they can appear empty even though they are not. So always also check in the service layer.
     private void CheckFriendRequests(string friendName)
     {
         if (SentFriendRequests.Any(req =>

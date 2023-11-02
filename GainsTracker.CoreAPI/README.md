@@ -1,6 +1,6 @@
 # GainsTracker CoreAPI
 
-This is a guide on how to get started and explains the basic gist of this project
+This is a guide on how to get started and explains the basic gist of this project.
 
 > This is part of the [**GainsTracker**](https://github.com/StudioStoy/GainsTracker) project.
 

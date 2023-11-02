@@ -56,75 +56,9 @@ public class DbInitializer
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
-        User damian = new("BINO")
-        {
-            Id = CreateId(),
-            NormalizedUserName = "BINO",
-            Email = "test@studiostoy.nl",
-            EmailConfirmed = false,
-            NormalizedEmail = "TEST@STUDIOSTOY.NL",
-            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "user"),
-            SecurityStamp = Guid.NewGuid().ToString()
-        };
-
-        User soep = new("soep")
-        {
-            Id = CreateId(),
-            NormalizedUserName = "SOEP",
-            Email = "test@studiostoy.nl",
-            EmailConfirmed = false,
-            NormalizedEmail = "TEST@STUDIOSTOY.NL",
-            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "user"),
-            SecurityStamp = Guid.NewGuid().ToString()
-        };
-
-        User eef = new("eef")
-        {
-            Id = CreateId(),
-            NormalizedUserName = "EEF",
-            Email = "test@studiostoy.nl",
-            EmailConfirmed = false,
-            NormalizedEmail = "TEST@STUDIOSTOY.NL",
-            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "user"),
-            SecurityStamp = Guid.NewGuid().ToString()
-        };
-
-        User jordt = new("jordt")
-        {
-            Id = CreateId(),
-            NormalizedUserName = "JORDT",
-            Email = "test@studiostoy.nl",
-            EmailConfirmed = false,
-            NormalizedEmail = "TEST@STUDIOSTOY.NL",
-            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "user"),
-            SecurityStamp = Guid.NewGuid().ToString()
-        };
-
-        User sanda = new("sanda")
-        {
-            Id = CreateId(),
-            NormalizedUserName = "SANDA",
-            Email = "test@studiostoy.nl",
-            EmailConfirmed = false,
-            NormalizedEmail = "TEST@STUDIOSTOY.NL",
-            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "user"),
-            SecurityStamp = Guid.NewGuid().ToString()
-        };
-
-        User naoh = new("naoh")
-        {
-            Id = CreateId(),
-            NormalizedUserName = "NAOH",
-            Email = "test@studiostoy.nl",
-            EmailConfirmed = false,
-            NormalizedEmail = "TEST@STUDIOSTOY.NL",
-            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "user"),
-            SecurityStamp = Guid.NewGuid().ToString()
-        };
-
         List<User> defaultUsers = new()
         {
-            stije, joyo, damian, soep, eef, jordt, sanda, naoh
+            stije, joyo
         };
 
         foreach (User u in defaultUsers)

@@ -22,7 +22,7 @@ public static class ModelBuilderExtensions
 
     /// <summary>
     ///     Converts the enum names in the database to string format.
-    ///     Add any new enums here to make sure they get converted properly
+    ///     Add any new enum classes here to make sure they get converted properly
     /// </summary>
     public static void ConvertEnumsToStrings(this ModelBuilder builder)
     {

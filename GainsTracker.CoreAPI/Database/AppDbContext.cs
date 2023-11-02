@@ -46,30 +46,39 @@ public sealed class AppDbContext : IdentityDbContext<User>
     }
 
     // In here, all the many-to-one, one-to-one, etc relations are managed.
+    // Also auto-includes.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ConfigureRelationModels();
         modelBuilder.ConvertEnumsToStrings();
 
-        modelBuilder.Entity<User>()
-            .HasOne(u => u.GainsAccount)
-            .WithOne()
-            .HasForeignKey<User>(u => u.GainsAccountId);
+        modelBuilder.Entity<User>(user =>
+        {
+            user.HasOne(u => u.GainsAccount)
+                .WithOne()
+                .HasForeignKey<User>(u => u.GainsAccountId);
+        });
+        
+        modelBuilder.Entity<GainsAccount>(gainsAccount =>
+        {
+            gainsAccount.HasOne(u => u.UserProfile)
+                .WithOne()
+                .HasForeignKey<GainsAccount>(u => u.UserProfileId);
 
-        modelBuilder.Entity<GainsAccount>()
-            .HasOne(u => u.UserProfile)
-            .WithOne()
-            .HasForeignKey<GainsAccount>(u => u.UserProfileId);
+            gainsAccount.Navigation(g => g.SentFriendRequests).AutoInclude();
+            gainsAccount.Navigation(g => g.ReceivedFriendRequests).AutoInclude();
+        });
+        
+        modelBuilder.Entity<UserProfile>(userProfile =>
+        {
+            userProfile.HasMany(u => u.PinnedPBs)
+                .WithOne()
+                .HasForeignKey(u => u.UserProfileId)
+                .IsRequired(false);
 
-        modelBuilder.Entity<UserProfile>()
-            .HasMany(u => u.PinnedPBs)
-            .WithOne()
-            .HasForeignKey(u => u.UserProfileId)
-            .IsRequired(false);
-
-        modelBuilder.Entity<UserProfile>()
-            .HasOne(u => u.Icon)
-            .WithOne();
+            userProfile.HasOne(u => u.Icon)
+                .WithOne();
+        });
 
         new DbInitializer(modelBuilder).Seed();
 

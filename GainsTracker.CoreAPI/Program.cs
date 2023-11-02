@@ -30,8 +30,8 @@ public static class Program
 
         WebApplication app = builder.Build();
 
-        var env = app.Environment;
         // Configure the HTTP request pipeline.
+        var env = app.Environment;
         if (env.IsDevelopment() || env.IsEnvironment("Docker") || env.EnvironmentName == "Staging")
         {
             app.UseSwagger();
