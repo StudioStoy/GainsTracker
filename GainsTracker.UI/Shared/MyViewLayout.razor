@@ -1,0 +1,49 @@
+﻿@inherits BlazorTransitionableRoute.TransitionableLayoutComponent
+@using GainsTracker.UI.Pages
+@using Transition = BlazorTransitionableRoute.Transition
+
+<div class="transition @TransitioningClass @(Transition.IntoView ? "transitioned" : "transitioned_behind")">
+    @Body
+</div>
+
+<style>
+    .transition {
+        position: absolute;
+    }
+    .transitioned {
+        z-index: 1;
+    }
+    .transitioned_behind {
+        z-index: 0;
+    }
+</style>
+
+@code {
+    private string TransitioningClass => Transition.FirstRender
+        ? "" : $"animate__{TransitioningEffect()} animate__faster animate__animated";
+
+    private string TransitioningEffect()
+    {
+        KeyValuePair<(Type from, Type to), (string effectOut, string effectIn)>? transition = _epicTransitions.FirstOrDefault(pair => pair.Key == (TransitionType.fromType, TransitionType.toType));
+        
+        if (transition != null)
+            return Transition.IntoView ? transition.Value.Value.effectIn : transition.Value.Value.effectOut;
+
+        var effect = Transition.IntoView ? "fadeIn" : "fadeOut";
+        var direction = Transition.Backwards ? "Up" : "Down";
+        return effect + direction;
+    }
+
+    // Add all transitions here for each page to page route.
+    private List<KeyValuePair<(Type from, Type to), (string effectOut, string effectIn)>> _epicTransitions = new()
+    {
+        TransitionHelper.FromTo(typeof(LoginPage), typeof(Dashboard), TransitionDirection.Up),
+        TransitionHelper.FromTo(typeof(Dashboard), typeof(LoginPage), TransitionDirection.Down),
+        TransitionHelper.FromTo(typeof(Dashboard), typeof(Activity), TransitionDirection.Right),
+        TransitionHelper.FromTo(typeof(Dashboard), typeof(UserProfile), TransitionDirection.Right),
+        TransitionHelper.FromTo(typeof(Activity), typeof(Dashboard), TransitionDirection.Left),
+        TransitionHelper.FromTo(typeof(Activity), typeof(UserProfile), TransitionDirection.Right),
+        TransitionHelper.FromTo(typeof(UserProfile), typeof(Dashboard), TransitionDirection.Left),
+        TransitionHelper.FromTo(typeof(UserProfile), typeof(Activity), TransitionDirection.Left),
+    };
+}

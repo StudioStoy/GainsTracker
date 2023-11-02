@@ -2,10 +2,17 @@
 <Router AppAssembly="@GetType().Assembly"
         AdditionalAssemblies="new[] { typeof(MainLayout).Assembly }">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
-        <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <TransitionableRoutePrimary RouteData="@routeData" ForgetStateOnTransition="true">
+                <TransitionableRouteView DefaultLayout="@typeof(MyViewLayout)" />
+            </TransitionableRoutePrimary>
+            <TransitionableRouteSecondary RouteData="@routeData" ForgetStateOnTransition="true">
+                <TransitionableRouteView DefaultLayout="@typeof(MyViewLayout)" />
+            </TransitionableRouteSecondary>
+        </LayoutView>
     </Found>
     <NotFound>
+        <PageTitle>Not found</PageTitle>
         <LayoutView Layout="@typeof(MainLayout)">
             <p role="alert">Sorry, there's nothing at this address.</p>
         </LayoutView>

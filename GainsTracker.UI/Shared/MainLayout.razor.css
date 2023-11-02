@@ -6,6 +6,8 @@
     height: 100%;
     width: 100%;
     overflow: hidden;
+    justify-content: center;
+    align-items: center;
 }
 
 main {
@@ -13,6 +15,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
     flex-direction: column;
 }
 
@@ -26,9 +29,11 @@ main {
 
 .content {
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 /* For tablet up to desktop */

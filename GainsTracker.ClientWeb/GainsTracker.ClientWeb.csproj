@@ -34,4 +34,8 @@
       <None Include="wwwroot\Images\logo.png" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="BlazorTransitionableRoute" Version="4.0.0" />
+    </ItemGroup>
+
 </Project>
