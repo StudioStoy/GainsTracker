@@ -15,6 +15,7 @@ modules/
 .ionide/
 
 *.env
+*.DotSettings
 
 # File extensions
 *.aps

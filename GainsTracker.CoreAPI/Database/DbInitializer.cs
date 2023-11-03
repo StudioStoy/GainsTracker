@@ -17,6 +17,7 @@ public class DbInitializer
         _builder = builder;
     }
 
+    // Seeding will only work after an initial migration has been done.
     public void Seed()
     {
         Console.WriteLine("seeding db..");
