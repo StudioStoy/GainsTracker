@@ -8,7 +8,7 @@ namespace GainsTracker.CoreAPI.Components.Workouts.Models;
 
 public class GainsAccount
 {
-    public GainsAccount() {}
+    private GainsAccount() {}
     
     public GainsAccount(string userHandle, string displayName = "")
     {
@@ -18,9 +18,9 @@ public class GainsAccount
         UserProfileId = UserProfile.Id;
     }
 
-    public string UserHandle { get; set; }
+    public string UserHandle { get; set; } = "";
 
-    public UserProfile UserProfile { get; set; }
+    public UserProfile UserProfile { get; set; } = null!;
 
     public List<Workout> Workouts { get; set; } = new();
     public List<Metric> Metrics { get; set; } = new();
@@ -62,9 +62,9 @@ public class GainsAccount
 
     #region Relations
 
-    public string Id { get; set; }
-    public string UserId { get; set; }
-    public string UserProfileId { get; set; }
+    public string Id { get; set; } = null!;
+    public string UserId { get; set; } = "";
+    public string UserProfileId { get; set; } = null!;
 
     #endregion
 }

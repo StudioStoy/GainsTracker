@@ -6,8 +6,8 @@ namespace GainsTracker.CoreAPI.Components.UserProfiles.Models;
 [Table("profile_icons")]
 public class ProfileIcon
 {
-    public string Id { get; set; }
-    public string UserProfileId { get; set; }
+    public string Id { get; set; } = "";
+    public string UserProfileId { get; set; } = "";
     
     public int PictureColor { get; set; }
     public string Url { get; set; } = string.Empty;

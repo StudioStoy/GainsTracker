@@ -20,12 +20,10 @@ public class DbInitializer
     public void Seed()
     {
         Console.WriteLine("seeding db..");
-        const string ADMIN_ID = "a18be9c0-aa65-4af8-bd17-00bd9344e575";
-        const string ROLE_ID = ADMIN_ID;
-
+        
         _builder.Entity<IdentityRole>().HasData(new IdentityRole
         {
-            Id = ROLE_ID,
+            Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
             Name = "admin",
             NormalizedName = "ADMIN"
         });
@@ -72,11 +70,11 @@ public class DbInitializer
             };
             u.GainsAccountId = gains.Id;
             
-            gains.UserProfile = null;
+            gains.UserProfile = null!;
             var profile = new UserProfile(gains.Id);
             gains.UserProfileId = profile.Id;
 
-            profile.Icon = null;
+            profile.Icon = null!;
             ProfileIcon icon = new(profile.Id);
             
             _builder.Entity<GainsAccount>(gainsTable => gainsTable.HasData(gains));

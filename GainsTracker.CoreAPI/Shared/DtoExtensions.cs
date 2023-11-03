@@ -14,10 +14,13 @@ public static class DtoExtensions
 {
     public static List<TDto> ToDtoList<TModel, TDto>(this IEnumerable<TModel> items)
     {
-        List<TDto> dtoList = new List<TDto>();
+        List<TDto> dtoList = new();
 
         foreach (TModel item in items)
         {
+            if (item == null)
+                continue;
+            
             // Finds the ToDto() extension method based on the item's type.
             MethodInfo? toDtoMethod = typeof(DtoExtensions)
                 .GetMethods(BindingFlags.Public | BindingFlags.Static)
@@ -32,8 +35,9 @@ public static class DtoExtensions
                     $"ToDto method not found for type {typeof(TModel).Name}");
 
             // Invokes the ToDto() extension method and adds the result to the DTO list.
-            TDto? dtoItem = (TDto) toDtoMethod.Invoke(null, new object[] { item });
-            dtoList.Add(dtoItem);
+            TDto? dtoItem = (TDto?) toDtoMethod.Invoke(null, new object[] { item });
+            if (dtoItem != null) 
+                dtoList.Add(dtoItem);
         }
 
         return dtoList;

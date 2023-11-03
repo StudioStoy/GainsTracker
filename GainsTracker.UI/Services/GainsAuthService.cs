@@ -8,7 +8,7 @@ namespace GainsTracker.UI.Services;
 
 public class GainsAuthService : IGainsAuthService
 {
-    const string url = $"{BaseUrl}/auth";
+    private const string Url = $"{BaseUrl}/auth";
 
     private readonly HttpClient _httpClient;
 
@@ -54,7 +54,7 @@ public class GainsAuthService : IGainsAuthService
             };
 
             StringContent content = new(loginDto.ToString(), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _httpClient.PostAsync($"{url}/register", content);
+            HttpResponseMessage response = await _httpClient.PostAsync($"{Url}/register", content);
 
             ValidateResponse(response);
 
@@ -79,7 +79,7 @@ public class GainsAuthService : IGainsAuthService
                 { "password", password }
             };
             StringContent content = new(loginDto.ToString(), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _httpClient.PostAsync($"{url}/login", content);
+            HttpResponseMessage response = await _httpClient.PostAsync($"{Url}/login", content);
 
             ValidateResponse(response);
 
@@ -109,6 +109,7 @@ public class GainsAuthService : IGainsAuthService
         {
             HttpStatusCode.NotFound => new ArgumentException("Not found."),
             HttpStatusCode.BadRequest => new ArgumentException("Credentials not valid."),
+            _ => throw new ArgumentOutOfRangeException()
         };
 
         if (throwable != null)
