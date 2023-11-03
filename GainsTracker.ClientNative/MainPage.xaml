@@ -3,9 +3,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:GainsTracker.ClientNative"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
              x:Class="GainsTracker.ClientNative.MainPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
 
+    <Page.Behaviors>
+        <mct:StatusBarBehavior StatusBarColor="#499C48" StatusBarStyle="DarkContent"/>
+    </Page.Behaviors>
+    
     <BlazorWebView x:Name="blazorWebView" HostPage="wwwroot/index.html">
         <BlazorWebView.RootComponents>
             <RootComponent Selector="#app" ComponentType="{x:Type local:Main}" />

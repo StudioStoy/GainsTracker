@@ -1,4 +1,5 @@
-﻿using GainsTracker.UI.Services;
+﻿using CommunityToolkit.Maui;
+using GainsTracker.UI.Services;
 using Microsoft.Extensions.Logging;
 
 namespace GainsTracker.ClientNative;
@@ -10,6 +11,7 @@ public static class MauiProgram
         MauiAppBuilder builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts => { fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular"); });
 
         builder.Services.AddMauiBlazorWebView();

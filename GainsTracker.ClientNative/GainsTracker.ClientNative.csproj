@@ -33,14 +33,10 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#512BD4" />
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#499C48" />
 
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
-
-        <!-- Images -->
-        <MauiImage Include="Resources\Images\*" />
-        <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+        <MauiSplashScreen Include="Resources\Splash\logo.svg" Color="#499C48" BaseSize="128,128" />
 
         <!-- Custom Fonts -->
         <MauiFont Include="Resources\Fonts\*" />
@@ -52,6 +48,7 @@
 
     <ItemGroup>
         <PackageReference Include="BlazorTransitionableRoute" Version="4.0.0" />
+        <PackageReference Include="CommunityToolkit.Maui" Version="6.1.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
     </ItemGroup>
 
@@ -61,5 +58,23 @@
 
     <ItemGroup>
         <ProjectReference Include="..\GainsTracker.Common\GainsTracker.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="Resources\Splash\logo.png">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AndroidResource Update="Platforms\Android\Resources\values-night\colors.xml">
+        <SubType>Designer</SubType>
+        <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      </AndroidResource>
+      <AndroidResource Update="Platforms\Android\Resources\values-night\styles.xml">
+        <SubType>Designer</SubType>
+        <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      </AndroidResource>
     </ItemGroup>
 </Project>
