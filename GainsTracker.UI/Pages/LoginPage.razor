@@ -1,7 +1,7 @@
 ﻿@page "/login"
 @using GainsTracker.UI.Services
 @inject IGainsAuthService AuthService;  
-@inject NavigationManager Navigation;  
+@inject NavigationManager NavigationManager
 
 <div class="div-holder">
     <img src="/Images/logo.png" alt="Gainstracker Logo"/>
@@ -10,8 +10,8 @@
         <input id="username-input" placeholder=" Username" @bind="_userHandle"/>
         <input id="password-input" type="password" placeholder=" Password" @bind="_password"/>
         <button class="btn btn-primary" @onclick="Login">Login</button>
-        <p>Don't have an account yet? No worries! You can make one <a href="">here</a>.</p>
-        <a id="forgot-password">Forgot password?</a>
+        <p>Don't have an account yet? No worries! You can make one <a href="/register">here</a>.</p>
+        <a id="forgot-password" href="/forgot">Forgot password?</a>
     </div>
 </div>
 
@@ -23,6 +23,6 @@
     {
         var loginSuccess = await AuthService.Login(_userHandle, _password);
         if (loginSuccess)
-            Navigation.NavigateTo("/dashboard");
+            NavigationManager.NavigateTo("/dashboard");
     }
 }
