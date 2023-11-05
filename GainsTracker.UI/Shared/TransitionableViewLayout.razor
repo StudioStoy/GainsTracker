@@ -33,7 +33,12 @@
         new()
         {
             TransitionHelper.FromTo(typeof(LoginPage), typeof(DashboardPage), TransitionDirection.Up),
+            TransitionHelper.FromTo(typeof(LoginPage), typeof(RegisterPage), TransitionDirection.Right),
+            TransitionHelper.FromTo(typeof(LoginPage), typeof(ForgotPasswordPage), TransitionDirection.Right),
         
+            TransitionHelper.FromTo(typeof(RegisterPage), typeof(LoginPage), TransitionDirection.Left),
+            TransitionHelper.FromTo(typeof(ForgotPasswordPage), typeof(LoginPage), TransitionDirection.Left),
+
             TransitionHelper.FromTo(typeof(DashboardPage), typeof(LoginPage), TransitionDirection.Down),
             TransitionHelper.FromTo(typeof(DashboardPage), typeof(LoggingPage), TransitionDirection.Right),
             TransitionHelper.FromTo(typeof(DashboardPage), typeof(ActivityPage), TransitionDirection.Right),
