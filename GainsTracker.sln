@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{58C9D6C1-BFB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CAFFB1CA-03B8-4CEA-9D82-E5DBCBA444D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.ClientWebAssembly", "GainsTracker.ClientWebAssembly\GainsTracker.ClientWebAssembly.csproj", "{322D7D2F-F1CF-4D15-AE71-214C1B9F117E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{B1508A96-07FE-44C3-B4F8-68AC203AEBB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1508A96-07FE-44C3-B4F8-68AC203AEBB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1508A96-07FE-44C3-B4F8-68AC203AEBB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{322D7D2F-F1CF-4D15-AE71-214C1B9F117E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{322D7D2F-F1CF-4D15-AE71-214C1B9F117E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{322D7D2F-F1CF-4D15-AE71-214C1B9F117E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{322D7D2F-F1CF-4D15-AE71-214C1B9F117E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,5 +76,6 @@ Global
 		{4354990B-2912-4953-B842-B126AD299B1E} = {58C9D6C1-BFB6-40C2-B43A-B4A7E0321DE7}
 		{5196C9DD-7FFE-4729-8A63-7BC7046A907C} = {CAFFB1CA-03B8-4CEA-9D82-E5DBCBA444D6}
 		{75BFFEC2-C80D-43D0-8FD4-FAEDA0FF4F9F} = {CAFFB1CA-03B8-4CEA-9D82-E5DBCBA444D6}
+		{322D7D2F-F1CF-4D15-AE71-214C1B9F117E} = {58C9D6C1-BFB6-40C2-B43A-B4A7E0321DE7}
 	EndGlobalSection
 EndGlobal
