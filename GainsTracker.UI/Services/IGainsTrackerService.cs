@@ -3,4 +3,5 @@
 public interface IGainsTrackerService
 {
     public Task<string> GetUserWorkouts();
+    public void GetPersonalBests();
 }

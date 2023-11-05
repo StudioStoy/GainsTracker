@@ -30,4 +30,9 @@ public class GainsTrackerService : IGainsTrackerService
             return string.Empty;
         }
     }
+
+    public async void GetPersonalBests()
+    {
+        var personalBests = await GetUserWorkouts();
+    }
 }

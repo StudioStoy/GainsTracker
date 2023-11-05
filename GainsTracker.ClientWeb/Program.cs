@@ -9,7 +9,7 @@ builder.Services.AddRazorPages();
 
 // Register dependencies for injection and create app.
 builder.Services.AddScoped<IGainsTrackerService, GainsTrackerService>();
-builder.Services.AddScoped<IGainsAuthService, GainsAuthService>();
+builder.Services.AddScoped<IGainsAuthService, DummyAuthService>();
 builder.Services.AddSingleton<HttpClient>();
 
 WebApplication app = builder.Build();

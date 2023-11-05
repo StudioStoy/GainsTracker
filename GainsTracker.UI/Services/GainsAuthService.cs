@@ -71,7 +71,7 @@ public class GainsAuthService : IGainsAuthService
 
     public async Task<bool> Login(string email, string password)
     {
-        const string url = $"{BaseUrl}/authentication/login";
+        const string url = $"{BaseUrl}/auth/login";
 
         try
         {
