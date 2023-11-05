@@ -1,5 +1,3 @@
-console.log("ElementManipulator initialized");
-
 // The use of 'var' keywords instead of 'const' or 'let' in this file is necessary here for it to function.
 
 var getHeadElement = function () {

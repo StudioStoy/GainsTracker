@@ -1,0 +1,54 @@
+﻿@using GainsTracker.UI.Pages.Login
+@using GainsTracker.UI.Pages
+@inherits TransitionableLayoutComponent
+
+<div class="transition @TransitioningClass @(Transition.IntoView ? "transitioned" : "transitioned_behind")">
+    @Body
+</div>
+
+<style>
+    .transition {
+        position: absolute;
+    }
+</style>
+
+@code {
+    private string TransitioningClass => Transition.FirstRender
+        ? "" : $"animate__{TransitioningEffect()} animate__faster animate__animated";
+
+    private string TransitioningEffect()
+    {
+        KeyValuePair<(Type from, Type to), (string effectOut, string effectIn)>? transition = _epicTransitions.FirstOrDefault(pair => pair.Key == (TransitionType.fromType, TransitionType.toType));
+
+        if (transition != null)
+            return Transition.IntoView ? transition.Value.Value.effectIn : transition.Value.Value.effectOut;
+
+        string effect = Transition.IntoView ? "fadeIn" : "fadeOut";
+        string direction = Transition.Backwards ? "Up" : "Down";
+        return effect + direction;
+    }
+
+    // Add all transitions here for each page to page route.
+    private readonly List<KeyValuePair<(Type from, Type to), (string effectOut, string effectIn)>> _epicTransitions = 
+        new()
+        {
+            TransitionHelper.FromTo(typeof(LoginPage), typeof(DashboardPage), TransitionDirection.Up),
+        
+            TransitionHelper.FromTo(typeof(DashboardPage), typeof(LoginPage), TransitionDirection.Down),
+            TransitionHelper.FromTo(typeof(DashboardPage), typeof(LoggingPage), TransitionDirection.Right),
+            TransitionHelper.FromTo(typeof(DashboardPage), typeof(ActivityPage), TransitionDirection.Right),
+            TransitionHelper.FromTo(typeof(DashboardPage), typeof(UserProfilePage), TransitionDirection.Right),
+        
+            TransitionHelper.FromTo(typeof(ActivityPage), typeof(DashboardPage), TransitionDirection.Left),
+            TransitionHelper.FromTo(typeof(ActivityPage), typeof(LoggingPage), TransitionDirection.Left),
+            TransitionHelper.FromTo(typeof(ActivityPage), typeof(UserProfilePage), TransitionDirection.Right),
+        
+            TransitionHelper.FromTo(typeof(UserProfilePage), typeof(DashboardPage), TransitionDirection.Left),
+            TransitionHelper.FromTo(typeof(UserProfilePage), typeof(LoggingPage), TransitionDirection.Left),
+            TransitionHelper.FromTo(typeof(UserProfilePage), typeof(ActivityPage), TransitionDirection.Left),
+        
+            TransitionHelper.FromTo(typeof(LoggingPage), typeof(DashboardPage), TransitionDirection.Left),
+            TransitionHelper.FromTo(typeof(LoggingPage), typeof(ActivityPage), TransitionDirection.Right),
+            TransitionHelper.FromTo(typeof(LoggingPage), typeof(UserProfilePage), TransitionDirection.Right),
+        };
+}
