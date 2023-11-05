@@ -16,4 +16,4 @@ export PATH=$PATH:$XDG_CACHE_HOME/dotnet;
 dotnet --version 
 
 # Build/publish static ClientWeb site
-dotnet publish
+dotnet publish -c Release
