@@ -23,7 +23,7 @@ main {
 .navigation {
     display: flex;
     flex-direction: column-reverse;
-    background-color: var(--primary-color);
+    background-color: var(--background-color);
     bottom: 0;
     width: 100%;
     border-radius: 10px 10px 0 0;

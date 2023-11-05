@@ -25,7 +25,7 @@ img {
 }
 
 .welcome {
-    background-color: var(--highlight);
+    background-color: var(--background-color);
     display: flex;
     flex-direction: column;
     justify-content: center;

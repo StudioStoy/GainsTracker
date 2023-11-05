@@ -1,33 +1,34 @@
 ﻿<nav class="nav-bar">
     @* Dashboard *@
-    <div class="nav-item">
-        <NavLink class="nav-link" href="dashboard" Match="NavLinkMatch.All">
+    <NavLink class="nav-link" href="dashboard" Match="NavLinkMatch.All" ActiveClass="active-link">
+        <div class="nav-link-info">
             <p class="nav-icon">🏠</p>
             <p class="nav-description">Dashboard</p>
-        </NavLink>
-    </div>
+        </div>
+    </NavLink>
 
     @* Log *@
-    <div class="nav-item">
-        <NavLink class="nav-link" href="logging">
+    <NavLink class="nav-link" href="logging" ActiveClass="active-link">
+        <div class="nav-link-info">
             <p class="nav-icon">📔</p>
             <p class="nav-description">Logging</p>
-        </NavLink>
-    </div>
+        </div>
+    </NavLink>
 
     @* Activity *@
-    <div class="nav-item">
-        <NavLink class="nav-link" href="activities">
+    <NavLink class="nav-link" href="activities" ActiveClass="active-link">
+        <div class="nav-link-info">
             <p class="nav-icon">🔥</p>
             <p class="nav-description">Activities</p>
-        </NavLink>
-    </div>
+        </div>
+    </NavLink>
 
     @* Profile *@
-    <div class="nav-item">
-        <NavLink class="nav-link" href="profile">
+
+    <NavLink class="nav-link" href="profile" ActiveClass="active-link">
+        <div class="nav-link-info">
             <p class="nav-icon">🐮</p>
             <p class="nav-description">Profile</p>
-        </NavLink>
-    </div>
+        </div>
+    </NavLink>
 </nav>
