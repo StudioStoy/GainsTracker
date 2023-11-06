@@ -1,7 +1,9 @@
-﻿namespace GainsTracker.UI.Services;
+﻿using GainsTracker.Common.Models.Workouts.Dto;
+
+namespace GainsTracker.UI.Services;
 
 public interface IGainsTrackerService
 {
-    public Task<string> GetUserWorkouts();
-    public void GetPersonalBests();
+    public Task<List<WorkoutDto>> GetUserWorkouts();
+    public Task<List<MeasurementDto>> GetPersonalBests();
 }
