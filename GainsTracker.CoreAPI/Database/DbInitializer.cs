@@ -44,22 +44,24 @@ public class DbInitializer
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
-        User joyo = new("Joyo")
+        List<User> defaultUsers = new() { stije };
+        
+        foreach (var username in new string[] { "joyo","bino","soep","eef","jordt","sanda","naoh","dyllo","arv","japser"})
         {
-            Id = CreateId(),
-            NormalizedUserName = "JOYO",
-            Email = "joy@studiostoy.nl",
-            EmailConfirmed = false,
-            NormalizedEmail = "JOY@STUDIOSTOY.NL",
-            PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "user"),
-            SecurityStamp = Guid.NewGuid().ToString()
-        };
-
-        List<User> defaultUsers = new()
-        {
-            stije, joyo
-        };
-
+            User newUser = new(username)
+            {
+                Id = CreateId(),
+                NormalizedUserName = username.ToUpper(),
+                Email = $"{username}@gainstracker.nl",
+                EmailConfirmed = true,
+                NormalizedEmail = $"{username.ToUpper()}@GAINSTRACKER.NL",
+                PasswordHash = hasher.HashPassword(user, Env.GetString("EPIC_PASS") ?? "cheeseGrator1!"),
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+            
+            defaultUsers.Add(newUser);
+        }
+        
         foreach (User u in defaultUsers)
         {
             u.GainsAccount = null;
