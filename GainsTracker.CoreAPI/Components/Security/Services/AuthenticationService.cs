@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using DotNetEnv;
 using GainsTracker.Common.Exceptions;
 using GainsTracker.CoreAPI.Components.Security.Controllers.DTO;
 using GainsTracker.CoreAPI.Components.Security.Models;
@@ -75,7 +76,8 @@ public class AuthenticationService : IAuthenticationService
 
     private JwtSecurityToken GetToken(IEnumerable<Claim> authClaims)
     {
-        SymmetricSecurityKey authSigningKey = new(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"] ?? string.Empty));
+        string bitSecret = _configuration["JWT:Secret"]!.Replace("{secretJWT}", Env.GetString("JWT_SECRET"));
+        SymmetricSecurityKey authSigningKey = new(Encoding.UTF8.GetBytes(bitSecret));
 
         JwtSecurityToken token = new(
             _configuration["JWT:ValidIssuer"],

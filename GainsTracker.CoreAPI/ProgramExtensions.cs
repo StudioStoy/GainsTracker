@@ -1,5 +1,6 @@
 ﻿// Woah that's a boat load of usings
 
+using System.Diagnostics;
 using System.Security.Claims;
 using System.Text;
 using DotNetEnv;
@@ -122,13 +123,14 @@ public static class ProgramExtensions
     /// </summary>
     public static void ConfigureAuthentication(this WebApplicationBuilder builder)
     {
+        string bitSecret = builder.Configuration["JWT:Secret"]!.Replace("{secretJWT}", Env.GetString("JWT_SECRET"));
         builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-
+            
             // Add the JWT Bearer.
             .AddJwtBearer(options =>
             {
@@ -140,7 +142,7 @@ public static class ProgramExtensions
                     ValidateAudience = true,
                     ValidAudience = builder.Configuration["JWT:ValidAudience"],
                     ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]!))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(bitSecret))
                 };
             });
     }
@@ -208,7 +210,7 @@ public static class ProgramExtensions
             Console.WriteLine("nuh uh no resetting in production");
             return;
         }
-            
+
         using IServiceScope scope = app.Services.CreateScope();
         AppDbContext db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
@@ -221,7 +223,7 @@ public static class ProgramExtensions
     {
         using IServiceScope scope = app.Services.CreateScope();
         AppDbContext db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        
+
         Console.WriteLine("Applying possible migrations..");
         db.Database.Migrate();
     }

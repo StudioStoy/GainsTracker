@@ -32,15 +32,18 @@ public static class Program
 
         // Configure the HTTP request pipeline.
         var env = app.Environment;
+        bool resetDatabase = args.Length > 0 && args[0].ToBool();
         if (env.IsDevelopment() || env.IsEnvironment("Docker") || env.EnvironmentName == "Staging")
         {
             app.UseSwagger();
             app.UseSwaggerUI();
             
-            bool resetDatabase = args.Length > 0 && args[0].ToBool();
             app.ResetAndUpdateDatabase(resetDatabase);
         }
 
+        if (!resetDatabase)
+            app.EnsureDatabaseIsCreated();
+        
         if (!app.Environment.IsDevelopment())
             app.UseHttpsRedirection();
 
