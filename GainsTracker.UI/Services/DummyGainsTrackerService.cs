@@ -24,7 +24,7 @@ public class DummyGainsTrackerService : IGainsTrackerService
         {
             Id = "workout-1",
             Category = ExerciseCategory.Strength,
-            Type = WorkoutType.Squat,
+            Type = WorkoutType.WeightedSquat,
             PersonalBest = new MeasurementDto(),
         };
 

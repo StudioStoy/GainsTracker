@@ -14,7 +14,7 @@ public static class WorkoutUtils
     {
         switch (workoutType)
         {
-            case WorkoutType.Squat:
+            case WorkoutType.WeightedSquat:
             case WorkoutType.Abduction:
             case WorkoutType.Adduction:
             case WorkoutType.BenchPress:
@@ -22,17 +22,20 @@ public static class WorkoutUtils
             case WorkoutType.LegPress:
             case WorkoutType.ShoulderPress:
             case WorkoutType.DumbbellPress:
-            case WorkoutType.DumbbellCurl:
+            case WorkoutType.BicepCurl:
             case WorkoutType.LatPullDown:
             case WorkoutType.BicepPullDown:
             case WorkoutType.PectoralFly:
             case WorkoutType.LowRows:
             case WorkoutType.DeadLift:
+            case WorkoutType.ChestPress:
+            case WorkoutType.HammerCurl:
                 return ExerciseCategory.Strength;
             case WorkoutType.ClosePullUp:
             case WorkoutType.WidePullUp:
             case WorkoutType.DiamondPushUp:
             case WorkoutType.ClosePushUp:
+            case WorkoutType.BodySquat:
             case WorkoutType.WidePushUp:
                 return ExerciseCategory.Reps;
             case WorkoutType.Planking:
@@ -41,6 +44,8 @@ public static class WorkoutUtils
             case WorkoutType.Walking:
             case WorkoutType.Running:
             case WorkoutType.Cycling:
+            case WorkoutType.Swimming:
+            case WorkoutType.Rowing:
                 return ExerciseCategory.TimeAndDistanceEndurance;
             case WorkoutType.Bouldering:
                 return ExerciseCategory.General;

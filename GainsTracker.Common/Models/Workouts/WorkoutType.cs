@@ -2,6 +2,8 @@
 
 namespace GainsTracker.Common.Models.Workouts;
 
+// TODO: For the strength & rep types, add support for saying if it is only one arm or for both.
+// TODO: For the endurance and time, add support for adding TopSpeed.
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum WorkoutType
 {
@@ -12,7 +14,8 @@ public enum WorkoutType
     PectoralFly,
     LowRows,
 
-    Squat,
+    WeightedSquat,
+    BodySquat,
     LegPress,
     Abduction,
     Adduction,
@@ -24,17 +27,21 @@ public enum WorkoutType
     WidePushUp,
     ShoulderPress,
     BenchPress,
+    ChestPress,
     DumbbellPress,
-    DumbbellCurl,
+    BicepCurl,
+    HammerCurl,
 
     // Time
     Planking,
     JumpingRope,
 
-    // Time and distance
+    // Time and distance + top speed
     Running,
     Walking,
     Cycling,
+    Swimming,
+    Rowing,
 
     // General
     Bouldering
