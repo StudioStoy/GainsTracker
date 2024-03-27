@@ -3,7 +3,7 @@ services:
   api:
     build: ./
     pull_policy: build
-    restart: always
+    restart: unless-stopped
     ports:
       - "420:4040" # funny
     environment:
