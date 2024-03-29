@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Numerics;
 using System.Text.Json.Serialization;
 using GainsTracker.Common.Models.Generic;
 using GainsTracker.Common.Models.Measurements.Units;
@@ -39,7 +40,7 @@ public class StrengthMeasurement : Measurement
 
 public class TimeAndDistanceEnduranceMeasurement : Measurement
 {
-    public string Time { get; set; } = "00:00:00";
+    public long Time { get; set; } = 0;
     public DistanceUnits DistanceUnit { get; set; }
     public double Distance { get; set; }
 
@@ -48,7 +49,7 @@ public class TimeAndDistanceEnduranceMeasurement : Measurement
 
 public class TimeEnduranceMeasurement : Measurement
 {
-    public string Time { get; set; } = "00:00:00";
+    public long Time { get; set; } = 0;
 
     protected internal override ExerciseCategory Category => ExerciseCategory.TimeEndurance;
 }

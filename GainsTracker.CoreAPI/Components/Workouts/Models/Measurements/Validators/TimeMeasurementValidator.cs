@@ -16,7 +16,7 @@ public class TimeMeasurementValidator : MeasurementValidator<TimeEnduranceMeasur
         {
             case WorkoutType.Planking:
             case WorkoutType.JumpingRope:
-                return string.Compare(NewMeasurement.Time, PreviousBest.Time, StringComparison.Ordinal) > 0;
+                return NewMeasurement.Time < PreviousBest.Time;
         }
 
         return false;

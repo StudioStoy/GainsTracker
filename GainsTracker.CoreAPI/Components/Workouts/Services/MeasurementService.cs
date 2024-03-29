@@ -25,12 +25,12 @@ public class MeasurementService : IMeasurementService
                 break;
             case ExerciseCategory.TimeEndurance:
                 TimeEnduranceMeasurement? simpleEndurance = measurement as TimeEnduranceMeasurement;
-                if (simpleEndurance!.Time == "00:00:00")
+                if (simpleEndurance!.Time == 0)
                     throw new BadRequestException("No negative or zero measurements.");
                 break;
             case ExerciseCategory.TimeAndDistanceEndurance:
                 TimeAndDistanceEnduranceMeasurement? running = measurement as TimeAndDistanceEnduranceMeasurement;
-                if (running!.Time == "00:00:00" || running.Distance <= 0)
+                if (running!.Time == 0 || running.Distance <= 0)
                     throw new BadRequestException("No negative or zero measurements.");
                 break;
             case ExerciseCategory.General:

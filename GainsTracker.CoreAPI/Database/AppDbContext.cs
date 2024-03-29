@@ -17,6 +17,7 @@ public sealed class AppDbContext : IdentityDbContext<User>
     {
     }
 
+    // All the main domains.
     public override DbSet<User> Users { get; set; }
     public DbSet<GainsAccount> GainsAccounts { get; set; }
     public DbSet<UserProfile> UserProfiles { get; set; }
@@ -51,42 +52,15 @@ public sealed class AppDbContext : IdentityDbContext<User>
     {
         modelBuilder.ConfigureRelationModels();
         modelBuilder.ConvertEnumsToStrings();
-
-        modelBuilder.Entity<User>(user =>
-        {
-            user.HasOne(u => u.GainsAccount)
-                .WithOne()
-                .HasForeignKey<User>(u => u.GainsAccountId);
-        });
+        modelBuilder.ConvertCustomPropertiesToDbFormat();
         
-        modelBuilder.Entity<GainsAccount>(gainsAccount =>
-        {
-            gainsAccount.HasOne(u => u.UserProfile)
-                .WithOne()
-                .HasForeignKey<GainsAccount>(u => u.UserProfileId);
-
-            gainsAccount.Navigation(g => g.SentFriendRequests).AutoInclude();
-            gainsAccount.Navigation(g => g.ReceivedFriendRequests).AutoInclude();
-        });
-        
-        modelBuilder.Entity<UserProfile>(userProfile =>
-        {
-            userProfile.HasMany(u => u.PinnedPBs)
-                .WithOne()
-                .HasForeignKey(u => u.UserProfileId)
-                .IsRequired(false);
-
-            userProfile.HasOne(u => u.Icon)
-                .WithOne();
-        });
-
-        new DbInitializer(modelBuilder).Seed();
+        // new DbInitializer(modelBuilder).Seed();
 
         base.OnModelCreating(modelBuilder);
     }
 
     // EF automatically creates tables using their camelcase name.
-    // We don't want this in postgres as this necessitates stupid queries, like:
+    // I don't want this in postgres as this necessitates stupid queries, like:
     // 'select * from public."Workout"' instead of 'select * from workout'.
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

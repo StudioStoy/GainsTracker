@@ -3,6 +3,7 @@ using System;
 using GainsTracker.CoreAPI.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GainsTracker.CoreAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240329102857_02_TimeToSeconds")]
+    partial class _02_TimeToSeconds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,7 +128,7 @@ namespace GainsTracker.CoreAPI.Migrations
                     b.HasIndex("GainsAccountId")
                         .HasDatabaseName("ix_metric_gains_account_id");
 
-                    b.ToTable("metric", (string)null);
+                    b.ToTable("metric");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Metric");
 
@@ -351,7 +354,7 @@ namespace GainsTracker.CoreAPI.Migrations
                     b.HasIndex("WorkoutId")
                         .HasDatabaseName("ix_measurement_workout_id");
 
-                    b.ToTable("measurement", (string)null);
+                    b.ToTable("measurement");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Measurement");
 
@@ -566,7 +569,7 @@ namespace GainsTracker.CoreAPI.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("liters");
 
-                    b.ToTable("metric", (string)null);
+                    b.ToTable("metric");
 
                     b.HasDiscriminator().HasValue("LiterWaterMetric");
                 });
@@ -579,7 +582,7 @@ namespace GainsTracker.CoreAPI.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("protein_intake");
 
-                    b.ToTable("metric", (string)null);
+                    b.ToTable("metric");
 
                     b.HasDiscriminator().HasValue("ProteinMetric");
                 });
@@ -592,7 +595,7 @@ namespace GainsTracker.CoreAPI.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("weight");
 
-                    b.ToTable("metric", (string)null);
+                    b.ToTable("metric");
 
                     b.HasDiscriminator().HasValue("WeightMetric");
                 });
@@ -606,7 +609,7 @@ namespace GainsTracker.CoreAPI.Migrations
                         .HasColumnType("text")
                         .HasColumnName("general_achievement");
 
-                    b.ToTable("measurement", (string)null);
+                    b.ToTable("measurement");
 
                     b.HasDiscriminator().HasValue("GeneralMeasurement");
                 });
@@ -619,7 +622,7 @@ namespace GainsTracker.CoreAPI.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("reps");
 
-                    b.ToTable("measurement", (string)null);
+                    b.ToTable("measurement");
 
                     b.HasDiscriminator().HasValue("RepsMeasurement");
                 });
@@ -641,7 +644,7 @@ namespace GainsTracker.CoreAPI.Migrations
                         .HasColumnType("text")
                         .HasColumnName("weight_unit");
 
-                    b.ToTable("measurement", null, t =>
+                    b.ToTable("measurement", t =>
                         {
                             t.Property("Reps")
                                 .HasColumnName("strength_measurement_reps");
@@ -668,7 +671,7 @@ namespace GainsTracker.CoreAPI.Migrations
                         .HasColumnType("text")
                         .HasColumnName("time");
 
-                    b.ToTable("measurement", (string)null);
+                    b.ToTable("measurement");
 
                     b.HasDiscriminator().HasValue("TimeAndDistanceEnduranceMeasurement");
                 });
@@ -682,7 +685,7 @@ namespace GainsTracker.CoreAPI.Migrations
                         .HasColumnType("text")
                         .HasColumnName("time");
 
-                    b.ToTable("measurement", null, t =>
+                    b.ToTable("measurement", t =>
                         {
                             t.Property("Time")
                                 .HasColumnName("time_endurance_measurement_time");
