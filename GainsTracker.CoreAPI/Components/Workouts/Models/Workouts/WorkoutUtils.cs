@@ -30,6 +30,12 @@ public static class WorkoutUtils
             case WorkoutType.DeadLift:
             case WorkoutType.ChestPress:
             case WorkoutType.HammerCurl:
+            case WorkoutType.InclineBenchPress:
+            case WorkoutType.InclineDumbbellPress:
+            case WorkoutType.Shrugs:
+            case WorkoutType.LegCurl:
+            case WorkoutType.LegExtension:
+            case WorkoutType.OverheadPress:
                 return ExerciseCategory.Strength;
             case WorkoutType.ClosePullUp:
             case WorkoutType.WidePullUp:
@@ -37,6 +43,8 @@ public static class WorkoutUtils
             case WorkoutType.ClosePushUp:
             case WorkoutType.BodySquat:
             case WorkoutType.WidePushUp:
+            case WorkoutType.SitUps:
+            case WorkoutType.LegRaise:
                 return ExerciseCategory.Reps;
             case WorkoutType.Planking:
             case WorkoutType.JumpingRope:

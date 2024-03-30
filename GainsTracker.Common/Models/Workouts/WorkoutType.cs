@@ -13,16 +13,11 @@ public enum WorkoutType
     BicepPullDown,
     PectoralFly,
     LowRows,
-
     WeightedSquat,
     BodySquat,
     LegPress,
     Abduction,
     Adduction,
-    CalfExtensions,
-    DeadLift,
-
-    DiamondPushUp,
     ClosePushUp,
     WidePushUp,
     ShoulderPress,
@@ -31,18 +26,23 @@ public enum WorkoutType
     DumbbellPress,
     BicepCurl,
     HammerCurl,
-
-    // Time
     Planking,
-    JumpingRope,
-
-    // Time and distance + top speed
     Running,
     Walking,
     Cycling,
     Swimming,
     Rowing,
-
-    // General
-    Bouldering
+    Bouldering,
+    JumpingRope,
+    DeadLift,
+    CalfExtensions,
+    InclineBenchPress,
+    DiamondPushUp,
+    InclineDumbbellPress,
+    Shrugs,
+    OverheadPress,
+    LegExtension,
+    LegCurl,
+    SitUps,
+    LegRaise
 }
