@@ -40,7 +40,7 @@ Make sure you have the following tools installed:
 
 ### 1.2 (Optional) Installers for easier setup
 
-In the folder `/Gainstracker.CoreAPI/Installers`, two installers reside. One for windows (.bat) and one for linux (.sh).
+In the root folder `/Installers`, two installers reside. One for windows (.bat) and one for linux (.sh).
 For now, these basically perform two functions:
 
 - When run (from the command line or outside of that), they check and
