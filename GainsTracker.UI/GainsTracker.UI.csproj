@@ -20,8 +20,8 @@
 
     <ItemGroup>
         <PackageReference Include="BlazorTransitionableRoute" Version="4.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.15" />
-        <PackageReference Include="System.Security.Permissions" Version="6.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8" />
+        <PackageReference Include="System.Security.Permissions" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup>
