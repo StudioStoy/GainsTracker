@@ -29,6 +29,12 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Include="wwwroot\**">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+    
+    <ItemGroup>
       <ProjectReference Include="..\GainsTracker.UI\GainsTracker.UI.csproj" />
     </ItemGroup>
 
