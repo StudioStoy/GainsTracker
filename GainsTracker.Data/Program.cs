@@ -1,8 +1,6 @@
 using System.Text.Json.Serialization;
-using DotNetEnv;
-using GainsTracker.Common.Extensions;
 
-namespace GainsTracker.CoreAPI;
+namespace GainsTracker.Data;
 
 public static class Program
 {
@@ -52,7 +50,10 @@ public static class Program
         // Authentication
         app.UseAuthentication();
         app.UseAuthorization();
-        
+
+        // Custom exception handling
+        app.AddGlobalErrorHandler();
+
         app.MapControllers();
 
         app.Run();

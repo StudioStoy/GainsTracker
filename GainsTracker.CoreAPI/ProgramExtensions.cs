@@ -227,12 +227,4 @@ public static class ProgramExtensions
         Console.WriteLine("Applying possible migrations..");
         db.Database.Migrate();
     }
-
-    /// <summary>
-    ///     Configure global exception handling.
-    /// </summary>
-    public static void AddGlobalErrorHandler(this IApplicationBuilder applicationBuilder)
-    {
-        applicationBuilder.UseMiddleware<GlobalErrorHandlingMiddleware>();
-    }
 }

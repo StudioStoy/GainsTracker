@@ -1,0 +1,6 @@
+@GainsTracker.WebAPI_HostAddress = http://localhost:5174
+
+GET {{GainsTracker.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

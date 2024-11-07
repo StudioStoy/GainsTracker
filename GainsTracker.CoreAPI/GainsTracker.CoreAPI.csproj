@@ -36,4 +36,8 @@
     <ItemGroup>
         <Compile Remove="Migrations\20230622231353_InitialCreate.Designer.cs" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Shared\" />
+    </ItemGroup>
 </Project>
