@@ -55,11 +55,7 @@
     <ItemGroup>
         <ProjectReference Include="..\GainsTracker.UI\GainsTracker.UI.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\GainsTracker.Common\GainsTracker.Common.csproj" />
-    </ItemGroup>
-
+    
     <ItemGroup>
       <Content Update="Resources\Splash\logo.png">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
