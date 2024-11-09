@@ -1,21 +1,14 @@
-﻿using GainsTracker.Core.Components.Friends.Data;
-using GainsTracker.Data.Friends;
-using Friend = GainsTracker.Core.Components.Friends.Models.Friend;
+﻿using GainsTracker.Core.Components.Friends.Interfaces.Repositories;
+using GainsTracker.Core.Components.Friends.Interfaces.Services;
+using GainsTracker.Core.Components.Friends.Models;
 
 namespace GainsTracker.Core.Components.Friends.Services;
 
-public class FriendService : IFriendService
+public class FriendService(IFriendBigBrain bigBrain) : IFriendService
 {
-    public FriendService(BigBrainFriend bigBrain)
+    public async Task<List<Friend>> GetFriends(string username)
     {
-        _bigBrain = bigBrain;
-    }
-
-    private BigBrainFriend _bigBrain { get; }
-
-    public List<Friend> GetFriends(string username)
-    {
-        string gainsId = _bigBrain.GetGainsIdByUsername(username);
-        return _bigBrain.GetFriendsByGainsId(gainsId);
+        Guid gainsId = await bigBrain.GetGainsIdByUsername(username);
+        return await bigBrain.GetFriendsByGainsId(gainsId);
     }
 }

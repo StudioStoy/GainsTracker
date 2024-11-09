@@ -1,43 +1,36 @@
 using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Common.Models.Workouts.Dto;
-using GainsTracker.Core.Components.UserProfiles.Data;
+using GainsTracker.Core.Components.UserProfiles.Interfaces.Repositories;
+using GainsTracker.Core.Components.UserProfiles.Interfaces.Services;
 
 namespace GainsTracker.Core.Components.UserProfiles.Services;
 
-public class UserProfileService : IUserProfileService
+public class UserProfileService(IUserProfileBigBrain bigBrain) : IUserProfileService
 {
-    public UserProfileService(BigBrainUserProfile bigBrain)
+    public async Task UpdateUserProfile(string userHandle, UpdateUserProfileDto userProfileDto)
     {
-        _bigBrain = bigBrain;
-    }
-
-    private BigBrainUserProfile _bigBrain { get; }
-
-    public void UpdateUserProfile(string userHandle, UpdateUserProfileDto userProfileDto)
-    {
-        // Caveat: this profanity filter is not perfect.
-        // However, it is light-weight and does not depend on a static word list.
-        ProfanityDetector detector = new();
-        if (detector.IsProfane(userProfileDto.DisplayName) || detector.IsProfane(userProfileDto.Description))
+        // Caveat: this profanity filter is not perfect. However, it is better than nothing
+        ProfanityFilter.ProfanityFilter detector = new();
+        if (detector.IsProfanity(userProfileDto.DisplayName) || detector.IsProfanity(userProfileDto.Description))
             throw new ArgumentException("no bad words buster");
 
-        _bigBrain.UpdateUserProfileByUserHandle(userHandle, userProfileDto);
+        await bigBrain.UpdateUserProfileByUserHandle(userHandle, userProfileDto);
     }
 
-    public UserProfileDto GetUserProfile(string userHandle)
+    public async Task<UserProfileDto> GetUserProfile(string userHandle)
     {
-        return _bigBrain
-            .GetUserProfileByUserHandle(userHandle, () => u => u.Icon)
-            .ToDto();
+        return (await bigBrain.GetUserProfileByUserHandle(userHandle)).ToDto();
     }
 
-    public List<MeasurementDto> GetPinnedPBs(string userHandle)
+    public async Task<List<MeasurementDto>> GetPinnedPBs(string userHandle)
     {
-        return _bigBrain.GetPinnedPBs(userHandle);
+        return (await bigBrain.GetPinnedPBs(userHandle))
+            .Select(pb => pb.ToDto())
+            .ToList();
     }
 
-    public void UpdatePinnedPBs(string userHandle, UpdatePinnedPBsDto pinnedPBsDto)
+    public async Task UpdatePinnedPBs(string userHandle, UpdatePinnedPBsDto pinnedPBsDto)
     {
-        _bigBrain.AddAndRemovePBs(userHandle, pinnedPBsDto);
+        await bigBrain.AddAndRemovePBs(userHandle, pinnedPBsDto);
     }
 }

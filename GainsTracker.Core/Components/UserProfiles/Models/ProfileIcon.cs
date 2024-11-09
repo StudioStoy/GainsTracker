@@ -6,17 +6,17 @@ namespace GainsTracker.Core.Components.UserProfiles.Models;
 [Table("profile_icons")]
 public class ProfileIcon
 {
-    public string Id { get; set; } = "";
-    public string UserProfileId { get; set; } = "";
+    public Guid Id { get; set; }
+    public Guid UserProfileId { get; set; }
     
     public int PictureColor { get; set; }
     public string Url { get; set; } = string.Empty;
 
     public ProfileIcon(){}
     
-    public ProfileIcon(string userProfileId)
+    public ProfileIcon(Guid userProfileId)
     {
-        Id = Guid.NewGuid().ToString();
+        Id = Guid.NewGuid();
         UserProfileId = userProfileId;
         
         Random random = new();

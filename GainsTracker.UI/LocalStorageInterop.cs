@@ -19,10 +19,8 @@ public sealed class LocalStorageInterop
 
     public async ValueTask<T?> GetItem<T>(string key)
     {
-        string? data = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", key);
-        return data != null
-            ? JsonSerializer.Deserialize<T>(data)
-            : default;
+        string data = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", key);
+        return JsonSerializer.Deserialize<T>(data);
     }
 
     public ValueTask<string> Key(int index)

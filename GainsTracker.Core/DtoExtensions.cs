@@ -3,6 +3,7 @@ using System.Reflection;
 using GainsTracker.Common.Models.Friends.Dto;
 using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Common.Models.Workouts.Dto;
+using GainsTracker.Core.Components.Friends;
 using GainsTracker.Core.Components.Friends.Models;
 using GainsTracker.Core.Components.UserProfiles.Models;
 using GainsTracker.Core.Components.Workouts.Models.Measurements;
@@ -22,20 +23,17 @@ public static class DtoExtensions
                 continue;
             
             // Finds the ToDto() extension method based on the item's type.
-            MethodInfo? toDtoMethod = typeof(DtoExtensions)
+            MethodInfo toDtoMethod = typeof(DtoExtensions)
                 .GetMethods(BindingFlags.Public | BindingFlags.Static)
                 .FirstOrDefault(
                     method => method.Name == "ToDto"
                               && method.GetParameters().Length == 1
                               && method.GetParameters()[0].ParameterType == typeof(TModel)
-                );
-
-            if (toDtoMethod == null)
-                throw new NotSupportedException(
+                ) ?? throw new NotSupportedException(
                     $"ToDto method not found for type {typeof(TModel).Name}");
 
             // Invokes the ToDto() extension method and adds the result to the DTO list.
-            TDto? dtoItem = (TDto?) toDtoMethod.Invoke(null, new object[] { item });
+            TDto? dtoItem = (TDto?) toDtoMethod.Invoke(null, [item]);
             if (dtoItem != null) 
                 dtoList.Add(dtoItem);
         }

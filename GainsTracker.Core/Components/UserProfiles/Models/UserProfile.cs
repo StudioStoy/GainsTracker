@@ -4,18 +4,18 @@ namespace GainsTracker.Core.Components.UserProfiles.Models;
 
 public class UserProfile
 {
-    public string Id { get; set; }
-    public string GainsAccountId { get; set; }
+    public Guid Id { get; set; }
+    public Guid GainsAccountId { get; set; }
     
     public string DisplayName { get; set; }
     public string Description { get; set; } = string.Empty;
-    public List<Measurement> PinnedPBs { get; set; } = new();
+    public List<Measurement> PinnedPBs { get; set; } = [];
 
     public ProfileIcon Icon { get; set; }
     
-    public UserProfile(string gainsAccountId, string displayName = "")
+    public UserProfile(Guid gainsAccountId, string displayName = "")
     {
-        Id = Guid.NewGuid().ToString();
+        Id = Guid.NewGuid();
         GainsAccountId = gainsAccountId;
 
         DisplayName = displayName;

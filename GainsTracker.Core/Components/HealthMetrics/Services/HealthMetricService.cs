@@ -1,32 +1,25 @@
 ﻿using GainsTracker.Common.Models.Generic;
 using GainsTracker.Common.Models.Metrics.Dto;
-using GainsTracker.Core.Components.HealthMetrics.Data;
+using GainsTracker.Core.Components.HealthMetrics.Interfaces.Repositories;
+using GainsTracker.Core.Components.HealthMetrics.Interfaces.Services;
 using GainsTracker.Core.Components.HealthMetrics.Models;
-using GainsTracker.Core.Components.Workouts.Models;
 
 namespace GainsTracker.Core.Components.HealthMetrics.Services;
 
-public class HealthMetricService : IHealthMetricService
+public class HealthMetricService(IHealthMetricBigBrain bigBrain) : IHealthMetricService
 {
-    private readonly BigBrainHealthMetric _bigBrain;
-
-    public HealthMetricService(BigBrainHealthMetric bigBrain)
+    public async Task AddMetricToGainsAccount(string userHandle, CreateMetricDto createMetricDto)
     {
-        _bigBrain = bigBrain;
+        var healthMetric = HealthMetricFactory.DeserializeMetricFromJson(createMetricDto.Type, createMetricDto.Data!);
+        var gains = await bigBrain.GetGainsAccountByUserHandle(userHandle);
+        gains.AddMetric(healthMetric);
+
+        await bigBrain.SaveContext();
     }
 
-    public void AddMetricToGainsAccount(string userHandle, CreateMetricDto createMetricDto)
+    public async Task<List<MetricDto>> GetAllMetricsByUsername(string username)
     {
-        Metric metric = MetricFactory.DeserializeMetricFromJson(createMetricDto.Type, createMetricDto.Data!);
-        GainsAccount gains = _bigBrain.GetGainsAccountByUserHandle(userHandle);
-        gains.AddMetric(metric);
-
-        _bigBrain.SaveContext();
-    }
-
-    public List<MetricDto> GetAllMetricsByUsername(string username)
-    {
-        List<Metric> data = _bigBrain.GetAllMetricsByUsername(username);
+        var data = await bigBrain.GetAllMetricsByUsername(username);
         return data.Select(m => new MetricDto
         {
             Id = m.Id,

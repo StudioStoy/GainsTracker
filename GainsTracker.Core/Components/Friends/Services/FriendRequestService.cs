@@ -1,26 +1,18 @@
 ﻿using GainsTracker.Common.Models.Friends.Dto;
-using GainsTracker.Core.Components.Friends.Data;
+using GainsTracker.Core.Components.Friends.Exceptions;
+using GainsTracker.Core.Components.Friends.Interfaces.Repositories;
+using GainsTracker.Core.Components.Friends.Interfaces.Services;
 using GainsTracker.Core.Components.Friends.Models;
-using GainsTracker.Core.Components.Friends.Models.Exceptions;
 using GainsTracker.Core.Components.Workouts.Models;
-using GainsTracker.Data.Friends;
-using Friend = GainsTracker.Core.Components.Friends.Models.Friend;
 
 namespace GainsTracker.Core.Components.Friends.Services;
 
-public class FriendRequestService : IFriendRequestService
+public class FriendRequestService(IFriendBigBrain bigBrain) : IFriendRequestService
 {
-    private readonly BigBrainFriend _bigBrain;
-
-    public FriendRequestService(BigBrainFriend bigBrain)
+    public async Task<FriendRequestOverviewDto> GetFriendRequests(string userHandle)
     {
-        _bigBrain = bigBrain;
-    }
-
-    public FriendRequestOverviewDto GetFriendRequests(string userHandle)
-    {
-        string accountId = _bigBrain.GetGainsAccountByUserHandle(userHandle).Id;
-        GainsAccount user = _bigBrain.GetFriendInfoByGainsId(accountId);
+        Guid gainsId = await bigBrain.GetGainsIdByUsername(userHandle);
+        GainsAccount user = await bigBrain.GetFriendInfoByGainsId(gainsId);
 
         return new FriendRequestOverviewDto
         {
@@ -29,21 +21,22 @@ public class FriendRequestService : IFriendRequestService
         };
     }
 
-    public void SendFriendRequest(string userHandle, string friendHandle)
+    public async Task SendFriendRequest(string userHandle, string friendHandle)
     {
-        CheckFriendshipStatus(userHandle, friendHandle);
+        await CheckFriendshipStatus(userHandle, friendHandle);
 
-        GainsAccount user = _bigBrain.GetGainsAccountByUserHandle(userHandle);
-        GainsAccount potentialFriend = _bigBrain.GetGainsAccountByUserHandle(friendHandle);
+        GainsAccount user = await bigBrain.GetGainsAccountByUserHandle(userHandle);
+        GainsAccount potentialFriend = await bigBrain.GetGainsAccountByUserHandle(friendHandle);
 
         user.SentFriendRequest(potentialFriend);
-        _bigBrain.SaveContext();
+        
+        await bigBrain.SaveContext();
     }
 
-    public void HandleFriendRequestState(string userHandle, string requestId, bool accept = true)
+    public async Task HandleFriendRequestState(string userHandle, Guid requestId, bool accept = true)
     {
-        FriendRequest request = _bigBrain.GetFriendRequestById(requestId);
-        string gainsId = _bigBrain.GetGainsIdByUsername(userHandle);
+        FriendRequest request = await bigBrain.GetFriendRequestById(requestId);
+        Guid gainsId = await bigBrain.GetGainsIdByUsername(userHandle);
 
         if (request.RequesterId == gainsId)
             throw new Exception("Requester can obviously not accept or reject their own request");
@@ -51,36 +44,35 @@ public class FriendRequestService : IFriendRequestService
         if (accept) request.Accept();
         else request.Reject();
 
-        _bigBrain.SaveContext();
+        await bigBrain.SaveContext();
     }
 
-    public List<Friend> GetFriends(string userHandle)
+    private async Task<List<Friend>> GetFriends(string userHandle)
     {
-        GainsAccount gainsAccount = _bigBrain.GetGainsAccountByUserHandle(userHandle);
-        List<Friend> friends = _bigBrain.GetFriendsByGainsId(gainsAccount.Id);
+        GainsAccount gainsAccount = await bigBrain.GetGainsAccountByUserHandle(userHandle);
+        List<Friend> friends = await bigBrain.GetFriendsByGainsId(gainsAccount.Id);
 
         return friends;
     }
 
-    private void CheckFriendshipStatus(string userHandle, string friendHandle)
+    private async Task CheckFriendshipStatus(string userHandle, string friendHandle)
     {
-        if (AreFriends(userHandle, friendHandle))
+        if (await AreFriends(userHandle, friendHandle))
             throw new AlreadyFriendsException($"You are already friends with {friendHandle}!");
 
-        if (FriendRequestAlreadySent(userHandle, friendHandle))
+        if (await FriendRequestAlreadySent(userHandle, friendHandle))
             throw new FriendRequestAlreadySentException($"You already sent a friend request to {friendHandle}!");
     }
 
-    private bool AreFriends(string userHandle, string friendHandle)
+    private async Task<bool> AreFriends(string userHandle, string friendHandle)
     {
-        List<Friend> userFriends = GetFriends(userHandle);
-        return userFriends.Any(friend =>
-            string.Equals(friend.FriendHandle, friendHandle, StringComparison.InvariantCultureIgnoreCase));
+        List<Friend> userFriends = await GetFriends(userHandle);
+        return userFriends.Any(friend => string.Equals(friend.FriendHandle, friendHandle, StringComparison.InvariantCultureIgnoreCase));
     }
 
-    private bool FriendRequestAlreadySent(string userHandle, string friendHandle)
+    private async Task<bool> FriendRequestAlreadySent(string userHandle, string friendHandle)
     {
-        FriendRequestOverviewDto friendRequest = GetFriendRequests(userHandle);
+        FriendRequestOverviewDto friendRequest = await GetFriendRequests(userHandle);
         return friendRequest.Sent.Any(req =>
             string.Equals(req.RecipientName, friendHandle, StringComparison.InvariantCultureIgnoreCase));
     }

@@ -2,7 +2,7 @@
 
 public class FriendRequestDto
 {
-    public FriendRequestDto(string id, string requesterName, string recipientName, string requestTime, string status, string requesterId, string recipientId)
+    public FriendRequestDto(Guid id, string requesterName, string recipientName, string requestTime, string status, Guid requesterId, Guid recipientId)
     {
         Id = id;
         RequesterId = requesterId;
@@ -13,10 +13,10 @@ public class FriendRequestDto
         Status = status;
     }
 
-    public string Id { get; set; }
+    public Guid Id { get; set; }
 
-    public string RequesterId { get; set; }
-    public string RecipientId { get; set; }
+    public Guid RequesterId { get; set; }
+    public Guid RecipientId { get; set; }
 
     public string RequesterName { get; set; }
     public string RecipientName { get; set; }

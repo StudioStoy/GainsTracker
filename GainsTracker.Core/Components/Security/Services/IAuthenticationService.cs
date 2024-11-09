@@ -1,4 +1,4 @@
-﻿using GainsTracker.Core.Components.Security.Controllers.DTO;
+﻿using GainsTracker.Core.Components.Security.DTO;
 
 namespace GainsTracker.Core.Components.Security.Services;
 

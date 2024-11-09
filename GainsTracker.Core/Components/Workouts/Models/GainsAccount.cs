@@ -1,5 +1,5 @@
+using GainsTracker.Core.Components.Friends.Exceptions;
 using GainsTracker.Core.Components.Friends.Models;
-using GainsTracker.Core.Components.Friends.Models.Exceptions;
 using GainsTracker.Core.Components.HealthMetrics.Models;
 using GainsTracker.Core.Components.UserProfiles.Models;
 using GainsTracker.Core.Components.Workouts.Models.Workouts;
@@ -8,26 +8,25 @@ namespace GainsTracker.Core.Components.Workouts.Models;
 
 public class GainsAccount
 {
-    private GainsAccount() {}
-    
     public GainsAccount(string userHandle, string displayName = "")
     {
-        Id = Guid.NewGuid().ToString();
+        Id = Guid.NewGuid();
         UserHandle = userHandle;
         UserProfile = new UserProfile(Id, string.IsNullOrWhiteSpace(displayName) ? userHandle : displayName);
-        UserProfileId = UserProfile.Id;
     }
+    
+    public Guid Id { get; set; }
 
     public string UserHandle { get; set; } = "";
 
     public UserProfile UserProfile { get; set; } = null!;
 
-    public List<Workout> Workouts { get; set; } = new();
-    public List<Metric> Metrics { get; set; } = new();
+    public List<Workout> Workouts { get; set; } = [];
+    public List<HealthMetric> Metrics { get; set; } = [];
 
-    public List<Friend> Friends { get; set; } = new();
-    public List<FriendRequest> ReceivedFriendRequests { get; set; } = new();
-    public List<FriendRequest> SentFriendRequests { get; set; } = new();
+    public List<Friend> Friends { get; set; } = [];
+    public List<FriendRequest> ReceivedFriendRequests { get; set; } = [];
+    public List<FriendRequest> SentFriendRequests { get; set; } = [];
 
     public void SentFriendRequest(GainsAccount toPotentialFriend)
     {
@@ -44,7 +43,7 @@ public class GainsAccount
         Workouts.Add(workout);
     }
 
-    public void AddMetric(Metric trackableGoal)
+    public void AddMetric(HealthMetric trackableGoal)
     {
         Metrics.Add(trackableGoal);
     }
@@ -59,12 +58,4 @@ public class GainsAccount
                     StringComparison.InvariantCultureIgnoreCase)))
             throw new FriendRequestAlreadySentException($"You already sent a friend request to {friendName}!");
     }
-
-    #region Relations
-
-    public string Id { get; set; } = null!;
-    public string UserId { get; set; } = "";
-    public string UserProfileId { get; set; } = null!;
-
-    #endregion
 }

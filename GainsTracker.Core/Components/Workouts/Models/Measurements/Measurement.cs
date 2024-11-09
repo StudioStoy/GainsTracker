@@ -1,20 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using GainsTracker.Common.Models.Generic;
 using GainsTracker.Common.Models.Measurements.Units;
 using GainsTracker.Common.Models.Workouts;
 
 namespace GainsTracker.Core.Components.Workouts.Models.Measurements;
 
-[Table("measurement")]
-[JsonDerivedType(typeof(StrengthMeasurement))]
-[JsonDerivedType(typeof(TimeAndDistanceEnduranceMeasurement))]
-[JsonDerivedType(typeof(TimeEnduranceMeasurement))]
-[JsonDerivedType(typeof(RepsMeasurement))]
-[JsonDerivedType(typeof(GeneralMeasurement))]
 public abstract class Measurement : ITrackableGoal
 {
-    public DateTime TimeOfRecord { get; private set; } = DateTime.UtcNow;
+    public DateTime TimeOfRecord { get; set; } = DateTime.UtcNow;
     protected internal abstract ExerciseCategory Category { get; }
     public string Notes { get; set; } = string.Empty;
     public bool IsInGoal { get; set; }

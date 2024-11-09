@@ -1,28 +1,24 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using DotNetEnv;
 using GainsTracker.Common.Exceptions;
-using GainsTracker.Core.Components.Security.Controllers.DTO;
+using GainsTracker.Core.Components.Security.DTO;
 using GainsTracker.Core.Components.Security.Models;
+using GainsTracker.Core.Components.Workouts.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace GainsTracker.Core.Components.Security.Services;
 
-public class AuthenticationService : IAuthenticationService
+public class AuthenticationService(UserManager<User> userManager, IConfiguration configuration, IBigBrain<GainsAccount> bigBrain)
+    : IAuthenticationService
 {
-    private readonly IConfiguration _configuration;
-    private readonly AppDbContext _context;
-    private readonly UserManager<User> _userManager;
-
-    public AuthenticationService(UserManager<User> userManager, IConfiguration configuration, AppDbContext context)
-    {
-        _userManager = userManager;
-        _configuration = configuration;
-        _context = context;
-    }
-
     public async Task<string> Register(RegisterRequestDto request)
     {
-        User? userByEmail = await _userManager.FindByEmailAsync(request.Email);
-        User? userByUsername = await _userManager.FindByNameAsync(request.UserHandle);
+        User? userByEmail = await userManager.FindByEmailAsync(request.Email);
+        User? userByUsername = await userManager.FindByNameAsync(request.UserHandle);
 
         if (userByEmail is not null || userByUsername is not null)
             throw new ArgumentException($"User with email {request.Email} or username {request.UserHandle} already exists.");
@@ -34,11 +30,11 @@ public class AuthenticationService : IAuthenticationService
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
-        IdentityResult result = await _userManager.CreateAsync(user, request.Password);
+        IdentityResult result = await userManager.CreateAsync(user, request.Password);
 
         if (!result.Succeeded) throw new ArgumentException($"Unable to register user {request.UserHandle} errors: {GetErrorsText(result.Errors)}");
 
-        await _context.SaveChangesAsync();
+        await bigBrain.SaveContext();
 
         return await Login(new LoginRequestDto { UserHandle = request.Email, Password = request.Password });
     }
@@ -47,11 +43,11 @@ public class AuthenticationService : IAuthenticationService
     {
         ValidateLoginRequest(request);
 
-        User user = await _userManager.FindByNameAsync(request.UserHandle)
-                    ?? await _userManager.FindByEmailAsync(request.UserHandle)
+        User user = await userManager.FindByNameAsync(request.UserHandle)
+                    ?? await userManager.FindByEmailAsync(request.UserHandle)
                     ?? throw new NotFoundException("There is no user found with that username");
 
-        if (!await _userManager.CheckPasswordAsync(user, request.Password))
+        if (!await userManager.CheckPasswordAsync(user, request.Password))
             throw new UnauthorizedException($"Unable to authenticate user {request.UserHandle}");
 
         if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.Email))
@@ -71,12 +67,12 @@ public class AuthenticationService : IAuthenticationService
 
     private JwtSecurityToken GetToken(IEnumerable<Claim> authClaims)
     {
-        string bitSecret = _configuration["JWT:Secret"]!.Replace("{secretJWT}", Env.GetString("JWT_SECRET"));
+        string bitSecret = configuration["JWT:Secret"]!.Replace("{secretJWT}", Env.GetString("JWT_SECRET"));
         SymmetricSecurityKey authSigningKey = new(Encoding.UTF8.GetBytes(bitSecret));
 
         JwtSecurityToken token = new(
-            _configuration["JWT:ValidIssuer"],
-            _configuration["JWT:ValidAudience"],
+            configuration["JWT:ValidIssuer"],
+            configuration["JWT:ValidAudience"],
             expires: DateTime.Now.AddHours(24),
             claims: authClaims,
             signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256));

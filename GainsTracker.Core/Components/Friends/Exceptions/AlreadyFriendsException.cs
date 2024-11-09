@@ -1,4 +1,4 @@
-﻿namespace GainsTracker.Core.Components.Friends.Models.Exceptions;
+﻿namespace GainsTracker.Core.Components.Friends.Exceptions;
 
 public class AlreadyFriendsException : Exception
 {

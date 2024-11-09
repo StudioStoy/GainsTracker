@@ -1,20 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Core.Components.Workouts.Models.Measurements;
 
 namespace GainsTracker.Core.Components.Workouts.Models.Workouts;
 
-[Table("workout")]
 public class Workout
 {
-    // For Hibernate
-    protected Workout()
-    {
-        GainsAccountId = string.Empty;
-    }
-
-    public Workout(string gainsAccountId, WorkoutType type, ExerciseCategory category, List<Measurement> measurements)
+    public Workout(Guid gainsAccountId, WorkoutType type, ExerciseCategory category, List<Measurement> measurements)
     {
         GainsAccountId = gainsAccountId;
         Type = type;
@@ -26,8 +18,9 @@ public class Workout
 
     public WorkoutType Type { get; set; }
     public ExerciseCategory Category { get; set; }
-    [ForeignKey("BestMeasurementId")] public Measurement? PersonalBest { get; set; }
-    public List<Measurement> Measurements { get; set; } = new();
+    
+    public Measurement? PersonalBest { get; set; }
+    public List<Measurement> Measurements { get; set; }
 
     public void AddNewMeasurement(Measurement measurement)
     {
@@ -55,8 +48,8 @@ public class Workout
 
     #region Relations
 
-    [JsonIgnore] public string Id { get; set; } = Guid.NewGuid().ToString();
-    [JsonIgnore] public string GainsAccountId { get; set; }
+    [JsonIgnore] public Guid Id { get; set; } = Guid.NewGuid();
+    [JsonIgnore] public Guid GainsAccountId { get; set; }
 
     #endregion
 }

@@ -7,8 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="EFCore.NamingConventions" Version="8.0.3" />
+      <PackageReference Include="EntityFramework" Version="6.5.1" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0-rc.2.24474.1" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
     </ItemGroup>
 
     <ItemGroup>
@@ -26,6 +29,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\GainsTracker.Common\GainsTracker.Common.csproj" />
+      <ProjectReference Include="..\GainsTracker.Core\GainsTracker.Core.csproj" />
     </ItemGroup>
 
 </Project>

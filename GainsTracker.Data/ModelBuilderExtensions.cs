@@ -1,4 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GainsTracker.Core.Components.Security.Models;
+using GainsTracker.Data.Friends;
+using GainsTracker.Data.Gains;
+using GainsTracker.Data.UserProfiles;
+using GainsTracker.Data.Workouts;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GainsTracker.Data;
@@ -7,12 +12,12 @@ public static class ModelBuilderExtensions
 {
     public static void ConfigureRelationModels(this ModelBuilder builder)
     {
-        builder.Entity<FriendRequest>()
+        builder.Entity<FriendRequestEntity>()
             .HasOne(a => a.Requester)
             .WithMany(b => b.SentFriendRequests)
             .HasForeignKey(f => f.RequesterId);
 
-        builder.Entity<FriendRequest>()
+        builder.Entity<FriendRequestEntity>()
             .HasOne(a => a.Recipient)
             .WithMany(b => b.ReceivedFriendRequests)
             .HasForeignKey(c => c.RecipientId);
@@ -24,17 +29,17 @@ public static class ModelBuilderExtensions
                 .HasForeignKey<User>(u => u.GainsAccountId);
         });
         
-        builder.Entity<GainsAccount>(gainsAccount =>
+        builder.Entity<GainsAccountEntity>(gainsAccount =>
         {
             gainsAccount.HasOne(u => u.UserProfile)
                 .WithOne()
-                .HasForeignKey<GainsAccount>(u => u.UserProfileId);
+                .HasForeignKey<GainsAccountEntity>(u => u.UserProfileId);
 
             gainsAccount.Navigation(g => g.SentFriendRequests).AutoInclude();
             gainsAccount.Navigation(g => g.ReceivedFriendRequests).AutoInclude();
         });
         
-        builder.Entity<UserProfile>(userProfile =>
+        builder.Entity<UserProfileEntity>(userProfile =>
         {
             userProfile.HasMany(u => u.PinnedPBs)
                 .WithOne()
@@ -52,17 +57,17 @@ public static class ModelBuilderExtensions
     /// </summary>
     public static void ConvertEnumsToStrings(this ModelBuilder builder)
     {
-        // Workout types
-        builder.Entity<Workout>()
+        // WorkoutEntity types
+        builder.Entity<WorkoutEntity>()
             .Property(workout => workout.Type)
             .HasConversion<string>();
 
         // Measurement types
-        builder.Entity<StrengthMeasurement>()
+        builder.Entity<StrengthMeasurementEntity>()
             .Property(measurement => measurement.WeightUnit)
             .HasConversion<string>();
 
-        builder.Entity<TimeAndDistanceEnduranceMeasurement>()
+        builder.Entity<TimeAndDistanceEnduranceMeasurementEntity>()
             .Property(measurement => measurement.DistanceUnit)
             .HasConversion<string>();
     }
@@ -74,11 +79,11 @@ public static class ModelBuilderExtensions
     {
         var timeConverter = new ValueConverter<long, string>(v => v.ToString(), v => Convert.ToInt64(v));
 
-        builder.Entity<TimeEnduranceMeasurement>()
+        builder.Entity<TimeEnduranceMeasurementEntity>()
             .Property(measurement => measurement.Time)
             .HasConversion(timeConverter);
         
-        builder.Entity<TimeAndDistanceEnduranceMeasurement>()
+        builder.Entity<TimeAndDistanceEnduranceMeasurementEntity>()
             .Property(measurement => measurement.Time)
             .HasConversion(timeConverter);
     }
