@@ -1,8 +1,8 @@
-﻿using GainsTracker.Core.Components.Workouts.Models.Workouts;
+﻿using GainsTracker.Core.Workouts.Models.Workouts;
 
-namespace GainsTracker.Core.Components.Workouts.Interfaces.Repositories;
+namespace GainsTracker.Core.Workouts.Interfaces.Repositories;
 
-public interface IWorkoutBigBrain : IBigBrain<Workout>
+public interface IWorkoutBigBrain : IBaseBrain
 {
     Task<List<Workout>> GetWorkoutsByGainsId(Guid gainsId);
     Task<Workout> GetWorkoutById(Guid id);

@@ -1,10 +1,10 @@
 ﻿using GainsTracker.Common.Models.UserProfiles;
-using GainsTracker.Core.Components.UserProfiles.Models;
-using GainsTracker.Core.Components.Workouts.Models.Measurements;
+using GainsTracker.Core.UserProfiles.Models;
+using GainsTracker.Core.Workouts.Models.Measurements;
 
-namespace GainsTracker.Core.Components.UserProfiles.Interfaces.Repositories;
+namespace GainsTracker.Core.UserProfiles.Interfaces.Repositories;
 
-public interface IUserProfileBigBrain : IBigBrain<UserProfile>
+public interface IUserProfileBigBrain : IBaseBrain
     {
         Task UpdateUserProfileByUserHandle(string userHandle, UpdateUserProfileDto userProfileDto);
         Task<List<Measurement>> GetPinnedPBs(string userHandle);

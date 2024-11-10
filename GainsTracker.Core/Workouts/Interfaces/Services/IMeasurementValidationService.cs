@@ -1,6 +1,6 @@
-﻿using GainsTracker.Core.Components.Workouts.Models.Measurements;
+﻿using GainsTracker.Core.Workouts.Models.Measurements;
 
-namespace GainsTracker.Core.Components.Workouts.Interfaces.Services;
+namespace GainsTracker.Core.Workouts.Interfaces.Services;
 
 public interface IMeasurementValidationService
 {

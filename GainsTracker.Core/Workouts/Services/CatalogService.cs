@@ -1,17 +1,17 @@
 ﻿using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Common.Models.Workouts.Dto;
-using GainsTracker.Core.Components.Workouts.Interfaces;
-using GainsTracker.Core.Components.Workouts.Interfaces.Repositories;
-using GainsTracker.Core.Components.Workouts.Interfaces.Services;
-using GainsTracker.Core.Components.Workouts.Models.Workouts;
+using GainsTracker.Core.Gains.Interfaces.Services;
+using GainsTracker.Core.Workouts.Interfaces.Repositories;
+using GainsTracker.Core.Workouts.Interfaces.Services;
+using GainsTracker.Core.Workouts.Models.Workouts;
 
-namespace GainsTracker.Core.Components.Workouts.Services;
+namespace GainsTracker.Core.Workouts.Services;
 
-public class CatalogService(IWorkoutBigBrain bigBrain) : ICatalogService
+public class CatalogService(IWorkoutBigBrain bigBrain, IGainsService gainsService) : ICatalogService
 {
     public async Task<List<WorkoutTypeDto>> GetAvailableWorkoutTypesForUser(string username)
     {
-        var gainsId = await bigBrain.GetGainsIdByUsername(username);
+        var gainsId = await gainsService.GetGainsIdByUsername(username);
         var allWorkoutTypes = GetAllWorkoutTypes();
         var workouts = await bigBrain.GetWorkoutsByGainsId(gainsId);
         var activeWorkoutTypes = workouts
@@ -20,7 +20,7 @@ public class CatalogService(IWorkoutBigBrain bigBrain) : ICatalogService
         return allWorkoutTypes.Except(activeWorkoutTypes).ToList();
     }
 
-    private List<WorkoutTypeDto> GetAllWorkoutTypes()
+    private static List<WorkoutTypeDto> GetAllWorkoutTypes()
     {
         return Enum.GetNames<WorkoutType>()
             .Select(workoutType => new WorkoutTypeDto(

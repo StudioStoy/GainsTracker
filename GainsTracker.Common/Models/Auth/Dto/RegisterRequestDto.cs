@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GainsTracker.Core.Components.Security.DTO;
+namespace GainsTracker.Common.Models.Auth.Dto;
 
 public class RegisterRequestDto
 {

@@ -1,5 +1,9 @@
 ﻿using CommunityToolkit.Maui;
 using GainsTracker.UI.Services;
+using GainsTracker.UI.Services.API;
+using GainsTracker.UI.Services.API.Interfaces;
+using GainsTracker.UI.Services.Auth;
+using GainsTracker.UI.Services.Auth.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace GainsTracker.ClientNative;

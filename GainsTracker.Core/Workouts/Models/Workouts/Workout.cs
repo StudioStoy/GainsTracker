@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 using GainsTracker.Common.Models.Workouts;
-using GainsTracker.Core.Components.Workouts.Models.Measurements;
+using GainsTracker.Core.Workouts.Models.Measurements;
 
-namespace GainsTracker.Core.Components.Workouts.Models.Workouts;
+namespace GainsTracker.Core.Workouts.Models.Workouts;
 
 public class Workout
 {

@@ -2,18 +2,20 @@ using System.Drawing;
 using System.Linq.Expressions;
 using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.UserProfiles;
-using GainsTracker.Core.Components.UserProfiles.Interfaces.Repositories;
-using GainsTracker.Core.Components.UserProfiles.Models;
-using GainsTracker.Core.Components.Workouts.Models.Measurements;
+using GainsTracker.Core.UserProfiles.Interfaces.Repositories;
+using GainsTracker.Core.UserProfiles.Models;
+using GainsTracker.Core.Workouts.Models.Measurements;
 using GainsTracker.Data.Shared;
+using GainsTracker.Data.UserProfiles.Entities;
 using GainsTracker.Data.Workouts;
+using GainsTracker.Data.Workouts.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace GainsTracker.Data.UserProfiles;
 
 public delegate Expression<Func<T, object>> PropertyToInclude<T>();
 
-public class UserProfileBigBrain(GainsDbContext context) : BigBrain<UserProfile>(context), IUserProfileBigBrain
+public class UserProfileBigBrain(GainsDbContext context) : BigBrain<UserProfileEntity>(context), IUserProfileBigBrain
 {
     private readonly GainsDbContext _context = context;
     

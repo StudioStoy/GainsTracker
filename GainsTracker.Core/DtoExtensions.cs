@@ -3,11 +3,10 @@ using System.Reflection;
 using GainsTracker.Common.Models.Friends.Dto;
 using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Common.Models.Workouts.Dto;
-using GainsTracker.Core.Components.Friends;
-using GainsTracker.Core.Components.Friends.Models;
-using GainsTracker.Core.Components.UserProfiles.Models;
-using GainsTracker.Core.Components.Workouts.Models.Measurements;
-using GainsTracker.Core.Components.Workouts.Models.Workouts;
+using GainsTracker.Core.Friends.Models;
+using GainsTracker.Core.UserProfiles.Models;
+using GainsTracker.Core.Workouts.Models.Measurements;
+using GainsTracker.Core.Workouts.Models.Workouts;
 
 namespace GainsTracker.Core;
 

@@ -1,6 +1,6 @@
 ﻿using GainsTracker.Common.Models.Friends.Dto;
 
-namespace GainsTracker.Core.Components.Friends.Interfaces.Services;
+namespace GainsTracker.Core.Friends.Interfaces.Services;
 
 public interface IFriendRequestService
 {

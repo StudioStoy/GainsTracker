@@ -1,6 +1,6 @@
-﻿using GainsTracker.Core.Components.HealthMetrics.Interfaces.Repositories;
-using GainsTracker.Core.Components.HealthMetrics.Interfaces.Services;
-using GainsTracker.Core.Components.HealthMetrics.Services;
+﻿using GainsTracker.Core.HealthMetrics.Interfaces.Repositories;
+using GainsTracker.Core.HealthMetrics.Interfaces.Services;
+using GainsTracker.Core.HealthMetrics.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GainsTracker.Data.HealthMetrics;

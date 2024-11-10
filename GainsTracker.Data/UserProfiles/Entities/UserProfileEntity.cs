@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using GainsTracker.Core.Components.Workouts.Models.Measurements;
-using GainsTracker.Data.Workouts;
+using GainsTracker.Data.Workouts.Entities;
 
-namespace GainsTracker.Data.UserProfiles;
+namespace GainsTracker.Data.UserProfiles.Entities;
 
 [Table("user_profile")]
 public class UserProfileEntity

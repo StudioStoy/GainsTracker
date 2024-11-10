@@ -1,9 +1,9 @@
 using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Common.Models.Workouts.Dto;
-using GainsTracker.Core.Components.UserProfiles.Interfaces.Repositories;
-using GainsTracker.Core.Components.UserProfiles.Interfaces.Services;
+using GainsTracker.Core.UserProfiles.Interfaces.Repositories;
+using GainsTracker.Core.UserProfiles.Interfaces.Services;
 
-namespace GainsTracker.Core.Components.UserProfiles.Services;
+namespace GainsTracker.Core.UserProfiles.Services;
 
 public class UserProfileService(IUserProfileBigBrain bigBrain) : IUserProfileService
 {

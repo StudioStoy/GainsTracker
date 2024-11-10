@@ -3,14 +3,14 @@ using System.Security.Claims;
 using System.Text;
 using DotNetEnv;
 using GainsTracker.Common.Exceptions;
-using GainsTracker.Core.Components.Security.DTO;
-using GainsTracker.Core.Components.Security.Models;
-using GainsTracker.Core.Components.Workouts.Models;
+using GainsTracker.Common.Models.Auth.Dto;
+using GainsTracker.Core.Security.Models;
+using GainsTracker.Core.Workouts.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace GainsTracker.Core.Components.Security.Services;
+namespace GainsTracker.Core.Security.Services;
 
 public class AuthenticationService(UserManager<User> userManager, IConfiguration configuration, IBigBrain<GainsAccount> bigBrain)
     : IAuthenticationService

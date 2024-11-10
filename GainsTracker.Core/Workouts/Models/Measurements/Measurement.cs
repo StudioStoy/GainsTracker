@@ -3,7 +3,7 @@ using GainsTracker.Common.Models.Generic;
 using GainsTracker.Common.Models.Measurements.Units;
 using GainsTracker.Common.Models.Workouts;
 
-namespace GainsTracker.Core.Components.Workouts.Models.Measurements;
+namespace GainsTracker.Core.Workouts.Models.Measurements;
 
 public abstract class Measurement : ITrackableGoal
 {

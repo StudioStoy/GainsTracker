@@ -1,8 +1,8 @@
-﻿using GainsTracker.Core.Components.HealthMetrics.Models;
+﻿using GainsTracker.Core.HealthMetrics.Models;
 
-namespace GainsTracker.Core.Components.HealthMetrics.Interfaces.Repositories;
+namespace GainsTracker.Core.HealthMetrics.Interfaces.Repositories;
 
-public interface IHealthMetricBigBrain : IBigBrain<HealthMetric>
+public interface IHealthMetricBigBrain : IBaseBrain
 {
     Task<List<HealthMetric>> GetAllMetricsByUsername(string username);
 }

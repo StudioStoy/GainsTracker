@@ -1,7 +1,7 @@
 using System.Text.Json;
 using GainsTracker.Common.Models.Metrics;
 
-namespace GainsTracker.Core.Components.HealthMetrics.Models;
+namespace GainsTracker.Core.HealthMetrics.Models;
 
 public static class HealthMetricFactory
 {

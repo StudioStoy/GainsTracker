@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using GainsTracker.Common.Models.Friends;
-using GainsTracker.Data.Gains;
+using GainsTracker.Data.Gains.Entities;
 
-namespace GainsTracker.Data.Friends;
+namespace GainsTracker.Data.Friends.Entities;
 
 [Table("friend_request")]
 public class FriendRequestEntity

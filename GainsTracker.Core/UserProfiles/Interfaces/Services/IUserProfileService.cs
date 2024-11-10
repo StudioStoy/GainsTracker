@@ -1,7 +1,7 @@
 using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Common.Models.Workouts.Dto;
 
-namespace GainsTracker.Core.Components.UserProfiles.Interfaces.Services;
+namespace GainsTracker.Core.UserProfiles.Interfaces.Services;
 
 public interface IUserProfileService
 {

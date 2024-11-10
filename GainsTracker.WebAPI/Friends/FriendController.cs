@@ -1,6 +1,5 @@
-﻿using GainsTracker.Core.Components.Friends;
-using GainsTracker.Core.Components.Friends.Interfaces.Services;
-using GainsTracker.Core.Components.Friends.Models;
+﻿using GainsTracker.Core.Friends.Interfaces.Services;
+using GainsTracker.Core.Friends.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,15 +7,10 @@ namespace GainsTracker.WebAPI.Friends;
 
 [ApiController]
 [Authorize]
-[Route("friend")]
-public class FriendController : ExtendedControllerBase
+[Route("friends")]
+public class FriendController(IFriendService friendService) : ExtendedControllerBase
 {
-    public FriendController(IFriendService friendService)
-    {
-        _friendService = friendService;
-    }
-
-    private IFriendService _friendService { get; }
+    private IFriendService _friendService { get; } = friendService;
 
     [HttpGet]
     public async Task<IActionResult> GetFriends()

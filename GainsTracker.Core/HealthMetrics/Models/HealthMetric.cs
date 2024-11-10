@@ -2,7 +2,7 @@
 using GainsTracker.Common.Models.Generic;
 using GainsTracker.Common.Models.Metrics;
 
-namespace GainsTracker.Core.Components.HealthMetrics.Models;
+namespace GainsTracker.Core.HealthMetrics.Models;
 
 public abstract class HealthMetric : ITrackableGoal
 {

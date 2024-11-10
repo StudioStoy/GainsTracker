@@ -2,9 +2,7 @@
 using GainsTracker.Common.Models.Generic;
 using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Common.Models.Workouts.Dto;
-using GainsTracker.Core.Components.Workouts.Interfaces;
-using GainsTracker.Core.Components.Workouts.Interfaces.Services;
-using GainsTracker.Core.Components.Workouts.Services;
+using GainsTracker.Core.Workouts.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +10,7 @@ namespace GainsTracker.WebAPI.Workouts;
 
 [ApiController]
 [Authorize]
-[Route("catalog")]
+[Route("workouts/catalog")]
 public class CatalogController : ExtendedControllerBase
 {
     private readonly ICatalogService _catalogService;

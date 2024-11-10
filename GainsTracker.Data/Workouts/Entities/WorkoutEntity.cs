@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 using GainsTracker.Common.Models.Workouts;
-using GainsTracker.Data.Shared;
 
-namespace GainsTracker.Data.Workouts;
+namespace GainsTracker.Data.Workouts.Entities;
 
 [Table("workout")]
 public class WorkoutEntity

@@ -1,4 +1,6 @@
-﻿namespace GainsTracker.UI.Services;
+﻿using GainsTracker.UI.Services.Auth.Interfaces;
+
+namespace GainsTracker.UI.Services.Auth;
 
 public class DummyAuthService : IGainsAuthService
 {

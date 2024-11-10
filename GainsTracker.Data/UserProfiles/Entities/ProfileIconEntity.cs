@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GainsTracker.Data.UserProfiles;
+namespace GainsTracker.Data.UserProfiles.Entities;
 
 [Table("profile_icon")]
 public class ProfileIconEntity

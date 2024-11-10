@@ -1,7 +1,7 @@
-﻿using GainsTracker.Core.Components.Workouts.Models;
+﻿using GainsTracker.Core.Workouts.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace GainsTracker.Core.Components.Security.Models;
+namespace GainsTracker.Core.Security.Models;
 
 public sealed class User : IdentityUser
 {

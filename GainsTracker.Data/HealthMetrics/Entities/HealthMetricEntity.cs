@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 using GainsTracker.Common.Models.Metrics;
 
-namespace GainsTracker.Data.HealthMetrics;
+namespace GainsTracker.Data.HealthMetrics.Entities;
 
 [Table("health_metric")]
 [JsonDerivedType(typeof(ProteinHealthMetricEntity))]

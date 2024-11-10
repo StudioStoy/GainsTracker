@@ -2,9 +2,10 @@
 using System.Net;
 using System.Text;
 using System.Text.Json.Nodes;
+using GainsTracker.UI.Services.Auth.Interfaces;
 using static GainsTracker.Common.Constants;
 
-namespace GainsTracker.UI.Services;
+namespace GainsTracker.UI.Services.Auth;
 
 public class GainsAuthService : IGainsAuthService
 {

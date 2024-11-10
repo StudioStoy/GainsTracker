@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using GainsTracker.ClientWebAssembly;
 using GainsTracker.UI.Services;
+using GainsTracker.UI.Services.API;
+using GainsTracker.UI.Services.API.Interfaces;
+using GainsTracker.UI.Services.Auth;
+using GainsTracker.UI.Services.Auth.Interfaces;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

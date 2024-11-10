@@ -1,10 +1,8 @@
-﻿using GainsTracker.Common.Models.Measurements.Units;
-
-namespace GainsTracker.Data.Workouts;
-
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using GainsTracker.Common.Models.Measurements.Units;
+
+namespace GainsTracker.Data.Workouts.Entities;
 
 [Table("measurement")]
 [JsonDerivedType(typeof(StrengthMeasurementEntity))]

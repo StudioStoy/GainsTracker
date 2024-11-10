@@ -1,6 +1,6 @@
-using GainsTracker.Core.Components.Workouts.Models.Measurements;
+using GainsTracker.Core.Workouts.Models.Measurements;
 
-namespace GainsTracker.Core.Components.UserProfiles.Models;
+namespace GainsTracker.Core.UserProfiles.Models;
 
 public class UserProfile
 {

@@ -1,17 +1,18 @@
 ﻿using GainsTracker.Common.Models.Friends.Dto;
-using GainsTracker.Core.Components.Friends.Exceptions;
-using GainsTracker.Core.Components.Friends.Interfaces.Repositories;
-using GainsTracker.Core.Components.Friends.Interfaces.Services;
-using GainsTracker.Core.Components.Friends.Models;
-using GainsTracker.Core.Components.Workouts.Models;
+using GainsTracker.Core.Friends.Exceptions;
+using GainsTracker.Core.Friends.Interfaces.Repositories;
+using GainsTracker.Core.Friends.Interfaces.Services;
+using GainsTracker.Core.Friends.Models;
+using GainsTracker.Core.Gains.Interfaces.Services;
+using GainsTracker.Core.Workouts.Models;
 
-namespace GainsTracker.Core.Components.Friends.Services;
+namespace GainsTracker.Core.Friends.Services;
 
-public class FriendRequestService(IFriendBigBrain bigBrain) : IFriendRequestService
+public class FriendRequestService(IFriendBigBrain bigBrain, IGainsService gainsService) : IFriendRequestService
 {
     public async Task<FriendRequestOverviewDto> GetFriendRequests(string userHandle)
     {
-        Guid gainsId = await bigBrain.GetGainsIdByUsername(userHandle);
+        Guid gainsId = await gainsService.GetGainsIdByUsername(userHandle);
         GainsAccount user = await bigBrain.GetFriendInfoByGainsId(gainsId);
 
         return new FriendRequestOverviewDto
@@ -25,8 +26,8 @@ public class FriendRequestService(IFriendBigBrain bigBrain) : IFriendRequestServ
     {
         await CheckFriendshipStatus(userHandle, friendHandle);
 
-        GainsAccount user = await bigBrain.GetGainsAccountByUserHandle(userHandle);
-        GainsAccount potentialFriend = await bigBrain.GetGainsAccountByUserHandle(friendHandle);
+        GainsAccount user = await gainsService.GetGainsAccountByUserHandle(userHandle);
+        GainsAccount potentialFriend = await gainsService.GetGainsAccountByUserHandle(friendHandle);
 
         user.SentFriendRequest(potentialFriend);
         
@@ -36,7 +37,7 @@ public class FriendRequestService(IFriendBigBrain bigBrain) : IFriendRequestServ
     public async Task HandleFriendRequestState(string userHandle, Guid requestId, bool accept = true)
     {
         FriendRequest request = await bigBrain.GetFriendRequestById(requestId);
-        Guid gainsId = await bigBrain.GetGainsIdByUsername(userHandle);
+        Guid gainsId = await gainsService.GetGainsIdByUsername(userHandle);
 
         if (request.RequesterId == gainsId)
             throw new Exception("Requester can obviously not accept or reject their own request");
@@ -49,7 +50,7 @@ public class FriendRequestService(IFriendBigBrain bigBrain) : IFriendRequestServ
 
     private async Task<List<Friend>> GetFriends(string userHandle)
     {
-        GainsAccount gainsAccount = await bigBrain.GetGainsAccountByUserHandle(userHandle);
+        GainsAccount gainsAccount = await gainsService.GetGainsAccountByUserHandle(userHandle);
         List<Friend> friends = await bigBrain.GetFriendsByGainsId(gainsAccount.Id);
 
         return friends;

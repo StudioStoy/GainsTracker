@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using GainsTracker.Common.Models.Workouts;
-using GainsTracker.Core.Components.Workouts.Models.Measurements.Validators;
+using GainsTracker.Core.Workouts.Models.Measurements.Validators;
 
-namespace GainsTracker.Core.Components.Workouts.Models.Measurements;
+namespace GainsTracker.Core.Workouts.Models.Measurements;
 
 public static class MeasurementFactory
 {

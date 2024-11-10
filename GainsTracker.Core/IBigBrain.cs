@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using GainsTracker.Core.Components.Workouts.Models;
+using GainsTracker.Core.Workouts.Models;
 
 namespace GainsTracker.Core;
 
@@ -19,4 +19,5 @@ public interface IBigBrain<T> where T : class
     Task<GainsAccount> GetGainsAccountByUserHandle(string userHandle);
     Task<Guid> GetGainsIdByUsername(string userHandle);
     Task SaveContext();
+    
 }

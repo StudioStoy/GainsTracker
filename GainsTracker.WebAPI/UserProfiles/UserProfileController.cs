@@ -1,6 +1,5 @@
 ﻿using GainsTracker.Common.Models.UserProfiles;
-using GainsTracker.Core.Components.UserProfiles.Interfaces.Services;
-using GainsTracker.Core.Components.UserProfiles.Services;
+using GainsTracker.Core.UserProfiles.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

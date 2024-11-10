@@ -1,6 +1,6 @@
 using GainsTracker.Common.Models.Workouts;
 
-namespace GainsTracker.Core.Components.Workouts.Models.Measurements.Validators;
+namespace GainsTracker.Core.Workouts.Models.Measurements.Validators;
 
 public class TimeMeasurementValidator : MeasurementValidator<TimeEnduranceMeasurement>
 {

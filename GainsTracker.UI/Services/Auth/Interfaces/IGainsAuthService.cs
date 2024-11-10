@@ -1,4 +1,4 @@
-﻿namespace GainsTracker.UI.Services;
+﻿namespace GainsTracker.UI.Services.Auth.Interfaces;
 
 public interface IGainsAuthService
 {

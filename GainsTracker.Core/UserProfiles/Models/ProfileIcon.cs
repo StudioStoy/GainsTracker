@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 
-namespace GainsTracker.Core.Components.UserProfiles.Models;
+namespace GainsTracker.Core.UserProfiles.Models;
 
 [Table("profile_icons")]
 public class ProfileIcon

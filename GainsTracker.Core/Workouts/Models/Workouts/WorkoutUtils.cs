@@ -1,7 +1,7 @@
 ﻿using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.Workouts;
 
-namespace GainsTracker.Core.Components.Workouts.Models.Workouts;
+namespace GainsTracker.Core.Workouts.Models.Workouts;
 
 public static class WorkoutUtils
 {

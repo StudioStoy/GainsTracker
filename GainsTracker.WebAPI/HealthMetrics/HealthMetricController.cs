@@ -1,14 +1,13 @@
 ﻿using GainsTracker.Common.Models.Metrics.Dto;
-using GainsTracker.Core.Components.HealthMetrics.Interfaces.Services;
-using GainsTracker.Core.Components.HealthMetrics.Services;
+using GainsTracker.Core.HealthMetrics.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GainsTracker.WebAPI.Controllers;
+namespace GainsTracker.WebAPI.HealthMetrics;
 
 [ApiController]
 [Authorize]
-[Route("gains/health-healthMetric")]
+[Route("health-metrics")]
 public class HealthMetricController(IHealthMetricService metricService) : ExtendedControllerBase
 {
     [HttpGet]

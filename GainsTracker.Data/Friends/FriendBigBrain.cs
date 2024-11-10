@@ -1,15 +1,15 @@
 ﻿using GainsTracker.Common.Exceptions;
-using GainsTracker.Core.Components.Friends;
-using GainsTracker.Core.Components.Friends.Interfaces.Repositories;
-using GainsTracker.Core.Components.Friends.Models;
-using GainsTracker.Core.Components.Workouts.Models;
+using GainsTracker.Core.Friends.Interfaces.Repositories;
+using GainsTracker.Core.Friends.Models;
+using GainsTracker.Core.Workouts.Models;
+using GainsTracker.Data.Friends.Entities;
 using GainsTracker.Data.Gains;
 using GainsTracker.Data.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace GainsTracker.Data.Friends;
 
-public class FriendBigBrain(GainsDbContext context) : BigBrain<Friend>(context), IFriendBigBrain
+public class FriendBigBrain(GainsDbContext context) : BigBrain<FriendEntity>(context), IFriendBigBrain
 {
     private readonly GainsDbContext _context = context;
 
@@ -18,7 +18,7 @@ public class FriendBigBrain(GainsDbContext context) : BigBrain<Friend>(context),
         var gainsWithFriends = await _context.GainsAccounts
             .Include(g => g.Friends)
             .FirstOrDefaultAsync(g => g.Id == gainsId);
-
+        
         if (gainsWithFriends == null)
             return [];
         

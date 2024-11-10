@@ -1,4 +1,5 @@
-﻿using GainsTracker.Core.Components.UserProfiles.Models;
+﻿using GainsTracker.Core.UserProfiles.Models;
+using GainsTracker.Data.UserProfiles.Entities;
 using GainsTracker.Data.Workouts;
 
 namespace GainsTracker.Data.UserProfiles;

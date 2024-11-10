@@ -1,6 +1,6 @@
-﻿using GainsTracker.Core.Components.Friends.Models;
+﻿using GainsTracker.Core.Friends.Models;
 
-namespace GainsTracker.Core.Components.Friends.Interfaces.Services;
+namespace GainsTracker.Core.Friends.Interfaces.Services;
 
 public interface IFriendService
 {

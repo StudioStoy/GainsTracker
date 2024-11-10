@@ -1,4 +1,5 @@
-﻿using GainsTracker.Core.Components.HealthMetrics.Models;
+﻿using GainsTracker.Core.HealthMetrics.Models;
+using GainsTracker.Data.HealthMetrics.Entities;
 
 namespace GainsTracker.Data.HealthMetrics
 {

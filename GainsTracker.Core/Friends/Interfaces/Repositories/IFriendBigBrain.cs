@@ -1,9 +1,9 @@
-﻿using GainsTracker.Core.Components.Friends.Models;
-using GainsTracker.Core.Components.Workouts.Models;
+﻿using GainsTracker.Core.Friends.Models;
+using GainsTracker.Core.Workouts.Models;
 
-namespace GainsTracker.Core.Components.Friends.Interfaces.Repositories;
+namespace GainsTracker.Core.Friends.Interfaces.Repositories;
 
-public interface IFriendBigBrain : IBigBrain<Friend>
+public interface IFriendBigBrain : IBaseBrain
 {
     Task<List<Friend>> GetFriendsByGainsId(Guid gainsId);
     Task<GainsAccount> GetFriendInfoByGainsId(Guid gainsId);

@@ -1,12 +1,12 @@
 ﻿using System.Linq.Expressions;
 using GainsTracker.Common.Exceptions;
 using GainsTracker.Core;
-using GainsTracker.Core.Components.Workouts.Models;
+using GainsTracker.Core.Workouts.Models;
 using GainsTracker.Data.Gains;
-using GainsTracker.Data.Shared;
+using GainsTracker.Data.Gains.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace GainsTracker.Data;
+namespace GainsTracker.Data.Shared;
 
 /// <summary>
 ///     Oh yeah, this is big brain time
@@ -19,7 +19,7 @@ public class BigBrain<T> : IBigBrain<T> where T : class
     private readonly GainsDbContext _context;
     private readonly DbSet<T> _dbSet;
 
-    protected BigBrain(GainsDbContext context)
+    public BigBrain(GainsDbContext context)
     {
         _context = context;
         _dbSet = _context.Set<T>();

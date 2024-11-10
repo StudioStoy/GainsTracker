@@ -1,24 +1,28 @@
 ﻿using System.Data.Entity.ModelConfiguration.Conventions;
-using GainsTracker.Core.Components.Security.Models;
-using GainsTracker.Data.Friends;
-using GainsTracker.Data.Gains;
-using GainsTracker.Data.HealthMetrics;
-using GainsTracker.Data.UserProfiles;
-using GainsTracker.Data.Workouts;
+using GainsTracker.Core.Security.Models;
+using GainsTracker.Data.Friends.Entities;
+using GainsTracker.Data.Gains.Entities;
+using GainsTracker.Data.HealthMetrics.Entities;
+using GainsTracker.Data.UserProfiles.Entities;
+using GainsTracker.Data.Workouts.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GainsTracker.Data.Shared;
 
-public sealed class GainsDbContext(DbContextOptions<GainsDbContext> options) : IdentityDbContext<User>(options)
+public sealed class GainsDbContext : IdentityDbContext<User>
 {
-    // All the main domains.
+    public GainsDbContext(DbContextOptions<GainsDbContext> options) : base(options)
+    {
+    }
+    
+    // The main domains.
     public override DbSet<User> Users { get; set; }
     public DbSet<GainsAccountEntity> GainsAccounts { get; set; }
-    public DbSet<UserProfileEntity> UserProfiles { get; set; }
-    public DbSet<FriendRequestEntity> FriendRequests { get; set; }
-    public DbSet<FriendEntity> Friends { get; set; }
     public DbSet<WorkoutEntity> Workouts { get; set; }
+    public DbSet<FriendEntity> Friends { get; set; }
+    public DbSet<FriendRequestEntity> FriendRequests { get; set; }
+    public DbSet<UserProfileEntity> UserProfiles { get; set; }
     public DbSet<ProfileIconEntity> ProfileIcons { get; set; }
 
     // Measurements and its derived classes.

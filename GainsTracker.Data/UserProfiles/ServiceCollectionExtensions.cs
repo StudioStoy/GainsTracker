@@ -1,6 +1,6 @@
-﻿using GainsTracker.Core.Components.UserProfiles.Interfaces.Repositories;
-using GainsTracker.Core.Components.UserProfiles.Interfaces.Services;
-using GainsTracker.Core.Components.UserProfiles.Services;
+﻿using GainsTracker.Core.UserProfiles.Interfaces.Repositories;
+using GainsTracker.Core.UserProfiles.Interfaces.Services;
+using GainsTracker.Core.UserProfiles.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GainsTracker.Data.UserProfiles;

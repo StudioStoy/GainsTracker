@@ -1,5 +1,5 @@
-using GainsTracker.Core.Components.Security.DTO;
-using GainsTracker.Core.Components.Security.Services;
+using GainsTracker.Common.Models.Auth.Dto;
+using GainsTracker.Core.Security.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

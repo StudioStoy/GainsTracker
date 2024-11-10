@@ -1,7 +1,7 @@
 ﻿using GainsTracker.Common.Models.Friends;
-using GainsTracker.Core.Components.Workouts.Models;
+using GainsTracker.Core.Workouts.Models;
 
-namespace GainsTracker.Core.Components.Friends.Models;
+namespace GainsTracker.Core.Friends.Models;
 
 public class FriendRequest
 {

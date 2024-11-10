@@ -1,4 +1,4 @@
-﻿using GainsTracker.Core.Components.Friends.Interfaces.Services;
+﻿using GainsTracker.Core.Friends.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +6,7 @@ namespace GainsTracker.WebAPI.Friends;
 
 [ApiController]
 [Authorize]
-[Route("friend/request")]
+[Route("friends/request")]
 public class FriendRequestController(IFriendRequestService friendRequestService) : ExtendedControllerBase
 {
     [HttpGet]

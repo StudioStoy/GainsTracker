@@ -1,12 +1,13 @@
 ﻿using GainsTracker.Common.Exceptions;
-using GainsTracker.Core.Components.Workouts.Interfaces.Repositories;
-using GainsTracker.Core.Components.Workouts.Models.Workouts;
+using GainsTracker.Core.Workouts.Interfaces.Repositories;
+using GainsTracker.Core.Workouts.Models.Workouts;
 using GainsTracker.Data.Shared;
+using GainsTracker.Data.Workouts.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace GainsTracker.Data.Workouts;
 
-public class WorkoutBigBrain(GainsDbContext context) : BigBrain<Workout>(context), IWorkoutBigBrain
+public class WorkoutBigBrain(GainsDbContext context) : BigBrain<WorkoutEntity>(context), IWorkoutBigBrain
 {
     private readonly GainsDbContext _context = context;
 

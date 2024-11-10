@@ -1,5 +1,5 @@
-﻿using GainsTracker.Core.Components.Friends;
-using GainsTracker.Core.Components.Friends.Models;
+﻿using GainsTracker.Core.Friends.Models;
+using GainsTracker.Data.Friends.Entities;
 using GainsTracker.Data.Gains;
 
 namespace GainsTracker.Data.Friends;

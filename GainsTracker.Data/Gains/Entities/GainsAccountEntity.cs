@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using GainsTracker.Data.Friends;
-using GainsTracker.Data.HealthMetrics;
-using GainsTracker.Data.UserProfiles;
-using GainsTracker.Data.Workouts;
+using GainsTracker.Data.Friends.Entities;
+using GainsTracker.Data.HealthMetrics.Entities;
+using GainsTracker.Data.UserProfiles.Entities;
+using GainsTracker.Data.Workouts.Entities;
 
-namespace GainsTracker.Data.Gains;
+namespace GainsTracker.Data.Gains.Entities;
 
 [Table("gains_account")]
 public class GainsAccountEntity

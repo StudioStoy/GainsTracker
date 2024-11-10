@@ -1,6 +1,6 @@
 using GainsTracker.Common.Models.Metrics.Dto;
 
-namespace GainsTracker.Core.Components.HealthMetrics.Interfaces.Services;
+namespace GainsTracker.Core.HealthMetrics.Interfaces.Services;
 
 public interface IHealthMetricService
 {

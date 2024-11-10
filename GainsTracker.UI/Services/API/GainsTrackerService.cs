@@ -1,8 +1,9 @@
 ﻿using System.Diagnostics;
 using GainsTracker.Common.Models.Workouts.Dto;
+using GainsTracker.UI.Services.API.Interfaces;
 using static GainsTracker.Common.Constants;
 
-namespace GainsTracker.UI.Services;
+namespace GainsTracker.UI.Services.API;
 
 // All the code in this file is included in all platforms.
 public class GainsTrackerService : IGainsTrackerService

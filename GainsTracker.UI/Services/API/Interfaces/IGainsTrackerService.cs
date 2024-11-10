@@ -1,6 +1,6 @@
 ﻿using GainsTracker.Common.Models.Workouts.Dto;
 
-namespace GainsTracker.UI.Services;
+namespace GainsTracker.UI.Services.API.Interfaces;
 
 public interface IGainsTrackerService
 {

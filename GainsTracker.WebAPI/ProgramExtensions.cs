@@ -2,9 +2,11 @@
 using System.Security.Claims;
 using System.Text;
 using DotNetEnv;
-using GainsTracker.Core.Components.Security;
-using GainsTracker.Core.Components.Security.Models;
+using GainsTracker.Core.Security;
+using GainsTracker.Core.Security.Models;
 using GainsTracker.Data.Friends;
+using GainsTracker.Data.Gains;
+using GainsTracker.Data.Gains.Entities;
 using GainsTracker.Data.HealthMetrics;
 using GainsTracker.Data.Shared;
 using GainsTracker.Data.UserProfiles;
@@ -27,11 +29,13 @@ public static class ProgramExtensions
     /// </summary>
     public static void RegisterEpicDependencies(this WebApplicationBuilder builder)
     {
-        builder.Services.AddAuthServices()
+        builder.Services
+            .AddAuthServices()
             .AddWorkoutServices()
             .AddHealthMetricServices()
             .AddUserProfileServices()
-            .AddFriendServices();
+            .AddFriendServices()
+            .AddGainsServices();
     }
 
     /// <summary>

@@ -1,11 +1,12 @@
-﻿using GainsTracker.Core.Components.HealthMetrics.Interfaces.Repositories;
-using GainsTracker.Core.Components.HealthMetrics.Models;
+﻿using GainsTracker.Core.HealthMetrics.Interfaces.Repositories;
+using GainsTracker.Core.HealthMetrics.Models;
+using GainsTracker.Data.HealthMetrics.Entities;
 using GainsTracker.Data.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace GainsTracker.Data.HealthMetrics;
 
-public class HealthMetricBigBrain(GainsDbContext context) : BigBrain<HealthMetric>(context), IHealthMetricBigBrain
+public class HealthMetricBigBrain(GainsDbContext context) : BigBrain<HealthMetricEntity>(context), IHealthMetricBigBrain
 {
     private readonly GainsDbContext _context = context;
 

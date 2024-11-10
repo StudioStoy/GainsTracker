@@ -1,10 +1,10 @@
-using GainsTracker.Core.Components.Friends.Exceptions;
-using GainsTracker.Core.Components.Friends.Models;
-using GainsTracker.Core.Components.HealthMetrics.Models;
-using GainsTracker.Core.Components.UserProfiles.Models;
-using GainsTracker.Core.Components.Workouts.Models.Workouts;
+using GainsTracker.Core.Friends.Exceptions;
+using GainsTracker.Core.Friends.Models;
+using GainsTracker.Core.HealthMetrics.Models;
+using GainsTracker.Core.UserProfiles.Models;
+using GainsTracker.Core.Workouts.Models.Workouts;
 
-namespace GainsTracker.Core.Components.Workouts.Models;
+namespace GainsTracker.Core.Workouts.Models;
 
 public class GainsAccount
 {

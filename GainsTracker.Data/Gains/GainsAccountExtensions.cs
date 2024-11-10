@@ -1,5 +1,6 @@
-﻿using GainsTracker.Core.Components.Workouts.Models;
+﻿using GainsTracker.Core.Workouts.Models;
 using GainsTracker.Data.Friends;
+using GainsTracker.Data.Gains.Entities;
 using GainsTracker.Data.HealthMetrics;
 using GainsTracker.Data.UserProfiles;
 using GainsTracker.Data.Workouts;

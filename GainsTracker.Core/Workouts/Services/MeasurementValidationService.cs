@@ -1,10 +1,9 @@
 ﻿using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.Workouts;
-using GainsTracker.Core.Components.Workouts.Interfaces;
-using GainsTracker.Core.Components.Workouts.Interfaces.Services;
-using GainsTracker.Core.Components.Workouts.Models.Measurements;
+using GainsTracker.Core.Workouts.Interfaces.Services;
+using GainsTracker.Core.Workouts.Models.Measurements;
 
-namespace GainsTracker.Core.Components.Workouts.Services;
+namespace GainsTracker.Core.Workouts.Services;
 
 /// <summary>
 ///     This class contains functions for managing all the types of measurements.

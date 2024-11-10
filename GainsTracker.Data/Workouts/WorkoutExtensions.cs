@@ -1,5 +1,6 @@
-﻿using GainsTracker.Core.Components.Workouts.Models.Measurements;
-using GainsTracker.Core.Components.Workouts.Models.Workouts;
+﻿using GainsTracker.Core.Workouts.Models.Measurements;
+using GainsTracker.Core.Workouts.Models.Workouts;
+using GainsTracker.Data.Workouts.Entities;
 
 namespace GainsTracker.Data.Workouts
 {
