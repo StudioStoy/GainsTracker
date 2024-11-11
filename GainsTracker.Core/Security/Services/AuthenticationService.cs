@@ -4,6 +4,7 @@ using System.Text;
 using DotNetEnv;
 using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.Auth.Dto;
+using GainsTracker.Core.Gains.Interfaces.Services;
 using GainsTracker.Core.Security.Models;
 using GainsTracker.Core.Workouts.Models;
 using Microsoft.AspNetCore.Identity;
@@ -12,7 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace GainsTracker.Core.Security.Services;
 
-public class AuthenticationService(UserManager<User> userManager, IConfiguration configuration, IBigBrain<GainsAccount> bigBrain)
+public class AuthenticationService(UserManager<User> userManager, IConfiguration configuration, IGainsService gainsService)
     : IAuthenticationService
 {
     public async Task<string> Register(RegisterRequestDto request)
@@ -34,7 +35,7 @@ public class AuthenticationService(UserManager<User> userManager, IConfiguration
 
         if (!result.Succeeded) throw new ArgumentException($"Unable to register user {request.UserHandle} errors: {GetErrorsText(result.Errors)}");
 
-        await bigBrain.SaveContext();
+        // TODO: await gainsService.SaveContext();
 
         return await Login(new LoginRequestDto { UserHandle = request.Email, Password = request.Password });
     }
