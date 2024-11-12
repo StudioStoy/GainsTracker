@@ -20,7 +20,7 @@ public abstract class MeasurementEntity
 
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public string WorkoutId { get; set; } = string.Empty;
-    public string? UserProfileId { get; set; }
+    public Guid? UserProfileId { get; set; }
 
     #endregion
 }

@@ -24,5 +24,5 @@ public class GainsAccountEntity
     
     public Guid Id { get; set; }
     public string UserId { get; set; } = string.Empty;
-    public string UserProfileId { get; set; } = string.Empty;
+    public Guid UserProfileId { get; set; }
 }

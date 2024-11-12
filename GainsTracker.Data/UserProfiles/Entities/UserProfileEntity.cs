@@ -14,5 +14,4 @@ public class UserProfileEntity
     public List<MeasurementEntity> PinnedPBs { get; set; } = [];
 
     public required ProfileIconEntity Icon { get; set; }
-    
 }

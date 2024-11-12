@@ -5,6 +5,8 @@ namespace GainsTracker.Core.Security.Models;
 
 public sealed class User : IdentityUser
 {
+    public User() {}
+    
     public User(string userHandle, string displayName = "")
     {
         UserName = userHandle;

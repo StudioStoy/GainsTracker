@@ -16,7 +16,7 @@ public abstract class Measurement : ITrackableGoal
 
     [JsonIgnore] public string Id { get; set; } = Guid.NewGuid().ToString();
     [JsonIgnore] public string WorkoutId { get; set; } = string.Empty;
-    [JsonIgnore] public string? UserProfileId { get; set; } // Indicates that it's a PinnedPB. Sadly.
+    [JsonIgnore] public Guid? UserProfileId { get; set; } // Indicates that it's a PinnedPB. Sadly.
 
     #endregion
 }

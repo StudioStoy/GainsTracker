@@ -6,27 +6,29 @@ using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.Auth.Dto;
 using GainsTracker.Core.Gains.Interfaces.Services;
 using GainsTracker.Core.Security.Models;
-using GainsTracker.Core.Workouts.Models;
+using GainsTracker.Core.Security.Services;
+using GainsTracker.Data.Gains.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace GainsTracker.Core.Security.Services;
+namespace GainsTracker.Data.Gains;
 
-public class AuthenticationService(UserManager<User> userManager, IConfiguration configuration, IGainsService gainsService)
+public class AuthenticationService(UserManager<UserEntity> userManager, IConfiguration configuration, IGainsService gainsService)
     : IAuthenticationService
 {
     public async Task<string> Register(RegisterRequestDto request)
     {
-        User? userByEmail = await userManager.FindByEmailAsync(request.Email);
-        User? userByUsername = await userManager.FindByNameAsync(request.UserHandle);
+        var userByEmail = await userManager.FindByEmailAsync(request.Email);
+        var userByUsername = await userManager.FindByNameAsync(request.UserHandle);
 
         if (userByEmail is not null || userByUsername is not null)
             throw new ArgumentException($"User with email {request.Email} or username {request.UserHandle} already exists.");
 
-        string displayName = string.IsNullOrEmpty(request.DisplayName) ? "" : request.DisplayName;
-        User user = new(request.UserHandle, displayName)
+        string displayName = string.IsNullOrEmpty(request.DisplayName) ? request.UserHandle : request.DisplayName;
+        UserEntity user = new()
         {
+            UserName = displayName,
             Email = request.Email,
             SecurityStamp = Guid.NewGuid().ToString()
         };
@@ -44,7 +46,7 @@ public class AuthenticationService(UserManager<User> userManager, IConfiguration
     {
         ValidateLoginRequest(request);
 
-        User user = await userManager.FindByNameAsync(request.UserHandle)
+        UserEntity user = await userManager.FindByNameAsync(request.UserHandle)
                     ?? await userManager.FindByEmailAsync(request.UserHandle)
                     ?? throw new NotFoundException("There is no user found with that username");
 

@@ -22,11 +22,11 @@ public static class ModelBuilderExtensions
             .WithMany(b => b.ReceivedFriendRequests)
             .HasForeignKey(c => c.RecipientId);
         
-        builder.Entity<User>(user =>
+        builder.Entity<UserEntity>(user =>
         {
             user.HasOne(u => u.GainsAccount)
                 .WithOne()
-                .HasForeignKey<User>(u => u.GainsAccountId);
+                .HasForeignKey<UserEntity>(u => u.GainsAccountId);
         });
         
         builder.Entity<GainsAccountEntity>(gainsAccount =>
@@ -47,7 +47,8 @@ public static class ModelBuilderExtensions
                 .IsRequired(false);
 
             userProfile.HasOne(u => u.Icon)
-                .WithOne();
+                .WithOne()
+                .HasForeignKey<ProfileIconEntity>(i => i.UserProfileId);
         });
     }
 

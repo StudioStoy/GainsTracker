@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity.ModelConfiguration.Conventions;
-using GainsTracker.Core.Security.Models;
 using GainsTracker.Data.Friends.Entities;
 using GainsTracker.Data.Gains.Entities;
 using GainsTracker.Data.HealthMetrics.Entities;
@@ -7,17 +6,18 @@ using GainsTracker.Data.UserProfiles.Entities;
 using GainsTracker.Data.Workouts.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace GainsTracker.Data.Shared;
 
-public sealed class GainsDbContext : IdentityDbContext<User>
+public sealed class GainsDbContext : IdentityDbContext<UserEntity>
 {
     public GainsDbContext(DbContextOptions<GainsDbContext> options) : base(options)
     {
     }
     
     // The main domains.
-    public override DbSet<User> Users { get; set; }
+    public override DbSet<UserEntity> Users { get; set; }
     public DbSet<GainsAccountEntity> GainsAccounts { get; set; }
     public DbSet<WorkoutEntity> Workouts { get; set; }
     public DbSet<FriendEntity> Friends { get; set; }
@@ -49,6 +49,8 @@ public sealed class GainsDbContext : IdentityDbContext<User>
     // Also auto-includes.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        var entityAssembly = typeof(GainsDbContext).Assembly;  // Ensure this points to the correct assembly containing entities
+        modelBuilder.ApplyConfigurationsFromAssembly(entityAssembly);
         modelBuilder.ConfigureRelationModels();
         modelBuilder.ConvertEnumsToStrings();
         modelBuilder.ConvertCustomPropertiesToDbFormat();
@@ -65,6 +67,7 @@ public sealed class GainsDbContext : IdentityDbContext<User>
     {
         optionsBuilder
             .UseNpgsql()
-            .UseSnakeCaseNamingConvention();
+            .UseSnakeCaseNamingConvention()
+            .LogTo(Console.WriteLine, LogLevel.Information);
     }
 }

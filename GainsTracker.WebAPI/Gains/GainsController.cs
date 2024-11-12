@@ -10,9 +10,10 @@ namespace GainsTracker.WebAPI.Gains;
 [Route("user")]
 public class GainsController(IGainsService service) : ExtendedControllerBase
 {
+    [HttpGet]
     public async Task<IActionResult> GetUserInfo()
     {
-        GainsAccount account = await service.GetGainsAccountFromUser(CurrentUsername);
+        var account = await service.GetGainsAccountFromUser(CurrentUsername);
         return Ok(account);
     }
 }
