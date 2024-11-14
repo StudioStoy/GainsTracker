@@ -21,13 +21,18 @@ public class GainsService(IGainsBigBrain gainsBigBrain) : IGainsService
         return await gainsBigBrain.GetGainsAccountByUserHandle(username);
     }
 
-    public Task<GainsAccount> GetGainsAccountByUserHandle(string userHandle)
+    public async Task<GainsAccount> GetGainsAccountByUserHandle(string userHandle)
     {
-        throw new NotImplementedException();
+        return await gainsBigBrain.GetGainsAccountByUserHandle(userHandle);
+    }
+    
+    public async Task<GainsAccount> GetGainsAccountWithRelationsByUserHandle(string userHandle)
+    {
+        return await gainsBigBrain.GetGainsAccountWithRelationsByUserHandle(userHandle);
     }
 
-    public Task<Guid> GetGainsIdByUsername(string userHandle)
+    public async Task<Guid> GetGainsIdByUsername(string userHandle)
     {
-        throw new NotImplementedException();
+        return await gainsBigBrain.GetGainsIdByUsername(userHandle);
     }
 }

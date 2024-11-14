@@ -11,6 +11,7 @@ public sealed class User : IdentityUser
     {
         UserName = userHandle;
         GainsAccount = new GainsAccount(userHandle, displayName);
+        GainsAccountId = GainsAccount.Id;
     }
 
     public override string Id { get; set; } = Guid.NewGuid().ToString();

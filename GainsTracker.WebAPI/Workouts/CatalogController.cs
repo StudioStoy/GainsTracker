@@ -11,31 +11,25 @@ namespace GainsTracker.WebAPI.Workouts;
 [ApiController]
 [Authorize]
 [Route("workouts/catalog")]
-public class CatalogController : ExtendedControllerBase
+public class CatalogController(ICatalogService catalogService) : ExtendedControllerBase
 {
-    private readonly ICatalogService _catalogService;
-
-    public CatalogController(ICatalogService catalogService)
-    {
-        _catalogService = catalogService;
-    }
-
     [HttpGet("workout")]
-    public IActionResult GetAvailableWorkoutsForUser()
+    public async Task<IActionResult> GetAvailableWorkoutsForUser()
     {
-        return Ok(_catalogService.GetAvailableWorkoutTypesForUser(CurrentUsername));
+        return Ok(await catalogService.GetAvailableWorkoutTypesForUser(CurrentUsername));
     }
 
     [HttpGet("measurement")]
     public IActionResult GetExampleMeasurementRequests()
     {
-        Dictionary<string, JsonDocument> examples = new();
-
-        examples.Add(ExerciseCategory.Reps.ToString(), GenericJsonSerializer.SerializeObjectToJson(new RepsMeasurementDto()));
-        examples.Add(ExerciseCategory.Strength.ToString(), GenericJsonSerializer.SerializeObjectToJson(new StrengthMeasurementDto()));
-        examples.Add(ExerciseCategory.TimeEndurance.ToString(), GenericJsonSerializer.SerializeObjectToJson(new TimeEnduranceMeasurementDto()));
-        examples.Add(ExerciseCategory.TimeAndDistanceEndurance.ToString(), GenericJsonSerializer.SerializeObjectToJson(new TimeAndDistanceEnduranceMeasurementDto()));
-        examples.Add(ExerciseCategory.General.ToString(), GenericJsonSerializer.SerializeObjectToJson(new GeneralMeasurementDto()));
+        Dictionary<string, JsonDocument> examples = new()
+        {
+            { ExerciseCategory.Reps.ToString(), GenericJsonSerializer.SerializeObjectToJson(new RepsMeasurementDto()) },
+            { ExerciseCategory.Strength.ToString(), GenericJsonSerializer.SerializeObjectToJson(new StrengthMeasurementDto()) },
+            { ExerciseCategory.TimeEndurance.ToString(), GenericJsonSerializer.SerializeObjectToJson(new TimeEnduranceMeasurementDto()) },
+            { ExerciseCategory.TimeAndDistanceEndurance.ToString(), GenericJsonSerializer.SerializeObjectToJson(new TimeAndDistanceEnduranceMeasurementDto()) },
+            { ExerciseCategory.General.ToString(), GenericJsonSerializer.SerializeObjectToJson(new GeneralMeasurementDto()) }
+        };
 
         return Ok(examples);
     }

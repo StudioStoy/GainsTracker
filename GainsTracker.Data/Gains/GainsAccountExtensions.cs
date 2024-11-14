@@ -31,9 +31,10 @@ public static class GainsAccountExtensions
 
     public static GainsAccountEntity MapToEntity(this GainsAccount model)
     {
-        // Map UserProfile, Workouts, Metrics, Friends, etc., using the existing MapToEntity extensions
         var entity = new GainsAccountEntity
         {
+            Id = model.Id,
+            UserProfileId = model.UserProfileId,
             UserHandle = model.UserHandle,
             UserProfile = model.UserProfile.MapToEntity(), 
             Workouts = model.Workouts.Select(w => w.MapToEntity()).ToList(), 

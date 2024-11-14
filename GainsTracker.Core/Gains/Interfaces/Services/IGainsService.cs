@@ -9,4 +9,5 @@ public interface IGainsService
     Task<GainsAccount> GetGainsAccountFromUser(string username);
     Task<GainsAccount> GetGainsAccountByUserHandle(string userHandle);
     Task<Guid> GetGainsIdByUsername(string userHandle);
+    Task<GainsAccount> GetGainsAccountWithRelationsByUserHandle(string currentUsername);
 }

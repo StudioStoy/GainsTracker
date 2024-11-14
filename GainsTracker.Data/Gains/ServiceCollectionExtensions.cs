@@ -18,7 +18,6 @@ public static class ServerCollectionExtensions
         services.AddScoped<IGainsService, GainsService>();
         services.AddScoped<IGainsBigBrain, GainsBigBrain>();
 
-        Console.WriteLine("hello?");
         return services;
     }
 }

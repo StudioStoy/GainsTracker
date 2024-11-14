@@ -13,7 +13,7 @@ public class GainsController(IGainsService service) : ExtendedControllerBase
     [HttpGet]
     public async Task<IActionResult> GetUserInfo()
     {
-        var account = await service.GetGainsAccountFromUser(CurrentUsername);
+        var account = await service.GetGainsAccountWithRelationsByUserHandle(CurrentUsername);
         return Ok(account);
     }
 }

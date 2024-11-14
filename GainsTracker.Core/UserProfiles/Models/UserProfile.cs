@@ -17,7 +17,6 @@ public class UserProfile
     {
         Id = Guid.NewGuid();
         GainsAccountId = gainsAccountId;
-
         DisplayName = displayName;
         Icon = new ProfileIcon(Id);
     }
