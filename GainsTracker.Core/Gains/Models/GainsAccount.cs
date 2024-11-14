@@ -4,7 +4,7 @@ using GainsTracker.Core.HealthMetrics.Models;
 using GainsTracker.Core.UserProfiles.Models;
 using GainsTracker.Core.Workouts.Models.Workouts;
 
-namespace GainsTracker.Core.Workouts.Models;
+namespace GainsTracker.Core.Gains.Models;
 
 public class GainsAccount
 {

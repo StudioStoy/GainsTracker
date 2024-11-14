@@ -1,8 +1,7 @@
 ﻿using GainsTracker.Core.Security.Services;
-using GainsTracker.Core.Workouts.Models;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GainsTracker.Core.Security;
+namespace GainsTracker.Data.Auth;
 
 public static class ServerCollectionExtensions
 {

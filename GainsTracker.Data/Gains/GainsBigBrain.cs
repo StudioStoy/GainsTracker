@@ -1,6 +1,7 @@
 ﻿using GainsTracker.Common.Exceptions;
 using GainsTracker.Core.Gains.Interfaces;
 using GainsTracker.Core.Gains.Interfaces.Repositories;
+using GainsTracker.Core.Gains.Models;
 using GainsTracker.Core.Workouts.Models;
 using GainsTracker.Data.Gains.Entities;
 using GainsTracker.Data.Shared;

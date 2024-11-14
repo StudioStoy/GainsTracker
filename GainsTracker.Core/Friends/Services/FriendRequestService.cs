@@ -4,6 +4,7 @@ using GainsTracker.Core.Friends.Interfaces.Repositories;
 using GainsTracker.Core.Friends.Interfaces.Services;
 using GainsTracker.Core.Friends.Models;
 using GainsTracker.Core.Gains.Interfaces.Services;
+using GainsTracker.Core.Gains.Models;
 using GainsTracker.Core.Workouts.Models;
 
 namespace GainsTracker.Core.Friends.Services;

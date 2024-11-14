@@ -1,4 +1,5 @@
 ﻿using GainsTracker.Common.Models.Friends;
+using GainsTracker.Core.Gains.Models;
 using GainsTracker.Core.Workouts.Models;
 
 namespace GainsTracker.Core.Friends.Models;

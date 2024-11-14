@@ -2,10 +2,10 @@
 using System.Security.Claims;
 using System.Text;
 using DotNetEnv;
-using GainsTracker.Core.Security;
-using GainsTracker.Core.Security.Models;
+using GainsTracker.Data.Auth;
 using GainsTracker.Data.Friends;
 using GainsTracker.Data.Gains;
+using GainsTracker.Data.Gains.Entities;
 using GainsTracker.Data.HealthMetrics;
 using GainsTracker.Data.Shared;
 using GainsTracker.Data.UserProfiles;
@@ -37,58 +37,55 @@ public static class ProgramExtensions
             .AddGainsServices();
     }
 
-    /// <summary>
-    ///     Register the AppDbContext and map Identity to the user.
-    ///     Also configure user account options (password, lockout settings, etc.)
-    /// </summary>
-    public static void ConfigureDatabaseAndIdentity(this WebApplicationBuilder builder)
+   public static void ConfigureDatabaseAndIdentity(this WebApplicationBuilder builder)
+{
+    // Load the appsettings.json configuration file
+    builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+    
+    // Retrieve the connection string with placeholders from appsettings.json
+    var connectionStringTemplate = builder.Configuration.GetConnectionString("Development") 
+                                       ?? throw new InvalidOperationException("Connection string 'Development' not found in configuration.");
+
+    // Replace placeholders with environment variable values
+    string connectionString = connectionStringTemplate
+        .Replace("{host}", Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost")
+        .Replace("{database}", Environment.GetEnvironmentVariable("DB_NAME") ?? "gainstracker_db")
+        .Replace("{username}", Environment.GetEnvironmentVariable("DB_USER") ?? "stoy")
+        .Replace("{password}", Environment.GetEnvironmentVariable("DB_PASS") ?? "gainstracker_local");
+
+    // Register DbContext with the configured connection string
+    builder.Services.AddDbContext<GainsDbContext>(options =>
+        options.UseNpgsql(connectionString));
+
+    // Set up Identity with the GainsDbContext and configure options
+    builder.Services.AddIdentity<UserEntity, IdentityRole>()
+        .AddEntityFrameworkStores<GainsDbContext>()
+        .AddDefaultTokenProviders();
+
+    builder.Services.Configure<IdentityOptions>(options =>
     {
-        // Load the appsettings.json file
-        builder.Configuration.AddJsonFile("appsettings.json", true, true);
+        options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
 
-        string? connection = builder.Configuration
-            .GetSection($"ConnectionStrings:{builder.Environment.EnvironmentName}")
-            .Value;
-        builder.Configuration.GetSection("ConnectionStrings:connection").Value = connection;
+        // Password settings.
+        options.Password.RequireDigit = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = true;
+        options.Password.RequiredLength = 5;
+        options.Password.RequiredUniqueChars = 1;
 
-        builder.Services.AddDbContext<GainsDbContext>(options =>
-        {
-            options.UseNpgsql(builder.Configuration.GetConnectionString("connection")!
-                .Replace("{host}", Env.GetString("DB_HOST"))
-                .Replace("{database}", Env.GetString("DB_NAME"))
-                .Replace("{password}", Env.GetString("DB_PASS"))
-                .Replace("{username}", Env.GetString("DB_USER"))
-            );
-        });
+        // Lockout settings.
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        options.Lockout.MaxFailedAccessAttempts = 5;
+        options.Lockout.AllowedForNewUsers = true;
 
-        // Map Identity to User and the database.
-        builder.Services.AddIdentity<User, IdentityRole>()
-            .AddEntityFrameworkStores<GainsDbContext>()
-            .AddDefaultTokenProviders();
+        // User settings.
+        options.User.AllowedUserNameCharacters =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+!#$^";
+        options.User.RequireUniqueEmail = false;
+    });
+}
 
-        builder.Services.Configure<IdentityOptions>(options =>
-        {
-            options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
-
-            // Password settings.
-            options.Password.RequireDigit = true;
-            options.Password.RequireLowercase = true;
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequireUppercase = true;
-            options.Password.RequiredLength = 5;
-            options.Password.RequiredUniqueChars = 1;
-
-            // Lockout settings.
-            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            options.Lockout.MaxFailedAccessAttempts = 5;
-            options.Lockout.AllowedForNewUsers = true;
-
-            // User settings.
-            options.User.AllowedUserNameCharacters =
-                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+!#$^";
-            options.User.RequireUniqueEmail = false;
-        });
-    }
 
     /// <summary>
     ///     Add CORS policy for local development and testing purposes.

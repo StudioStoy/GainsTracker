@@ -5,14 +5,14 @@ using DotNetEnv;
 using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.Auth.Dto;
 using GainsTracker.Core.Gains.Interfaces.Services;
-using GainsTracker.Core.Security.Models;
 using GainsTracker.Core.Security.Services;
+using GainsTracker.Data.Gains;
 using GainsTracker.Data.Gains.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace GainsTracker.Data.Gains;
+namespace GainsTracker.Data.Auth;
 
 public class AuthenticationService(UserManager<UserEntity> userManager, IConfiguration configuration, IGainsService gainsService)
     : IAuthenticationService
@@ -26,13 +26,11 @@ public class AuthenticationService(UserManager<UserEntity> userManager, IConfigu
             throw new ArgumentException($"User with email {request.Email} or username {request.UserHandle} already exists.");
 
         string displayName = string.IsNullOrEmpty(request.DisplayName) ? request.UserHandle : request.DisplayName;
-        UserEntity user = new()
-        {
-            UserName = displayName,
-            Email = request.Email,
-            SecurityStamp = Guid.NewGuid().ToString()
-        };
 
+        var user = gainsService
+            .CreateNewUser(request.UserHandle, displayName, request.Email)
+            .MapToEntity();
+       
         IdentityResult result = await userManager.CreateAsync(user, request.Password);
 
         if (!result.Succeeded) throw new ArgumentException($"Unable to register user {request.UserHandle} errors: {GetErrorsText(result.Errors)}");

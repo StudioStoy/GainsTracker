@@ -1,4 +1,6 @@
-﻿using GainsTracker.Core.Workouts.Models;
+﻿using GainsTracker.Core.Gains.Models;
+using GainsTracker.Core.Security.Models;
+using GainsTracker.Core.Workouts.Models;
 using GainsTracker.Data.Friends;
 using GainsTracker.Data.Gains.Entities;
 using GainsTracker.Data.HealthMetrics;
@@ -42,5 +44,30 @@ public static class GainsAccountExtensions
         };
 
         return entity;
+    }
+    
+    // User
+    public static User MapToModel(this UserEntity entity)
+    {
+        return new User
+        {
+            Id = entity.Id,
+            GainsAccount = entity.GainsAccount?.MapToModel(),
+            GainsAccountId = entity.GainsAccountId,
+            Email = entity.Email,
+            UserName = entity.UserName
+        };
+    }
+
+    public static UserEntity MapToEntity(this User model)
+    {
+        return new UserEntity
+        {
+            Id = model.Id,
+            GainsAccount = model.GainsAccount?.MapToEntity(),
+            GainsAccountId = model.GainsAccount?.Id ?? Guid.Empty,
+            Email = model.Email,
+            UserName = model.UserName
+        };
     }
 }

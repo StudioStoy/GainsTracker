@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 using GainsTracker.Common.Exceptions;
 using GainsTracker.Core;
+using GainsTracker.Core.Gains.Models;
 using GainsTracker.Core.Workouts.Models;
 using GainsTracker.Data.Gains;
 using GainsTracker.Data.Gains.Entities;

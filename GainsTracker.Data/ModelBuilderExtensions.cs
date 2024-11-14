@@ -1,10 +1,13 @@
-﻿using GainsTracker.Core.Security.Models;
+﻿using System.Configuration;
+using GainsTracker.Core.Security.Models;
 using GainsTracker.Data.Friends.Entities;
 using GainsTracker.Data.Gains.Entities;
+using GainsTracker.Data.Shared;
 using GainsTracker.Data.UserProfiles.Entities;
 using GainsTracker.Data.Workouts.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GainsTracker.Data;
 
