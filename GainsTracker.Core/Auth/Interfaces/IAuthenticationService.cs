@@ -1,6 +1,6 @@
 ﻿using GainsTracker.Common.Models.Auth.Dto;
 
-namespace GainsTracker.Core.Security.Services;
+namespace GainsTracker.Core.Auth.Interfaces;
 
 public interface IAuthenticationService
 {

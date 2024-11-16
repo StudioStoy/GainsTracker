@@ -1,13 +1,9 @@
-﻿using System.Configuration;
-using GainsTracker.Core.Security.Models;
-using GainsTracker.Data.Friends.Entities;
+﻿using GainsTracker.Data.Friends.Entities;
 using GainsTracker.Data.Gains.Entities;
-using GainsTracker.Data.Shared;
 using GainsTracker.Data.UserProfiles.Entities;
 using GainsTracker.Data.Workouts.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace GainsTracker.Data;
 
@@ -24,14 +20,14 @@ public static class ModelBuilderExtensions
             .HasOne(a => a.Recipient)
             .WithMany(b => b.ReceivedFriendRequests)
             .HasForeignKey(c => c.RecipientId);
-        
+
         builder.Entity<UserEntity>(user =>
         {
             user.HasOne(u => u.GainsAccount)
                 .WithOne()
                 .HasForeignKey<UserEntity>(u => u.GainsAccountId);
         });
-        
+
         builder.Entity<GainsAccountEntity>(gainsAccount =>
         {
             gainsAccount.HasOne(u => u.UserProfile)
@@ -41,7 +37,7 @@ public static class ModelBuilderExtensions
             gainsAccount.Navigation(g => g.SentFriendRequests).AutoInclude();
             gainsAccount.Navigation(g => g.ReceivedFriendRequests).AutoInclude();
         });
-        
+
         builder.Entity<UserProfileEntity>(userProfile =>
         {
             userProfile.HasMany(u => u.PinnedPBs)
@@ -75,7 +71,7 @@ public static class ModelBuilderExtensions
             .Property(measurement => measurement.DistanceUnit)
             .HasConversion<string>();
     }
-    
+
     /// <summary>
     ///     Converts other properties to the correct database format.
     /// </summary>
@@ -86,7 +82,7 @@ public static class ModelBuilderExtensions
         builder.Entity<TimeEnduranceMeasurementEntity>()
             .Property(measurement => measurement.Time)
             .HasConversion(timeConverter);
-        
+
         builder.Entity<TimeAndDistanceEnduranceMeasurementEntity>()
             .Property(measurement => measurement.Time)
             .HasConversion(timeConverter);

@@ -4,17 +4,20 @@ using System.Text;
 using DotNetEnv;
 using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.Auth.Dto;
+using GainsTracker.Core.Auth.Interfaces;
 using GainsTracker.Core.Gains.Interfaces.Services;
-using GainsTracker.Core.Security.Services;
 using GainsTracker.Data.Gains;
 using GainsTracker.Data.Gains.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace GainsTracker.Data.Auth;
+namespace GainsTracker.Infrastructure.Auth;
 
-public class AuthenticationService(UserManager<UserEntity> userManager, IConfiguration configuration, IGainsService gainsService)
+public class AuthenticationService(
+    UserManager<UserEntity> userManager,
+    IConfiguration configuration,
+    IGainsService gainsService)
     : IAuthenticationService
 {
     public async Task<string> Register(RegisterRequestDto request)
@@ -23,17 +26,20 @@ public class AuthenticationService(UserManager<UserEntity> userManager, IConfigu
         var userByUsername = await userManager.FindByNameAsync(request.UserHandle);
 
         if (userByEmail is not null || userByUsername is not null)
-            throw new ArgumentException($"User with email {request.Email} or username {request.UserHandle} already exists.");
+            throw new ArgumentException(
+                $"User with email {request.Email} or username {request.UserHandle} already exists.");
 
-        string displayName = string.IsNullOrEmpty(request.DisplayName) ? request.UserHandle : request.DisplayName;
+        var displayName = string.IsNullOrEmpty(request.DisplayName) ? request.UserHandle : request.DisplayName;
 
         var user = gainsService
             .CreateNewUser(request.UserHandle, displayName, request.Email)
             .MapToEntity();
-       
-        IdentityResult result = await userManager.CreateAsync(user, request.Password);
 
-        if (!result.Succeeded) throw new ArgumentException($"Unable to register user {request.UserHandle} errors: {GetErrorsText(result.Errors)}");
+        var result = await userManager.CreateAsync(user, request.Password);
+
+        if (!result.Succeeded)
+            throw new ArgumentException(
+                $"Unable to register user {request.UserHandle} errors: {GetErrorsText(result.Errors)}");
 
         // TODO: await gainsService.SaveContext();
 
@@ -44,9 +50,9 @@ public class AuthenticationService(UserManager<UserEntity> userManager, IConfigu
     {
         ValidateLoginRequest(request);
 
-        UserEntity user = await userManager.FindByNameAsync(request.UserHandle)
-                    ?? await userManager.FindByEmailAsync(request.UserHandle)
-                    ?? throw new NotFoundException("There is no user found with that username");
+        var user = await userManager.FindByNameAsync(request.UserHandle)
+                   ?? await userManager.FindByEmailAsync(request.UserHandle)
+                   ?? throw new NotFoundException("There is no user found with that username");
 
         if (!await userManager.CheckPasswordAsync(user, request.Password))
             throw new UnauthorizedException($"Unable to authenticate user {request.UserHandle}");
@@ -61,14 +67,14 @@ public class AuthenticationService(UserManager<UserEntity> userManager, IConfigu
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
-        JwtSecurityToken token = GetToken(authClaims);
+        var token = GetToken(authClaims);
 
         return "Bearer " + new JwtSecurityTokenHandler().WriteToken(token);
     }
 
     private JwtSecurityToken GetToken(IEnumerable<Claim> authClaims)
     {
-        string bitSecret = configuration["JWT:Secret"]!.Replace("{secretJWT}", Env.GetString("JWT_SECRET"));
+        var bitSecret = configuration["JWT:Secret"]!.Replace("{secretJWT}", Env.GetString("JWT_SECRET"));
         SymmetricSecurityKey authSigningKey = new(Encoding.UTF8.GetBytes(bitSecret));
 
         JwtSecurityToken token = new(

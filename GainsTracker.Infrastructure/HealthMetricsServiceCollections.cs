@@ -1,11 +1,12 @@
-﻿using GainsTracker.Core.HealthMetrics.Interfaces.Repositories;
+using GainsTracker.Core.HealthMetrics.Interfaces.Repositories;
 using GainsTracker.Core.HealthMetrics.Interfaces.Services;
 using GainsTracker.Core.HealthMetrics.Services;
+using GainsTracker.Data.HealthMetrics;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GainsTracker.Data.HealthMetrics;
+namespace GainsTracker.Infrastructure;
 
-public static class ServerCollectionExtensions
+public static class HealthMetricsServiceCollections
 {
     public static IServiceCollection AddHealthMetricServices(this IServiceCollection services)
     {
@@ -13,7 +14,7 @@ public static class ServerCollectionExtensions
 
         services.AddScoped<IHealthMetricService, HealthMetricService>();
         services.AddScoped<IHealthMetricBigBrain, HealthMetricBigBrain>();
-        
+
         return services;
     }
 }

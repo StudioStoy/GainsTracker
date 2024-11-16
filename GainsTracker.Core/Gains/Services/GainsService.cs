@@ -1,7 +1,7 @@
-﻿using GainsTracker.Core.Gains.Interfaces.Repositories;
+﻿using GainsTracker.Core.Auth.Models;
+using GainsTracker.Core.Gains.Interfaces.Repositories;
 using GainsTracker.Core.Gains.Interfaces.Services;
 using GainsTracker.Core.Gains.Models;
-using GainsTracker.Core.Security.Models;
 
 namespace GainsTracker.Core.Gains.Services;
 
@@ -12,7 +12,7 @@ public class GainsService(IGainsBigBrain gainsBigBrain) : IGainsService
         return new User(userHandle, displayName)
         {
             Email = requestEmail,
-            SecurityStamp = Guid.NewGuid().ToString(),
+            SecurityStamp = Guid.NewGuid().ToString()
         };
     }
 
@@ -25,7 +25,7 @@ public class GainsService(IGainsBigBrain gainsBigBrain) : IGainsService
     {
         return await gainsBigBrain.GetGainsAccountByUserHandle(userHandle);
     }
-    
+
     public async Task<GainsAccount> GetGainsAccountWithRelationsByUserHandle(string userHandle)
     {
         return await gainsBigBrain.GetGainsAccountWithRelationsByUserHandle(userHandle);

@@ -1,11 +1,12 @@
-﻿using GainsTracker.Core.UserProfiles.Interfaces.Repositories;
+using GainsTracker.Core.UserProfiles.Interfaces.Repositories;
 using GainsTracker.Core.UserProfiles.Interfaces.Services;
 using GainsTracker.Core.UserProfiles.Services;
+using GainsTracker.Data.UserProfiles;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GainsTracker.Data.UserProfiles;
+namespace GainsTracker.Infrastructure;
 
-public static class ServerCollectionExtensions
+public static class UserProfilesServiceCollections
 {
     public static IServiceCollection AddUserProfileServices(this IServiceCollection services)
     {
@@ -13,7 +14,7 @@ public static class ServerCollectionExtensions
 
         services.AddScoped<IUserProfileService, UserProfileService>();
         services.AddScoped<IUserProfileBigBrain, UserProfileBigBrain>();
-        
+
         return services;
     }
 }

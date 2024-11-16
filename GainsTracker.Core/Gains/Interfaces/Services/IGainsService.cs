@@ -1,5 +1,5 @@
-﻿using GainsTracker.Core.Gains.Models;
-using GainsTracker.Core.Security.Models;
+﻿using GainsTracker.Core.Auth.Models;
+using GainsTracker.Core.Gains.Models;
 
 namespace GainsTracker.Core.Gains.Interfaces.Services;
 

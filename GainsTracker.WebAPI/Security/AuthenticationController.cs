@@ -1,5 +1,5 @@
 using GainsTracker.Common.Models.Auth.Dto;
-using GainsTracker.Core.Security.Services;
+using GainsTracker.Core.Auth.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,7 +35,7 @@ public class AuthenticationController(IAuthenticationService authenticationServi
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register([FromBody] RegisterRequestDto request)
     {
-        string response = await authenticationService.Register(request);
+        var response = await authenticationService.Register(request);
 
         return Ok(response);
     }

@@ -1,6 +1,5 @@
-﻿using GainsTracker.Core.Gains.Models;
-using GainsTracker.Core.Security.Models;
-using GainsTracker.Core.Workouts.Models;
+﻿using GainsTracker.Core.Auth.Models;
+using GainsTracker.Core.Gains.Models;
 using GainsTracker.Data.Friends;
 using GainsTracker.Data.Gains.Entities;
 using GainsTracker.Data.HealthMetrics;
@@ -20,10 +19,10 @@ public static class GainsAccountExtensions
             Id = entity.Id,
             UserProfile = entity.UserProfile.MapToModel(),
             Workouts = entity.Workouts.Select(w => w.MapToModel()).ToList(),
-            Metrics = entity.Metrics.Select(m => m.MapToModel()).ToList(), 
-            Friends = entity.Friends.Select(f => f.MapToModel()).ToList(), 
+            Metrics = entity.Metrics.Select(m => m.MapToModel()).ToList(),
+            Friends = entity.Friends.Select(f => f.MapToModel()).ToList(),
             ReceivedFriendRequests = entity.ReceivedFriendRequests.Select(fr => fr.MapToModel()).ToList(),
-            SentFriendRequests = entity.SentFriendRequests.Select(fr => fr.MapToModel()).ToList() 
+            SentFriendRequests = entity.SentFriendRequests.Select(fr => fr.MapToModel()).ToList()
         };
 
         return model;
@@ -36,17 +35,17 @@ public static class GainsAccountExtensions
             Id = model.Id,
             UserProfileId = model.UserProfileId,
             UserHandle = model.UserHandle,
-            UserProfile = model.UserProfile.MapToEntity(), 
-            Workouts = model.Workouts.Select(w => w.MapToEntity()).ToList(), 
+            UserProfile = model.UserProfile.MapToEntity(),
+            Workouts = model.Workouts.Select(w => w.MapToEntity()).ToList(),
             Metrics = model.Metrics.Select(m => m.MapToEntity()).ToList(),
-            Friends = model.Friends.Select(f => f.MapToEntity()).ToList(), 
-            ReceivedFriendRequests = model.ReceivedFriendRequests.Select(fr => fr.MapToEntity()).ToList(), 
+            Friends = model.Friends.Select(f => f.MapToEntity()).ToList(),
+            ReceivedFriendRequests = model.ReceivedFriendRequests.Select(fr => fr.MapToEntity()).ToList(),
             SentFriendRequests = model.SentFriendRequests.Select(fr => fr.MapToEntity()).ToList()
         };
 
         return entity;
     }
-    
+
     // User
     public static User MapToModel(this UserEntity entity)
     {

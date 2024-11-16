@@ -1,11 +1,12 @@
-﻿using GainsTracker.Core.Friends.Interfaces.Repositories;
+using GainsTracker.Core.Friends.Interfaces.Repositories;
 using GainsTracker.Core.Friends.Interfaces.Services;
 using GainsTracker.Core.Friends.Services;
+using GainsTracker.Data.Friends;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GainsTracker.Data.Friends;
+namespace GainsTracker.Infrastructure;
 
-public static class ServerCollectionExtensions
+public static class FriendsServiceCollections
 {
     public static IServiceCollection AddFriendServices(this IServiceCollection services)
     {

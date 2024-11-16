@@ -1,12 +1,14 @@
 ﻿using GainsTracker.Core.Gains.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace GainsTracker.Core.Security.Models;
+namespace GainsTracker.Core.Auth.Models;
 
 public sealed class User : IdentityUser
 {
-    public User() {}
-    
+    public User()
+    {
+    }
+
     public User(string userHandle, string displayName = "")
     {
         UserName = userHandle;

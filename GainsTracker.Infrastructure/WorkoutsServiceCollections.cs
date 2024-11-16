@@ -1,11 +1,12 @@
-﻿using GainsTracker.Core.Workouts.Interfaces.Repositories;
+using GainsTracker.Core.Workouts.Interfaces.Repositories;
 using GainsTracker.Core.Workouts.Interfaces.Services;
 using GainsTracker.Core.Workouts.Services;
+using GainsTracker.Data.Workouts;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GainsTracker.Data.Workouts;
+namespace GainsTracker.Infrastructure;
 
-public static class ServerCollectionExtensions
+public static class WorkoutsServiceCollections
 {
     public static IServiceCollection AddWorkoutServices(this IServiceCollection services)
     {
@@ -15,7 +16,7 @@ public static class ServerCollectionExtensions
         services.AddScoped<IWorkoutBigBrain, WorkoutBigBrain>();
         services.AddScoped<ICatalogService, CatalogService>();
         services.AddScoped<IMeasurementValidationService, MeasurementValidationService>();
-        
+
         return services;
     }
 }

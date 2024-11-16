@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.Core", "GainsT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.Data", "GainsTracker.Data\GainsTracker.Data.csproj", "{450CBA4E-3F25-41DE-9420-61D6FEDE73B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.Infrastructure", "GainsTracker.Infrastructure\GainsTracker.Infrastructure.csproj", "{2A200125-D27E-4DDF-9242-927EEC7BA5CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{450CBA4E-3F25-41DE-9420-61D6FEDE73B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{450CBA4E-3F25-41DE-9420-61D6FEDE73B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{450CBA4E-3F25-41DE-9420-61D6FEDE73B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A200125-D27E-4DDF-9242-927EEC7BA5CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A200125-D27E-4DDF-9242-927EEC7BA5CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A200125-D27E-4DDF-9242-927EEC7BA5CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A200125-D27E-4DDF-9242-927EEC7BA5CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,5 +74,6 @@ Global
 		{0CC970F3-52D5-4552-8958-0E59982B9E15} = {58C9D6C1-BFB6-40C2-B43A-B4A7E0321DE7}
 		{B84B1119-80D8-46AA-883A-C471B4840051} = {58C9D6C1-BFB6-40C2-B43A-B4A7E0321DE7}
 		{450CBA4E-3F25-41DE-9420-61D6FEDE73B2} = {58C9D6C1-BFB6-40C2-B43A-B4A7E0321DE7}
+		{2A200125-D27E-4DDF-9242-927EEC7BA5CC} = {58C9D6C1-BFB6-40C2-B43A-B4A7E0321DE7}
 	EndGlobalSection
 EndGlobal

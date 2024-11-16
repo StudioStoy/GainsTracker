@@ -1,21 +1,15 @@
 ﻿// Woah that's a boat load of usings
+
 using System.Security.Claims;
 using System.Text;
 using DotNetEnv;
-using GainsTracker.Data.Auth;
-using GainsTracker.Data.Friends;
-using GainsTracker.Data.Gains;
-using GainsTracker.Data.Gains.Entities;
-using GainsTracker.Data.HealthMetrics;
-using GainsTracker.Data.Shared;
-using GainsTracker.Data.UserProfiles;
-using GainsTracker.Data.Workouts;
+using GainsTracker.Infrastructure;
+using GainsTracker.Infrastructure.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -37,54 +31,48 @@ public static class ProgramExtensions
             .AddGainsServices();
     }
 
-   public static void ConfigureDatabaseAndIdentity(this WebApplicationBuilder builder)
-{
-    // Load the appsettings.json configuration file
-    builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-    
-    // Retrieve the connection string with placeholders from appsettings.json
-    var connectionStringTemplate = builder.Configuration.GetConnectionString("Development") 
-                                       ?? throw new InvalidOperationException("Connection string 'Development' not found in configuration.");
-
-    // Replace placeholders with environment variable values
-    string connectionString = connectionStringTemplate
-        .Replace("{host}", Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost")
-        .Replace("{database}", Environment.GetEnvironmentVariable("DB_NAME") ?? "gainstracker_db")
-        .Replace("{username}", Environment.GetEnvironmentVariable("DB_USER") ?? "stoy")
-        .Replace("{password}", Environment.GetEnvironmentVariable("DB_PASS") ?? "gainstracker_local");
-
-    // Register DbContext with the configured connection string
-    builder.Services.AddDbContext<GainsDbContext>(options =>
-        options.UseNpgsql(connectionString));
-
-    // Set up Identity with the GainsDbContext and configure options
-    builder.Services.AddIdentity<UserEntity, IdentityRole>()
-        .AddEntityFrameworkStores<GainsDbContext>()
-        .AddDefaultTokenProviders();
-
-    builder.Services.Configure<IdentityOptions>(options =>
+    public static void ConfigureDatabaseAndIdentity(this WebApplicationBuilder builder)
     {
-        options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
+        // Load the appsettings.json configuration file
+        builder.Configuration.AddJsonFile("appsettings.json", false, true);
 
-        // Password settings.
-        options.Password.RequireDigit = true;
-        options.Password.RequireLowercase = true;
-        options.Password.RequireNonAlphanumeric = false;
-        options.Password.RequireUppercase = true;
-        options.Password.RequiredLength = 5;
-        options.Password.RequiredUniqueChars = 1;
+        // Retrieve the connection string with placeholders from appsettings.json
+        var connectionStringTemplate = builder.Configuration.GetConnectionString("Development")
+                                       ?? throw new InvalidOperationException(
+                                           "Connection string 'Development' not found in configuration.");
 
-        // Lockout settings.
-        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-        options.Lockout.MaxFailedAccessAttempts = 5;
-        options.Lockout.AllowedForNewUsers = true;
+        // Replace placeholders with environment variable values
+        var connectionString = connectionStringTemplate
+            .Replace("{host}", Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost")
+            .Replace("{database}", Environment.GetEnvironmentVariable("DB_NAME") ?? "gainstracker_db")
+            .Replace("{username}", Environment.GetEnvironmentVariable("DB_USER") ?? "stoy")
+            .Replace("{password}", Environment.GetEnvironmentVariable("DB_PASS") ?? "gainstracker_local");
 
-        // User settings.
-        options.User.AllowedUserNameCharacters =
-            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+!#$^";
-        options.User.RequireUniqueEmail = false;
-    });
-}
+        builder.Services.AddDataServices(connectionString);
+
+        builder.Services.Configure<IdentityOptions>(options =>
+        {
+            options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
+
+            // Password settings.
+            options.Password.RequireDigit = true;
+            options.Password.RequireLowercase = true;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = true;
+            options.Password.RequiredLength = 5;
+            options.Password.RequiredUniqueChars = 1;
+
+            // Lockout settings.
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            options.Lockout.MaxFailedAccessAttempts = 5;
+            options.Lockout.AllowedForNewUsers = true;
+
+            // User settings.
+            options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+!#$^";
+            options.User.RequireUniqueEmail = false;
+        });
+    }
 
 
     /// <summary>
@@ -110,14 +98,14 @@ public static class ProgramExtensions
     /// </summary>
     public static void ConfigureAuthentication(this WebApplicationBuilder builder)
     {
-        string bitSecret = builder.Configuration["JWT:Secret"]!.Replace("{secretJWT}", Env.GetString("JWT_SECRET"));
+        var bitSecret = builder.Configuration["JWT:Secret"]!.Replace("{secretJWT}", Env.GetString("JWT_SECRET"));
         builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-            
+
             // Add the JWT Bearer.
             .AddJwtBearer(options =>
             {
@@ -199,20 +187,13 @@ public static class ProgramExtensions
             return;
         }
 
-        using IServiceScope scope = app.Services.CreateScope();
-        GainsDbContext db = scope.ServiceProvider.GetRequiredService<GainsDbContext>();
-
-        Console.WriteLine("Resetting database..");
-        db.Database.EnsureDeleted();
-        db.Database.Migrate();
+        using var scope = app.Services.CreateScope();
+        scope.ResetDatabase();
     }
 
     public static void EnsureDatabaseIsCreated(this WebApplication app)
     {
-        using IServiceScope scope = app.Services.CreateScope();
-        GainsDbContext db = scope.ServiceProvider.GetRequiredService<GainsDbContext>();
-
-        Console.WriteLine("Applying possible migrations..");
-        db.Database.Migrate();
+        using var scope = app.Services.CreateScope();
+        scope.ApplyMigrationsToDatabase();
     }
 }
