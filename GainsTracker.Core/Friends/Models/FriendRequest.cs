@@ -1,40 +1,28 @@
 ﻿using GainsTracker.Common.Models.Friends;
 using GainsTracker.Core.Gains.Models;
-using GainsTracker.Core.Workouts.Models;
 
 namespace GainsTracker.Core.Friends.Models;
 
-public class FriendRequest
+public class FriendRequest(GainsAccount requester, GainsAccount recipient)
 {
-    public FriendRequest(GainsAccount requester, GainsAccount recipient)
-    {
-        Requester = requester;
-        Recipient = recipient;
-        RequesterId = requester.Id;
-        RecipientId = recipient.Id;
-
-        Status = FriendRequestStatus.Pending;
-        RequestTime = DateTime.UtcNow;
-    }
-
     public Guid Id { get; set; } = Guid.NewGuid();
 
-    public Guid RequesterId { get; set; }
-    public Guid RecipientId { get; set; }
+    public Guid RequesterId { get; } = requester.Id;
+    public Guid RecipientId { get; } = recipient.Id;
 
-    public GainsAccount Requester { get; set; }
-    public GainsAccount Recipient { get; set; }
+    public GainsAccount Requester { get; } = requester;
+    public GainsAccount Recipient { get; } = recipient;
 
-    public DateTime RequestTime { get; set; }
-    public FriendRequestStatus Status { get; set; }
+    public DateTime RequestTime { get; init; } = DateTime.UtcNow;
+    public FriendRequestStatus Status { get; set; } = FriendRequestStatus.Pending;
 
-    public bool Accepted => Status == FriendRequestStatus.Accepted;
+    public bool IsAccepted => Status == FriendRequestStatus.Accepted;
 
     public void Accept()
     {
         Status = FriendRequestStatus.Accepted;
 
-        //TODO: Maybe sent an event or something for notifications?
+        //TODO: Maybe emit an event or something for notifications?
         Requester.SentFriendRequests.Remove(this);
         Recipient.ReceivedFriendRequests.Remove(this);
 

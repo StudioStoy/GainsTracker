@@ -1,29 +1,22 @@
 ﻿using GainsTracker.Core.Gains.Models;
-using GainsTracker.Core.Workouts.Models;
 
 namespace GainsTracker.Core.Friends.Models;
 
-public class Friend
+public class Friend(string name, string handle, Guid gainsId, DateTime friendsSince)
 {
-    public Friend(string name, string handle, Guid gainsId, DateTime friendsSince)
-    {
-        FriendName = name;
-        FriendHandle = handle;
-        GainsAccountId = gainsId;
-        FriendsSince = friendsSince;
-    }
-
     public Friend(GainsAccount account, DateTime friendsSince)
-    {
-        FriendName = !string.IsNullOrEmpty(account.UserProfile.DisplayName) ? account.UserProfile.DisplayName : account.UserHandle;
-        FriendHandle = account.UserHandle;
-        GainsAccountId = account.Id;
-        FriendsSince = friendsSince;
-    }
+        : this(
+            !string.IsNullOrEmpty(account.UserProfile?.DisplayName)
+                ? account.UserProfile.DisplayName
+                : account.UserHandle,
+            account.UserHandle,
+            account.Id,
+            friendsSince
+        ) { }
 
     public Guid Id { get; set; } = Guid.NewGuid();
-    public Guid GainsAccountId { get; set; }
-    public DateTime FriendsSince { get; set; }
-    public string FriendName { get; set; }
-    public string FriendHandle { get; set; }
+    public Guid GainsAccountId { get; } = gainsId;
+    public DateTime FriendsSince { get; } = friendsSince;
+    public string FriendName { get; } = name;
+    public string FriendHandle { get; } = handle;
 }

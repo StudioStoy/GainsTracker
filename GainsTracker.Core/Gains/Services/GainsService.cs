@@ -16,11 +16,6 @@ public class GainsService(IGainsBigBrain gainsBigBrain) : IGainsService
         };
     }
 
-    public async Task<GainsAccount> GetGainsAccountFromUser(string username)
-    {
-        return await gainsBigBrain.GetGainsAccountByUserHandle(username);
-    }
-
     public async Task<GainsAccount> GetGainsAccountByUserHandle(string userHandle)
     {
         return await gainsBigBrain.GetGainsAccountByUserHandle(userHandle);

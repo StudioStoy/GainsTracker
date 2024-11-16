@@ -1,26 +1,22 @@
 ﻿namespace GainsTracker.Common.Models.Friends.Dto;
 
-public class FriendRequestDto
+public class FriendRequestDto(
+    Guid id,
+    string requesterName,
+    string recipientName,
+    string requestTime,
+    string status,
+    Guid requesterId,
+    Guid recipientId)
 {
-    public FriendRequestDto(Guid id, string requesterName, string recipientName, string requestTime, string status, Guid requesterId, Guid recipientId)
-    {
-        Id = id;
-        RequesterId = requesterId;
-        RecipientId = recipientId;
-        RequesterName = requesterName;
-        RecipientName = recipientName;
-        RequestTime = requestTime;
-        Status = status;
-    }
+    public Guid Id { get; set; } = id;
 
-    public Guid Id { get; set; }
+    public Guid RequesterId { get; set; } = requesterId;
+    public Guid RecipientId { get; set; } = recipientId;
 
-    public Guid RequesterId { get; set; }
-    public Guid RecipientId { get; set; }
+    public string RequesterName { get; set; } = requesterName;
+    public string RecipientName { get; set; } = recipientName;
 
-    public string RequesterName { get; set; }
-    public string RecipientName { get; set; }
-
-    public string RequestTime { get; set; }
-    public string Status { get; set; }
+    public string RequestTime { get; set; } = requestTime;
+    public string Status { get; set; } = status;
 }

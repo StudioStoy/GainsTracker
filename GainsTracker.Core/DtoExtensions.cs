@@ -16,24 +16,24 @@ public static class DtoExtensions
     {
         List<TDto> dtoList = new();
 
-        foreach (TModel item in items)
+        foreach (var item in items)
         {
             if (item == null)
                 continue;
-            
+
             // Finds the ToDto() extension method based on the item's type.
-            MethodInfo toDtoMethod = typeof(DtoExtensions)
+            var toDtoMethod = typeof(DtoExtensions)
                 .GetMethods(BindingFlags.Public | BindingFlags.Static)
                 .FirstOrDefault(
                     method => method.Name == "ToDto"
                               && method.GetParameters().Length == 1
                               && method.GetParameters()[0].ParameterType == typeof(TModel)
                 ) ?? throw new NotSupportedException(
-                    $"ToDto method not found for type {typeof(TModel).Name}");
+                $"ToDto method not found for type {typeof(TModel).Name}");
 
             // Invokes the ToDto() extension method and adds the result to the DTO list.
-            TDto? dtoItem = (TDto?) toDtoMethod.Invoke(null, [item]);
-            if (dtoItem != null) 
+            var dtoItem = (TDto?)toDtoMethod.Invoke(null, [item]);
+            if (dtoItem != null)
                 dtoList.Add(dtoItem);
         }
 
@@ -43,8 +43,8 @@ public static class DtoExtensions
     // Friend
     public static FriendRequestDto ToDto(this FriendRequest request)
     {
-        string byName = request.Requester.UserProfile.DisplayName;
-        string toName = request.Recipient.UserProfile.DisplayName;
+        var byName = request.Requester.UserProfile?.DisplayName;
+        var toName = request.Recipient.UserProfile?.DisplayName;
 
         byName = !string.IsNullOrEmpty(byName)
             ? byName + $" (@{request.Requester.UserHandle})"

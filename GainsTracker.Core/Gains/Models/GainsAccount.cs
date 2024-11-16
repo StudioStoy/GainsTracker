@@ -15,13 +15,13 @@ public class GainsAccount
         UserProfile = new UserProfile(Id, string.IsNullOrWhiteSpace(displayName) ? userHandle : displayName);
         UserProfileId = UserProfile.Id;
     }
-    
+
     public Guid Id { get; set; }
 
     public string UserHandle { get; set; } = "";
 
     public Guid UserProfileId { get; set; }
-    public UserProfile UserProfile { get; set; }
+    public UserProfile? UserProfile { get; set; }
 
     public List<Workout> Workouts { get; set; } = [];
     public List<HealthMetric> Metrics { get; set; } = [];

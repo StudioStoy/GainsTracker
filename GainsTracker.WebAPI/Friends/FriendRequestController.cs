@@ -16,9 +16,9 @@ public class FriendRequestController(IFriendRequestService friendRequestService)
     }
 
     [HttpPost]
-    public IActionResult SendFriendRequest(string friendName)
+    public async Task<IActionResult> SendFriendRequest(string friendName)
     {
-        friendRequestService.SendFriendRequest(CurrentUsername, friendName);
+        await friendRequestService.SendFriendRequest(CurrentUsername, friendName);
         return NoContent();
     }
 

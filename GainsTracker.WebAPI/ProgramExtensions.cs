@@ -5,6 +5,7 @@ using System.Text;
 using DotNetEnv;
 using GainsTracker.Infrastructure;
 using GainsTracker.Infrastructure.Auth;
+using GainsTracker.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
@@ -182,18 +183,15 @@ public static class ProgramExtensions
             return;
 
         if (Env.GetString("ASPNETCORE_ENVIRONMENT") == "Production")
-        {
             Console.WriteLine("nuh uh no resetting in production");
-            return;
-        }
 
-        using var scope = app.Services.CreateScope();
+        var scope = app.Services.CreateScope();
         scope.ResetDatabase();
     }
 
     public static void EnsureDatabaseIsCreated(this WebApplication app)
     {
-        using var scope = app.Services.CreateScope();
+        var scope = app.Services.CreateScope();
         scope.ApplyMigrationsToDatabase();
     }
 }

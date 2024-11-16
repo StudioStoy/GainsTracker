@@ -29,11 +29,11 @@ builder.ConfigureCors();
 builder.EnableDataProtection();
 
 
-WebApplication app = builder.Build();
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 var env = app.Environment;
-bool resetDatabase = args.Length > 0 && args[0].ToBool();
+var resetDatabase = args.Length > 0 && args[0].ToBool();
 if (env.IsDevelopment() || env.IsEnvironment("Docker") || env.EnvironmentName == "Staging")
 {
     app.UseSwagger();
@@ -43,7 +43,7 @@ if (env.IsDevelopment() || env.IsEnvironment("Docker") || env.EnvironmentName ==
 
 if (!resetDatabase)
     app.EnsureDatabaseIsCreated();
-        
+
 if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 
@@ -52,7 +52,7 @@ app.UseCors("AllowBlazorDevClient");
 // Authentication
 app.UseAuthentication();
 app.UseAuthorization();
-        
+
 app.MapControllers();
 
 app.Run();

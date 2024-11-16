@@ -9,9 +9,11 @@ namespace GainsTracker.Data.Gains.Entities;
 [Table("gains_account")]
 public class GainsAccountEntity
 {
-    internal GainsAccountEntity() {}
+    internal GainsAccountEntity()
+    {
+    }
 
-    public string UserHandle { get; set; } = "";
+    public string UserHandle { get; set; } = string.Empty;
 
     public UserProfileEntity UserProfile { get; set; } = null!;
 
@@ -21,7 +23,7 @@ public class GainsAccountEntity
     public List<FriendEntity> Friends { get; set; } = [];
     public List<FriendRequestEntity> ReceivedFriendRequests { get; set; } = [];
     public List<FriendRequestEntity> SentFriendRequests { get; set; } = [];
-    
+
     public Guid Id { get; set; }
     public string UserId { get; set; } = string.Empty;
     public Guid UserProfileId { get; set; }

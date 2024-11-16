@@ -10,12 +10,8 @@ using Microsoft.Extensions.Logging;
 
 namespace GainsTracker.Data.Shared;
 
-public sealed class GainsDbContext : IdentityDbContext<UserEntity>
+public sealed class GainsDbContext(DbContextOptions<GainsDbContext> options) : IdentityDbContext<UserEntity>(options)
 {
-    public GainsDbContext(DbContextOptions<GainsDbContext> options) : base(options)
-    {
-    }
-    
     // The main domains.
     public override DbSet<UserEntity> Users { get; set; }
     public DbSet<GainsAccountEntity> GainsAccounts { get; set; }
@@ -49,12 +45,12 @@ public sealed class GainsDbContext : IdentityDbContext<UserEntity>
     // Also auto-includes.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        var entityAssembly = typeof(GainsDbContext).Assembly;  // Ensure this points to the correct assembly containing entities
+        var entityAssembly = typeof(GainsDbContext).Assembly;
         modelBuilder.ApplyConfigurationsFromAssembly(entityAssembly);
         modelBuilder.ConfigureRelationModels();
         modelBuilder.ConvertEnumsToStrings();
         modelBuilder.ConvertCustomPropertiesToDbFormat();
-        
+
         // new DbInitializer(modelBuilder).Seed();
 
         base.OnModelCreating(modelBuilder);

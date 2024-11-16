@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GainsTracker.Infrastructure;
+namespace GainsTracker.Infrastructure.Data;
 
 public static class DataServiceCollections
 {
@@ -37,6 +37,7 @@ public static class DataServiceCollections
         using var db = scope.ServiceProvider.GetRequiredService<GainsDbContext>();
 
         Console.WriteLine("Applying possible migrations..");
+
         db.Database.Migrate();
     }
 }

@@ -18,10 +18,10 @@ public delegate Expression<Func<T, object>> PropertyToInclude<T>();
 public class UserProfileBigBrain(GainsDbContext context) : BigBrain<UserProfileEntity>(context), IUserProfileBigBrain
 {
     private readonly GainsDbContext _context = context;
-    
+
     public async Task UpdateUserProfileByUserHandle(string userHandle, UpdateUserProfileDto userProfileDto)
     {
-        var current = await GetUserProfileByUserHandle(userHandle);
+        var current = await GetUserProfileEntityByUserHandle(userHandle);
         current.Description = userProfileDto.Description ?? current.Description;
         current.DisplayName = userProfileDto.DisplayName ?? current.DisplayName;
         current.Icon.Url = userProfileDto.IconUrl ?? current.Icon.Url;
@@ -49,7 +49,7 @@ public class UserProfileBigBrain(GainsDbContext context) : BigBrain<UserProfileE
         pinnedPBsDto.AddPBs.ForEach(pb =>
         {
             var measurement = _context.Measurements.FirstOrDefault(measurement => measurement.Id == pb);
-            
+
             if (measurement == null)
                 throw new NotFoundException($"Measurement with id {pb} was not found.");
 
@@ -73,39 +73,51 @@ public class UserProfileBigBrain(GainsDbContext context) : BigBrain<UserProfileE
 
     public async Task<UserProfile> GetUserProfileByUserHandle(string userHandle)
     {
-        Guid gainsId = await GetGainsIdByUsername(userHandle);
+        var gainsId = await GetGainsIdByUsername(userHandle);
         var userProfile = await _context.UserProfiles
             .Include(up => up.Icon)
             .FirstOrDefaultAsync(e => e.GainsAccountId == gainsId);
 
         if (userProfile == null)
             throw new NotFoundException($"UserProfile for user with id {gainsId} was not found.");
-        
+
         return userProfile.MapToModel();
     }
 
-    private async Task<UserProfileEntity> GetUserProfileByUserHandle(string userHandle, params PropertyToInclude<UserProfileEntity>[] properties)
+    public async Task<UserProfileEntity> GetUserProfileEntityByUserHandle(string userHandle)
     {
-        Guid gainsId = await GetGainsIdByUsername(userHandle);
+        var gainsId = await GetGainsIdByUsername(userHandle);
+        var userProfile = await _context.UserProfiles
+            .Include(up => up.Icon)
+            .FirstOrDefaultAsync(e => e.GainsAccountId == gainsId);
+
+        if (userProfile == null)
+            throw new NotFoundException($"UserProfile for user with id {gainsId} was not found.");
+
+        return userProfile;
+    }
+
+    private async Task<UserProfileEntity> GetUserProfileByUserHandle(string userHandle,
+        params PropertyToInclude<UserProfileEntity>[] properties)
+    {
+        var gainsId = await GetGainsIdByUsername(userHandle);
 
         // If no include expressions are provided, set a default one for the Icon.
         var includes = properties.Length != 0
-            ? properties 
+            ? properties
             : [() => up => up.Icon];
 
-        IQueryable<UserProfileEntity> query = _context.UserProfiles.AsQueryable();
+        var query = _context.UserProfiles.AsQueryable();
 
         foreach (var property in includes)
-        {
             // Use the property expression to include it in the query.
             query = query.Include(property());
-        }
 
         var userProfile = await query.FirstOrDefaultAsync(e => e.GainsAccountId == gainsId);
 
         if (userProfile == null)
             throw new NotFoundException($"User profile for gains account {gainsId} was not found.");
-        
+
         return userProfile;
     }
 }
