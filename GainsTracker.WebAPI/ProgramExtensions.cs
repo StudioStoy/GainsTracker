@@ -32,7 +32,7 @@ public static class ProgramExtensions
             .AddGainsServices();
     }
 
-    public static void ConfigureDatabaseAndIdentity(this WebApplicationBuilder builder)
+    public static void ConfigureDatabaseAndIdentity(this WebApplicationBuilder builder, bool useInMemory = false)
     {
         // Load the appsettings.json configuration file
         builder.Configuration.AddJsonFile("appsettings.json", false, true);
@@ -49,7 +49,7 @@ public static class ProgramExtensions
             .Replace("{username}", Environment.GetEnvironmentVariable("DB_USER") ?? "stoy")
             .Replace("{password}", Environment.GetEnvironmentVariable("DB_PASS") ?? "gainstracker_local");
 
-        builder.Services.AddDataServices(connectionString);
+        builder.Services.AddDataServices(connectionString, useInMemory);
 
         builder.Services.Configure<IdentityOptions>(options =>
         {

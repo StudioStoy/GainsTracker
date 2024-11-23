@@ -2,13 +2,14 @@
 using GainsTracker.Data.Friends.Entities;
 using GainsTracker.Data.Gains.Entities;
 using GainsTracker.Data.HealthMetrics.Entities;
+using GainsTracker.Data.Shared;
 using GainsTracker.Data.UserProfiles.Entities;
 using GainsTracker.Data.Workouts.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace GainsTracker.Data.Shared;
+namespace GainsTracker.Data;
 
 public sealed class GainsDbContext(DbContextOptions<GainsDbContext> options) : IdentityDbContext<UserEntity>(options)
 {
@@ -42,7 +43,7 @@ public sealed class GainsDbContext(DbContextOptions<GainsDbContext> options) : I
     }
 
     // In here, all the many-to-one, one-to-one, etc relations are managed.
-    // Also auto-includes.
+    // Also, auto-includes.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         var entityAssembly = typeof(GainsDbContext).Assembly;
@@ -54,16 +55,5 @@ public sealed class GainsDbContext(DbContextOptions<GainsDbContext> options) : I
         // new DbInitializer(modelBuilder).Seed();
 
         base.OnModelCreating(modelBuilder);
-    }
-
-    // EF automatically creates tables using their camelcase name.
-    // I don't want this in postgres as this necessitates stupid queries, like:
-    // 'select * from public."WorkoutEntity"' instead of 'select * from workout'.
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder
-            .UseNpgsql()
-            .UseSnakeCaseNamingConvention()
-            .LogTo(Console.WriteLine, LogLevel.Information);
     }
 }

@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Reset Db": {
+    "Local": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
@@ -17,10 +17,9 @@
       "applicationUrl": "https://localhost:7045;http://localhost:5045",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "commandLineArgs": "true"
+      }
     },
-    "Reuse Db": {
+    "Local - reset database": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
@@ -29,7 +28,18 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "commandLineArgs": "false"
+      "commandLineArgs": "-reset"
+    },
+    "Local - in-memory database": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7045;http://localhost:5045",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "commandLineArgs": "-inmemory"
     },
     "staging": {
       "commandName": "Project",

@@ -3,6 +3,9 @@ using DotNetEnv;
 using GainsTracker.Common.Extensions;
 using GainsTracker.WebAPI;
 
+var resetDatabase = args.Contains("-reset");
+var useInMemoryDatabase = args.Contains("-inmemory");
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers()
@@ -22,7 +25,7 @@ builder.Services.AddSwaggerGen();
 
 // Add domain services
 builder.RegisterEpicDependencies();
-builder.ConfigureDatabaseAndIdentity();
+builder.ConfigureDatabaseAndIdentity(useInMemoryDatabase);
 builder.ConfigureAuthentication();
 builder.AddSwaggerDocumentation();
 builder.ConfigureCors();
@@ -33,15 +36,16 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 var env = app.Environment;
-var resetDatabase = args.Length > 0 && args[0].ToBool();
 if (env.IsDevelopment() || env.IsEnvironment("Docker") || env.EnvironmentName == "Staging")
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.ResetAndUpdateDatabase(resetDatabase);
+    
+    if (!useInMemoryDatabase)
+        app.ResetAndUpdateDatabase(resetDatabase);
 }
 
-if (!resetDatabase)
+if (!resetDatabase && !useInMemoryDatabase)
     app.EnsureDatabaseIsCreated();
 
 if (!app.Environment.IsDevelopment())

@@ -5,7 +5,7 @@ using GainsTracker.Data.Workouts.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace GainsTracker.Data;
+namespace GainsTracker.Data.Shared;
 
 public static class ModelBuilderExtensions
 {
