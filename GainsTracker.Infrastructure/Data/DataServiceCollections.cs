@@ -1,6 +1,5 @@
 using GainsTracker.Data;
 using GainsTracker.Data.Gains.Entities;
-using GainsTracker.Data.Shared;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +20,7 @@ public static class DataServiceCollections
             services.AddDbContext<GainsDbContext>(options =>
                 options
                     .UseInMemoryDatabase("InMemoryDb")
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
                     .LogTo(Console.WriteLine, LogLevel.Information)
             );
         }
@@ -29,6 +29,7 @@ public static class DataServiceCollections
             services.AddDbContext<GainsDbContext>(options => options
                 .UseNpgsql(connectionString)
                 .UseSnakeCaseNamingConvention()
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
                 .LogTo(Console.WriteLine, LogLevel.Information)
             );
         }

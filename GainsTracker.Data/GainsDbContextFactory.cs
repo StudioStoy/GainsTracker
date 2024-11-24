@@ -18,7 +18,10 @@ public class GainsDbContextFactory : IDesignTimeDbContextFactory<GainsDbContext>
         var optionsBuilder = new DbContextOptionsBuilder<GainsDbContext>();
 
         var connectionString = configuration.GetConnectionString("Development");
-        optionsBuilder.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
+        optionsBuilder
+            .UseNpgsql(connectionString)
+            .UseSnakeCaseNamingConvention()
+            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
         return new GainsDbContext(optionsBuilder.Options);
     }

@@ -40,20 +40,4 @@
       <ProjectReference Include="..\GainsTracker.Common\GainsTracker.Common.csproj" />
       <ProjectReference Include="..\GainsTracker.Core\GainsTracker.Core.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Migrations\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="Migrations\20241123202511_InitialCreate.cs" />
-      <Compile Remove="Migrations\20241123202511_InitialCreate.Designer.cs" />
-      <Compile Remove="Migrations\20241123202732_InitialCreate.Designer.cs" />
-      <Compile Remove="Migrations\20241123202825_InitialCreate.cs" />
-      <Compile Remove="Migrations\20241123202825_InitialCreate.Designer.cs" />
-      <Compile Remove="Migrations\20241123220232_InitialCreate.Designer.cs" />
-      <Compile Remove="Migrations\20241123220317_InitialCreate.cs" />
-      <Compile Remove="Migrations\20241123220317_InitialCreate.Designer.cs" />
-    </ItemGroup>
-
 </Project>

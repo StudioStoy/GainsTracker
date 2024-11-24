@@ -7,7 +7,6 @@ using GainsTracker.Data.UserProfiles.Entities;
 using GainsTracker.Data.Workouts.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace GainsTracker.Data;
 
