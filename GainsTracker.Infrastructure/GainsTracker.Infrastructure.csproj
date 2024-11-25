@@ -8,18 +8,13 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.11"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2"/>
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\GainsTracker.Core\GainsTracker.Core.csproj"/>
         <ProjectReference Include="..\GainsTracker.Data\GainsTracker.Data.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Reference Include="Microsoft.AspNetCore.Identity">
-            <HintPath>..\..\..\.dotnet\shared\Microsoft.AspNetCore.App\8.0.6\Microsoft.AspNetCore.Identity.dll</HintPath>
-        </Reference>
     </ItemGroup>
 
 </Project>
