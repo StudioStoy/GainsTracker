@@ -7,17 +7,17 @@ using GainsTracker.Core.Gains.Interfaces.Services;
 
 namespace GainsTracker.Core.Friends.Services;
 
-public class FriendRequestService(IFriendBigBrain bigBrain, IGainsService gainsService) : IFriendRequestService
+public class FriendRequestService(IFriendRepository repository, IGainsService gainsService) : IFriendRequestService
 {
     public async Task<FriendRequestOverviewDto> GetFriendRequests(string userHandle)
     {
         var gainsId = await gainsService.GetGainsIdByUsername(userHandle);
-        var user = await bigBrain.GetFriendInfoByGainsId(gainsId);
+        var user = await repository.GetFriendInfoByGainsId(gainsId);
 
         return new FriendRequestOverviewDto
         {
             Sent = user.SentFriendRequests.Select(f => f.ToDto()).ToList(),
-            Received = user.ReceivedFriendRequests.Select(f => f.ToDto()).ToList()
+            Received = user.ReceivedFriendRequests.Select(f => f.ToDto()).ToList(),
         };
     }
 
@@ -30,12 +30,15 @@ public class FriendRequestService(IFriendBigBrain bigBrain, IGainsService gainsS
 
         user.SentFriendRequest(potentialFriend);
 
-        await bigBrain.SaveContext();
+        gainsService.UpdateGainsAccount(user);
+
+
+        gainsService.UpdateGainsAccount(potentialFriend);
     }
 
     public async Task HandleFriendRequestState(string userHandle, Guid requestId, bool accept = true)
     {
-        var request = await bigBrain.GetFriendRequestById(requestId);
+        var request = await repository.GetFriendRequestById(requestId);
         var gainsId = await gainsService.GetGainsIdByUsername(userHandle);
 
         if (request.RequesterId == gainsId)
@@ -43,14 +46,12 @@ public class FriendRequestService(IFriendBigBrain bigBrain, IGainsService gainsS
 
         if (accept) request.Accept();
         else request.Reject();
-
-        await bigBrain.SaveContext();
     }
 
     private async Task<List<Friend>> GetFriends(string userHandle)
     {
         var gainsAccount = await gainsService.GetGainsAccountByUserHandle(userHandle);
-        var friends = await bigBrain.GetFriendsByGainsId(gainsAccount.Id);
+        var friends = await repository.GetFriendsByGainsId(gainsAccount.Id);
 
         return friends;
     }

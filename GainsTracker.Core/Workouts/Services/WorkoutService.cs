@@ -5,7 +5,6 @@ using GainsTracker.Core.Gains.Interfaces.Services;
 using GainsTracker.Core.Gains.Models;
 using GainsTracker.Core.Workouts.Interfaces.Repositories;
 using GainsTracker.Core.Workouts.Interfaces.Services;
-using GainsTracker.Core.Workouts.Models;
 using GainsTracker.Core.Workouts.Models.Measurements;
 using GainsTracker.Core.Workouts.Models.Workouts;
 
@@ -30,7 +29,6 @@ public class WorkoutService(IWorkoutBigBrain workoutBigBrain, IMeasurementValida
         Workout workout = new(gainsAccount.Id, workoutDto.WorkoutType, workoutDto.WorkoutType.GetCategoryFromType(), []);
         gainsAccount.AddWorkout(workout);
 
-        await workoutBigBrain.SaveContext();
         return new WorkoutDto(gainsAccount.Id)
         {
             Type = workout.Type,
@@ -65,8 +63,6 @@ public class WorkoutService(IWorkoutBigBrain workoutBigBrain, IMeasurementValida
 
         var workout = await workoutBigBrain.GetWorkoutById(workoutId);
         workout.AddNewMeasurement(measurement);
-
-        await workoutBigBrain.SaveContext();
     }
 
     private async Task WorkoutTypeAlreadyUsed(Guid gainsId, WorkoutType type)

@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GainsTracker.Data.Friends.Entities;
 using GainsTracker.Data.HealthMetrics.Entities;
@@ -24,7 +25,7 @@ public class GainsAccountEntity
     public List<FriendRequestEntity> ReceivedFriendRequests { get; set; } = [];
     public List<FriendRequestEntity> SentFriendRequests { get; set; } = [];
 
-    public Guid Id { get; set; }
+    [Key] public Guid Id { get; set; }
     public string UserId { get; set; } = string.Empty;
     public Guid UserProfileId { get; set; }
 }

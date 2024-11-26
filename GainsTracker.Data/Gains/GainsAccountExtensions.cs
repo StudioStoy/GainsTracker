@@ -11,24 +11,36 @@ namespace GainsTracker.Data.Gains;
 public static class GainsAccountExtensions
 {
     // GainsAccount
-    public static GainsAccount MapToModel(this GainsAccountEntity entity)
+    public static GainsAccount ToModel(this GainsAccountEntity entity, HashSet<object>? processed = null)
     {
+        processed ??= [];
+
+        if (!processed.Add(entity))
+            return null!; // Handle cyclic references
+
         var model = new GainsAccount(entity.UserHandle)
         {
             Id = entity.Id,
-            UserProfile = entity.UserProfile?.MapToModel(),
-            Workouts = entity.Workouts.Select(w => w.MapToModel()).ToList(),
-            Metrics = entity.Metrics.Select(m => m.MapToModel()).ToList(),
-            Friends = entity.Friends.Select(f => f.MapToModel()).ToList(),
-            ReceivedFriendRequests = entity.ReceivedFriendRequests.Select(fr => fr.MapToModel()).ToList(),
-            SentFriendRequests = entity.SentFriendRequests.Select(fr => fr.MapToModel()).ToList()
+            UserProfileId = entity.UserProfileId,
+            UserProfile = entity.UserProfile?.ToModel(),
+            Workouts = entity.Workouts.Select(w => w.ToModel()).ToList(),
+            Metrics = entity.Metrics.Select(m => m.ToModel()).ToList(),
+            Friends = entity.Friends.Select(f => f.ToModel()).ToList(),
+            UserHandle = entity.UserHandle,
+            ReceivedFriendRequests = entity.ReceivedFriendRequests.Select(r => r.ToModel(processed)).ToList(),
+            SentFriendRequests = entity.SentFriendRequests.Select(r => r.ToModel(processed)).ToList(),
         };
 
         return model;
     }
 
-    public static GainsAccountEntity MapToEntity(this GainsAccount model)
+    public static GainsAccountEntity ToEntity(this GainsAccount model, HashSet<object>? processed = null)
     {
+        processed ??= [];
+
+        if (!processed.Add(model))
+            return null!; // Handle cyclic references
+
         GainsAccountEntity entity;
         if (model.UserProfile == null)
             entity = new GainsAccountEntity
@@ -36,11 +48,11 @@ public static class GainsAccountExtensions
                 Id = model.Id,
                 UserProfileId = model.UserProfileId,
                 UserHandle = model.UserHandle,
-                Workouts = model.Workouts.Select(w => w.MapToEntity()).ToList(),
-                Metrics = model.Metrics.Select(m => m.MapToEntity()).ToList(),
-                Friends = model.Friends.Select(f => f.MapToEntity()).ToList(),
-                ReceivedFriendRequests = model.ReceivedFriendRequests.Select(fr => fr.MapToEntity()).ToList(),
-                SentFriendRequests = model.SentFriendRequests.Select(fr => fr.MapToEntity()).ToList()
+                Workouts = model.Workouts.Select(w => w.ToEntity()).ToList(),
+                Metrics = model.Metrics.Select(m => m.ToEntity()).ToList(),
+                Friends = model.Friends.Select(f => f.ToEntity()).ToList(),
+                ReceivedFriendRequests = model.ReceivedFriendRequests.Select(fr => fr.ToEntity(processed)).ToList(),
+                SentFriendRequests = model.SentFriendRequests.Select(fr => fr.ToEntity(processed)).ToList(),
             };
         else
             entity = new GainsAccountEntity
@@ -48,39 +60,49 @@ public static class GainsAccountExtensions
                 Id = model.Id,
                 UserProfileId = model.UserProfileId,
                 UserHandle = model.UserHandle,
-                UserProfile = model.UserProfile.MapToEntity(),
-                Workouts = model.Workouts.Select(w => w.MapToEntity()).ToList(),
-                Metrics = model.Metrics.Select(m => m.MapToEntity()).ToList(),
-                Friends = model.Friends.Select(f => f.MapToEntity()).ToList(),
-                ReceivedFriendRequests = model.ReceivedFriendRequests.Select(fr => fr.MapToEntity()).ToList(),
-                SentFriendRequests = model.SentFriendRequests.Select(fr => fr.MapToEntity()).ToList()
+                UserProfile = model.UserProfile.ToEntity(),
+                Workouts = model.Workouts.Select(w => w.ToEntity()).ToList(),
+                Metrics = model.Metrics.Select(m => m.ToEntity()).ToList(),
+                Friends = model.Friends.Select(f => f.ToEntity()).ToList(),
+                ReceivedFriendRequests = model.ReceivedFriendRequests.Select(fr => fr.ToEntity(processed)).ToList(),
+                SentFriendRequests = model.SentFriendRequests.Select(fr => fr.ToEntity(processed)).ToList(),
             };
 
         return entity;
     }
 
     // User
-    public static User MapToModel(this UserEntity entity)
+    public static User ToModel(this UserEntity entity, HashSet<object>? processed = null)
     {
+        processed ??= [];
+
+        if (!processed.Add(entity))
+            return null!; // Handle cyclic references
+
         return new User
         {
             Id = entity.Id,
-            GainsAccount = entity.GainsAccount?.MapToModel(),
+            GainsAccount = entity.GainsAccount?.ToModel(processed),
             GainsAccountId = entity.GainsAccountId,
             Email = entity.Email,
-            UserName = entity.UserName
+            UserName = entity.UserName,
         };
     }
 
-    public static UserEntity MapToEntity(this User model)
+    public static UserEntity ToEntity(this User model, HashSet<object>? processed = null)
     {
+        processed ??= [];
+
+        if (!processed.Add(model))
+            return null!; // Handle cyclic references
+
         return new UserEntity
         {
             Id = model.Id,
-            GainsAccount = model.GainsAccount?.MapToEntity(),
+            GainsAccount = model.GainsAccount?.ToEntity(processed),
             GainsAccountId = model.GainsAccount?.Id ?? Guid.Empty,
             Email = model.Email,
-            UserName = model.UserName
+            UserName = model.UserName,
         };
     }
 }

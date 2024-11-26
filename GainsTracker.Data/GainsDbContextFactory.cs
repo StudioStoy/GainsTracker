@@ -1,9 +1,8 @@
-﻿namespace GainsTracker.Data;
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using System.IO;
+
+namespace GainsTracker.Data;
 
 public class GainsDbContextFactory : IDesignTimeDbContextFactory<GainsDbContext>
 {
@@ -20,10 +19,8 @@ public class GainsDbContextFactory : IDesignTimeDbContextFactory<GainsDbContext>
         var connectionString = configuration.GetConnectionString("Development");
         optionsBuilder
             .UseNpgsql(connectionString)
-            .UseSnakeCaseNamingConvention()
-            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            .UseSnakeCaseNamingConvention();
 
         return new GainsDbContext(optionsBuilder.Options);
     }
 }
-

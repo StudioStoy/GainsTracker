@@ -2,7 +2,7 @@
 
 namespace GainsTracker.Core.HealthMetrics.Interfaces.Repositories;
 
-public interface IHealthMetricBigBrain : IBaseBrain
+public interface IHealthMetricBigBrain : IGenericRepository<HealthMetric>
 {
     Task<List<HealthMetric>> GetAllMetricsByUsername(string username);
 }

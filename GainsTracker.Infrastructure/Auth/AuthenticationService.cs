@@ -33,7 +33,7 @@ public class AuthenticationService(
 
         var user = gainsService
             .CreateNewUser(request.UserHandle, displayName, request.Email)
-            .MapToEntity();
+            .ToEntity();
 
         var result = await userManager.CreateAsync(user, request.Password);
 

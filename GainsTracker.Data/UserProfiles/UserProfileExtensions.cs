@@ -7,18 +7,18 @@ namespace GainsTracker.Data.UserProfiles;
 public static class UserProfileExtensions
 {
     // UserProfile
-    public static UserProfile MapToModel(this UserProfileEntity entity)
+    public static UserProfile ToModel(this UserProfileEntity entity)
     {
         return new UserProfile(entity.GainsAccountId, entity.DisplayName)
         {
             Id = entity.Id,
             Description = entity.Description,
-            PinnedPBs = entity.PinnedPBs.Select(measurement => measurement.MapToModel()).ToList(),
-            Icon = entity.Icon.MapToModel()
+            PinnedPBs = entity.PinnedPBs.Select(measurement => measurement.ToModel()).ToList(),
+            Icon = entity.Icon.ToModel(),
         };
     }
 
-    public static UserProfileEntity MapToEntity(this UserProfile model)
+    public static UserProfileEntity ToEntity(this UserProfile model)
     {
         return new UserProfileEntity
         {
@@ -26,31 +26,31 @@ public static class UserProfileExtensions
             GainsAccountId = model.GainsAccountId,
             DisplayName = model.DisplayName,
             Description = model.Description,
-            PinnedPBs = model.PinnedPBs.Select(measurement => measurement.MapToEntity()).ToList(),
-            Icon = model.Icon.MapToEntity()
+            PinnedPBs = model.PinnedPBs.Select(measurement => measurement.ToEntity()).ToList(),
+            Icon = model.Icon.ToEntity(),
         };
     }
 
     // ProfileIcon
-    public static ProfileIcon MapToModel(this ProfileIconEntity entity)
+    public static ProfileIcon ToModel(this ProfileIconEntity entity)
     {
         return new ProfileIcon
         {
             Id = entity.Id,
             UserProfileId = entity.UserProfileId,
             PictureColor = entity.PictureColor,
-            Url = entity.Url
+            Url = entity.Url,
         };
     }
 
-    public static ProfileIconEntity MapToEntity(this ProfileIcon model)
+    public static ProfileIconEntity ToEntity(this ProfileIcon model)
     {
         return new ProfileIconEntity
         {
             Id = model.Id,
             UserProfileId = model.UserProfileId,
             PictureColor = model.PictureColor,
-            Url = model.Url
+            Url = model.Url,
         };
     }
 }

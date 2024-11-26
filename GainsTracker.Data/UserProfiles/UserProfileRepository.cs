@@ -5,7 +5,6 @@ using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Core.UserProfiles.Interfaces.Repositories;
 using GainsTracker.Core.UserProfiles.Models;
 using GainsTracker.Core.Workouts.Models.Measurements;
-using GainsTracker.Data.Shared;
 using GainsTracker.Data.UserProfiles.Entities;
 using GainsTracker.Data.Workouts;
 using GainsTracker.Data.Workouts.Entities;
@@ -15,9 +14,10 @@ namespace GainsTracker.Data.UserProfiles;
 
 public delegate Expression<Func<T, object>> PropertyToInclude<T>();
 
-public class UserProfileBigBrain(GainsDbContext context) : BigBrain<UserProfileEntity>(context), IUserProfileBigBrain
+public class UserProfileRepository(GainsDbContextFactory contextFactory)
+    : GenericRepository<UserProfile, UserProfileEntity>(contextFactory), IUserProfileBigBrain
 {
-    private readonly GainsDbContext _context = context;
+    private readonly GainsDbContextFactory _contextFactory = contextFactory;
 
     public async Task UpdateUserProfileByUserHandle(string userHandle, UpdateUserProfileDto userProfileDto)
     {
@@ -28,27 +28,27 @@ public class UserProfileBigBrain(GainsDbContext context) : BigBrain<UserProfileE
 
         if (userProfileDto.IconColorHex != null)
             current.Icon.PictureColor = ColorTranslator.FromHtml(userProfileDto.IconColorHex).ToArgb();
-
-        await SaveContext();
     }
 
     public async Task<List<Measurement>> GetPinnedPBs(string userHandle)
     {
         var profileEntity = await GetUserProfileByUserHandle(userHandle, () => up => up.PinnedPBs);
         return profileEntity.PinnedPBs
-            .Select(pb => pb.MapToModel())
+            .Select(pb => pb.ToModel())
             .ToList();
     }
 
     public async Task AddAndRemovePBs(string userHandle, UpdatePinnedPBsDto pinnedPBsDto)
     {
+        await using var context = contextFactory.CreateDbContext([]);
+
         var userProfileEntity = await GetUserProfileByUserHandle(userHandle, () => up => up.PinnedPBs);
         List<MeasurementEntity> toAdd = [];
         List<MeasurementEntity> toRemove = [];
 
         pinnedPBsDto.AddPBs.ForEach(pb =>
         {
-            var measurement = _context.Measurements.FirstOrDefault(measurement => measurement.Id == pb);
+            var measurement = context.Measurements.FirstOrDefault(measurement => measurement.Id == pb);
 
             if (measurement == null)
                 throw new NotFoundException($"Measurement with id {pb} was not found.");
@@ -58,7 +58,7 @@ public class UserProfileBigBrain(GainsDbContext context) : BigBrain<UserProfileE
 
         pinnedPBsDto.RemovePBs.ForEach(pb =>
         {
-            var measurement = _context.Measurements.FirstOrDefault(measurement => measurement.Id == pb);
+            var measurement = context.Measurements.FirstOrDefault(measurement => measurement.Id == pb);
             if (measurement == null)
                 throw new NotFoundException($"Measurement with id {pb} was not found.");
 
@@ -67,27 +67,29 @@ public class UserProfileBigBrain(GainsDbContext context) : BigBrain<UserProfileE
 
         userProfileEntity.PinnedPBs.AddRange(toAdd);
         userProfileEntity.PinnedPBs = userProfileEntity.PinnedPBs.Except(toRemove).ToList();
-
-        await SaveContext();
     }
 
     public async Task<UserProfile> GetUserProfileByUserHandle(string userHandle)
     {
-        var gainsId = await GetGainsIdByUsername(userHandle);
-        var userProfile = await _context.UserProfiles
+        await using var context = contextFactory.CreateDbContext([]);
+
+        var gainsId = await GetGainsIdByUserHandle(userHandle);
+        var userProfile = await context.UserProfiles
             .Include(up => up.Icon)
             .FirstOrDefaultAsync(e => e.GainsAccountId == gainsId);
 
         if (userProfile == null)
             throw new NotFoundException($"UserProfile for user with id {gainsId} was not found.");
 
-        return userProfile.MapToModel();
+        return userProfile.ToModel();
     }
 
     public async Task<UserProfileEntity> GetUserProfileEntityByUserHandle(string userHandle)
     {
-        var gainsId = await GetGainsIdByUsername(userHandle);
-        var userProfile = await _context.UserProfiles
+        await using var context = contextFactory.CreateDbContext([]);
+
+        var gainsId = await GetGainsIdByUserHandle(userHandle);
+        var userProfile = await context.UserProfiles
             .Include(up => up.Icon)
             .FirstOrDefaultAsync(e => e.GainsAccountId == gainsId);
 
@@ -100,14 +102,16 @@ public class UserProfileBigBrain(GainsDbContext context) : BigBrain<UserProfileE
     private async Task<UserProfileEntity> GetUserProfileByUserHandle(string userHandle,
         params PropertyToInclude<UserProfileEntity>[] properties)
     {
-        var gainsId = await GetGainsIdByUsername(userHandle);
+        await using var context = contextFactory.CreateDbContext([]);
+
+        var gainsId = await GetGainsIdByUserHandle(userHandle);
 
         // If no include expressions are provided, set a default one for the Icon.
         var includes = properties.Length != 0
             ? properties
             : [() => up => up.Icon];
 
-        var query = _context.UserProfiles.AsQueryable();
+        var query = context.UserProfiles.AsQueryable();
 
         foreach (var property in includes)
             // Use the property expression to include it in the query.

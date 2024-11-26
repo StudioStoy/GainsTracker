@@ -28,6 +28,11 @@ public class GainsService(IGainsBigBrain gainsBigBrain) : IGainsService
 
     public async Task<Guid> GetGainsIdByUsername(string userHandle)
     {
-        return await gainsBigBrain.GetGainsIdByUsername(userHandle);
+        return await gainsBigBrain.GetGainsIdByUserHandle(userHandle);
+    }
+
+    public void UpdateGainsAccount(GainsAccount gainsAccount)
+    {
+        gainsBigBrain.Update(gainsAccount);
     }
 }

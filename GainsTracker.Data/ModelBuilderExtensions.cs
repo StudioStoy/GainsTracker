@@ -30,7 +30,10 @@ public static class ModelBuilderExtensions
 
         builder.Entity<GainsAccountEntity>(gainsAccount =>
         {
-            gainsAccount.HasOne(u => u.UserProfile)
+            gainsAccount.HasKey(g => g.Id);
+
+            gainsAccount
+                .HasOne(u => u.UserProfile)
                 .WithOne()
                 .HasForeignKey<GainsAccountEntity>(u => u.UserProfileId);
 

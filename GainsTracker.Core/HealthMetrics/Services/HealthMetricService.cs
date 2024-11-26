@@ -14,8 +14,6 @@ public class HealthMetricService(IHealthMetricBigBrain bigBrain, IGainsService g
         var healthMetric = HealthMetricFactory.DeserializeMetricFromJson(createMetricDto.Type, createMetricDto.Data!);
         var gains = await gainsService.GetGainsAccountByUserHandle(userHandle);
         gains.AddMetric(healthMetric);
-
-        await bigBrain.SaveContext();
     }
 
     public async Task<List<MetricDto>> GetAllMetricsByUsername(string username)

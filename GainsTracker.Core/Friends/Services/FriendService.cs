@@ -5,11 +5,11 @@ using GainsTracker.Core.Gains.Interfaces.Services;
 
 namespace GainsTracker.Core.Friends.Services;
 
-public class FriendService(IFriendBigBrain bigBrain, IGainsService gainsService) : IFriendService
+public class FriendService(IFriendRepository repository, IGainsService gainsService) : IFriendService
 {
     public async Task<List<Friend>> GetFriends(string username)
     {
         var gainsId = await gainsService.GetGainsIdByUsername(username);
-        return await bigBrain.GetFriendsByGainsId(gainsId);
+        return await repository.GetFriendsByGainsId(gainsId);
     }
 }

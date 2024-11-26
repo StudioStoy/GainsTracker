@@ -2,9 +2,8 @@
 
 namespace GainsTracker.Core.Gains.Interfaces.Repositories;
 
-public interface IGainsBigBrain : IBaseBrain
+public interface IGainsBigBrain : IGenericRepository<GainsAccount>
 {
-    Task<Guid> GetGainsIdByUsername(string userHandle);
     Task<GainsAccount> GetGainsAccountByUserHandle(string userHandle);
     Task<GainsAccount> GetGainsAccountWithRelationsByUserHandle(string userHandle);
 }

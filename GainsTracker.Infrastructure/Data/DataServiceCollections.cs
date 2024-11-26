@@ -16,28 +16,24 @@ public static class DataServiceCollections
     {
         // Set up an in-memory or an actually implemented database.
         if (useInMemory)
-        {
             services.AddDbContext<GainsDbContext>(options =>
                 options
                     .UseInMemoryDatabase("InMemoryDb")
-                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
                     .LogTo(Console.WriteLine, LogLevel.Information)
             );
-        }
         else
-        {
             services.AddDbContext<GainsDbContext>(options => options
                 .UseNpgsql(connectionString)
                 .UseSnakeCaseNamingConvention()
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
                 .LogTo(Console.WriteLine, LogLevel.Information)
             );
-        }
 
         // Set up Identity with the GainsDbContext and configure options
         services.AddIdentity<UserEntity, IdentityRole>()
             .AddEntityFrameworkStores<GainsDbContext>()
             .AddDefaultTokenProviders();
+
+        services.AddSingleton<GainsDbContextFactory>();
 
         return services;
     }

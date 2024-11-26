@@ -7,8 +7,8 @@ public class FriendRequest(GainsAccount requester, GainsAccount recipient)
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
-    public Guid RequesterId { get; } = requester.Id;
-    public Guid RecipientId { get; } = recipient.Id;
+    public Guid RequesterId { get; init; } = requester.Id;
+    public Guid RecipientId { get; init; } = recipient.Id;
 
     public GainsAccount Requester { get; } = requester;
     public GainsAccount Recipient { get; } = recipient;

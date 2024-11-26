@@ -2,30 +2,34 @@
 using GainsTracker.Core.Gains.Interfaces.Repositories;
 using GainsTracker.Core.Gains.Models;
 using GainsTracker.Data.Gains.Entities;
-using GainsTracker.Data.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace GainsTracker.Data.Gains;
 
 // TODO: Refactor database repositories to return nullable entities. Null logic should be decided in the services.
-public class GainsBigBrain(GainsDbContext context) : BigBrain<GainsAccountEntity>(context), IGainsBigBrain
+public class GainsRepository(GainsDbContextFactory contextFactory)
+    : GenericRepository<GainsAccount, GainsAccountEntity>(contextFactory), IGainsBigBrain
 {
-    private readonly GainsDbContext _context = context;
+    private readonly GainsDbContextFactory _contextFactory = contextFactory;
 
-    public new async Task<GainsAccount> GetGainsAccountByUserHandle(string userHandle)
+    public async Task<GainsAccount> GetGainsAccountByUserHandle(string userHandle)
     {
-        var gains = await _context.GainsAccounts
+        await using var context = _contextFactory.CreateDbContext([]);
+
+        var gains = await context.GainsAccounts
             .FirstOrDefaultAsync(gains => string.Equals(gains.UserHandle.ToLower(), userHandle.ToLower()));
 
         if (gains == null)
             throw new NotFoundException("Gains account not found with that userHandle");
 
-        return gains.MapToModel();
+        return gains.ToModel();
     }
 
     public async Task<GainsAccount> GetGainsAccountWithRelationsByUserHandle(string userHandle)
     {
-        var gains = await _context.GainsAccounts
+        await using var context = _contextFactory.CreateDbContext([]);
+
+        var gains = await context.GainsAccounts
             .Include(g => g.UserProfile)
             .ThenInclude(u => u.Icon)
             .FirstOrDefaultAsync(gains => gains.UserHandle.ToLower() == userHandle.ToLower());
@@ -33,18 +37,6 @@ public class GainsBigBrain(GainsDbContext context) : BigBrain<GainsAccountEntity
         if (gains == null)
             throw new NotFoundException("Gains account not found with that userHandle");
 
-        return gains.MapToModel();
-    }
-
-    public new async Task<Guid> GetGainsIdByUsername(string userHandle)
-    {
-        var idModel = await _context.GainsAccounts.Where(g => g.UserHandle == userHandle)
-            .Select(g => new { g.Id })
-            .FirstOrDefaultAsync();
-
-        if (idModel == null)
-            throw new NotFoundException("User not found");
-
-        return idModel.Id;
+        return gains.ToModel();
     }
 }

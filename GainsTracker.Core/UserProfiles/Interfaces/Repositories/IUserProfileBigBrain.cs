@@ -4,7 +4,7 @@ using GainsTracker.Core.Workouts.Models.Measurements;
 
 namespace GainsTracker.Core.UserProfiles.Interfaces.Repositories;
 
-public interface IUserProfileBigBrain : IBaseBrain
+public interface IUserProfileBigBrain : IGenericRepository<UserProfile>
     {
         Task UpdateUserProfileByUserHandle(string userHandle, UpdateUserProfileDto userProfileDto);
         Task<List<Measurement>> GetPinnedPBs(string userHandle);
