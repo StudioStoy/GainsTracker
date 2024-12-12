@@ -10,5 +10,5 @@ public interface IGainsService
     Task<Guid> GetGainsIdByUsername(string userHandle);
     Task<GainsAccount> GetGainsAccountWithRelationsByUserHandle(string currentUsername);
 
-    void UpdateGainsAccount(GainsAccount gainsAccount);
+    Task<GainsAccount> UpdateGainsAccount(GainsAccount gainsAccount);
 }

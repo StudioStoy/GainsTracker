@@ -1,4 +1,5 @@
-﻿using GainsTracker.Common.Models.Friends.Dto;
+﻿using GainsTracker.Common.Exceptions;
+using GainsTracker.Common.Models.Friends.Dto;
 using GainsTracker.Core.Friends.Exceptions;
 using GainsTracker.Core.Friends.Interfaces.Repositories;
 using GainsTracker.Core.Friends.Interfaces.Services;
@@ -28,12 +29,11 @@ public class FriendRequestService(IFriendRepository repository, IGainsService ga
         var user = await gainsService.GetGainsAccountByUserHandle(userHandle);
         var potentialFriend = await gainsService.GetGainsAccountByUserHandle(friendHandle);
 
-        user.SentFriendRequest(potentialFriend);
+        var friendRequest = user.SentFriendRequest(potentialFriend);
+        await AddFriendRequestWithoutAccounts(friendRequest);
 
-        gainsService.UpdateGainsAccount(user);
-
-
-        gainsService.UpdateGainsAccount(potentialFriend);
+        // await gainsService.UpdateGainsAccount(user);
+        // await gainsService.UpdateGainsAccount(potentialFriend);
     }
 
     public async Task HandleFriendRequestState(string userHandle, Guid requestId, bool accept = true)
@@ -42,10 +42,12 @@ public class FriendRequestService(IFriendRepository repository, IGainsService ga
         var gainsId = await gainsService.GetGainsIdByUsername(userHandle);
 
         if (request.RequesterId == gainsId)
-            throw new Exception("Requester can obviously not accept or reject their own request");
+            throw new ForbiddenException("Requester can obviously not accept or reject their own request");
 
         if (accept) request.Accept();
         else request.Reject();
+
+        await repository.UpdateFriendRequest(request);
     }
 
     private async Task<List<Friend>> GetFriends(string userHandle)
@@ -77,5 +79,12 @@ public class FriendRequestService(IFriendRepository repository, IGainsService ga
         var friendRequest = await GetFriendRequests(userHandle);
         return friendRequest.Sent.Any(req =>
             string.Equals(req.RecipientName, friendHandle, StringComparison.InvariantCultureIgnoreCase));
+    }
+
+    private async Task AddFriendRequestWithoutAccounts(FriendRequest friendRequest)
+    {
+        friendRequest.Requester = null!;
+        friendRequest.Recipient = null!;
+        await repository.AddFriendRequest(friendRequest);
     }
 }

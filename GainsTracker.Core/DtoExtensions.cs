@@ -32,7 +32,7 @@ public static class DtoExtensions
                 $"ToDto method not found for type {typeof(TModel).Name}");
 
             // Invokes the ToDto() extension method and adds the result to the DTO list.
-            var dtoItem = (TDto?)toDtoMethod.Invoke(null, [item]);
+            var dtoItem = (TDto?) toDtoMethod.Invoke(null, [item]);
             if (dtoItem != null)
                 dtoList.Add(dtoItem);
         }
@@ -77,7 +77,6 @@ public static class DtoExtensions
             PinnedPBs = userProfile.PinnedPBs.Select(pb => new MeasurementDto
             {
                 Id = pb.Id,
-                WorkoutId = pb.WorkoutId,
                 Category = pb.Category,
                 TimeOfRecord = pb.TimeOfRecord,
                 Notes = pb.Notes,
@@ -95,7 +94,6 @@ public static class DtoExtensions
             bestMeasurement = new MeasurementDto
             {
                 Id = workout.PersonalBest.Id,
-                WorkoutId = workout.PersonalBest.WorkoutId,
                 TimeOfRecord = workout.PersonalBest.TimeOfRecord,
                 Category = workout.PersonalBest.Category,
                 Notes = workout.PersonalBest.Notes,
@@ -117,7 +115,6 @@ public static class DtoExtensions
         return new MeasurementDto
         {
             Id = measurement.Id,
-            WorkoutId = measurement.WorkoutId,
             Category = measurement.Category,
             TimeOfRecord = measurement.TimeOfRecord,
             Notes = measurement.Notes,

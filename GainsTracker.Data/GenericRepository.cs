@@ -4,46 +4,41 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GainsTracker.Data;
 
-public class GenericRepository<TDomain, TEntity>(GainsDbContextFactory contextFactory) : IGenericRepository<TDomain>
-    where TDomain : class
+public class GenericRepository<TEntity>(GainsDbContextFactory contextFactory) : IGenericRepository<TEntity>
     where TEntity : class
 {
-    public async Task<TDomain?> GetByIdAsync(Guid id)
+    public async Task<TEntity?> GetByIdAsync(Guid id)
     {
-        await using var context = contextFactory.CreateDbContext([]);
+        await using var context = contextFactory.CreateDbContext();
         var entity = await context.Set<TEntity>().FindAsync(id);
-        return entity?.AsDomain<TDomain, TEntity>();
+        return entity;
     }
 
-    public IQueryable<TDomain> GetAll()
+    public async Task<List<TEntity>> GetAll()
     {
-        var context = contextFactory.CreateDbContext([]);
+        await using var context = contextFactory.CreateDbContext();
 
-        return context.Set<TEntity>()
-            .Select(entity => entity.AsDomain<TDomain, TEntity>());
+        return await context.Set<TEntity>().ToListAsync();
     }
 
-    public async Task AddAsync(TDomain domain)
+    public async Task AddAsync(TEntity entity)
     {
-        await using var context = contextFactory.CreateDbContext([]);
-        var entity = domain.AsEntity<TDomain, TEntity>();
-        await context.Set<TEntity>().AddAsync(entity);
+        await using var context = contextFactory.CreateDbContext();
+        await context.AddAsync(entity);
         await context.SaveChangesAsync();
     }
 
-    public void Update(TDomain domain)
+    public async Task<TEntity> UpdateAsync(TEntity entity)
     {
-        using var context = contextFactory.CreateDbContext([]);
-        var entity = domain.AsEntity<TDomain, TEntity>();
-
-        context.Set<TEntity>().Update(entity);
-
-        context.SaveChanges();
+        await using var context = contextFactory.CreateDbContext();
+        var tracked = context.Update(entity);
+        await context.SaveChangesAsync();
+        return tracked.Entity;
     }
 
     public async Task DeleteAsync(Guid id)
     {
-        await using var context = contextFactory.CreateDbContext([]);
+        await using var context = contextFactory.CreateDbContext();
         var entity = await context.Set<TEntity>().FindAsync(id);
         if (entity != null)
         {
@@ -54,7 +49,7 @@ public class GenericRepository<TDomain, TEntity>(GainsDbContextFactory contextFa
 
     public async Task<Guid> GetGainsIdByUserHandle(string userHandle)
     {
-        await using var context = contextFactory.CreateDbContext([]);
+        await using var context = contextFactory.CreateDbContext();
         var idModel = await context.GainsAccounts
             .Where(g => g.UserHandle == userHandle)
             .Select(g => new { g.Id })

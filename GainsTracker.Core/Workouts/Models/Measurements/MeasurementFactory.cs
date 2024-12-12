@@ -19,7 +19,8 @@ public static class MeasurementFactory
         return (category switch
         {
             ExerciseCategory.Strength => measurementData.Deserialize<StrengthMeasurement>(options),
-            ExerciseCategory.TimeAndDistanceEndurance => measurementData.Deserialize<TimeAndDistanceEnduranceMeasurement>(options),
+            ExerciseCategory.TimeAndDistanceEndurance => measurementData
+                .Deserialize<TimeAndDistanceEnduranceMeasurement>(options),
             ExerciseCategory.TimeEndurance => measurementData.Deserialize<TimeEnduranceMeasurement>(options),
             ExerciseCategory.Reps => measurementData.Deserialize<RepsMeasurement>(options),
             ExerciseCategory.General => measurementData.Deserialize<GeneralMeasurement>(options),
@@ -34,10 +35,11 @@ public static class MeasurementFactory
             PropertyNameCaseInsensitive = true
         };
 
-        return JsonSerializer.SerializeToDocument(measurement, measurement.GetType(), options);
+        return JsonSerializer.SerializeToDocument(measurement, measurement.GetType()!, options);
     }
 
-    public static MeasurementValidator GetValidator<T>(WorkoutType type, Measurement previousBest, Measurement newMeasurement) where T : Measurement
+    public static MeasurementValidator GetValidator<T>(WorkoutType type, Measurement previousBest,
+        Measurement newMeasurement) where T : Measurement
     {
         Dictionary<Type, Type> validatorMap = new()
         {
@@ -47,14 +49,15 @@ public static class MeasurementFactory
             { typeof(TimeAndDistanceEnduranceMeasurement), typeof(TimeAndDistanceMeasurementValidator) },
             { typeof(GeneralMeasurement), typeof(GeneralMeasurementValidator) }
         };
-        
-        if (validatorMap.TryGetValue(previousBest.GetType(), out Type? validatorType))
+
+        if (validatorMap.TryGetValue(previousBest.GetType()!, out Type? validatorType))
         {
             var validatorInstance = Activator.CreateInstance(validatorType, type, previousBest, newMeasurement);
             if (validatorInstance is MeasurementValidator result)
                 return result;
         }
 
-        throw new ArgumentOutOfRangeException(nameof(previousBest), previousBest, "MeasurementValidator could not be instantiated");
+        throw new ArgumentOutOfRangeException(nameof(previousBest), previousBest,
+            "MeasurementValidator could not be instantiated");
     }
 }

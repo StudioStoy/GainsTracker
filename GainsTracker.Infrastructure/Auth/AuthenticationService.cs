@@ -1,13 +1,16 @@
+using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using DotNetEnv;
 using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.Auth.Dto;
 using GainsTracker.Core.Auth.Interfaces;
+using GainsTracker.Core.Auth.Models;
 using GainsTracker.Core.Gains.Interfaces.Services;
-using GainsTracker.Data.Gains;
-using GainsTracker.Data.Gains.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -15,7 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace GainsTracker.Infrastructure.Auth;
 
 public class AuthenticationService(
-    UserManager<UserEntity> userManager,
+    UserManager<User> userManager,
     IConfiguration configuration,
     IGainsService gainsService)
     : IAuthenticationService
@@ -32,8 +35,7 @@ public class AuthenticationService(
         var displayName = string.IsNullOrEmpty(request.DisplayName) ? request.UserHandle : request.DisplayName;
 
         var user = gainsService
-            .CreateNewUser(request.UserHandle, displayName, request.Email)
-            .ToEntity();
+            .CreateNewUser(request.UserHandle, displayName, request.Email);
 
         var result = await userManager.CreateAsync(user, request.Password);
 
@@ -64,7 +66,7 @@ public class AuthenticationService(
         {
             new Claim(ClaimTypes.Name, user.UserName),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
 
         var token = GetToken(authClaims);

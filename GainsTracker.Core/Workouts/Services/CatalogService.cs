@@ -7,13 +7,13 @@ using GainsTracker.Core.Workouts.Models.Workouts;
 
 namespace GainsTracker.Core.Workouts.Services;
 
-public class CatalogService(IWorkoutBigBrain bigBrain, IGainsService gainsService) : ICatalogService
+public class CatalogService(IWorkoutRepository repository, IGainsService gainsService) : ICatalogService
 {
     public async Task<List<WorkoutTypeDto>> GetAvailableWorkoutTypesForUser(string username)
     {
         var gainsId = await gainsService.GetGainsIdByUsername(username);
         var allWorkoutTypes = GetAllWorkoutTypes();
-        var workouts = await bigBrain.GetWorkoutsByGainsId(gainsId);
+        var workouts = await repository.GetWorkoutsByGainsId(gainsId);
         var activeWorkoutTypes = workouts
             .Select(w => new WorkoutTypeDto(w.Type.ToString(), ""));
 

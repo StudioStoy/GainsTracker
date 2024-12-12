@@ -40,7 +40,7 @@ if (env.IsDevelopment() || env.IsEnvironment("Docker") || env.EnvironmentName ==
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    
+
     if (!useInMemoryDatabase)
         app.ResetAndUpdateDatabase(resetDatabase);
 }
@@ -56,6 +56,8 @@ app.UseCors("AllowBlazorDevClient");
 // Authentication
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.AddGlobalErrorHandler();
 
 app.MapControllers();
 

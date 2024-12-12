@@ -1,47 +1,47 @@
-﻿using GainsTracker.Data.Friends.Entities;
-using GainsTracker.Data.Gains.Entities;
-using GainsTracker.Data.UserProfiles.Entities;
-using GainsTracker.Data.Workouts.Entities;
+﻿using GainsTracker.Core.Auth.Models;
+using GainsTracker.Core.Friends.Models;
+using GainsTracker.Core.Gains.Models;
+using GainsTracker.Core.UserProfiles.Models;
+using GainsTracker.Core.Workouts.Models.Measurements;
+using GainsTracker.Core.Workouts.Models.Workouts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace GainsTracker.Data.Shared;
+namespace GainsTracker.Data;
 
 public static class ModelBuilderExtensions
 {
     public static void ConfigureRelationModels(this ModelBuilder builder)
     {
-        builder.Entity<FriendRequestEntity>()
+        builder.Entity<FriendRequest>()
             .HasOne(a => a.Requester)
             .WithMany(b => b.SentFriendRequests)
             .HasForeignKey(f => f.RequesterId);
 
-        builder.Entity<FriendRequestEntity>()
+        builder.Entity<FriendRequest>()
             .HasOne(a => a.Recipient)
             .WithMany(b => b.ReceivedFriendRequests)
             .HasForeignKey(c => c.RecipientId);
 
-        builder.Entity<UserEntity>(user =>
+        builder.Entity<User>(user =>
         {
             user.HasOne(u => u.GainsAccount)
                 .WithOne()
-                .HasForeignKey<UserEntity>(u => u.GainsAccountId);
+                .HasForeignKey<User>(u => u.GainsAccountId);
         });
 
-        builder.Entity<GainsAccountEntity>(gainsAccount =>
+        builder.Entity<GainsAccount>(gainsAccount =>
         {
-            gainsAccount.HasKey(g => g.Id);
-
             gainsAccount
                 .HasOne(u => u.UserProfile)
                 .WithOne()
-                .HasForeignKey<GainsAccountEntity>(u => u.UserProfileId);
+                .HasForeignKey<GainsAccount>(u => u.UserProfileId);
 
             gainsAccount.Navigation(g => g.SentFriendRequests).AutoInclude();
             gainsAccount.Navigation(g => g.ReceivedFriendRequests).AutoInclude();
         });
 
-        builder.Entity<UserProfileEntity>(userProfile =>
+        builder.Entity<UserProfile>(userProfile =>
         {
             userProfile.HasMany(u => u.PinnedPBs)
                 .WithOne()
@@ -50,7 +50,7 @@ public static class ModelBuilderExtensions
 
             userProfile.HasOne(u => u.Icon)
                 .WithOne()
-                .HasForeignKey<ProfileIconEntity>(i => i.UserProfileId);
+                .HasForeignKey<ProfileIcon>(i => i.UserProfileId);
         });
     }
 
@@ -60,17 +60,17 @@ public static class ModelBuilderExtensions
     /// </summary>
     public static void ConvertEnumsToStrings(this ModelBuilder builder)
     {
-        // WorkoutEntity types
-        builder.Entity<WorkoutEntity>()
+        // Workout types
+        builder.Entity<Workout>()
             .Property(workout => workout.Type)
             .HasConversion<string>();
 
         // Measurement types
-        builder.Entity<StrengthMeasurementEntity>()
+        builder.Entity<StrengthMeasurement>()
             .Property(measurement => measurement.WeightUnit)
             .HasConversion<string>();
 
-        builder.Entity<TimeAndDistanceEnduranceMeasurementEntity>()
+        builder.Entity<TimeAndDistanceEnduranceMeasurement>()
             .Property(measurement => measurement.DistanceUnit)
             .HasConversion<string>();
     }
@@ -82,11 +82,11 @@ public static class ModelBuilderExtensions
     {
         var timeConverter = new ValueConverter<long, string>(v => v.ToString(), v => Convert.ToInt64(v));
 
-        builder.Entity<TimeEnduranceMeasurementEntity>()
+        builder.Entity<TimeEnduranceMeasurement>()
             .Property(measurement => measurement.Time)
             .HasConversion(timeConverter);
 
-        builder.Entity<TimeAndDistanceEnduranceMeasurementEntity>()
+        builder.Entity<TimeAndDistanceEnduranceMeasurement>()
             .Property(measurement => measurement.Time)
             .HasConversion(timeConverter);
     }

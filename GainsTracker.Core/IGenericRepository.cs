@@ -1,11 +1,11 @@
 ﻿namespace GainsTracker.Core;
 
-public interface IGenericRepository<TDomain> where TDomain : class
+public interface IGenericRepository<TEntity> where TEntity : class
 {
-    Task<TDomain?> GetByIdAsync(Guid id);
-    IQueryable<TDomain> GetAll();
-    Task AddAsync(TDomain entity);
-    void Update(TDomain entity);
+    Task<TEntity?> GetByIdAsync(Guid id);
+    Task<List<TEntity>> GetAll();
+    Task AddAsync(TEntity entity);
+    Task<TEntity> UpdateAsync(TEntity entity);
     Task DeleteAsync(Guid id);
 
     Task<Guid> GetGainsIdByUserHandle(string username);

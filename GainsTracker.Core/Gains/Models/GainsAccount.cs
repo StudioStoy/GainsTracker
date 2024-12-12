@@ -8,6 +8,10 @@ namespace GainsTracker.Core.Gains.Models;
 
 public class GainsAccount
 {
+    public GainsAccount()
+    {
+    }
+
     public GainsAccount(string userHandle, string displayName = "")
     {
         Id = Guid.NewGuid();
@@ -18,7 +22,7 @@ public class GainsAccount
 
     public Guid Id { get; set; }
 
-    public string UserHandle { get; set; } = "";
+    public string UserHandle { get; set; } = string.Empty;
 
     public Guid UserProfileId { get; set; }
     public UserProfile? UserProfile { get; set; }
@@ -30,7 +34,7 @@ public class GainsAccount
     public List<FriendRequest> ReceivedFriendRequests { get; set; } = [];
     public List<FriendRequest> SentFriendRequests { get; set; } = [];
 
-    public void SentFriendRequest(GainsAccount toPotentialFriend)
+    public FriendRequest SentFriendRequest(GainsAccount toPotentialFriend)
     {
         CheckFriendRequests(toPotentialFriend.UserHandle);
 
@@ -38,6 +42,8 @@ public class GainsAccount
 
         SentFriendRequests.Add(request);
         toPotentialFriend.ReceivedFriendRequests.Add(request);
+
+        return request;
     }
 
     public void AddWorkout(Workout workout)

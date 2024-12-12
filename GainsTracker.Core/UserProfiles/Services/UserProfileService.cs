@@ -5,7 +5,7 @@ using GainsTracker.Core.UserProfiles.Interfaces.Services;
 
 namespace GainsTracker.Core.UserProfiles.Services;
 
-public class UserProfileService(IUserProfileBigBrain bigBrain) : IUserProfileService
+public class UserProfileService(IUserProfileRepository repository) : IUserProfileService
 {
     public async Task UpdateUserProfile(string userHandle, UpdateUserProfileDto userProfileDto)
     {
@@ -14,23 +14,23 @@ public class UserProfileService(IUserProfileBigBrain bigBrain) : IUserProfileSer
         if (detector.IsProfanity(userProfileDto.DisplayName) || detector.IsProfanity(userProfileDto.Description))
             throw new ArgumentException("no bad words buster");
 
-        await bigBrain.UpdateUserProfileByUserHandle(userHandle, userProfileDto);
+        await repository.UpdateUserProfileByUserHandle(userHandle, userProfileDto);
     }
 
     public async Task<UserProfileDto> GetUserProfile(string userHandle)
     {
-        return (await bigBrain.GetUserProfileByUserHandle(userHandle)).ToDto();
+        return (await repository.GetUserProfileByUserHandle(userHandle)).ToDto();
     }
 
     public async Task<List<MeasurementDto>> GetPinnedPBs(string userHandle)
     {
-        return (await bigBrain.GetPinnedPBs(userHandle))
+        return (await repository.GetPinnedPBs(userHandle))
             .Select(pb => pb.ToDto())
             .ToList();
     }
 
     public async Task UpdatePinnedPBs(string userHandle, UpdatePinnedPBsDto pinnedPBsDto)
     {
-        await bigBrain.AddAndRemovePBs(userHandle, pinnedPBsDto);
+        await repository.AddAndRemovePBs(userHandle, pinnedPBsDto);
     }
 }

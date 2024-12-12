@@ -6,6 +6,8 @@ namespace GainsTracker.Data;
 
 public class GainsDbContextFactory : IDesignTimeDbContextFactory<GainsDbContext>
 {
+    public GainsDbContext CreateDbContext() => CreateDbContext([]);
+
     public GainsDbContext CreateDbContext(string[] args)
     {
         // Load configuration from appsettings.json in the Data project

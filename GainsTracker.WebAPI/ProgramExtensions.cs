@@ -194,4 +194,12 @@ public static class ProgramExtensions
         var scope = app.Services.CreateScope();
         scope.ApplyMigrationsToDatabase();
     }
+
+    /// <summary>
+    ///     Configure global exception handling.
+    /// </summary>
+    public static void AddGlobalErrorHandler(this IApplicationBuilder applicationBuilder)
+    {
+        applicationBuilder.UseMiddleware<GlobalErrorHandlingMiddleware>();
+    }
 }

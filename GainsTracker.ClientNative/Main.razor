@@ -1,13 +1,13 @@
 ﻿@using GainsTracker.UI.Shared
-<Router AppAssembly="@GetType().Assembly"
+<Router AppAssembly="@GetType()?.Assembly"
         AdditionalAssemblies="new[] { typeof(MainLayout).Assembly }">
     <Found Context="routeData">
         <LayoutView Layout="@typeof(MainLayout)">
             <TransitionableRoutePrimary RouteData="@routeData" ForgetStateOnTransition="true">
-                <TransitionableRouteView DefaultLayout="@typeof(TransitionableViewLayout)" />
+                <TransitionableRouteView DefaultLayout="@typeof(TransitionableViewLayout)"/>
             </TransitionableRoutePrimary>
             <TransitionableRouteSecondary RouteData="@routeData" ForgetStateOnTransition="true">
-                <TransitionableRouteView DefaultLayout="@typeof(TransitionableViewLayout)" />
+                <TransitionableRouteView DefaultLayout="@typeof(TransitionableViewLayout)"/>
             </TransitionableRouteSecondary>
         </LayoutView>
     </Found>

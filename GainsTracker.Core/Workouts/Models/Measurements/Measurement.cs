@@ -15,8 +15,7 @@ public abstract class Measurement : ITrackableGoal
     #region Relations
 
     [JsonIgnore] public string Id { get; set; } = Guid.NewGuid().ToString();
-    [JsonIgnore] public string WorkoutId { get; set; } = string.Empty;
-    [JsonIgnore] public Guid? UserProfileId { get; set; } // Indicates that it's a PinnedPB. Sadly.
+    [JsonIgnore] public Guid? UserProfileId { get; set; } // TODO: Fix this ugly indication of a pinned PB.
 
     #endregion
 }
@@ -32,7 +31,7 @@ public class StrengthMeasurement : Measurement
 
 public class TimeAndDistanceEnduranceMeasurement : Measurement
 {
-    public long Time { get; set; } = 0;
+    public long Time { get; set; }
     public DistanceUnits DistanceUnit { get; set; }
     public double Distance { get; set; }
 
@@ -41,7 +40,7 @@ public class TimeAndDistanceEnduranceMeasurement : Measurement
 
 public class TimeEnduranceMeasurement : Measurement
 {
-    public long Time { get; set; } = 0;
+    public long Time { get; set; }
 
     protected internal override ExerciseCategory Category => ExerciseCategory.TimeEndurance;
 }

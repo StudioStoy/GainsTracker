@@ -5,34 +5,34 @@ using GainsTracker.Core.Gains.Models;
 
 namespace GainsTracker.Core.Gains.Services;
 
-public class GainsService(IGainsBigBrain gainsBigBrain) : IGainsService
+public class GainsService(IGainsRepository gainsRepository) : IGainsService
 {
     public User CreateNewUser(string userHandle, string displayName, string requestEmail)
     {
         return new User(userHandle, displayName)
         {
             Email = requestEmail,
-            SecurityStamp = Guid.NewGuid().ToString()
+            SecurityStamp = Guid.NewGuid().ToString(),
         };
     }
 
     public async Task<GainsAccount> GetGainsAccountByUserHandle(string userHandle)
     {
-        return await gainsBigBrain.GetGainsAccountByUserHandle(userHandle);
+        return await gainsRepository.GetGainsAccountByUserHandle(userHandle);
     }
 
     public async Task<GainsAccount> GetGainsAccountWithRelationsByUserHandle(string userHandle)
     {
-        return await gainsBigBrain.GetGainsAccountWithRelationsByUserHandle(userHandle);
+        return await gainsRepository.GetGainsAccountWithRelationsByUserHandle(userHandle);
     }
 
     public async Task<Guid> GetGainsIdByUsername(string userHandle)
     {
-        return await gainsBigBrain.GetGainsIdByUserHandle(userHandle);
+        return await gainsRepository.GetGainsIdByUserHandle(userHandle);
     }
 
-    public void UpdateGainsAccount(GainsAccount gainsAccount)
+    public async Task<GainsAccount> UpdateGainsAccount(GainsAccount gainsAccount)
     {
-        gainsBigBrain.Update(gainsAccount);
+        return await gainsRepository.UpdateAsync(gainsAccount);
     }
 }

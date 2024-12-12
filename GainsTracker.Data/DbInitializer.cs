@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace GainsTracker.Data.Shared;
 
@@ -15,7 +16,7 @@ public class DbInitializer
     public void Seed()
     {
         Console.WriteLine("If applicable, seeding db..");
-        
+
         // _builder.Entity<IdentityRole>().HasData(new IdentityRole
         // {
         //     Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",

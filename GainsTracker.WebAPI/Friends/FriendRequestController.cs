@@ -23,9 +23,9 @@ public class FriendRequestController(IFriendRequestService friendRequestService)
     }
 
     [HttpPut]
-    public IActionResult HandleFriendRequest(Guid requestId, bool accept = true)
+    public async Task<IActionResult> HandleFriendRequest(Guid requestId, bool accept = true)
     {
-        friendRequestService.HandleFriendRequestState(CurrentUsername, requestId, accept);
+        await friendRequestService.HandleFriendRequestState(CurrentUsername, requestId, accept);
         return NoContent();
     }
 }

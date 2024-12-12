@@ -1,3 +1,4 @@
+using System;
 using GainsTracker.Core.Auth.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 

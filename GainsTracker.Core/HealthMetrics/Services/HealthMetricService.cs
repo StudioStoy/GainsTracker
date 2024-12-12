@@ -7,18 +7,22 @@ using GainsTracker.Core.HealthMetrics.Models;
 
 namespace GainsTracker.Core.HealthMetrics.Services;
 
-public class HealthMetricService(IHealthMetricBigBrain bigBrain, IGainsService gainsService) : IHealthMetricService
+public class HealthMetricService(IHealthMetricRepository repository, IGainsService gainsService) : IHealthMetricService
 {
     public async Task AddMetricToGainsAccount(string userHandle, CreateMetricDto createMetricDto)
     {
         var healthMetric = HealthMetricFactory.DeserializeMetricFromJson(createMetricDto.Type, createMetricDto.Data!);
         var gains = await gainsService.GetGainsAccountByUserHandle(userHandle);
+
         gains.AddMetric(healthMetric);
+
+        await repository.AddAsync(healthMetric);
+        await gainsService.UpdateGainsAccount(gains);
     }
 
     public async Task<List<MetricDto>> GetAllMetricsByUsername(string username)
     {
-        var data = await bigBrain.GetAllMetricsByUsername(username);
+        var data = await repository.GetAllMetricsByUsername(username);
         return data.Select(m => new MetricDto
         {
             Id = m.Id,

@@ -3,15 +3,27 @@ using GainsTracker.Core.Gains.Models;
 
 namespace GainsTracker.Core.Friends.Models;
 
-public class FriendRequest(GainsAccount requester, GainsAccount recipient)
+public class FriendRequest
 {
+    public FriendRequest()
+    {
+    }
+
+    public FriendRequest(GainsAccount requester, GainsAccount recipient)
+    {
+        Requester = requester;
+        RequesterId = requester.Id;
+        Recipient = recipient;
+        RecipientId = recipient.Id;
+    }
+
     public Guid Id { get; set; } = Guid.NewGuid();
 
-    public Guid RequesterId { get; init; } = requester.Id;
-    public Guid RecipientId { get; init; } = recipient.Id;
+    public Guid RequesterId { get; init; }
+    public Guid RecipientId { get; init; }
 
-    public GainsAccount Requester { get; } = requester;
-    public GainsAccount Recipient { get; } = recipient;
+    public GainsAccount Requester { get; set; } = null!;
+    public GainsAccount Recipient { get; set; } = null!;
 
     public DateTime RequestTime { get; init; } = DateTime.UtcNow;
     public FriendRequestStatus Status { get; set; } = FriendRequestStatus.Pending;
@@ -22,7 +34,7 @@ public class FriendRequest(GainsAccount requester, GainsAccount recipient)
     {
         Status = FriendRequestStatus.Accepted;
 
-        //TODO: Maybe emit an event or something for notifications?
+        // TODO: Maybe emit an event or something for notifications?
         Requester.SentFriendRequests.Remove(this);
         Recipient.ReceivedFriendRequests.Remove(this);
 

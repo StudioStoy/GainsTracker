@@ -1,23 +1,17 @@
 ﻿using System.Net;
 using System.Text.Json;
 using GainsTracker.Common.Exceptions;
+using GainsTracker.Core.Friends.Exceptions;
 
 namespace GainsTracker.WebAPI;
 
-public class GlobalErrorHandlingMiddleware
+public class GlobalErrorHandlingMiddleware(RequestDelegate next)
 {
-    private readonly RequestDelegate _next;
-
-    public GlobalErrorHandlingMiddleware(RequestDelegate next)
-    {
-        _next = next;
-    }
-
     public async Task Invoke(HttpContext context)
     {
         try
         {
-            await _next(context);
+            await next(context);
         }
         catch (Exception ex)
         {
@@ -40,7 +34,12 @@ public class GlobalErrorHandlingMiddleware
                 status = HttpStatusCode.NotFound;
                 break;
             case ConflictException:
+            case AlreadyFriendsException:
+            case FriendRequestAlreadySentException:
                 status = HttpStatusCode.Conflict;
+                break;
+            case ForbiddenException:
+                status = HttpStatusCode.Forbidden;
                 break;
             case UnauthorizedException:
             case UnauthorizedAccessException:

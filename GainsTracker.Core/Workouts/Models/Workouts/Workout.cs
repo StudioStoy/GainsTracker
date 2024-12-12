@@ -6,6 +6,10 @@ namespace GainsTracker.Core.Workouts.Models.Workouts;
 
 public class Workout
 {
+    public Workout()
+    {
+    }
+
     public Workout(Guid gainsAccountId, WorkoutType type, ExerciseCategory category, List<Measurement> measurements)
     {
         GainsAccountId = gainsAccountId;
@@ -18,9 +22,9 @@ public class Workout
 
     public WorkoutType Type { get; set; }
     public ExerciseCategory Category { get; set; }
-    
+
     public Measurement? PersonalBest { get; set; }
-    public List<Measurement> Measurements { get; set; }
+    public List<Measurement> Measurements { get; set; } = [];
 
     public void AddNewMeasurement(Measurement measurement)
     {
