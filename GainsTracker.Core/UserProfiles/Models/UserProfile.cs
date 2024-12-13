@@ -1,4 +1,8 @@
+#region
+
 using GainsTracker.Core.Workouts.Models.Measurements;
+
+#endregion
 
 namespace GainsTracker.Core.UserProfiles.Models;
 

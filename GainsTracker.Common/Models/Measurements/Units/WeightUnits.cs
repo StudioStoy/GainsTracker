@@ -1,4 +1,8 @@
-﻿using System.Text.Json.Serialization;
+﻿#region
+
+using System.Text.Json.Serialization;
+
+#endregion
 
 namespace GainsTracker.Common.Models.Measurements.Units;
 
@@ -6,5 +10,5 @@ namespace GainsTracker.Common.Models.Measurements.Units;
 public enum WeightUnits
 {
     Kilograms,
-    Grams
+    Grams,
 }

@@ -1,5 +1,7 @@
 ﻿// Woah that's a boat load of usings
 
+#region
+
 using System.Security.Claims;
 using System.Text;
 using DotNetEnv;
@@ -13,6 +15,8 @@ using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationM
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+
+#endregion
 
 namespace GainsTracker.WebAPI;
 

@@ -1,4 +1,8 @@
-﻿using System.Text.Json.Serialization;
+﻿#region
+
+using System.Text.Json.Serialization;
+
+#endregion
 
 namespace GainsTracker.Common.Models.Measurements.Units;
 
@@ -7,5 +11,5 @@ public enum TimeUnits
 {
     Hours,
     Minutes,
-    Seconds
+    Seconds,
 }

@@ -1,7 +1,11 @@
-﻿using GainsTracker.Common.Exceptions;
+﻿#region
+
+using GainsTracker.Common.Exceptions;
 using GainsTracker.Core.Gains.Interfaces.Repositories;
 using GainsTracker.Core.Gains.Models;
 using Microsoft.EntityFrameworkCore;
+
+#endregion
 
 namespace GainsTracker.Data.Gains;
 

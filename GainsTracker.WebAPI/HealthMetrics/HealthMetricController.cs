@@ -1,7 +1,11 @@
-﻿using GainsTracker.Common.Models.Metrics.Dto;
+﻿#region
+
+using GainsTracker.Common.Models.Metrics.Dto;
 using GainsTracker.Core.HealthMetrics.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+#endregion
 
 namespace GainsTracker.WebAPI.HealthMetrics;
 
@@ -11,10 +15,8 @@ namespace GainsTracker.WebAPI.HealthMetrics;
 public class HealthMetricController(IHealthMetricService metricService) : ExtendedControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAllMetrics()
-    {
-        return Ok(await metricService.GetAllMetricsByUsername(CurrentUsername));
-    }
+    public async Task<IActionResult> GetAllMetrics() =>
+        Ok(await metricService.GetAllMetricsByUsername(CurrentUsername));
 
     [HttpPost]
     public async Task<IActionResult> CreateMetric(CreateMetricDto createMetricDto)

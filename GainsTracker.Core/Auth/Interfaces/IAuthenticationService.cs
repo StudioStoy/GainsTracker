@@ -1,4 +1,8 @@
-﻿using GainsTracker.Common.Models.Auth.Dto;
+﻿#region
+
+using GainsTracker.Common.Models.Auth.Dto;
+
+#endregion
 
 namespace GainsTracker.Core.Auth.Interfaces;
 

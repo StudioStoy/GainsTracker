@@ -1,4 +1,8 @@
-﻿using GainsTracker.Core.HealthMetrics.Models;
+﻿#region
+
+using GainsTracker.Core.HealthMetrics.Models;
+
+#endregion
 
 namespace GainsTracker.Core.HealthMetrics.Interfaces.Repositories;
 

@@ -1,5 +1,9 @@
-﻿using GainsTracker.Core.Auth.Models;
+﻿#region
+
+using GainsTracker.Core.Auth.Models;
 using GainsTracker.Core.Gains.Models;
+
+#endregion
 
 namespace GainsTracker.Core.Gains.Interfaces.Services;
 

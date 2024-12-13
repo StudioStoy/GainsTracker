@@ -1,10 +1,14 @@
-﻿using GainsTracker.Common.Models.Workouts;
+﻿#region
+
+using GainsTracker.Common.Models.Workouts;
+
+#endregion
 
 namespace GainsTracker.Core.Workouts.Models.Measurements.Validators;
 
 public class GeneralMeasurementValidator : MeasurementValidator<GeneralMeasurement>
 {
-    public GeneralMeasurementValidator(WorkoutType type, Measurement previousBest, Measurement newMeasurement) 
+    public GeneralMeasurementValidator(WorkoutType type, Measurement previousBest, Measurement newMeasurement)
         : base(type, previousBest, newMeasurement)
     {
     }
@@ -15,29 +19,30 @@ public class GeneralMeasurementValidator : MeasurementValidator<GeneralMeasureme
         {
             WorkoutType.Bouldering => BoulderGradeImproved(),
             // Add other edge cases here.
-            _ => throw new ArgumentOutOfRangeException(nameof(WorkoutType), "This workout type is not supported as general.")
+            _ => throw new ArgumentOutOfRangeException(nameof(WorkoutType),
+                "This workout type is not supported as general."),
         };
     }
 
     private bool BoulderGradeImproved()
     {
-        string oldBoulderLevel = PreviousBest.GeneralAchievement;
-        string newBoulderLevel = NewMeasurement.GeneralAchievement;
+        var oldBoulderLevel = PreviousBest.GeneralAchievement;
+        var newBoulderLevel = NewMeasurement.GeneralAchievement;
 
-        char[] oldGradeTokens = oldBoulderLevel.ToCharArray();
-        char[] newGradeTokens = newBoulderLevel.ToCharArray();
+        var oldGradeTokens = oldBoulderLevel.ToCharArray();
+        var newGradeTokens = newBoulderLevel.ToCharArray();
 
-        int max = int.Max(oldGradeTokens.Length, newGradeTokens.Length);
+        var max = int.Max(oldGradeTokens.Length, newGradeTokens.Length);
 
-        for (int i = 0; i < max; i++)
+        for (var i = 0; i < max; i++)
         {
             if (i == 2 && oldGradeTokens.Length != 3)
                 return newGradeTokens[i] == '+';
             if (i == 2 && newGradeTokens.Length != 3)
                 return oldGradeTokens[i] != '+';
 
-            string newGradePart = newGradeTokens[i].ToString();
-            string oldGradePart = oldGradeTokens[i].ToString();
+            var newGradePart = newGradeTokens[i].ToString();
+            var oldGradePart = oldGradeTokens[i].ToString();
 
             if (newGradePart == oldGradePart)
                 continue;

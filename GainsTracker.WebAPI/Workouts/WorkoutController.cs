@@ -1,7 +1,11 @@
+#region
+
 using GainsTracker.Common.Models.Workouts.Dto;
 using GainsTracker.Core.Workouts.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+#endregion
 
 namespace GainsTracker.WebAPI.Workouts;
 
@@ -13,7 +17,7 @@ public class WorkoutController(IWorkoutService service) : ExtendedControllerBase
     [HttpGet]
     public async Task<IActionResult> GetUserWorkouts()
     {
-        List<WorkoutDto> workouts = await service.GetWorkoutsByUsername(CurrentUsername);
+        var workouts = await service.GetWorkoutsByUsername(CurrentUsername);
         return Ok(workouts);
     }
 
@@ -32,7 +36,8 @@ public class WorkoutController(IWorkoutService service) : ExtendedControllerBase
     }
 
     [HttpPost("{workoutId}/measurement")]
-    public async Task<IActionResult> AddMeasurementToWorkout(Guid workoutId, [FromBody] CreateMeasurementDto measurementDto)
+    public async Task<IActionResult> AddMeasurementToWorkout(Guid workoutId,
+        [FromBody] CreateMeasurementDto measurementDto)
     {
         await service.AddMeasurementToWorkout(workoutId, measurementDto);
         return NoContent();

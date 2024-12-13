@@ -1,5 +1,9 @@
+#region
+
 using System.Text.Json;
 using GainsTracker.Common.Models.Metrics;
+
+#endregion
 
 namespace GainsTracker.Core.HealthMetrics.Models;
 
@@ -9,7 +13,7 @@ public static class HealthMetricFactory
     {
         JsonSerializerOptions options = new()
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNameCaseInsensitive = true,
         };
 
         if (metricData == null)
@@ -20,7 +24,7 @@ public static class HealthMetricFactory
             MetricType.Protein => metricData.Deserialize<ProteinHealthMetric>(options),
             MetricType.Weight => metricData.Deserialize<WeightHealthMetric>(options),
             MetricType.LiterWater => metricData.Deserialize<LiterWaterHealthMetric>(options),
-            _ => throw new NotImplementedException()
+            _ => throw new NotImplementedException(),
         })!;
     }
 }

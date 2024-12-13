@@ -1,9 +1,13 @@
-﻿using System.Diagnostics;
+﻿#region
+
+using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Text.Json.Nodes;
 using GainsTracker.UI.Services.Auth.Interfaces;
 using static GainsTracker.Common.Constants;
+
+#endregion
 
 namespace GainsTracker.UI.Services.Auth;
 
@@ -24,8 +28,8 @@ public class GainsAuthService : IGainsAuthService
 
         try
         {
-            HttpResponseMessage response = await _httpClient.GetAsync(url);
-            JsonNode? jsonString = JsonNode.Parse(await response.Content.ReadAsStringAsync());
+            var response = await _httpClient.GetAsync(url);
+            var jsonString = JsonNode.Parse(await response.Content.ReadAsStringAsync());
 
             Debug.WriteLine(jsonString?["status"]?.ToString() == "UP"
                 ? "Server successfully responded."
@@ -49,13 +53,13 @@ public class GainsAuthService : IGainsAuthService
                 { "username", email },
                 { "password", password },
                 { "firstName", "Standard" },
-                { "lastName", "User" }
+                { "lastName", "User" },
 
                 //TODO: Expand with actual name and other info of the user.
             };
 
             StringContent content = new(loginDto.ToString(), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _httpClient.PostAsync($"{Url}/register", content);
+            var response = await _httpClient.PostAsync($"{Url}/register", content);
 
             ValidateResponse(response);
 
@@ -77,14 +81,14 @@ public class GainsAuthService : IGainsAuthService
             JsonObject loginDto = new()
             {
                 { "userHandle", email },
-                { "password", password }
+                { "password", password },
             };
             StringContent content = new(loginDto.ToString(), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _httpClient.PostAsync($"{Url}/login", content);
+            var response = await _httpClient.PostAsync($"{Url}/login", content);
 
             ValidateResponse(response);
 
-            string token = await response.Content.ReadAsStringAsync();
+            var token = await response.Content.ReadAsStringAsync();
 
             _httpClient.DefaultRequestHeaders.Remove("Authorization");
             _httpClient.DefaultRequestHeaders.Add("Authorization", token);
@@ -101,7 +105,7 @@ public class GainsAuthService : IGainsAuthService
     // For now a quick and dirty way :).
     private async void ValidateResponse(HttpResponseMessage response)
     {
-        if (response == null) 
+        if (response == null)
             throw new ArgumentException("no response.");
 
         if (response.IsSuccessStatusCode) return;
@@ -110,14 +114,14 @@ public class GainsAuthService : IGainsAuthService
         {
             HttpStatusCode.NotFound => new ArgumentException("Not found."),
             HttpStatusCode.BadRequest => new ArgumentException("Credentials not valid."),
-            _ => throw new ArgumentOutOfRangeException()
+            _ => throw new ArgumentOutOfRangeException(),
         };
 
         if (throwable != null)
             throw throwable;
-        
-        string token = await response.Content.ReadAsStringAsync();
-        if (string.IsNullOrEmpty(token)) 
+
+        var token = await response.Content.ReadAsStringAsync();
+        if (string.IsNullOrEmpty(token))
             throw new ArgumentException("No valid token.");
     }
 }

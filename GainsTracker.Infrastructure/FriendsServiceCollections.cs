@@ -1,9 +1,12 @@
-using System;
+#region
+
 using GainsTracker.Core.Friends.Interfaces.Repositories;
 using GainsTracker.Core.Friends.Interfaces.Services;
 using GainsTracker.Core.Friends.Services;
 using GainsTracker.Data.Friends;
 using Microsoft.Extensions.DependencyInjection;
+
+#endregion
 
 namespace GainsTracker.Infrastructure;
 

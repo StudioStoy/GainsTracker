@@ -1,13 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿#region
+
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+
+#endregion
 
 namespace GainsTracker.Data;
 
 public class GainsDbContextFactory : IDesignTimeDbContextFactory<GainsDbContext>
 {
-    public GainsDbContext CreateDbContext() => CreateDbContext([]);
-
     public GainsDbContext CreateDbContext(string[] args)
     {
         // Load configuration from appsettings.json in the Data project
@@ -25,4 +27,6 @@ public class GainsDbContextFactory : IDesignTimeDbContextFactory<GainsDbContext>
 
         return new GainsDbContext(optionsBuilder.Options);
     }
+
+    public GainsDbContext CreateDbContext() => CreateDbContext([]);
 }

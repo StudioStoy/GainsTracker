@@ -1,4 +1,6 @@
-﻿using System.Data.Entity.ModelConfiguration.Conventions;
+﻿#region
+
+using System.Data.Entity.ModelConfiguration.Conventions;
 using GainsTracker.Core.Auth.Models;
 using GainsTracker.Core.Friends.Models;
 using GainsTracker.Core.Gains.Models;
@@ -9,6 +11,8 @@ using GainsTracker.Core.Workouts.Models.Workouts;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+
+#endregion
 
 namespace GainsTracker.Data;
 

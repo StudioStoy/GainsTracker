@@ -1,7 +1,10 @@
+#region
+
 using System.Text.Json.Serialization;
 using DotNetEnv;
-using GainsTracker.Common.Extensions;
 using GainsTracker.WebAPI;
+
+#endregion
 
 var resetDatabase = args.Contains("-reset");
 var useInMemoryDatabase = args.Contains("-inmemory");

@@ -1,7 +1,11 @@
-﻿using System.Net;
+﻿#region
+
+using System.Net;
 using System.Text.Json;
 using GainsTracker.Common.Exceptions;
 using GainsTracker.Core.Friends.Exceptions;
+
+#endregion
 
 namespace GainsTracker.WebAPI;
 
@@ -22,8 +26,8 @@ public class GlobalErrorHandlingMiddleware(RequestDelegate next)
     private static Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
         HttpStatusCode status;
-        string stackTrace = string.Empty;
-        string message = exception.Message;
+        var stackTrace = string.Empty;
+        var message = exception.Message;
 
         switch (exception)
         {
@@ -51,7 +55,7 @@ public class GlobalErrorHandlingMiddleware(RequestDelegate next)
                 break;
         }
 
-        string exceptionResult = JsonSerializer.Serialize(new { error = message, stackTrace });
+        var exceptionResult = JsonSerializer.Serialize(new { error = message, stackTrace });
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int) status;
 

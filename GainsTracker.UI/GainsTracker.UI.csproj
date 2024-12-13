@@ -11,53 +11,53 @@
         <None Include="Images/**">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="wwwroot\Images\logo.png" />
+        <None Include="wwwroot\Images\logo.png"/>
     </ItemGroup>
 
     <ItemGroup>
-        <SupportedPlatform Include="browser" />
+        <SupportedPlatform Include="browser"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="BlazorTransitionableRoute" Version="4.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8" />
-        <PackageReference Include="System.Security.Permissions" Version="8.0.0" />
+        <PackageReference Include="BlazorTransitionableRoute" Version="4.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8"/>
+        <PackageReference Include="System.Security.Permissions" Version="8.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <_ContentIncludedByDefault Remove="wwwroot\background.png" />
-        <_ContentIncludedByDefault Remove="wwwroot\exampleJsInterop.js" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\app.css" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\darkMode.css" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\lightMode.css" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\FONT-LICENSE" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.eot" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.otf" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.svg" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.ttf" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.woff" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\ICON-LICENSE" />
-        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\README.md" />
-        <_ContentIncludedByDefault Remove="wwwroot\favicon.ico" />
-        <_ContentIncludedByDefault Remove="wwwroot\index.html" />
-        <_ContentIncludedByDefault Remove="wwwroot\Images\logo.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\background.png"/>
+        <_ContentIncludedByDefault Remove="wwwroot\exampleJsInterop.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\app.css"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\darkMode.css"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\lightMode.css"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\FONT-LICENSE"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.eot"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.otf"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.svg"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.ttf"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.woff"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\ICON-LICENSE"/>
+        <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\README.md"/>
+        <_ContentIncludedByDefault Remove="wwwroot\favicon.ico"/>
+        <_ContentIncludedByDefault Remove="wwwroot\index.html"/>
+        <_ContentIncludedByDefault Remove="wwwroot\Images\logo.png"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="wwwroot\css\" />
-        <Folder Include="wwwroot\script\" />
+        <Folder Include="wwwroot\css\"/>
+        <Folder Include="wwwroot\script\"/>
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="Components\ElementManipulator.razor" />
-        <AdditionalFiles Include="Pages\Login\ForgotPasswordPage.razor" />
-        <AdditionalFiles Include="Pages\Login\LoginPage.razor" />
-        <AdditionalFiles Include="Pages\Login\RegisterPage.razor" />
+        <AdditionalFiles Include="Components\ElementManipulator.razor"/>
+        <AdditionalFiles Include="Pages\Login\ForgotPasswordPage.razor"/>
+        <AdditionalFiles Include="Pages\Login\LoginPage.razor"/>
+        <AdditionalFiles Include="Pages\Login\RegisterPage.razor"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\GainsTracker.Common\GainsTracker.Common.csproj" />
+        <ProjectReference Include="..\GainsTracker.Common\GainsTracker.Common.csproj"/>
     </ItemGroup>
 
 </Project>

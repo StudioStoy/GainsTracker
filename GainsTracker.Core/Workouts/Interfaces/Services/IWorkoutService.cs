@@ -1,4 +1,8 @@
-﻿using GainsTracker.Common.Models.Workouts.Dto;
+﻿#region
+
+using GainsTracker.Common.Models.Workouts.Dto;
+
+#endregion
 
 namespace GainsTracker.Core.Workouts.Interfaces.Services;
 

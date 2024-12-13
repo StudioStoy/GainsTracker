@@ -1,4 +1,6 @@
-﻿using GainsTracker.Core.Auth.Models;
+﻿#region
+
+using GainsTracker.Core.Auth.Models;
 using GainsTracker.Core.Friends.Models;
 using GainsTracker.Core.Gains.Models;
 using GainsTracker.Core.UserProfiles.Models;
@@ -6,6 +8,8 @@ using GainsTracker.Core.Workouts.Models.Measurements;
 using GainsTracker.Core.Workouts.Models.Workouts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+
+#endregion
 
 namespace GainsTracker.Data;
 

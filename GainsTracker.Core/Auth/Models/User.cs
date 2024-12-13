@@ -1,5 +1,9 @@
-﻿using GainsTracker.Core.Gains.Models;
+﻿#region
+
+using GainsTracker.Core.Gains.Models;
 using Microsoft.AspNetCore.Identity;
+
+#endregion
 
 namespace GainsTracker.Core.Auth.Models;
 

@@ -1,4 +1,8 @@
-﻿using GainsTracker.UI.Services.Auth.Interfaces;
+﻿#region
+
+using GainsTracker.UI.Services.Auth.Interfaces;
+
+#endregion
 
 namespace GainsTracker.UI.Services.Auth;
 

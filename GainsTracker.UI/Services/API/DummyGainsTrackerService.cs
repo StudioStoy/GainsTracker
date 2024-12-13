@@ -1,20 +1,18 @@
-﻿using GainsTracker.Common.Models.Workouts;
+﻿#region
+
+using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Common.Models.Workouts.Dto;
 using GainsTracker.UI.Services.API.Interfaces;
+
+#endregion
 
 namespace GainsTracker.UI.Services.API;
 
 public class DummyGainsTrackerService : IGainsTrackerService
 {
-    public Task<List<WorkoutDto>> GetUserWorkouts()
-    {
-        return new Task<List<WorkoutDto>>(CreateDummyWorkoutData);
-    }
+    public Task<List<WorkoutDto>> GetUserWorkouts() => new(CreateDummyWorkoutData);
 
-    public Task<List<MeasurementDto>> GetPersonalBests()
-    {
-        throw new NotImplementedException();
-    }
+    public Task<List<MeasurementDto>> GetPersonalBests() => throw new NotImplementedException();
 
     #region Dummy Workout Data
 

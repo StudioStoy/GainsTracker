@@ -1,6 +1,10 @@
-﻿using System.Text.Json;
+﻿#region
+
+using System.Text.Json;
 using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Core.Workouts.Models.Measurements.Validators;
+
+#endregion
 
 namespace GainsTracker.Core.Workouts.Models.Measurements;
 
@@ -10,7 +14,7 @@ public static class MeasurementFactory
     {
         JsonSerializerOptions options = new()
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNameCaseInsensitive = true,
         };
 
         if (measurementData == null)
@@ -24,7 +28,7 @@ public static class MeasurementFactory
             ExerciseCategory.TimeEndurance => measurementData.Deserialize<TimeEnduranceMeasurement>(options),
             ExerciseCategory.Reps => measurementData.Deserialize<RepsMeasurement>(options),
             ExerciseCategory.General => measurementData.Deserialize<GeneralMeasurement>(options),
-            _ => throw new ArgumentOutOfRangeException(nameof(category), "That exercise is not supported")
+            _ => throw new ArgumentOutOfRangeException(nameof(category), "That exercise is not supported"),
         })!;
     }
 
@@ -32,7 +36,7 @@ public static class MeasurementFactory
     {
         JsonSerializerOptions options = new()
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNameCaseInsensitive = true,
         };
 
         return JsonSerializer.SerializeToDocument(measurement, measurement.GetType()!, options);
@@ -47,10 +51,10 @@ public static class MeasurementFactory
             { typeof(StrengthMeasurement), typeof(StrengthMeasurementValidator) },
             { typeof(TimeEnduranceMeasurement), typeof(TimeMeasurementValidator) },
             { typeof(TimeAndDistanceEnduranceMeasurement), typeof(TimeAndDistanceMeasurementValidator) },
-            { typeof(GeneralMeasurement), typeof(GeneralMeasurementValidator) }
+            { typeof(GeneralMeasurement), typeof(GeneralMeasurementValidator) },
         };
 
-        if (validatorMap.TryGetValue(previousBest.GetType()!, out Type? validatorType))
+        if (validatorMap.TryGetValue(previousBest.GetType()!, out var validatorType))
         {
             var validatorInstance = Activator.CreateInstance(validatorType, type, previousBest, newMeasurement);
             if (validatorInstance is MeasurementValidator result)

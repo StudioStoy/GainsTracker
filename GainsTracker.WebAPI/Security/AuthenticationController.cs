@@ -1,7 +1,11 @@
+#region
+
 using GainsTracker.Common.Models.Auth.Dto;
 using GainsTracker.Core.Auth.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+#endregion
 
 namespace GainsTracker.WebAPI.Security;
 
@@ -18,10 +22,8 @@ public class AuthenticationController(IAuthenticationService authenticationServi
     [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
-    {
-        return Ok(await authenticationService.Login(request));
-    }
+    public async Task<IActionResult> Login([FromBody] LoginRequestDto request) =>
+        Ok(await authenticationService.Login(request));
 
     /// <summary>
     ///     Registers a new user with the given fields.

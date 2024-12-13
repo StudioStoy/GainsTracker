@@ -1,7 +1,10 @@
-﻿using GainsTracker.Core.Friends.Interfaces.Services;
-using GainsTracker.Core.Friends.Models;
+﻿#region
+
+using GainsTracker.Core.Friends.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+#endregion
 
 namespace GainsTracker.WebAPI.Friends;
 
@@ -15,7 +18,7 @@ public class FriendController(IFriendService friendService) : ExtendedController
     [HttpGet]
     public async Task<IActionResult> GetFriends()
     {
-        List<Friend> friends = await _friendService.GetFriends(CurrentUsername);
+        var friends = await _friendService.GetFriends(CurrentUsername);
         return Ok(friends);
     }
 }

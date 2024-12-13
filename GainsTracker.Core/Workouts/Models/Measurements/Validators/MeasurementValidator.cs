@@ -1,7 +1,10 @@
+#region
+
 using GainsTracker.Common.Models.Workouts;
 
-namespace GainsTracker.Core.Workouts.Models.Measurements.Validators;
+#endregion
 
+namespace GainsTracker.Core.Workouts.Models.Measurements.Validators;
 
 public abstract class MeasurementValidator
 {
@@ -21,9 +24,8 @@ public abstract class MeasurementValidator<T> : MeasurementValidator where T : M
 
         Type = type;
         PreviousBest = previousBest as T
-                        ?? throw new NullReferenceException($"Could not convert {nameof(T)}");
+                       ?? throw new NullReferenceException($"Could not convert {nameof(T)}");
         NewMeasurement = newMeasurement as T
-                          ?? throw new NullReferenceException($"Could not convert {nameof(T)}");
+                         ?? throw new NullReferenceException($"Could not convert {nameof(T)}");
     }
-
 }

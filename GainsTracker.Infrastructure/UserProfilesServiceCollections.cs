@@ -1,9 +1,12 @@
-using System;
+#region
+
 using GainsTracker.Core.UserProfiles.Interfaces.Repositories;
 using GainsTracker.Core.UserProfiles.Interfaces.Services;
 using GainsTracker.Core.UserProfiles.Services;
 using GainsTracker.Data.UserProfiles;
 using Microsoft.Extensions.DependencyInjection;
+
+#endregion
 
 namespace GainsTracker.Infrastructure;
 

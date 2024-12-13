@@ -1,5 +1,9 @@
-﻿using GainsTracker.Core.Friends.Models;
+﻿#region
+
+using GainsTracker.Core.Friends.Models;
 using GainsTracker.Core.Gains.Models;
+
+#endregion
 
 namespace GainsTracker.Core.Friends.Interfaces.Repositories;
 

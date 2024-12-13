@@ -75,6 +75,7 @@ This will make sure the PostgreSQL database schema running in the Docker contain
 Cool, you should be **Up 'n Running** now!'
 
 ---
+
 ## 3. Misc
 
 ### 3.1 Environments

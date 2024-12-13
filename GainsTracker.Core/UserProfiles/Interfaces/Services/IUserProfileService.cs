@@ -1,5 +1,9 @@
+#region
+
 using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Common.Models.Workouts.Dto;
+
+#endregion
 
 namespace GainsTracker.Core.UserProfiles.Interfaces.Services;
 
@@ -10,4 +14,3 @@ public interface IUserProfileService
     Task UpdatePinnedPBs(string userHandle, UpdatePinnedPBsDto pinnedPBsDto);
     Task<List<MeasurementDto>> GetPinnedPBs(string userHandle);
 }
-

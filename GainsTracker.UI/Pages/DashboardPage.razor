@@ -1,12 +1,12 @@
 ﻿@page "/dashboard"
+@using GainsTracker.UI.Services.API.Interfaces
+
 <PageTitle>Dashboard</PageTitle>
 
-@using GainsTracker.UI.Services
-@using GainsTracker.UI.Services.API.Interfaces
 @inject IGainsTrackerService GainsTrackerService;
 
 <!doctype html>
-    <meta name="viewport" content="width=device-width"/>
+<meta name="viewport" content="width=device-width"/>
 <div class="content-holder">
     <img src="/Images/logo.png" alt="Gainstracker Logo"/>
     <div class="div-holder">
@@ -26,6 +26,7 @@
 </div>
 
 @code {
+
     private async void GetPbs()
     {
         var pbs = await GainsTrackerService.GetUserWorkouts();
@@ -34,6 +35,6 @@
 
     private void GetGoals()
     {
-        
     }
+
 }

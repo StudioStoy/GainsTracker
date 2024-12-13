@@ -1,6 +1,10 @@
-﻿using GainsTracker.Common.Models.UserProfiles;
+﻿#region
+
+using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Core.UserProfiles.Models;
 using GainsTracker.Core.Workouts.Models.Measurements;
+
+#endregion
 
 namespace GainsTracker.Core.UserProfiles.Interfaces.Repositories;
 

@@ -1,7 +1,10 @@
-﻿using System;
+﻿#region
+
 using Microsoft.EntityFrameworkCore;
 
-namespace GainsTracker.Data.Shared;
+#endregion
+
+namespace GainsTracker.Data;
 
 public class DbInitializer
 {
@@ -81,8 +84,5 @@ public class DbInitializer
         // }
     }
 
-    public static string CreateId()
-    {
-        return Guid.NewGuid().ToString();
-    }
+    public static string CreateId() => Guid.NewGuid().ToString();
 }

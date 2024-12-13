@@ -1,8 +1,12 @@
+#region
+
 using GainsTracker.Core.Friends.Exceptions;
 using GainsTracker.Core.Friends.Models;
 using GainsTracker.Core.HealthMetrics.Models;
 using GainsTracker.Core.UserProfiles.Models;
 using GainsTracker.Core.Workouts.Models.Workouts;
+
+#endregion
 
 namespace GainsTracker.Core.Gains.Models;
 

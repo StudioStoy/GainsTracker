@@ -1,3 +1,5 @@
+#region
+
 using System.Drawing;
 using System.Linq.Expressions;
 using GainsTracker.Common.Exceptions;
@@ -6,6 +8,8 @@ using GainsTracker.Core.UserProfiles.Interfaces.Repositories;
 using GainsTracker.Core.UserProfiles.Models;
 using GainsTracker.Core.Workouts.Models.Measurements;
 using Microsoft.EntityFrameworkCore;
+
+#endregion
 
 namespace GainsTracker.Data.UserProfiles;
 

@@ -1,4 +1,8 @@
-﻿using GainsTracker.Core.Friends.Models;
+﻿#region
+
+using GainsTracker.Core.Friends.Models;
+
+#endregion
 
 namespace GainsTracker.Core.Friends.Interfaces.Services;
 

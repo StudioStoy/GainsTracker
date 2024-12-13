@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿#region
+
+using System.Drawing;
 using System.Reflection;
 using GainsTracker.Common.Models.Friends.Dto;
 using GainsTracker.Common.Models.UserProfiles;
@@ -7,6 +9,8 @@ using GainsTracker.Core.Friends.Models;
 using GainsTracker.Core.UserProfiles.Models;
 using GainsTracker.Core.Workouts.Models.Measurements;
 using GainsTracker.Core.Workouts.Models.Workouts;
+
+#endregion
 
 namespace GainsTracker.Core;
 
@@ -80,8 +84,8 @@ public static class DtoExtensions
                 Category = pb.Category,
                 TimeOfRecord = pb.TimeOfRecord,
                 Notes = pb.Notes,
-                Data = MeasurementFactory.SerializeMeasurementToJson(pb)
-            }).ToList()
+                Data = MeasurementFactory.SerializeMeasurementToJson(pb),
+            }).ToList(),
         };
     }
 
@@ -97,7 +101,7 @@ public static class DtoExtensions
                 TimeOfRecord = workout.PersonalBest.TimeOfRecord,
                 Category = workout.PersonalBest.Category,
                 Notes = workout.PersonalBest.Notes,
-                Data = MeasurementFactory.SerializeMeasurementToJson(workout.PersonalBest)
+                Data = MeasurementFactory.SerializeMeasurementToJson(workout.PersonalBest),
             };
 
         return new WorkoutDto(workout.GainsAccountId)
@@ -105,20 +109,18 @@ public static class DtoExtensions
             Id = workout.Id,
             Type = workout.Type,
             Category = workout.Category,
-            PersonalBest = bestMeasurement
+            PersonalBest = bestMeasurement,
         };
     }
 
     // Measurement
-    public static MeasurementDto ToDto(this Measurement measurement)
-    {
-        return new MeasurementDto
+    public static MeasurementDto ToDto(this Measurement measurement) =>
+        new()
         {
             Id = measurement.Id,
             Category = measurement.Category,
             TimeOfRecord = measurement.TimeOfRecord,
             Notes = measurement.Notes,
-            Data = MeasurementFactory.SerializeMeasurementToJson(measurement)
+            Data = MeasurementFactory.SerializeMeasurementToJson(measurement),
         };
-    }
 }

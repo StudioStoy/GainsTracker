@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
+#region
+
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using DotNetEnv;
 using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.Auth.Dto;
@@ -14,6 +12,8 @@ using GainsTracker.Core.Gains.Interfaces.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+
+#endregion
 
 namespace GainsTracker.Infrastructure.Auth;
 

@@ -1,7 +1,11 @@
+#region
+
 using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Common.Models.Workouts.Dto;
 using GainsTracker.Core.UserProfiles.Interfaces.Repositories;
 using GainsTracker.Core.UserProfiles.Interfaces.Services;
+
+#endregion
 
 namespace GainsTracker.Core.UserProfiles.Services;
 
@@ -17,10 +21,8 @@ public class UserProfileService(IUserProfileRepository repository) : IUserProfil
         await repository.UpdateUserProfileByUserHandle(userHandle, userProfileDto);
     }
 
-    public async Task<UserProfileDto> GetUserProfile(string userHandle)
-    {
-        return (await repository.GetUserProfileByUserHandle(userHandle)).ToDto();
-    }
+    public async Task<UserProfileDto> GetUserProfile(string userHandle) =>
+        (await repository.GetUserProfileByUserHandle(userHandle)).ToDto();
 
     public async Task<List<MeasurementDto>> GetPinnedPBs(string userHandle)
     {

@@ -1,10 +1,14 @@
-﻿using GainsTracker.Common.Exceptions;
+﻿#region
+
+using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.Friends.Dto;
 using GainsTracker.Core.Friends.Exceptions;
 using GainsTracker.Core.Friends.Interfaces.Repositories;
 using GainsTracker.Core.Friends.Interfaces.Services;
 using GainsTracker.Core.Friends.Models;
 using GainsTracker.Core.Gains.Interfaces.Services;
+
+#endregion
 
 namespace GainsTracker.Core.Friends.Services;
 

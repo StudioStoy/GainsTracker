@@ -10,9 +10,7 @@ public static class TransitionDirection
 
 public static class TransitionHelper
 {
-    public static KeyValuePair<(Type from, Type to), (string effectOut, string effectIn)> 
-        FromTo(Type from, Type to, (string effectOut, string effectIn) direction)
-    {
-        return new KeyValuePair<(Type from, Type to), (string effectOut, string effectIn)>((from, to), direction);
-    } 
+    public static KeyValuePair<(Type from, Type to), (string effectOut, string effectIn)>
+        FromTo(Type from, Type to, (string effectOut, string effectIn) direction) =>
+        new((from, to), direction);
 }

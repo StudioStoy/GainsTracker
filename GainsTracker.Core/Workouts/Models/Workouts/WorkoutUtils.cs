@@ -1,14 +1,16 @@
-﻿using GainsTracker.Common.Exceptions;
+﻿#region
+
+using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.Workouts;
+
+#endregion
 
 namespace GainsTracker.Core.Workouts.Models.Workouts;
 
 public static class WorkoutUtils
 {
-    public static ExerciseCategory GetCategoryFromType(string workoutType)
-    {
-        return GetCategoryFromType(Enum.Parse<WorkoutType>(workoutType));
-    }
+    public static ExerciseCategory GetCategoryFromType(string workoutType) =>
+        GetCategoryFromType(Enum.Parse<WorkoutType>(workoutType));
 
     public static ExerciseCategory GetCategoryFromType(this WorkoutType workoutType)
     {

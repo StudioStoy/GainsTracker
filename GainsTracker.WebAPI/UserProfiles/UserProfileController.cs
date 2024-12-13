@@ -1,7 +1,11 @@
-﻿using GainsTracker.Common.Models.UserProfiles;
+﻿#region
+
+using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Core.UserProfiles.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+#endregion
 
 namespace GainsTracker.WebAPI.UserProfiles;
 
@@ -15,10 +19,7 @@ public class UserProfileController(IUserProfileService userProfileService) : Ext
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IActionResult> GetUserProfile()
-    {
-        return Ok(await userProfileService.GetUserProfile(CurrentUsername));
-    }
+    public async Task<IActionResult> GetUserProfile() => Ok(await userProfileService.GetUserProfile(CurrentUsername));
 
     /// <summary>
     ///     Updates all supplied fields of the user profile.
@@ -49,8 +50,5 @@ public class UserProfileController(IUserProfileService userProfileService) : Ext
     /// </summary>
     /// <returns></returns>
     [HttpGet("pinned-pbs")]
-    public async Task<IActionResult> GetPinnedPBs()
-    {
-        return Ok(await userProfileService.GetPinnedPBs(CurrentUsername));
-    }
+    public async Task<IActionResult> GetPinnedPBs() => Ok(await userProfileService.GetPinnedPBs(CurrentUsername));
 }

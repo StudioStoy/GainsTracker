@@ -1,7 +1,11 @@
-﻿using System.Text.Json.Serialization;
+﻿#region
+
+using System.Text.Json.Serialization;
 using GainsTracker.Common.Models.Generic;
 using GainsTracker.Common.Models.Measurements.Units;
 using GainsTracker.Common.Models.Workouts;
+
+#endregion
 
 namespace GainsTracker.Core.Workouts.Models.Measurements;
 

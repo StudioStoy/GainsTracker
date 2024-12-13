@@ -1,7 +1,10 @@
-﻿using GainsTracker.Core.Gains.Interfaces.Services;
-using GainsTracker.Core.Workouts.Models;
+﻿#region
+
+using GainsTracker.Core.Gains.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+#endregion
 
 namespace GainsTracker.WebAPI.Gains;
 

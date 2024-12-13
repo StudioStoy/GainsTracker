@@ -1,8 +1,12 @@
+#region
+
 using GainsTracker.Core.Workouts.Interfaces.Repositories;
 using GainsTracker.Core.Workouts.Interfaces.Services;
 using GainsTracker.Core.Workouts.Services;
 using GainsTracker.Data.Workouts;
 using Microsoft.Extensions.DependencyInjection;
+
+#endregion
 
 namespace GainsTracker.Infrastructure;
 

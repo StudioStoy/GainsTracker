@@ -1,4 +1,8 @@
-﻿using GainsTracker.Core.Gains.Models;
+﻿#region
+
+using GainsTracker.Core.Gains.Models;
+
+#endregion
 
 namespace GainsTracker.Core.Gains.Interfaces.Repositories;
 

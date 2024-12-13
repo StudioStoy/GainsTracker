@@ -1,6 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿#region
+
+using System.Text.Json.Serialization;
 using GainsTracker.Common.Models.Generic;
 using GainsTracker.Common.Models.Metrics;
+
+#endregion
 
 namespace GainsTracker.Core.HealthMetrics.Models;
 

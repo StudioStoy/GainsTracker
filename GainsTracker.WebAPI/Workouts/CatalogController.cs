@@ -1,10 +1,14 @@
-﻿using System.Text.Json;
+﻿#region
+
+using System.Text.Json;
 using GainsTracker.Common.Models.Generic;
 using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Common.Models.Workouts.Dto;
 using GainsTracker.Core.Workouts.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+#endregion
 
 namespace GainsTracker.WebAPI.Workouts;
 
@@ -14,10 +18,8 @@ namespace GainsTracker.WebAPI.Workouts;
 public class CatalogController(ICatalogService catalogService) : ExtendedControllerBase
 {
     [HttpGet("workout")]
-    public async Task<IActionResult> GetAvailableWorkoutsForUser()
-    {
-        return Ok(await catalogService.GetAvailableWorkoutTypesForUser(CurrentUsername));
-    }
+    public async Task<IActionResult> GetAvailableWorkoutsForUser() =>
+        Ok(await catalogService.GetAvailableWorkoutTypesForUser(CurrentUsername));
 
     [HttpGet("measurement")]
     public IActionResult GetExampleMeasurementRequests()
