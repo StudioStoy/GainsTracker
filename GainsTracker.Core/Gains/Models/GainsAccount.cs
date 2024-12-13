@@ -46,15 +46,9 @@ public class GainsAccount
         return request;
     }
 
-    public void AddWorkout(Workout workout)
-    {
-        Workouts.Add(workout);
-    }
+    public void AddWorkout(Workout workout) => Workouts.Add(workout);
 
-    public void AddMetric(HealthMetric trackableGoal)
-    {
-        Metrics.Add(trackableGoal);
-    }
+    public void AddMetric(HealthMetric trackableGoal) => Metrics.Add(trackableGoal);
 
     private void CheckFriendRequests(string friendName)
     {

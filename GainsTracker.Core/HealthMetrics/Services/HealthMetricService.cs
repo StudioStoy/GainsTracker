@@ -28,7 +28,7 @@ public class HealthMetricService(IHealthMetricRepository repository, IGainsServi
             Id = m.Id,
             Type = m.Type,
             LoggingDate = m.LoggingDate,
-            Data = GenericJsonSerializer.SerializeObjectToJson(m)
+            Data = GenericJsonSerializer.SerializeObjectToJson(m),
         }).ToList();
     }
 }

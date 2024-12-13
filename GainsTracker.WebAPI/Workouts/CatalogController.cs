@@ -10,7 +10,7 @@ namespace GainsTracker.WebAPI.Workouts;
 
 [ApiController]
 [Authorize]
-[Route("workouts/catalog")]
+[Route("catalog")]
 public class CatalogController(ICatalogService catalogService) : ExtendedControllerBase
 {
     [HttpGet("workout")]
@@ -25,10 +25,22 @@ public class CatalogController(ICatalogService catalogService) : ExtendedControl
         Dictionary<string, JsonDocument> examples = new()
         {
             { ExerciseCategory.Reps.ToString(), GenericJsonSerializer.SerializeObjectToJson(new RepsMeasurementDto()) },
-            { ExerciseCategory.Strength.ToString(), GenericJsonSerializer.SerializeObjectToJson(new StrengthMeasurementDto()) },
-            { ExerciseCategory.TimeEndurance.ToString(), GenericJsonSerializer.SerializeObjectToJson(new TimeEnduranceMeasurementDto()) },
-            { ExerciseCategory.TimeAndDistanceEndurance.ToString(), GenericJsonSerializer.SerializeObjectToJson(new TimeAndDistanceEnduranceMeasurementDto()) },
-            { ExerciseCategory.General.ToString(), GenericJsonSerializer.SerializeObjectToJson(new GeneralMeasurementDto()) }
+            {
+                ExerciseCategory.Strength.ToString(),
+                GenericJsonSerializer.SerializeObjectToJson(new StrengthMeasurementDto())
+            },
+            {
+                ExerciseCategory.TimeEndurance.ToString(),
+                GenericJsonSerializer.SerializeObjectToJson(new TimeEnduranceMeasurementDto())
+            },
+            {
+                ExerciseCategory.TimeAndDistanceEndurance.ToString(),
+                GenericJsonSerializer.SerializeObjectToJson(new TimeAndDistanceEnduranceMeasurementDto())
+            },
+            {
+                ExerciseCategory.General.ToString(),
+                GenericJsonSerializer.SerializeObjectToJson(new GeneralMeasurementDto())
+            },
         };
 
         return Ok(examples);

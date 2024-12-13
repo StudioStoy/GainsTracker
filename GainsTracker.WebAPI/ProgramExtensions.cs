@@ -118,7 +118,7 @@ public static class ProgramExtensions
                     ValidateAudience = true,
                     ValidAudience = builder.Configuration["JWT:ValidAudience"],
                     ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(bitSecret))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(bitSecret)),
                 };
             });
     }
@@ -129,7 +129,7 @@ public static class ProgramExtensions
             new AuthenticatedEncryptorConfiguration
             {
                 EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
-                ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
+                ValidationAlgorithm = ValidationAlgorithm.HMACSHA256,
             });
     }
 
@@ -149,7 +149,7 @@ public static class ProgramExtensions
                 Name = "Authorization",
                 In = ParameterLocation.Header,
                 Type = SecuritySchemeType.ApiKey,
-                Scheme = "Bearer"
+                Scheme = "Bearer",
             });
 
             options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -160,14 +160,14 @@ public static class ProgramExtensions
                         Reference = new OpenApiReference
                         {
                             Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
+                            Id = "Bearer",
                         },
                         Scheme = "oauth2",
                         Name = "Bearer",
-                        In = ParameterLocation.Header
+                        In = ParameterLocation.Header,
                     },
                     new List<string>()
-                }
+                },
             });
         });
     }
@@ -196,7 +196,8 @@ public static class ProgramExtensions
     }
 
     /// <summary>
-    ///     Configure global exception handling.
+    ///     When this is added, all exceptions that are thrown are caught and processed by this handler to return the
+    ///     correct status code.
     /// </summary>
     public static void AddGlobalErrorHandler(this IApplicationBuilder applicationBuilder)
     {
