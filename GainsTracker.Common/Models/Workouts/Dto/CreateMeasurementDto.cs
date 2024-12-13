@@ -1,4 +1,8 @@
-﻿using System.Text.Json;
+﻿#region
+
+using System.Text.Json;
+
+#endregion
 
 namespace GainsTracker.Common.Models.Workouts.Dto;
 

@@ -1,7 +1,9 @@
 ﻿@using GainsTracker.UI.Components
 @inherits LayoutComponentBase
+
 @inject NavigationManager NavManager
-<link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+
+<link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap" rel="stylesheet">
 
@@ -24,11 +26,11 @@
 </div>
 
 @code {
-    [Parameter]
-    public bool IsDark { get; set; }
+    [Parameter] public bool IsDark { get; set; }
 
     private void ToggleDarkMode()
     {
         IsDark = !IsDark;
     }
+
 }

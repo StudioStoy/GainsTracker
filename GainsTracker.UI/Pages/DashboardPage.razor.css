@@ -31,7 +31,7 @@ img {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    
+
     height: 12vh;
     width: 80%;
     padding: 1rem;
@@ -50,7 +50,7 @@ p {
 }
 
 h2 {
-     color: white;
+    color: white;
 }
 
 .recent-pbs, .goals {

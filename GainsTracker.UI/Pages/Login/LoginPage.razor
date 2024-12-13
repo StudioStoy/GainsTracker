@@ -1,7 +1,8 @@
 ﻿@page "/login"
+@using GainsTracker.UI.Services.Auth.Interfaces
+
 <PageTitle>Login</PageTitle>
 
-@using GainsTracker.UI.Services
 @inject IGainsAuthService AuthService;  
 @inject NavigationManager NavigationManager
 
@@ -27,4 +28,5 @@
         if (loginSuccess)
             NavigationManager.NavigateTo("/dashboard");
     }
+
 }

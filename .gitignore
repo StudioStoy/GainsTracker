@@ -50,3 +50,5 @@ mono_crash.*.json
 mono_crash.*.blob
 
 sandra
+
+/GainsTracker.Data/development/postgres

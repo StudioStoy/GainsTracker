@@ -1,4 +1,8 @@
+#region
+
 using System.Text.Json;
+
+#endregion
 
 namespace GainsTracker.Common.Models.Generic;
 
@@ -8,9 +12,9 @@ public static class GenericJsonSerializer
     {
         JsonSerializerOptions options = new()
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNameCaseInsensitive = true,
         };
 
-        return JsonSerializer.SerializeToDocument(objectToSerialize, objectToSerialize.GetType(), options);
+        return JsonSerializer.SerializeToDocument(objectToSerialize, objectToSerialize.GetType()!, options);
     }
 }

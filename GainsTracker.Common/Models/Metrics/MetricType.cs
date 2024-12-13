@@ -4,5 +4,5 @@ public enum MetricType
 {
     Protein,
     Weight,
-    LiterWater
+    LiterWater,
 }

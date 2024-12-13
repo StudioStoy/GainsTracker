@@ -1,7 +1,8 @@
 ﻿@page "/register"
+@using GainsTracker.UI.Services.Auth.Interfaces
+
 <PageTitle>Register</PageTitle>
 
-@using GainsTracker.UI.Services
 @inject IGainsAuthService AuthService;  
 @inject NavigationManager NavigationManager
 
@@ -29,4 +30,5 @@
         else
             Console.WriteLine("uh oh");
     }
+
 }

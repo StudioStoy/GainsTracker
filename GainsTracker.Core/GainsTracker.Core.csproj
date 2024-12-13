@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\GainsTracker.Common\GainsTracker.Common.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="DotNetEnv" Version="3.1.1"/>
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.8"/>
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.1.2"/>
+        <PackageReference Include="Profanity.Detector" Version="0.1.8"/>
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.1.2"/>
+    </ItemGroup>
+
+</Project>

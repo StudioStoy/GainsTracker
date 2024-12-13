@@ -1,4 +1,8 @@
-﻿using System.Text.Json.Serialization;
+﻿#region
+
+using System.Text.Json.Serialization;
+
+#endregion
 
 namespace GainsTracker.Common.Models.Workouts;
 
@@ -44,5 +48,5 @@ public enum WorkoutType
     LegExtension,
     LegCurl,
     SitUps,
-    LegRaise
+    LegRaise,
 }

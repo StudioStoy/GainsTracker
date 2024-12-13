@@ -1,5 +1,9 @@
-﻿using System.Text.Json;
+﻿#region
+
+using System.Text.Json;
 using GainsTracker.Common.Models.Measurements.Units;
+
+#endregion
 
 namespace GainsTracker.Common.Models.Workouts.Dto;
 

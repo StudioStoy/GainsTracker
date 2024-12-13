@@ -1,4 +1,8 @@
-﻿using Foundation;
+﻿#region
+
+using Foundation;
+
+#endregion
 
 namespace GainsTracker.ClientNative;
 

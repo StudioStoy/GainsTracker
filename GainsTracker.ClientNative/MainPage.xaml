@@ -8,9 +8,9 @@
              BackgroundColor="{DynamicResource PageBackgroundColor}">
 
     <Page.Behaviors>
-        <mct:StatusBarBehavior StatusBarColor="#499C48" StatusBarStyle="DarkContent"/>
+        <mct:StatusBarBehavior StatusBarColor="#499C48" StatusBarStyle="DarkContent" />
     </Page.Behaviors>
-    
+
     <BlazorWebView x:Name="blazorWebView" HostPage="wwwroot/index.html">
         <BlazorWebView.RootComponents>
             <RootComponent Selector="#app" ComponentType="{x:Type local:Main}" />

@@ -10,7 +10,7 @@
 version: "3.7"
 services:
   db:
-    build: GainsTracker.CoreAPI/development/db
+    build: GainsTracker.WebAPI/development/db
     restart: unless-stopped
     ports:
       - "15432:5432"
@@ -22,7 +22,7 @@ services:
       DB_PASS: gainstracker_docker
       DB_HOST: db:5432
     volumes:
-      - ./GainsTracker.CoreAPI/development/postgres/docker_data:/var/lib/postgresql/data
+      - ./GainsTracker.Data/development/postgres/docker_data:/var/lib/postgresql/data
   api:
     build: ./
     restart: unless-stopped

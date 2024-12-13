@@ -1,6 +1,14 @@
-﻿using CommunityToolkit.Maui;
-using GainsTracker.UI.Services;
+﻿#region
+
+using BlazorTransitionableRoute;
+using CommunityToolkit.Maui;
+using GainsTracker.UI.Services.API;
+using GainsTracker.UI.Services.API.Interfaces;
+using GainsTracker.UI.Services.Auth;
+using GainsTracker.UI.Services.Auth.Interfaces;
 using Microsoft.Extensions.Logging;
+
+#endregion
 
 namespace GainsTracker.ClientNative;
 
@@ -8,7 +16,7 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
-        MauiAppBuilder builder = MauiApp.CreateBuilder();
+        var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
@@ -24,7 +32,9 @@ public static class MauiProgram
         // Register dependencies for injection.
         builder.Services.AddScoped<IGainsAuthService, DummyAuthService>();
         builder.Services.AddScoped<IGainsTrackerService, GainsTrackerService>();
-        builder.Services.AddScoped<BlazorTransitionableRoute.IRouteTransitionInvoker, BlazorTransitionableRoute.DefaultRouteTransitionInvoker>();
+        builder.Services
+            .AddScoped<IRouteTransitionInvoker,
+                DefaultRouteTransitionInvoker>();
         builder.Services.AddSingleton<HttpClient>();
 
         return builder.Build();

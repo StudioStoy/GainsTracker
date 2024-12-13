@@ -10,7 +10,7 @@
 version: "3.7"
 services:
   db:
-    build: GainsTracker.CoreAPI/development/db
+    build: GainsTracker.Data/development/db
     restart: unless-stopped
     ports:
       - "25432:5432"
@@ -21,4 +21,4 @@ services:
       DB_NAME: gainstracker_db
       DB_USER: stoy
     volumes:
-      - ./GainsTracker.CoreAPI/development/postgres/local_data:/var/lib/postgresql/data
+      - ./GainsTracker.Data/development/postgres/local_data:/var/lib/postgresql/data
