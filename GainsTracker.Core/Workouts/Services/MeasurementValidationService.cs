@@ -42,7 +42,8 @@ public class MeasurementValidationService : IMeasurementValidationService
                 var general = measurement as GeneralMeasurement;
                 // TODO: Add validation for every edge type. Like with bouldering,
                 // TODO: max three letters (5a+), no higher than 9c, etc.
-                // TODO: Add support for calculating both the French and American system? (5a == V2).
+                // TODO: Add support for calculating both the French and American system? (5a == V2). Maybe a general
+                //  system for supporting selecting multiple versions for fields.
                 if (string.IsNullOrEmpty(general?.GeneralAchievement))
                     throw new BadRequestException("Please provide a valid value.");
                 break;
