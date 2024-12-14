@@ -1,15 +1,10 @@
-﻿#region
-
-using GainsTracker.Core.Auth.Models;
-using GainsTracker.Core.Friends.Models;
+﻿using GainsTracker.Core.Friends.Models;
 using GainsTracker.Core.Gains.Models;
 using GainsTracker.Core.UserProfiles.Models;
 using GainsTracker.Core.Workouts.Models.Measurements;
 using GainsTracker.Core.Workouts.Models.Workouts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-
-#endregion
 
 namespace GainsTracker.Data;
 
@@ -27,20 +22,8 @@ public static class ModelBuilderExtensions
             .WithMany(b => b.ReceivedFriendRequests)
             .HasForeignKey(c => c.RecipientId);
 
-        builder.Entity<User>(user =>
-        {
-            user.HasOne(u => u.GainsAccount)
-                .WithOne()
-                .HasForeignKey<User>(u => u.GainsAccountId);
-        });
-
         builder.Entity<GainsAccount>(gainsAccount =>
         {
-            gainsAccount
-                .HasOne(u => u.UserProfile)
-                .WithOne()
-                .HasForeignKey<GainsAccount>(u => u.UserProfileId);
-
             gainsAccount.Navigation(g => g.SentFriendRequests).AutoInclude();
             gainsAccount.Navigation(g => g.ReceivedFriendRequests).AutoInclude();
         });

@@ -1,11 +1,7 @@
-﻿#region
-
-using GainsTracker.Core.Auth.Models;
+﻿using GainsTracker.Core.Auth.Models;
 using GainsTracker.Core.Gains.Interfaces.Repositories;
 using GainsTracker.Core.Gains.Interfaces.Services;
 using GainsTracker.Core.Gains.Models;
-
-#endregion
 
 namespace GainsTracker.Core.Gains.Services;
 

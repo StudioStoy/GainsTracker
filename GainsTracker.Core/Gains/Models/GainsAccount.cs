@@ -1,12 +1,8 @@
-#region
-
 using GainsTracker.Core.Friends.Exceptions;
 using GainsTracker.Core.Friends.Models;
 using GainsTracker.Core.HealthMetrics.Models;
 using GainsTracker.Core.UserProfiles.Models;
 using GainsTracker.Core.Workouts.Models.Workouts;
-
-#endregion
 
 namespace GainsTracker.Core.Gains.Models;
 
@@ -21,15 +17,12 @@ public class GainsAccount
         Id = Guid.NewGuid();
         UserHandle = userHandle;
         UserProfile = new UserProfile(Id, string.IsNullOrWhiteSpace(displayName) ? userHandle : displayName);
-        UserProfileId = UserProfile.Id;
     }
 
     public Guid Id { get; set; }
 
     public string UserHandle { get; set; } = string.Empty;
-
-    public Guid UserProfileId { get; set; }
-    public UserProfile? UserProfile { get; set; }
+    public UserProfile UserProfile { get; set; } = null!;
 
     public List<Workout> Workouts { get; set; } = [];
     public List<HealthMetric> Metrics { get; set; } = [];

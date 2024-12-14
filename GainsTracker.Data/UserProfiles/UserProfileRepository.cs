@@ -1,15 +1,13 @@
 using System.Drawing;
-using System.Linq.Expressions;
 using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Core.UserProfiles.Interfaces.Repositories;
 using GainsTracker.Core.UserProfiles.Models;
 using GainsTracker.Core.Workouts.Models.Measurements;
+using GainsTracker.Data.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace GainsTracker.Data.UserProfiles;
-
-public delegate Expression<Func<T, object>> PropertyToInclude<T>();
 
 public class UserProfileRepository(GainsDbContextFactory contextFactory)
     : GenericRepository<UserProfile>(contextFactory), IUserProfileRepository
@@ -101,7 +99,7 @@ public class UserProfileRepository(GainsDbContextFactory contextFactory)
     }
 
     private async Task<UserProfile> GetUserProfileByUserHandle(string userHandle,
-        params PropertyToInclude<UserProfile>[] properties)
+        params IncludeProperty<UserProfile>[] properties)
     {
         await using var context = _contextFactory.CreateDbContext();
 

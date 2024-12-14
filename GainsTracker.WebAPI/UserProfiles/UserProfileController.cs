@@ -1,11 +1,7 @@
-﻿#region
-
-using GainsTracker.Common.Models.UserProfiles;
+﻿using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Core.UserProfiles.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-#endregion
 
 namespace GainsTracker.WebAPI.UserProfiles;
 

@@ -2,6 +2,7 @@
 
 using GainsTracker.Common.Exceptions;
 using GainsTracker.Core;
+using GainsTracker.Core.Gains.Models;
 using Microsoft.EntityFrameworkCore;
 
 #endregion
@@ -63,5 +64,20 @@ public class GenericRepository<TEntity>(GainsDbContextFactory contextFactory) : 
             throw new NotFoundException("User not found");
 
         return idModel.Id;
+    }
+    
+    public async Task<GainsAccount> GetGainsAccountByUserHandle(string userHandle)
+    {
+        await using var context = contextFactory.CreateDbContext();
+        var gainsAccount = await context.GainsAccounts
+            .Where(g => g.UserHandle == userHandle)
+            .Include(g => g.UserProfile)
+            .ThenInclude(u => u.Icon)
+            .FirstOrDefaultAsync();
+
+        if (gainsAccount == null)
+            throw new NotFoundException("User not found");
+
+        return gainsAccount;
     }
 }

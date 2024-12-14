@@ -1,4 +1,6 @@
-﻿namespace GainsTracker.Core;
+﻿using GainsTracker.Core.Gains.Models;
+
+namespace GainsTracker.Core;
 
 public interface IGenericRepository<TEntity> where TEntity : class
 {
@@ -8,5 +10,6 @@ public interface IGenericRepository<TEntity> where TEntity : class
     Task<TEntity> UpdateAsync(TEntity entity);
     Task DeleteAsync(Guid id);
 
-    Task<Guid> GetGainsIdByUserHandle(string username);
+    Task<Guid> GetGainsIdByUserHandle(string userHandle);
+    Task<GainsAccount> GetGainsAccountByUserHandle(string userHandle);
 }
