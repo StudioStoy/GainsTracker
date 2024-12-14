@@ -1,18 +1,11 @@
-﻿#region
-
-using System.Text.Json.Serialization;
-using GainsTracker.Common.Models.Workouts;
+﻿using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Core.Workouts.Models.Measurements;
-
-#endregion
 
 namespace GainsTracker.Core.Workouts.Models.Workouts;
 
 public class Workout
 {
-    public Workout()
-    {
-    }
+    public Workout() { }
 
     public Workout(Guid gainsAccountId, WorkoutType type, ExerciseCategory category, List<Measurement> measurements)
     {
@@ -24,6 +17,8 @@ public class Workout
             PersonalBest = measurements.First();
     }
 
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid GainsAccountId { get; set; }
     public WorkoutType Type { get; set; }
     public ExerciseCategory Category { get; set; }
 
@@ -48,16 +43,9 @@ public class Workout
             throw new ArgumentException("Cannot compare measurements as they're not the same type.");
 
         // Sets the PersonalBest to the new measurement if its values are higher, otherwise keep the old one.
-        PersonalBest = MeasurementFactory.GetValidator<Measurement>(Type, oldPersonalBest, newMeasurement)
+        PersonalBest = MeasurementFactory.GetValidator(Type, oldPersonalBest, newMeasurement)
             .CheckIfImproved()
             ? newMeasurement
             : oldPersonalBest;
     }
-
-    #region Relations
-
-    [JsonIgnore] public Guid Id { get; set; } = Guid.NewGuid();
-    [JsonIgnore] public Guid GainsAccountId { get; set; }
-
-    #endregion
 }

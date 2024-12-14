@@ -1,18 +1,10 @@
-﻿#region
-
-using GainsTracker.Common.Models.Workouts;
-
-#endregion
+﻿using GainsTracker.Common.Models.Workouts;
 
 namespace GainsTracker.Core.Workouts.Models.Measurements.Validators;
 
-public class GeneralMeasurementValidator : MeasurementValidator<GeneralMeasurement>
+public class GeneralMeasurementValidator(WorkoutType type, Measurement previousBest, Measurement newMeasurement)
+    : MeasurementValidator<GeneralMeasurement>(type, previousBest, newMeasurement)
 {
-    public GeneralMeasurementValidator(WorkoutType type, Measurement previousBest, Measurement newMeasurement)
-        : base(type, previousBest, newMeasurement)
-    {
-    }
-
     public override bool CheckIfImproved()
     {
         return Type switch

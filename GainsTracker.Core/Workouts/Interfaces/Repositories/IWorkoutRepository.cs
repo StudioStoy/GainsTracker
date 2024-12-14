@@ -1,8 +1,4 @@
-﻿#region
-
-using GainsTracker.Core.Workouts.Models.Workouts;
-
-#endregion
+﻿using GainsTracker.Core.Workouts.Models.Workouts;
 
 namespace GainsTracker.Core.Workouts.Interfaces.Repositories;
 

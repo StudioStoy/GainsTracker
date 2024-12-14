@@ -1,10 +1,6 @@
-﻿#region
-
-using System.Text.Json;
+﻿using System.Text.Json;
 using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Core.Workouts.Models.Measurements.Validators;
-
-#endregion
 
 namespace GainsTracker.Core.Workouts.Models.Measurements;
 
@@ -39,11 +35,11 @@ public static class MeasurementFactory
             PropertyNameCaseInsensitive = true,
         };
 
-        return JsonSerializer.SerializeToDocument(measurement, measurement.GetType()!, options);
+        return JsonSerializer.SerializeToDocument(measurement, measurement.GetType(), options);
     }
 
-    public static MeasurementValidator GetValidator<T>(WorkoutType type, Measurement previousBest,
-        Measurement newMeasurement) where T : Measurement
+    public static MeasurementValidator GetValidator(WorkoutType type, Measurement previousBest,
+        Measurement newMeasurement)
     {
         Dictionary<Type, Type> validatorMap = new()
         {
@@ -54,7 +50,7 @@ public static class MeasurementFactory
             { typeof(GeneralMeasurement), typeof(GeneralMeasurementValidator) },
         };
 
-        if (validatorMap.TryGetValue(previousBest.GetType()!, out var validatorType))
+        if (validatorMap.TryGetValue(previousBest.GetType(), out var validatorType))
         {
             var validatorInstance = Activator.CreateInstance(validatorType, type, previousBest, newMeasurement);
             if (validatorInstance is MeasurementValidator result)

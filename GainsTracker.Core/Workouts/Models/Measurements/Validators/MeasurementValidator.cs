@@ -1,8 +1,4 @@
-#region
-
 using GainsTracker.Common.Models.Workouts;
-
-#endregion
 
 namespace GainsTracker.Core.Workouts.Models.Measurements.Validators;
 

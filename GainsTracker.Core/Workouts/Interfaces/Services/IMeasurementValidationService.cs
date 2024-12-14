@@ -1,8 +1,4 @@
-﻿#region
-
-using GainsTracker.Core.Workouts.Models.Measurements;
-
-#endregion
+﻿using GainsTracker.Core.Workouts.Models.Measurements;
 
 namespace GainsTracker.Core.Workouts.Interfaces.Services;
 

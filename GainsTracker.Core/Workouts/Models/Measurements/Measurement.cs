@@ -1,32 +1,21 @@
-﻿#region
-
-using System.Text.Json.Serialization;
-using GainsTracker.Common.Models.Generic;
+﻿using GainsTracker.Common.Models.Generic;
 using GainsTracker.Common.Models.Measurements.Units;
 using GainsTracker.Common.Models.Workouts;
-
-#endregion
 
 namespace GainsTracker.Core.Workouts.Models.Measurements;
 
 public abstract class Measurement : ITrackableGoal
 {
-    public DateTime TimeOfRecord { get; set; } = DateTime.UtcNow;
+    public string Id { get; init; } = Guid.NewGuid().ToString();
+    public DateTime TimeOfRecord { get; init; } = DateTime.UtcNow;
     protected internal abstract ExerciseCategory Category { get; }
     public string Notes { get; set; } = string.Empty;
     public bool IsInGoal { get; set; }
-
-    #region Relations
-
-    [JsonIgnore] public string Id { get; set; } = Guid.NewGuid().ToString();
-    [JsonIgnore] public Guid? UserProfileId { get; set; } // TODO: Fix this ugly indication of a pinned PB.
-
-    #endregion
 }
 
 public class StrengthMeasurement : Measurement
 {
-    public WeightUnits WeightUnit { get; set; } = WeightUnits.Kilograms;
+    public WeightUnits WeightUnit { get; init; } = WeightUnits.Kilograms;
     public double Weight { get; set; }
     public int Reps { get; set; }
 

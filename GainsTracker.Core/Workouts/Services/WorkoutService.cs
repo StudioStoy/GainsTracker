@@ -1,6 +1,4 @@
-﻿#region
-
-using GainsTracker.Common.Exceptions;
+﻿using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Common.Models.Workouts.Dto;
 using GainsTracker.Core.Gains.Interfaces.Services;
@@ -8,8 +6,6 @@ using GainsTracker.Core.Workouts.Interfaces.Repositories;
 using GainsTracker.Core.Workouts.Interfaces.Services;
 using GainsTracker.Core.Workouts.Models.Measurements;
 using GainsTracker.Core.Workouts.Models.Workouts;
-
-#endregion
 
 namespace GainsTracker.Core.Workouts.Services;
 
