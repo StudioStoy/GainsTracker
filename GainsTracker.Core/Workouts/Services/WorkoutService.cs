@@ -53,7 +53,7 @@ public class WorkoutService(
             Measurements = workout.Measurements
                 .Select(m => new MeasurementDto
                 {
-                    Id = m.Id,
+                    Id = m.Id.ToString(),
                     Category = m.Category,
                     TimeOfRecord = m.TimeOfRecord,
                     Notes = m.Notes,

@@ -1,8 +1,4 @@
-#region
-
 using GainsTracker.Core.Workouts.Models.Measurements;
-
-#endregion
 
 namespace GainsTracker.Core.UserProfiles.Models;
 
@@ -17,15 +13,15 @@ public class UserProfile
         Id = Guid.NewGuid();
         GainsAccountId = gainsAccountId;
         DisplayName = displayName;
-        Icon = new ProfileIcon(Id);
+        Icon = new ProfileIcon();
     }
 
-    public Guid Id { get; set; }
-    public Guid GainsAccountId { get; set; }
+    public Guid Id { get; init; }
+    public Guid GainsAccountId { get; init; }
 
     public string DisplayName { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public List<Measurement> PinnedPBs { get; set; } = [];
 
-    public ProfileIcon Icon { get; set; } = null!;
+    public ProfileIcon Icon { get; init; } = null!;
 }

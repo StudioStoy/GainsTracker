@@ -17,13 +17,13 @@ public class Workout
             PersonalBest = measurements.First();
     }
 
-    public Guid Id { get; set; } = Guid.NewGuid();
-    public Guid GainsAccountId { get; set; }
-    public WorkoutType Type { get; set; }
-    public ExerciseCategory Category { get; set; }
+    public Guid Id { get; init; } = Guid.NewGuid();
+    public Guid GainsAccountId { get; init; }
+    public WorkoutType Type { get; init; }
+    public ExerciseCategory Category { get; init; }
 
     public Measurement? PersonalBest { get; set; }
-    public List<Measurement> Measurements { get; set; } = [];
+    public List<Measurement> Measurements { get; init; } = [];
 
     public void AddNewMeasurement(Measurement measurement)
     {

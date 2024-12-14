@@ -1,5 +1,3 @@
-#region
-
 using System.Drawing;
 using System.Linq.Expressions;
 using GainsTracker.Common.Exceptions;
@@ -8,8 +6,6 @@ using GainsTracker.Core.UserProfiles.Interfaces.Repositories;
 using GainsTracker.Core.UserProfiles.Models;
 using GainsTracker.Core.Workouts.Models.Measurements;
 using Microsoft.EntityFrameworkCore;
-
-#endregion
 
 namespace GainsTracker.Data.UserProfiles;
 
@@ -49,7 +45,8 @@ public class UserProfileRepository(GainsDbContextFactory contextFactory)
 
         pinnedPBsDto.AddPBs.ForEach(pb =>
         {
-            var measurement = context.Measurements.FirstOrDefault(measurement => measurement.Id == pb);
+            Guid pbGuid = Guid.Parse(pb);
+            var measurement = context.Measurements.FirstOrDefault(measurement => measurement.Id == pbGuid);
 
             if (measurement == null)
                 throw new NotFoundException($"Measurement with id {pb} was not found.");
@@ -59,7 +56,8 @@ public class UserProfileRepository(GainsDbContextFactory contextFactory)
 
         pinnedPBsDto.RemovePBs.ForEach(pb =>
         {
-            var measurement = context.Measurements.FirstOrDefault(measurement => measurement.Id == pb);
+            var pbGuid = Guid.Parse(pb);
+            var measurement = context.Measurements.FirstOrDefault(measurement => measurement.Id == pbGuid);
             if (measurement == null)
                 throw new NotFoundException($"Measurement with id {pb} was not found.");
 
@@ -87,7 +85,7 @@ public class UserProfileRepository(GainsDbContextFactory contextFactory)
         return userProfile;
     }
 
-    public async Task<UserProfile> GetUserProfileEntityByUserHandle(string userHandle)
+    private async Task<UserProfile> GetUserProfileEntityByUserHandle(string userHandle)
     {
         await using var context = _contextFactory.CreateDbContext();
 

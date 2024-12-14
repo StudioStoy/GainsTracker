@@ -1,9 +1,5 @@
-#region
-
 using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Common.Models.Workouts.Dto;
-
-#endregion
 
 namespace GainsTracker.Core.UserProfiles.Interfaces.Services;
 

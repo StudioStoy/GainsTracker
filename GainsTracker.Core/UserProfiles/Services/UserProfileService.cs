@@ -1,11 +1,7 @@
-#region
-
 using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Common.Models.Workouts.Dto;
 using GainsTracker.Core.UserProfiles.Interfaces.Repositories;
 using GainsTracker.Core.UserProfiles.Interfaces.Services;
-
-#endregion
 
 namespace GainsTracker.Core.UserProfiles.Services;
 

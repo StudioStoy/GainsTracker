@@ -80,7 +80,7 @@ public static class DtoExtensions
             DisplayName = userProfile.DisplayName,
             PinnedPBs = userProfile.PinnedPBs.Select(pb => new MeasurementDto
             {
-                Id = pb.Id,
+                Id = pb.Id.ToString(),
                 Category = pb.Category,
                 TimeOfRecord = pb.TimeOfRecord,
                 Notes = pb.Notes,
@@ -97,7 +97,7 @@ public static class DtoExtensions
         if (workout.PersonalBest != null)
             bestMeasurement = new MeasurementDto
             {
-                Id = workout.PersonalBest.Id,
+                Id = workout.PersonalBest.Id.ToString(),
                 TimeOfRecord = workout.PersonalBest.TimeOfRecord,
                 Category = workout.PersonalBest.Category,
                 Notes = workout.PersonalBest.Notes,
@@ -117,7 +117,7 @@ public static class DtoExtensions
     public static MeasurementDto ToDto(this Measurement measurement) =>
         new()
         {
-            Id = measurement.Id,
+            Id = measurement.Id.ToString(),
             Category = measurement.Category,
             TimeOfRecord = measurement.TimeOfRecord,
             Notes = measurement.Notes,

@@ -6,7 +6,9 @@ namespace GainsTracker.Core.Workouts.Models.Measurements;
 
 public abstract class Measurement : ITrackableGoal
 {
-    public string Id { get; init; } = Guid.NewGuid().ToString();
+    public Guid Id { get; init; } = Guid.NewGuid();
+    public Guid PinnedByUserProfileId { get; set; }
+
     public DateTime TimeOfRecord { get; init; } = DateTime.UtcNow;
     protected internal abstract ExerciseCategory Category { get; }
     public string Notes { get; set; } = string.Empty;

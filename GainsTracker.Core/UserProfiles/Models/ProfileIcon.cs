@@ -1,9 +1,5 @@
-#region
-
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
-
-#endregion
 
 namespace GainsTracker.Core.UserProfiles.Models;
 
@@ -12,22 +8,17 @@ public class ProfileIcon
 {
     public ProfileIcon()
     {
-    }
-
-    public ProfileIcon(Guid userProfileId)
-    {
         Id = Guid.NewGuid();
-        UserProfileId = userProfileId;
 
         Random random = new();
         PictureColor = Color
             .FromArgb(random.Next(256), random.Next(256), random.Next(256))
             .ToArgb();
+        Url = string.Empty;
     }
 
-    public Guid Id { get; set; }
-    public Guid UserProfileId { get; set; }
+    public Guid Id { get; init; }
 
     public int PictureColor { get; set; }
-    public string Url { get; set; } = string.Empty;
+    public string Url { get; set; }
 }

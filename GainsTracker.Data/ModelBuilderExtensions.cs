@@ -47,14 +47,14 @@ public static class ModelBuilderExtensions
 
         builder.Entity<UserProfile>(userProfile =>
         {
-            // userProfile.HasMany(u => u.PinnedPBs)
-            //     .WithOne()
-            //     .HasForeignKey(u => u.UserProfileId)
-            //     .IsRequired(false);
+            userProfile.HasMany(u => u.PinnedPBs)
+            .WithOne()
+            .HasForeignKey(u => u.PinnedByUserProfileId)
+            .IsRequired(false);
 
-            userProfile.HasOne(u => u.Icon)
-                .WithOne()
-                .HasForeignKey<ProfileIcon>(i => i.UserProfileId);
+            // userProfile.HasOne(u => u.Icon)
+                // .WithOne()
+                // .HasForeignKey<ProfileIcon>(i => i.UserProfileId);
         });
     }
 
