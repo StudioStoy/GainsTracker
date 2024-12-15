@@ -1,13 +1,3 @@
-﻿#region
+﻿namespace GainsTracker.Common.Models.Auth.Dto;
 
-using System.ComponentModel.DataAnnotations;
-
-#endregion
-
-namespace GainsTracker.Common.Models.Auth.Dto;
-
-public class LoginRequestDto
-{
-    [Required] public string UserHandle { get; set; } = string.Empty;
-    [Required] public string Password { get; set; } = string.Empty;
-}
+public record LoginRequestDto(string UserHandle, string Password);

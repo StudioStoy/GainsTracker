@@ -4,7 +4,6 @@
         <TargetFramework>$(NetVersion)</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <LangVersion>11</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>

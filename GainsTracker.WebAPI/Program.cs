@@ -1,10 +1,6 @@
-#region
-
 using System.Text.Json.Serialization;
 using DotNetEnv;
 using GainsTracker.WebAPI;
-
-#endregion
 
 var resetDatabase = args.Contains("-reset");
 var useInMemoryDatabase = args.Contains("-inmemory");
@@ -33,7 +29,6 @@ builder.ConfigureAuthentication();
 builder.AddSwaggerDocumentation();
 builder.ConfigureCors();
 builder.EnableDataProtection();
-
 
 var app = builder.Build();
 

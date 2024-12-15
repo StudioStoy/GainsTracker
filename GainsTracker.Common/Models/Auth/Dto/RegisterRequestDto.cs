@@ -1,15 +1,8 @@
-﻿#region
+﻿namespace GainsTracker.Common.Models.Auth.Dto;
 
-using System.ComponentModel.DataAnnotations;
-
-#endregion
-
-namespace GainsTracker.Common.Models.Auth.Dto;
-
-public class RegisterRequestDto
-{
-    [Required] public string UserHandle { get; set; } = "";
-    [Required] public string Email { get; set; } = "";
-    [Required] public string Password { get; set; } = "";
-    public string? DisplayName { get; set; } = ""; // Optional
-}
+public record RegisterRequestDto(
+    string UserHandle,
+    string Email,
+    string Password,
+    string? DisplayName
+);

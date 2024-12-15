@@ -1,9 +1,5 @@
-﻿#region
-
-using GainsTracker.Common.Models;
+﻿using GainsTracker.Common.Models;
 using GainsTracker.Common.Models.Generic;
-
-#endregion
 
 namespace GainsTracker.Core;
 

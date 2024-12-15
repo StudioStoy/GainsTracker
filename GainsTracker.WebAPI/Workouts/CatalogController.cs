@@ -1,14 +1,11 @@
-﻿#region
-
-using System.Text.Json;
+﻿using System.Text.Json;
 using GainsTracker.Common.Models.Generic;
+using GainsTracker.Common.Models.Measurements.Units;
 using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Common.Models.Workouts.Dto;
 using GainsTracker.Core.Workouts.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-#endregion
 
 namespace GainsTracker.WebAPI.Workouts;
 
@@ -26,22 +23,25 @@ public class CatalogController(ICatalogService catalogService) : ExtendedControl
     {
         Dictionary<string, JsonDocument> examples = new()
         {
-            { ExerciseCategory.Reps.ToString(), GenericJsonSerializer.SerializeObjectToJson(new RepsMeasurementDto()) },
+            {
+                ExerciseCategory.Reps.ToString(),
+                GenericJsonSerializer.SerializeObjectToJson(new RepsMeasurementDto(0))
+            },
             {
                 ExerciseCategory.Strength.ToString(),
-                GenericJsonSerializer.SerializeObjectToJson(new StrengthMeasurementDto())
+                GenericJsonSerializer.SerializeObjectToJson(new StrengthMeasurementDto(WeightUnits.Kilograms, 0, 0))
             },
             {
                 ExerciseCategory.TimeEndurance.ToString(),
-                GenericJsonSerializer.SerializeObjectToJson(new TimeEnduranceMeasurementDto())
+                GenericJsonSerializer.SerializeObjectToJson(new TimeEnduranceMeasurementDto(0))
             },
             {
                 ExerciseCategory.TimeAndDistanceEndurance.ToString(),
-                GenericJsonSerializer.SerializeObjectToJson(new TimeAndDistanceEnduranceMeasurementDto())
+                GenericJsonSerializer.SerializeObjectToJson(new TimeAndDistanceEnduranceMeasurementDto(DistanceUnits.Kilometers, 0))
             },
             {
                 ExerciseCategory.General.ToString(),
-                GenericJsonSerializer.SerializeObjectToJson(new GeneralMeasurementDto())
+                GenericJsonSerializer.SerializeObjectToJson(new GeneralMeasurementDto(string.Empty))
             },
         };
 

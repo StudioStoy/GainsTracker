@@ -1,47 +1,40 @@
-﻿#region
-
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using GainsTracker.Common.Models.Workouts.Dto;
 using GainsTracker.UI.Services.API.Interfaces;
 using static GainsTracker.Common.Constants;
 
-#endregion
-
 namespace GainsTracker.UI.Services.API;
 
 // All the code in this file is included in all platforms.
-public class GainsTrackerService : IGainsTrackerService
+public class GainsTrackerService(HttpClient httpClient) : IGainsTrackerService
 {
-    private readonly HttpClient _httpClient;
-
-    public GainsTrackerService(HttpClient httpClient)
-    {
-        _httpClient = httpClient;
-    }
-
     public async Task<List<WorkoutDto>> GetUserWorkouts()
     {
         var url = $"{BaseUrl}/gains/user/workout";
         try
         {
-            var response = await _httpClient.GetAsync(url);
+            var response = await httpClient.GetAsync(url);
             var json = await response.Content.ReadAsStringAsync();
 
 
-            return new List<WorkoutDto>(); //TODO: fix, obviously.
+            return []; // TODO: fix, obviously.
         }
         catch (Exception ex)
         {
             Debug.WriteLine("uh oh:");
             Debug.WriteLine(ex);
-            return new List<WorkoutDto>();
+            return [];
         }
     }
 
     public async Task<List<MeasurementDto>> GetPersonalBests()
     {
         var workouts = await GetUserWorkouts();
-        var personalBests = workouts.Select(workout => workout.PersonalBest ?? new MeasurementDto()).ToList();
+        List<MeasurementDto> personalBests = workouts
+            .Where(workout => workout.PersonalBest != null)
+            .Select(workout => workout.PersonalBest)
+            .ToList()!;
+
         return personalBests;
     }
 }

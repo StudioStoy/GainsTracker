@@ -24,11 +24,11 @@ public class HealthMetricService(IHealthMetricRepository repository, IGainsServi
     {
         var data = await repository.GetAllMetricsByUsername(username);
         return data.Select(m => new MetricDto
-        {
-            Id = m.Id,
-            Type = m.Type,
-            LoggingDate = m.LoggingDate,
-            Data = GenericJsonSerializer.SerializeObjectToJson(m),
-        }).ToList();
+        (
+            Id: m.Id,
+            Type: m.Type,
+            LoggingDate: m.LoggingDate,
+            Data: GenericJsonSerializer.SerializeObjectToJson(m)
+        )).ToList();
     }
 }

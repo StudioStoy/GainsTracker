@@ -16,10 +16,10 @@ public class FriendRequestService(IFriendRepository repository, IGainsService ga
         var user = await repository.GetFriendInfoByGainsId(gainsId);
 
         return new FriendRequestOverviewDto
-        {
-            Sent = user.SentFriendRequests.Select(f => f.ToDto()).ToList(),
-            Received = user.ReceivedFriendRequests.Select(f => f.ToDto()).ToList(),
-        };
+        (
+            Sent: user.SentFriendRequests.Select(f => f.ToDto()).ToList(),
+            Received: user.ReceivedFriendRequests.Select(f => f.ToDto()).ToList()
+        );
     }
 
     public async Task SendFriendRequest(string userHandle, string friendHandle)
@@ -83,8 +83,10 @@ public class FriendRequestService(IFriendRepository repository, IGainsService ga
 
     private async Task AddFriendRequestWithoutAccounts(FriendRequest friendRequest)
     {
+        // Don't save requester and recipient again.
         friendRequest.Requester = null!;
         friendRequest.Recipient = null!;
+        
         await repository.AddFriendRequest(friendRequest);
     }
 }

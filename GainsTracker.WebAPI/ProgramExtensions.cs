@@ -2,6 +2,7 @@
 
 #region
 
+using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using DotNetEnv;
@@ -144,7 +145,17 @@ public static class ProgramExtensions
     {
         builder.Services.AddSwaggerGen(options =>
         {
-            options.SwaggerDoc("v1", new OpenApiInfo { Title = "Gains Tracker API", Version = "v1" });
+            options.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Version = "v1",
+                Title = "Gains Tracker API",
+                Description = "Web API for managing GainsTracker resources, developed by Studio Stoy.",
+                Contact = new OpenApiContact
+                {
+                    Name = "Studio Stoy",
+                    Url = new Uri("https://studiostoy.nl"),
+                },
+            });
             options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 Description = "JWT Authorization header using the Bearer scheme. \r\n" +
@@ -173,6 +184,9 @@ public static class ProgramExtensions
                     new List<string>()
                 },
             });
+            
+            var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
         });
     }
 

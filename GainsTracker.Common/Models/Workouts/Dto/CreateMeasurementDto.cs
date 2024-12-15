@@ -1,13 +1,5 @@
-﻿#region
-
-using System.Text.Json;
-
-#endregion
+﻿using System.Text.Json;
 
 namespace GainsTracker.Common.Models.Workouts.Dto;
 
-public class CreateMeasurementDto
-{
-    public ExerciseCategory Category { get; set; }
-    public JsonDocument? Data { get; set; }
-}
+public record CreateMeasurementDto(ExerciseCategory Category, JsonDocument? Data);

@@ -1,10 +1,6 @@
-﻿#region
-
-using GainsTracker.Core.Friends.Interfaces.Services;
+﻿using GainsTracker.Core.Friends.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-#endregion
 
 namespace GainsTracker.WebAPI.Friends;
 

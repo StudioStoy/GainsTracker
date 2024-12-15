@@ -1,10 +1,6 @@
-﻿#region
-
-using GainsTracker.Core.Gains.Interfaces.Services;
+﻿using GainsTracker.Core.Gains.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-#endregion
 
 namespace GainsTracker.WebAPI.Gains;
 
@@ -14,9 +10,6 @@ namespace GainsTracker.WebAPI.Gains;
 public class GainsController(IGainsService service) : ExtendedControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetUserInfo()
-    {
-        var account = await service.GetGainsAccountWithRelationsByUserHandle(CurrentUsername);
-        return Ok(account);
-    }
+    public async Task<IActionResult> GetUserInfo() =>
+        Ok(await service.GetGainsAccountWithRelationsByUserHandle(CurrentUsername));
 }

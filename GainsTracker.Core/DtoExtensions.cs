@@ -1,6 +1,4 @@
-﻿#region
-
-using System.Drawing;
+﻿using System.Drawing;
 using System.Reflection;
 using GainsTracker.Common.Models.Friends.Dto;
 using GainsTracker.Common.Models.UserProfiles;
@@ -9,8 +7,6 @@ using GainsTracker.Core.Friends.Models;
 using GainsTracker.Core.UserProfiles.Models;
 using GainsTracker.Core.Workouts.Models.Measurements;
 using GainsTracker.Core.Workouts.Models.Workouts;
-
-#endregion
 
 namespace GainsTracker.Core;
 
@@ -47,8 +43,8 @@ public static class DtoExtensions
     // Friend
     public static FriendRequestDto ToDto(this FriendRequest request)
     {
-        var byName = request.Requester.UserProfile?.DisplayName;
-        var toName = request.Recipient.UserProfile?.DisplayName;
+        var byName = request.Requester.UserProfile.DisplayName;
+        var toName = request.Recipient.UserProfile.DisplayName;
 
         byName = !string.IsNullOrEmpty(byName)
             ? byName + $" (@{request.Requester.UserHandle})"
@@ -60,12 +56,12 @@ public static class DtoExtensions
         return new FriendRequestDto
         (
             request.Id,
-            requesterId: request.RequesterId,
-            recipientId: request.RecipientId,
-            requesterName: byName,
-            recipientName: toName,
-            requestTime: request.RequestTime.ToLongDateString(),
-            status: request.Status.ToString()
+            RequesterId: request.RequesterId,
+            RecipientId: request.RecipientId,
+            RequesterName: byName,
+            RecipientName: toName,
+            RequestTime: request.RequestTime.ToLongDateString(),
+            Status: request.Status.ToString()
         );
     }
 
@@ -73,20 +69,21 @@ public static class DtoExtensions
     public static UserProfileDto ToDto(this UserProfile userProfile)
     {
         return new UserProfileDto
-        {
-            Description = userProfile.Description,
-            IconUrl = userProfile.Icon.Url,
-            IconColor = ColorTranslator.ToHtml(Color.FromArgb(userProfile.Icon.PictureColor)),
-            DisplayName = userProfile.DisplayName,
-            PinnedPBs = userProfile.PinnedPBs.Select(pb => new MeasurementDto
-            {
-                Id = pb.Id.ToString(),
-                Category = pb.Category,
-                TimeOfRecord = pb.TimeOfRecord,
-                Notes = pb.Notes,
-                Data = MeasurementFactory.SerializeMeasurementToJson(pb),
-            }).ToList(),
-        };
+        (
+            Description: userProfile.Description,
+            IconUrl: userProfile.Icon.Url,
+            IconColor: ColorTranslator.ToHtml(Color.FromArgb(userProfile.Icon.PictureColor)),
+            DisplayName: userProfile.DisplayName,
+            PinnedPBs: userProfile.PinnedPBs.Select(pb => new MeasurementDto
+            (
+                Id: pb.Id.ToString(),
+                WorkoutId: string.Empty,
+                Category: pb.Category,
+                TimeOfRecord: pb.TimeOfRecord,
+                Notes: pb.Notes,
+                Data: MeasurementFactory.SerializeMeasurementToJson(pb)
+            )).ToList()
+        );
     }
 
     // Workout
@@ -96,31 +93,33 @@ public static class DtoExtensions
 
         if (workout.PersonalBest != null)
             bestMeasurement = new MeasurementDto
-            {
-                Id = workout.PersonalBest.Id.ToString(),
-                TimeOfRecord = workout.PersonalBest.TimeOfRecord,
-                Category = workout.PersonalBest.Category,
-                Notes = workout.PersonalBest.Notes,
-                Data = MeasurementFactory.SerializeMeasurementToJson(workout.PersonalBest),
-            };
+            (
+                Id: workout.PersonalBest.Id.ToString(),
+                WorkoutId: workout.Id.ToString(),
+                TimeOfRecord: workout.PersonalBest.TimeOfRecord,
+                Category: workout.PersonalBest.Category,
+                Notes: workout.PersonalBest.Notes,
+                Data: MeasurementFactory.SerializeMeasurementToJson(workout.PersonalBest)
+            );
 
-        return new WorkoutDto(workout.GainsAccountId)
-        {
-            Id = workout.Id,
-            Type = workout.Type,
-            Category = workout.Category,
-            PersonalBest = bestMeasurement,
-        };
+        return new WorkoutDto
+        (
+            Id: workout.Id,
+            GainsAccountId: workout.GainsAccountId,
+            Type: workout.Type,
+            Category: workout.Category,
+            PersonalBest: bestMeasurement
+        );
     }
 
     // Measurement
     public static MeasurementDto ToDto(this Measurement measurement) =>
-        new()
-        {
-            Id = measurement.Id.ToString(),
-            Category = measurement.Category,
-            TimeOfRecord = measurement.TimeOfRecord,
-            Notes = measurement.Notes,
-            Data = MeasurementFactory.SerializeMeasurementToJson(measurement),
-        };
+        new(
+            Id: measurement.Id.ToString(),
+            WorkoutId: string.Empty,
+            Category: measurement.Category,
+            TimeOfRecord: measurement.TimeOfRecord,
+            Notes: measurement.Notes,
+            Data: MeasurementFactory.SerializeMeasurementToJson(measurement)
+        );
 }

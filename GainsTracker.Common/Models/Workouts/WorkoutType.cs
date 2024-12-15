@@ -1,8 +1,4 @@
-﻿#region
-
-using System.Text.Json.Serialization;
-
-#endregion
+﻿using System.Text.Json.Serialization;
 
 namespace GainsTracker.Common.Models.Workouts;
 

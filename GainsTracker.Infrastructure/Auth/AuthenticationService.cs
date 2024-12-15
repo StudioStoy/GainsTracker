@@ -1,5 +1,3 @@
-#region
-
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -12,8 +10,6 @@ using GainsTracker.Core.Gains.Interfaces.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-
-#endregion
 
 namespace GainsTracker.Infrastructure.Auth;
 
@@ -43,9 +39,7 @@ public class AuthenticationService(
             throw new ArgumentException(
                 $"Unable to register user {request.UserHandle} errors: {GetErrorsText(result.Errors)}");
 
-        // TODO: await gainsService.SaveContext();
-
-        return await Login(new LoginRequestDto { UserHandle = request.Email, Password = request.Password });
+        return await Login(new LoginRequestDto(UserHandle: request.Email, Password: request.Password));
     }
 
     public async Task<string> Login(LoginRequestDto request)

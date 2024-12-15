@@ -1,7 +1,3 @@
 ﻿namespace GainsTracker.Common.Models.Workouts.Dto;
 
-public class WorkoutMeasurementsDto
-{
-    public Guid Id { get; set; }
-    public List<MeasurementDto> Measurements { get; set; } = [];
-}
+public record WorkoutMeasurementsDto(Guid Id, List<MeasurementDto> Measurements);

@@ -36,30 +36,32 @@ public class WorkoutService(
         await workoutRepository.AddAsync(workout);
         await gainsService.UpdateGainsAccount(gainsAccount);
 
-        return new WorkoutDto(gainsAccount.Id)
-        {
-            Type = workout.Type,
-            Category = workout.Category,
-            Id = workout.Id,
-        };
+        return new WorkoutDto
+        (
+            Id: workout.Id,
+            GainsAccountId: gainsAccount.Id,
+            Type: workout.Type,
+            Category: workout.Category
+        );
     }
 
     public async Task<WorkoutMeasurementsDto> GetWorkoutMeasurementsById(Guid workoutId)
     {
         var workout = await workoutRepository.GetWorkoutWithMeasurementsById(workoutId);
         return new WorkoutMeasurementsDto
-        {
-            Id = workout.Id,
-            Measurements = workout.Measurements
+        (
+            Id: workout.Id,
+            Measurements: workout.Measurements
                 .Select(m => new MeasurementDto
-                {
-                    Id = m.Id.ToString(),
-                    Category = m.Category,
-                    TimeOfRecord = m.TimeOfRecord,
-                    Notes = m.Notes,
-                    Data = MeasurementFactory.SerializeMeasurementToJson(m),
-                }).ToList(),
-        };
+                (
+                    Id: m.Id.ToString(),
+                    WorkoutId: workout.Id.ToString(),
+                    Category: m.Category,
+                    TimeOfRecord: m.TimeOfRecord,
+                    Notes: m.Notes,
+                    Data: MeasurementFactory.SerializeMeasurementToJson(m)
+                )).ToList()
+        );
     }
 
     public async Task AddMeasurementToWorkout(Guid workoutId, CreateMeasurementDto dto)

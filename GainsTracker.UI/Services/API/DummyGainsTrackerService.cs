@@ -14,20 +14,18 @@ public class DummyGainsTrackerService : IGainsTrackerService
 
     public Task<List<MeasurementDto>> GetPersonalBests() => throw new NotImplementedException();
 
-    #region Dummy Workout Data
-
     private static List<WorkoutDto> CreateDummyWorkoutData()
     {
-        WorkoutDto workout1 = new(Guid.NewGuid())
-        {
-            Id = Guid.NewGuid(),
-            Category = ExerciseCategory.Strength,
-            Type = WorkoutType.WeightedSquat,
-            PersonalBest = new MeasurementDto(),
-        };
+        // WorkoutDto workout1 = new()
+        // {
+            // Id = Guid.NewGuid(),
+            // GainsAccountId = Guid.NewGuid(),
+            // Category = ExerciseCategory.Strength,
+            // Type = WorkoutType.WeightedSquat,
+            // PersonalBest = new MeasurementDto(),
+        // };
 
-        return new List<WorkoutDto> { workout1 };
+        // return new List<WorkoutDto> { workout1 };
+        return [];
     }
-
-    #endregion
 }

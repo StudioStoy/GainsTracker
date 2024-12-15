@@ -1,47 +1,31 @@
-﻿#region
-
-using System.Text.Json;
+﻿using System.Text.Json;
 using GainsTracker.Common.Models.Measurements.Units;
-
-#endregion
 
 namespace GainsTracker.Common.Models.Workouts.Dto;
 
-public class MeasurementDto
-{
-    public string Id { get; set; } = string.Empty;
-    public string WorkoutId { get; set; } = string.Empty;
-    public ExerciseCategory Category { get; set; }
-    public DateTime TimeOfRecord { get; set; }
-    public string Notes { get; set; } = string.Empty;
-    public JsonDocument? Data { get; set; }
-}
+public record MeasurementDto(
+    string Id,
+    string WorkoutId,
+    ExerciseCategory Category,
+    DateTime TimeOfRecord,
+    string Notes,
+    JsonDocument? Data
+);
 
-public class StrengthMeasurementDto
-{
-    public WeightUnits WeightUnit { get; set; }
-    public double Weight { get; set; }
-    public int Reps { get; set; }
-}
+public record StrengthMeasurementDto(
+    WeightUnits WeightUnit,
+    double Weight,
+    int Reps
+);
 
-public class TimeAndDistanceEnduranceMeasurementDto
-{
-    public string Time { get; set; } = "00:00:00";
-    public DistanceUnits DistanceUnit { get; set; }
-    public double Distance { get; set; }
-}
+public record TimeAndDistanceEnduranceMeasurementDto(
+    DistanceUnits DistanceUnit,
+    double Distance,
+    string Time = "00:00:00"
+);
 
-public class TimeEnduranceMeasurementDto
-{
-    public double Time { get; set; }
-}
+public record TimeEnduranceMeasurementDto(double Time);
 
-public class RepsMeasurementDto
-{
-    public int Reps { get; set; }
-}
+public record RepsMeasurementDto(int Reps);
 
-public class GeneralMeasurementDto
-{
-    public string General { get; set; } = string.Empty;
-}
+public record GeneralMeasurementDto(string General);

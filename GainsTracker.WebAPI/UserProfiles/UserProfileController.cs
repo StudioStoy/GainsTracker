@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GainsTracker.WebAPI.UserProfiles;
 
+/// <summary>
+/// test
+/// </summary>
+/// <param name="userProfileService"></param>
 [ApiController]
 [Authorize]
 [Route("user/profile")]
