@@ -1,12 +1,8 @@
-﻿#region
-
-using GainsTracker.Common.Exceptions;
+﻿using GainsTracker.Common.Exceptions;
 using GainsTracker.Core.Friends.Interfaces.Repositories;
 using GainsTracker.Core.Friends.Models;
 using GainsTracker.Core.Gains.Models;
 using Microsoft.EntityFrameworkCore;
-
-#endregion
 
 namespace GainsTracker.Data.Friends;
 
