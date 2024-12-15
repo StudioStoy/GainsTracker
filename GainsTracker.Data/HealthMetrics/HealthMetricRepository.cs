@@ -1,10 +1,6 @@
-﻿#region
-
-using GainsTracker.Core.HealthMetrics.Interfaces.Repositories;
+﻿using GainsTracker.Core.HealthMetrics.Interfaces.Repositories;
 using GainsTracker.Core.HealthMetrics.Models;
 using Microsoft.EntityFrameworkCore;
-
-#endregion
 
 namespace GainsTracker.Data.HealthMetrics;
 

@@ -1,9 +1,5 @@
-#region
-
 using System.Text.Json;
 using GainsTracker.Common.Models.Metrics;
-
-#endregion
 
 namespace GainsTracker.Core.HealthMetrics.Models;
 

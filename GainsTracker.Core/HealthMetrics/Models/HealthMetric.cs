@@ -1,32 +1,30 @@
-﻿#region
-
-using System.Text.Json.Serialization;
-using GainsTracker.Common.Models.Generic;
+﻿using GainsTracker.Common.Models.Generic;
 using GainsTracker.Common.Models.Metrics;
-
-#endregion
 
 namespace GainsTracker.Core.HealthMetrics.Models;
 
 public abstract class HealthMetric : ITrackableGoal
 {
-    [JsonIgnore] public Guid Id { get; set; } = Guid.NewGuid();
-    [JsonIgnore] public MetricType Type { get; set; }
-    [JsonIgnore] public DateTime LoggingDate { get; init; } = DateTime.UtcNow;
+    public Guid Id { get; } = Guid.NewGuid();
+    public abstract MetricType Type { get; }
+    public DateTime LoggingDate { get; } = DateTime.UtcNow;
     public bool IsInGoal { get; set; }
 }
 
 public class ProteinHealthMetric : HealthMetric
 {
-    public long ProteinIntake { get; set; }
+    public override MetricType Type => MetricType.Protein;
+    public long ProteinIntake { get; init; }
 }
 
 public class WeightHealthMetric : HealthMetric
 {
-    public long Weight { get; set; }
+    public override MetricType Type => MetricType.Weight;
+    public long Weight { get; init; }
 }
 
 public class LiterWaterHealthMetric : HealthMetric
 {
-    public double Liters { get; set; }
+    public override MetricType Type => MetricType.LiterWater;
+    public double Liters { get; init; }
 }
