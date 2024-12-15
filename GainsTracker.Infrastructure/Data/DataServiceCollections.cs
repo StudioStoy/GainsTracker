@@ -1,13 +1,9 @@
-#region
-
 using GainsTracker.Core.Auth.Models;
 using GainsTracker.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
-#endregion
 
 namespace GainsTracker.Infrastructure.Data;
 

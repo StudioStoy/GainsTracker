@@ -1,12 +1,8 @@
-#region
-
 using GainsTracker.Core.HealthMetrics.Interfaces.Repositories;
 using GainsTracker.Core.HealthMetrics.Interfaces.Services;
 using GainsTracker.Core.HealthMetrics.Services;
 using GainsTracker.Data.HealthMetrics;
 using Microsoft.Extensions.DependencyInjection;
-
-#endregion
 
 namespace GainsTracker.Infrastructure;
 

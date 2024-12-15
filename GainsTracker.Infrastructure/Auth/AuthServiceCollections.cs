@@ -1,9 +1,5 @@
-#region
-
 using GainsTracker.Core.Auth.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-
-#endregion
 
 namespace GainsTracker.Infrastructure.Auth;
 
