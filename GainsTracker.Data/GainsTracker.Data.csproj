@@ -41,13 +41,4 @@
         <ProjectReference Include="..\GainsTracker.Core\GainsTracker.Core.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Migrations\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="Migrations\20241214212035_InitialCreate.Designer.cs" />
-      <Compile Remove="Migrations\20241214214251_InitialCreate.Designer.cs" />
-    </ItemGroup>
-
 </Project>
