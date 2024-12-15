@@ -10,8 +10,8 @@ public class Friend
 
     public Friend(string name, string handle, DateTime friendsSince)
     {
-        FriendName = name;
-        FriendHandle = handle;
+        Name = name;
+        Handle = handle;
         FriendsSince = friendsSince;
     }
 
@@ -28,6 +28,6 @@ public class Friend
 
     public Guid Id { get; init; } = Guid.NewGuid();
     public DateTime FriendsSince { get; init; }
-    public string FriendName { get; init; } = string.Empty;
-    public string FriendHandle { get; init; } = string.Empty;
+    public string Name { get; init; } = string.Empty;
+    public string Handle { get; init; } = string.Empty;
 }

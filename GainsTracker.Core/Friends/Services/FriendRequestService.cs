@@ -71,7 +71,7 @@ public class FriendRequestService(IFriendRepository repository, IGainsService ga
     {
         var userFriends = await GetFriends(userHandle);
         return userFriends.Any(friend =>
-            string.Equals(friend.FriendHandle, friendHandle, StringComparison.InvariantCultureIgnoreCase));
+            string.Equals(friend.Handle, friendHandle, StringComparison.InvariantCultureIgnoreCase));
     }
 
     private async Task<bool> FriendRequestAlreadySent(string userHandle, string friendHandle)

@@ -14,7 +14,7 @@ public static class DtoExtensions
 {
     public static List<TDto> ToDtoList<TModel, TDto>(this IEnumerable<TModel> items)
     {
-        List<TDto> dtoList = new();
+        List<TDto> dtoList = [];
 
         foreach (var item in items)
         {
@@ -32,7 +32,7 @@ public static class DtoExtensions
                 $"ToDto method not found for type {typeof(TModel).Name}");
 
             // Invokes the ToDto() extension method and adds the result to the DTO list.
-            var dtoItem = (TDto?) toDtoMethod.Invoke(null, [item]);
+            var dtoItem = (TDto?)toDtoMethod.Invoke(null, [item]);
             if (dtoItem != null)
                 dtoList.Add(dtoItem);
         }
@@ -40,7 +40,7 @@ public static class DtoExtensions
         return dtoList;
     }
 
-    // Friend
+    // FriendRequest
     public static FriendRequestDto ToDto(this FriendRequest request)
     {
         var byName = request.Requester.UserProfile.DisplayName;
@@ -64,6 +64,14 @@ public static class DtoExtensions
             Status: request.Status.ToString()
         );
     }
+
+    // Friend
+    public static FriendDto ToDto(this Friend friend) =>
+        new(
+            Id: friend.Id.ToString(),
+            UserHandle: friend.Handle,
+            FriendsSince: friend.FriendsSince
+        );
 
     // UserProfile
     public static UserProfileDto ToDto(this UserProfile userProfile)

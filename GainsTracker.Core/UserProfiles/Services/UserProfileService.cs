@@ -9,7 +9,7 @@ public class UserProfileService(IUserProfileRepository repository) : IUserProfil
 {
     public async Task UpdateUserProfile(string userHandle, UpdateUserProfileDto userProfileDto)
     {
-        // Caveat: this profanity filter is not perfect. However, it is better than nothing
+        // Caveat: this profanity filter is not perfect. However, it is better than nothing.
         ProfanityFilter.ProfanityFilter detector = new();
         if (detector.IsProfanity(userProfileDto.DisplayName) || detector.IsProfanity(userProfileDto.Description))
             throw new ArgumentException("no bad words buster");
