@@ -17,20 +17,21 @@ public class AuthenticationController(IAuthenticationService authenticationServi
     [AllowAnonymous]
     [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
     public async Task<IActionResult> Login([FromBody] LoginRequestDto request) =>
         Ok(await authenticationService.Login(request));
 
     /// <summary>
-    ///     Registers a new user with the given fields.
+    /// Registers a new user with the given fields.
     /// </summary>
     /// <param name="request">The DTO containing the user data, optionally a display name.</param>
     /// <returns>A JWT Bearer token to make subsequent requests with.</returns>
     [AllowAnonymous]
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(ErrorResult))]
     public async Task<IActionResult> Register([FromBody] RegisterRequestDto request) =>
         Ok(await authenticationService.Register(request));
 }

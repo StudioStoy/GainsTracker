@@ -10,5 +10,5 @@ public interface IWorkoutService
 
     // Measurements
     Task<WorkoutMeasurementsDto> GetWorkoutMeasurementsById(Guid workoutId);
-    Task AddMeasurementToWorkout(Guid id, CreateMeasurementDto measurementRequestDto);
+    Task<MeasurementDto> AddMeasurementToWorkout(Guid id, CreateMeasurementDto measurementRequestDto);
 }

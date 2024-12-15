@@ -64,7 +64,7 @@ public class WorkoutService(
         );
     }
 
-    public async Task AddMeasurementToWorkout(Guid workoutId, CreateMeasurementDto dto)
+    public async Task<MeasurementDto> AddMeasurementToWorkout(Guid workoutId, CreateMeasurementDto dto)
     {
         var measurement = MeasurementFactory.DeserializeMeasurementFromJson(dto.Category, dto.Data);
         measurementValidationService.ValidateMeasurement(measurement);
@@ -74,6 +74,8 @@ public class WorkoutService(
 
         await measurementRepository.AddAsync(measurement);
         await workoutRepository.UpdateAsync(workout);
+        
+        return measurement.ToDto();
     }
 
     private async Task WorkoutTypeAlreadyUsed(Guid gainsId, WorkoutType type)
