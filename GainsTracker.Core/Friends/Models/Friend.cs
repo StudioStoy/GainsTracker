@@ -1,8 +1,4 @@
-﻿#region
-
-using GainsTracker.Core.Gains.Models;
-
-#endregion
+﻿using GainsTracker.Core.Gains.Models;
 
 namespace GainsTracker.Core.Friends.Models;
 
@@ -21,7 +17,7 @@ public class Friend
 
     public Friend(GainsAccount account, DateTime friendsSince) : this
     (
-        !string.IsNullOrEmpty(account.UserProfile?.DisplayName)
+        !string.IsNullOrEmpty(account.UserProfile.DisplayName)
             ? account.UserProfile.DisplayName
             : account.UserHandle,
         account.UserHandle,
