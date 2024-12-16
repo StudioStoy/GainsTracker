@@ -13,7 +13,7 @@ public static class HealthMetricFactory
         };
 
         if (metricData == null)
-            throw new ArgumentException("Can't deserialize trackableGoal, invalid data provided.");
+            throw new ArgumentException("Can't deserialize trackable metric goal, invalid data provided.");
 
         return (type switch
         {

@@ -17,8 +17,8 @@ public class FriendRequestService(IFriendRepository repository, IGainsService ga
 
         return new FriendRequestOverviewDto
         (
-            Sent: user.SentFriendRequests.Select(f => f.ToDto()).ToList(),
-            Received: user.ReceivedFriendRequests.Select(f => f.ToDto()).ToList()
+            user.SentFriendRequests.Select(f => f.ToDto()).ToList(),
+            user.ReceivedFriendRequests.Select(f => f.ToDto()).ToList()
         );
     }
 
@@ -31,9 +31,6 @@ public class FriendRequestService(IFriendRepository repository, IGainsService ga
 
         var friendRequest = user.SentFriendRequest(potentialFriend);
         await AddFriendRequestWithoutAccounts(friendRequest);
-
-        // await gainsService.UpdateGainsAccount(user);
-        // await gainsService.UpdateGainsAccount(potentialFriend);
     }
 
     public async Task HandleFriendRequestState(string userHandle, Guid requestId, bool accept = true)
@@ -44,7 +41,7 @@ public class FriendRequestService(IFriendRepository repository, IGainsService ga
         if (request.RequesterId == gainsId)
             throw new ForbiddenException("Requester can obviously not accept or reject their own request");
 
-        if (accept) request.Accept();
+        if (accept) request.Accept(); // TODO: Maybe emit an event or something for notifications?
         else request.Reject();
 
         await repository.UpdateFriendRequest(request);
@@ -86,7 +83,7 @@ public class FriendRequestService(IFriendRepository repository, IGainsService ga
         // Don't save requester and recipient again.
         friendRequest.Requester = null!;
         friendRequest.Recipient = null!;
-        
+
         await repository.AddFriendRequest(friendRequest);
     }
 }

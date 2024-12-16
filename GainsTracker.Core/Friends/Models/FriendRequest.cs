@@ -5,7 +5,9 @@ namespace GainsTracker.Core.Friends.Models;
 
 public class FriendRequest
 {
-    public FriendRequest() { }
+    public FriendRequest()
+    {
+    }
 
     public FriendRequest(GainsAccount requester, GainsAccount recipient)
     {
@@ -31,7 +33,6 @@ public class FriendRequest
     {
         Status = FriendRequestStatus.Accepted;
 
-        // TODO: Maybe emit an event or something for notifications?
         Requester.SentFriendRequests.Remove(this);
         Recipient.ReceivedFriendRequests.Remove(this);
 
@@ -43,7 +44,6 @@ public class FriendRequest
     {
         Status = FriendRequestStatus.Rejected;
 
-        // No event, happens silently.
         Requester.SentFriendRequests.Remove(this);
         Recipient.ReceivedFriendRequests.Remove(this);
     }

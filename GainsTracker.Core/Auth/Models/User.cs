@@ -17,5 +17,5 @@ public sealed class User : IdentityUser
 
     public override string Id { get; set; } = Guid.NewGuid().ToString();
     public Guid GainsAccountId { get; set; }
-    public GainsAccount GainsAccount { get; set; } = null!;
+    public GainsAccount GainsAccount { get; init; } = null!;
 }
