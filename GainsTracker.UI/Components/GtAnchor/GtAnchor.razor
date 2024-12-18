@@ -1,0 +1,26 @@
+﻿@using GainsTracker.UI.Components.Shared
+<a href="@Href" class="gt-anchor @TypeClass @AdditionalClasses" @onclick="OnClick" @attributes="AdditionalAttributes"
+   target="@Target" rel="@Rel">
+    @ChildContent
+</a>
+
+@code {
+    [Parameter] public string? Href { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
+    [Parameter] public string? AdditionalClasses { get; set; }
+    [Parameter] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    [Parameter] public string Target { get; set; } = "_self";
+    [Parameter] public string Rel { get; set; } = "noopener noreferrer"; // Security for external links
+
+    [Parameter] public GtType Type { get; set; } = GtType.Primary;
+
+    // Generate the class based on the type
+    private string TypeClass => Type switch
+    {
+        GtType.Primary => "gt-anchor-primary",
+        GtType.Secondary => "gt-anchor-secondary",
+        _ => "gt-anchor-primary",
+    };
+}

@@ -4,18 +4,12 @@
     --background-color: #121212;
     --font-color: #ffffff;
     --font-color-inverted: #000000;
-    --title-color: #7ED957;
+    --accent-color: #7ED957;
     --input-color: #1e1e1e;
     --border-color: #333333;
     --success-color: #1f8f3b;
     --error-color: #a71d2a;
     --warning-color: #d69e2e;
-}
-
-button {
-    background-color: var(--primary-color);
-    color: var(--font-color);
-    border-color: grey;
 }
 
 .page {

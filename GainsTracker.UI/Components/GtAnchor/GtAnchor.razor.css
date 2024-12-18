@@ -1,0 +1,35 @@
+﻿.gt-anchor {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    transition: color 0.2s ease-in-out;
+}
+
+
+.gt-anchor:hover {
+    color: var(--accent-color);
+}
+
+/* Focus state for accessibility */
+.gt-anchor:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.gt-anchor-primary {
+    color: var(--primary-color);
+}
+
+.gt-anchor-primary:hover {
+    color: var(--accent-color);
+}
+
+.gt-anchor-secondary {
+    color: var(--font-color);
+}
+
+.gt-anchor-secondary:hover {
+    color: var(--font-color-grey);
+}

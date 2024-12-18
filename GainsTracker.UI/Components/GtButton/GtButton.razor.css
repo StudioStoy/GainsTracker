@@ -19,9 +19,9 @@
 }
 
 .gt-button:hover {
-    background-color: var(--title-color);
+    background-color: var(--accent-color);
     box-shadow: 0 5px 6px rgba(0, 0, 0, 0.25);
-    transform: scale(1.025);
+    transform: scale(1.03);
 }
 
 .gt-button:active {
