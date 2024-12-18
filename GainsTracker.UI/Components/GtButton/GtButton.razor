@@ -17,16 +17,13 @@
     [Parameter] public GtSize Size { get; set; } = GtSize.Medium;
     [Parameter] public bool ShowMuscles { get; set; }
 
-    private string GetSizeClass()
+    private string GetSizeClass() => Size switch
     {
-        return Size switch
-        {
-            GtSize.Small => "small",
-            GtSize.Medium => "medium",
-            GtSize.Large => "large",
-            _ => "medium",
-        };
-    }
+        GtSize.Small => "small",
+        GtSize.Medium => "medium",
+        GtSize.Large => "large",
+        _ => "medium",
+    };
 
     private string GetHoverEffectClass() => ShowMuscles ? "hover-effect" : string.Empty;
 }

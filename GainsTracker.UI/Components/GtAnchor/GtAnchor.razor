@@ -15,7 +15,6 @@
 
     [Parameter] public GtType Type { get; set; } = GtType.Primary;
 
-    // Generate the class based on the type
     private string TypeClass => Type switch
     {
         GtType.Primary => "gt-anchor-primary",
