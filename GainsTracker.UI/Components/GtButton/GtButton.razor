@@ -1,5 +1,7 @@
 ﻿@using GainsTracker.UI.Components.Shared
-<button class="gt-button @GetSizeClass() @GetHoverEffectClass()"
+@inherits GtBase
+
+<button class="@Class gt-button @GetSizeClass() @GetHoverEffectClass()"
         @onclick="OnClick"
         style="width: @Width; height: @Height;">
     <span class="hover-emoji left" style="visibility: @(ShowMuscles ? "visible" : "hidden")">💪</span>

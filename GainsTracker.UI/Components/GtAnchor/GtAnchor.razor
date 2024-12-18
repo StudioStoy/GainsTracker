@@ -1,14 +1,13 @@
 ﻿@using GainsTracker.UI.Components.Shared
-<a href="@Href" class="gt-anchor @TypeClass @AdditionalClasses" @onclick="OnClick" @attributes="AdditionalAttributes"
-   target="@Target" rel="@Rel">
+@inherits GtBase
+
+<a href="@Href" class="@Class gt-anchor @TypeClass" @onclick="OnClick" target="@Target" rel="@Rel">
     @ChildContent
 </a>
 
 @code {
     [Parameter] public string? Href { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
-    [Parameter] public string? AdditionalClasses { get; set; }
-    [Parameter] public Dictionary<string, object>? AdditionalAttributes { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     [Parameter] public string Target { get; set; } = "_self";
