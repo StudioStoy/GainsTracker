@@ -1,11 +1,15 @@
 :root {
-    /* Light theme */
+    /* dark theme */
     --primary-color: #7ED957;
     --background-color: #ffffff;
-    --font-color: #000;
+    --font-color: #000000;
     --font-color-inverted: #ffffff;
     --title-color: #499C48;
     --input-color: #EEEEEE;
+    --border-color: #dddddd;
+    --success-color: #28a745;
+    --error-color: #dc3545;
+    --warning-color: #ffc107;
 }
 
 .page {
