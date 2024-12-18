@@ -1,0 +1,78 @@
+﻿.gt-button {
+    position: relative; /* Anchor .hover-emoji to the button container */
+    overflow: visible; /* Allow .hover-emoji to appear outside the button */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75em 1.5em;
+    font-size: 1em;
+    font-weight: bold;
+    color: var(--font-color-inverted);
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+    text-align: center;
+    max-width: 100%;
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.2);
+}
+
+.gt-button:hover {
+    background-color: var(--title-color);
+    box-shadow: 0 5px 6px rgba(0, 0, 0, 0.25);
+    transform: scale(1.025);
+}
+
+.gt-button:active {
+    background-color: var(--primary-color);
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Predefined sizes */
+.gt-button.small {
+    padding: 0.5em 1em;
+    font-size: 0.85em;
+}
+
+.gt-button.medium {
+    padding: 0.75em 1.5em;
+    font-size: 1em;
+}
+
+.gt-button.large {
+    padding: 1em 2em;
+    font-size: 1.25em;
+}
+
+/* Emoji sliding effect */
+.hover-emoji {
+    position: absolute;
+    opacity: 0;
+    font-size: 2rem;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none; /* Emojis won't block interaction */
+    top: 50%;
+    transform: translateY(-50%) translateX(0); /* Start at the middle horizontally */
+}
+
+.hover-emoji.left {
+    left: 20%;
+    transform: translate(-50%, -50%);
+}
+
+.hover-emoji.right {
+    right: 20%;
+    transform: translate(-50%, -50%) scaleX(-1);
+}
+
+.gt-button.hover-effect:hover .hover-emoji.left, .gt-button.hover-effect:active .hover-emoji.left {
+    opacity: 1;
+    transform: translate(-150%, -50%);
+}
+
+.gt-button.hover-effect:hover .hover-emoji.right, .gt-button.hover-effect:active .hover-emoji.right {
+    opacity: 1;
+    transform: translate(150%, -50%) scaleX(-1);
+}
