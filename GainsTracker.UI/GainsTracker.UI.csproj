@@ -50,6 +50,7 @@
 
     <ItemGroup>
         <AdditionalFiles Include="Components\ElementManipulator.razor"/>
+        <AdditionalFiles Include="Components\GtInput\GtInput.razor" />
         <AdditionalFiles Include="Pages\Login\ForgotPasswordPage.razor"/>
         <AdditionalFiles Include="Pages\Login\LoginPage.razor"/>
         <AdditionalFiles Include="Pages\Login\RegisterPage.razor"/>

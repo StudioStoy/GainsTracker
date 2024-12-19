@@ -1,5 +1,4 @@
 :root {
-    /* dark theme */
     --primary-color: #499C48;
     --background-color: #ffffff;
     --colored-background-color: #7ED957;
@@ -8,6 +7,7 @@
     --font-color-grey: #9e9d9d;
     --accent-color: #7ED957;
     --input-color: #EEEEEE;
+    --focus-color: rgba(73, 156, 72, 0.3);;
     --border-color: #dddddd;
     --success-color: #28a745;
     --error-color: #dc3545;
