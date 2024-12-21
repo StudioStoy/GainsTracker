@@ -1,0 +1,37 @@
+﻿@using GainsTracker.UI.Components.Shared
+
+<CascadingValue Value="this">
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private readonly List<GtBase> _childComponents = [];
+
+    /// <summary>
+    /// Registers a child component to the group.
+    /// </summary>
+    /// <param name="component">The child component.</param>
+    public void RegisterChild(GtBase component)
+    {
+        if (!_childComponents.Contains(component))
+            _childComponents.Add(component);
+    }
+
+    /// <summary>
+    /// Validates all child components that implement GtBase.
+    /// </summary>
+    /// <returns>True if all components are valid, otherwise false.</returns>
+    public bool ValidateAll()
+    {
+        var isValid = true;
+        foreach (var component in _childComponents)
+        {
+            if (!component.Validate())
+                isValid = false;
+        }
+
+        return isValid;
+    }
+}
