@@ -28,6 +28,7 @@
         var isValid = true;
         foreach (var component in _childComponents)
         {
+            // Go past all components, even after invalid ones, so the user feedback for invalid fields is made visible.
             if (!component.Validate())
                 isValid = false;
         }

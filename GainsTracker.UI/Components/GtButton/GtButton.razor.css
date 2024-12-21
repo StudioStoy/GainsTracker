@@ -46,7 +46,7 @@
     font-size: 1.25em;
 }
 
-/* Emoji sliding effect */
+/* Emoji's & sliding effect */
 .hover-emoji {
     position: absolute;
     opacity: 0;
@@ -54,7 +54,6 @@
     transition: transform 0.3s ease, opacity 0.3s ease;
     pointer-events: none; /* Emojis won't block interaction */
     top: 50%;
-    transform: translateY(-50%) translateX(0); /* Start at the middle horizontally */
 }
 
 .hover-emoji.left {
@@ -64,7 +63,7 @@
 
 .hover-emoji.right {
     right: 20%;
-    transform: translate(-50%, -50%) scaleX(-1);
+    transform: translate(50%, -50%) scaleX(-1);
 }
 
 .gt-button.hover-effect:hover .hover-emoji.left, .gt-button.hover-effect:active .hover-emoji.left {
