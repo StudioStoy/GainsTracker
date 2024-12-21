@@ -1,6 +1,6 @@
 ﻿namespace GainsTracker.UI.Components.Shared;
 
-public enum GtType
+public enum GtVariant
 {
     Primary,
     Secondary,

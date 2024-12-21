@@ -7,7 +7,6 @@
     transition: color 0.2s ease-in-out;
 }
 
-
 .gt-anchor:hover {
     color: var(--accent-color);
 }

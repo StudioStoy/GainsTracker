@@ -13,12 +13,12 @@
     [Parameter] public string Target { get; set; } = "_self";
     [Parameter] public string Rel { get; set; } = "noopener noreferrer"; // Security for external links
 
-    [Parameter] public GtType Type { get; set; } = GtType.Primary;
+    [Parameter] public GtVariant Variant { get; set; } = GtVariant.Primary;
 
-    private string TypeClass => Type switch
+    private string TypeClass => Variant switch
     {
-        GtType.Primary => "gt-anchor-primary",
-        GtType.Secondary => "gt-anchor-secondary",
+        GtVariant.Primary => "gt-anchor-primary",
+        GtVariant.Secondary => "gt-anchor-secondary",
         _ => "gt-anchor-primary",
     };
 }

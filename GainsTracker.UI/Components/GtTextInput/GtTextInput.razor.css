@@ -69,11 +69,11 @@
 }
 
 /* Error State */
-.gt-input-wrapper.error .gt-input {
+.error {
     border-color: var(--error-color);
 }
 
-.gt-input-wrapper.error::after {
+.error::after {
     background-color: var(--error-color);
 }
 
