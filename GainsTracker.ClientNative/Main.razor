@@ -1,5 +1,7 @@
-﻿@using GainsTracker.UI.Shared
-<Router AppAssembly="@GetType()?.Assembly"
+﻿@using GainsTracker.UI.Components
+@using GainsTracker.UI.Components.Transition
+
+<Router AppAssembly="@GetType().Assembly"
         AdditionalAssemblies="new[] { typeof(MainLayout).Assembly }">
     <Found Context="routeData">
         <LayoutView Layout="@typeof(MainLayout)">

@@ -49,14 +49,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="Components\ElementManipulator.razor"/>
-        <AdditionalFiles Include="Pages\Login\ForgotPasswordPage.razor"/>
-        <AdditionalFiles Include="Pages\Login\LoginPage.razor"/>
-        <AdditionalFiles Include="Pages\Login\RegisterPage.razor"/>
+        <ProjectReference Include="..\GainsTracker.Common\GainsTracker.Common.csproj"/>
+        <ProjectReference Include="..\GainsTracker.UI.Elements\GainsTracker.UI.Elements.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\GainsTracker.Common\GainsTracker.Common.csproj"/>
+      <UpToDateCheckInput Remove="Components\Button\GtButton.razor" />
+      <UpToDateCheckInput Remove="Components\TextInput\GtTextInput.razor" />
     </ItemGroup>
 
 </Project>

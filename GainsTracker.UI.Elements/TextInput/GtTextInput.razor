@@ -1,0 +1,71 @@
+﻿@using GainsTracker.UI.Elements.Shared
+@inherits GtBase
+
+<div class="gt-input-container">
+    <div class="@Class gt-input-underline-wrapper">
+        <input
+            value="@Value"
+            @oninput="OnInput"
+            type="@InputTypeProperty"
+            class="gt-input @VariantClass @ValidationClass"
+            @onkeydown="HandleEnter"
+            placeholder="@Placeholder"/>
+    </div>
+    <span class="error error-container @(_isValid ? "" : "error-visible")">@HelpText</span>
+</div>
+
+@code {
+    [Parameter] public string Value { get; set; } = string.Empty;
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+    [Parameter] public string Placeholder { get; set; } = string.Empty;
+    [Parameter] public GtTextInputType TextInputType { get; set; } = GtTextInputType.Text;
+    [Parameter] public GtVariant Variant { get; set; } = GtVariant.Primary;
+    [Parameter] public EventCallback OnEnter { get; set; }
+    [Parameter] public bool Required { get; set; }
+    [Parameter] public string HelpText { get; set; } = "Please enter the field";
+
+    public override bool Validate()
+    {
+        if (!Required) return true;
+
+        _isValid = !string.IsNullOrWhiteSpace(Value);
+        return _isValid;
+    }
+
+    private bool _isValid = true;
+    private string ValidationClass => _isValid ? string.Empty : "error";
+
+    private string VariantClass => Variant switch
+    {
+        GtVariant.Primary => "gt-input-primary",
+        GtVariant.Secondary => "gt-input-secondary",
+        _ => "gt-input-primary",
+    };
+
+    private string InputTypeProperty => TextInputType switch
+    {
+        GtTextInputType.Text => "text",
+        GtTextInputType.Number => "number",
+        GtTextInputType.Password => "password",
+        _ => "text",
+    };
+
+    private async Task OnInput(ChangeEventArgs e)
+    {
+        Value = e.Value?.ToString() ?? string.Empty;
+        await ValueChanged.InvokeAsync(Value);
+
+        Validate();
+    }
+
+    private async Task HandleEnter(KeyboardEventArgs e)
+    {
+        if (e.Key != "Enter")
+            return;
+
+        if (Required && string.IsNullOrWhiteSpace(Value))
+            return;
+
+        await OnEnter.InvokeAsync();
+    }
+}

@@ -1,0 +1,24 @@
+﻿@using GainsTracker.UI.Elements.Shared
+@inherits GtBase
+
+<a href="@Href" class="@Class gt-anchor @TypeClass" @onclick="OnClick" target="@Target" rel="@Rel">
+    @ChildContent
+</a>
+
+@code {
+    [Parameter] public string? Href { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    [Parameter] public string Target { get; set; } = "_self";
+    [Parameter] public string Rel { get; set; } = "noopener noreferrer"; // Security for external links
+
+    [Parameter] public GtVariant Variant { get; set; } = GtVariant.Primary;
+
+    private string TypeClass => Variant switch
+    {
+        GtVariant.Primary => "gt-anchor-primary",
+        GtVariant.Secondary => "gt-anchor-secondary",
+        _ => "gt-anchor-primary",
+    };
+}

@@ -1,17 +1,14 @@
 :root {
-    /* dark theme */
-    /* TODO: change to actual dark theme colors*/
-    --primary-color: #7ED957;
-    --font-color: #000;
-    --font-color-inverted: #ffffff;
-    --title-color: #499C48;
-    --input-color: #EEEEEE;
-}
-
-button {
-    background-color: var(--primary-color);
-    color: var(--font-color);
-    border-color: grey;
+    --primary-color: #499C48;
+    --background-color: #121212;
+    --font-color: #ffffff;
+    --font-color-inverted: #000000;
+    --accent-color: #7ED957;
+    --input-color: #1e1e1e;
+    --border-color: #333333;
+    --success-color: #1f8f3b;
+    --error-color: #a71d2a;
+    --warning-color: #d69e2e;
 }
 
 .page {

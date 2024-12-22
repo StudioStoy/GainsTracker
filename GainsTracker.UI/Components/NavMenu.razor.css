@@ -33,7 +33,7 @@
 }
 
 ::deep .active-link {
-    background-color: var(--primary-color);
+    background-color: var(--colored-background-color);
 }
 
 /* For tablet up to desktop */
