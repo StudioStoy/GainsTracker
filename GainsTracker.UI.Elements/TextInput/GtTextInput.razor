@@ -11,7 +11,7 @@
             @onkeydown="HandleEnter"
             placeholder="@Placeholder"/>
     </div>
-    <span class="error error-container @(_isValid ? "" : "error-visible")">Please enter the field</span>
+    <span class="error error-container @(_isValid ? "" : "error-visible")">@HelpText</span>
 </div>
 
 @code {
@@ -22,6 +22,7 @@
     [Parameter] public GtVariant Variant { get; set; } = GtVariant.Primary;
     [Parameter] public EventCallback OnEnter { get; set; }
     [Parameter] public bool Required { get; set; }
+    [Parameter] public string HelpText { get; set; } = "Please enter the field";
 
     public override bool Validate()
     {
