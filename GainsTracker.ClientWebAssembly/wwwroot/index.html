@@ -7,11 +7,12 @@
     <title>GainsTracker.ClientWebAssembly</title>
     <link href="favicon.ico" rel="icon" type="image/png"/>
     <base href="/"/>
-    
+
     <link href="GainsTracker.ClientWebAssembly.styles.css" rel="stylesheet"/>
     <link href="_content/GainsTracker.UI/css/site.css" rel="stylesheet"/>
     <link class="theme" href="_content/GainsTracker.UI/css/lightTheme.css" rel="stylesheet"/>
 
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" rel="stylesheet"/>
     <script src="_content/GainsTracker.UI/script/ElementManipulator.js" type="text/javascript"></script>
 
@@ -21,7 +22,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: var(--primary-color);
+            background-color: var(--colored-background-color);
         }
 
         .loading {
@@ -50,20 +51,20 @@
 </head>
 
 <body>
-    <div id="app">
-        <div class="loading-container">
-            <div class="loading"></div>
-            <div class="loading"></div>
-            <div class="loading"></div>
-        </div>
+<div id="app">
+    <div class="loading-container">
+        <div class="loading"></div>
+        <div class="loading"></div>
+        <div class="loading"></div>
     </div>
-    
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-    </div>
-    
-    <script src="_framework/blazor.webassembly.js"></script>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a class="reload" href="">Reload</a>
+</div>
+
+<script src="_framework/blazor.webassembly.js"></script>
 </body>
 
 </html>
