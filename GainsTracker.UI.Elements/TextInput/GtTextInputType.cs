@@ -1,4 +1,4 @@
-﻿namespace GainsTracker.UI.Components.GtTextInput;
+﻿namespace GainsTracker.UI.Elements.TextInput;
 
 public enum GtTextInputType
 {

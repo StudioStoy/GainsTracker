@@ -50,6 +50,12 @@
 
     <ItemGroup>
         <ProjectReference Include="..\GainsTracker.Common\GainsTracker.Common.csproj"/>
+        <ProjectReference Include="..\GainsTracker.UI.Elements\GainsTracker.UI.Elements.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Components\Button\GtButton.razor" />
+      <UpToDateCheckInput Remove="Components\TextInput\GtTextInput.razor" />
     </ItemGroup>
 
 </Project>

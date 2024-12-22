@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using GainsTracker.UI.Elements.Group;
+using Microsoft.AspNetCore.Components;
 
-namespace GainsTracker.UI.Components.Shared;
+namespace GainsTracker.UI.Elements.Shared;
 
 public abstract class GtBase : ComponentBase
 {
@@ -13,7 +14,7 @@ public abstract class GtBase : ComponentBase
     /// The group which this component is registered to, if in group.
     /// </summary>
     /// <remarks>Optional.</remarks>
-    [CascadingParameter] private GtGroup.GtGroup? ParentGtGroup { get; set; }
+    [CascadingParameter] private GtGroup? ParentGtGroup { get; set; }
 
     protected override void OnInitialized()
     {

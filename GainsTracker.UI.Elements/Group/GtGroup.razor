@@ -1,10 +1,11 @@
-﻿@using GainsTracker.UI.Components.Shared
+﻿@using GainsTracker.UI.Elements.Shared
 
 <CascadingValue Value="this">
     @ChildContent
 </CascadingValue>
 
 @code {
+    // TODO: Add small error message field on input components? Shown when !isValid? Maybe create GtBase component html?
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     private readonly List<GtBase> _childComponents = [];

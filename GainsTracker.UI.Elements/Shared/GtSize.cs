@@ -1,4 +1,4 @@
-﻿namespace GainsTracker.UI.Components.Shared;
+﻿namespace GainsTracker.UI.Elements.Shared;
 
 public enum GtSize
 {
