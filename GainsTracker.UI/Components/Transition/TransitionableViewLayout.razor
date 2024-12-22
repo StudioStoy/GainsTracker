@@ -1,0 +1,49 @@
+﻿@using GainsTracker.UI.Pages
+@using GainsTracker.UI.Pages.Login
+@inherits TransitionableLayoutComponent
+
+<div class="transition @TransitioningClass @(Transition.IntoView ? "transitioned" : "transitioned_behind")">
+    @Body
+</div>
+
+<style>
+    .transition {
+        position: absolute;
+    }
+</style>
+
+@code {
+    private string TransitioningClass => Transition.FirstRender
+        ? ""
+        : $"animate__{TransitioningEffect()} animate__faster animate__animated";
+
+    private string TransitioningEffect()
+    {
+        KeyValuePair<(Type from, Type to), (string effectOut, string effectIn)>? transition = _epicTransitions
+            .FirstOrDefault(pair => pair.Key == (TransitionType.fromType, TransitionType.toType));
+
+        if (transition != null)
+            return Transition.IntoView ? transition.Value.Value.effectIn : transition.Value.Value.effectOut;
+
+        var effect = Transition.IntoView ? "fadeIn" : "fadeOut";
+        var direction = Transition.Backwards ? "Up" : "Down";
+        return effect + direction;
+    }
+
+    // Add all transitions here for each page to page route.
+    private readonly List<KeyValuePair<(Type from, Type to), (string effectOut, string effectIn)>> _epicTransitions =
+    [
+        ..TransitionHelper.LinkPages(typeof(LoginPage), typeof(DashboardPage), TransitionDirection.Up),
+        ..TransitionHelper.LinkPages(typeof(LoginPage), typeof(RegisterPage), TransitionDirection.Right),
+        ..TransitionHelper.LinkPages(typeof(LoginPage), typeof(ForgotPasswordPage), TransitionDirection.Right),
+
+        ..TransitionHelper.LinkPages(typeof(DashboardPage), typeof(RegisterPage), TransitionDirection.Down),
+        ..TransitionHelper.LinkPages(typeof(DashboardPage), typeof(LoggingPage), TransitionDirection.Right),
+        ..TransitionHelper.LinkPages(typeof(DashboardPage), typeof(ActivityPage), TransitionDirection.Right),
+        ..TransitionHelper.LinkPages(typeof(DashboardPage), typeof(UserProfilePage), TransitionDirection.Right),
+
+        ..TransitionHelper.LinkPages(typeof(ActivityPage), typeof(LoggingPage), TransitionDirection.Left),
+        ..TransitionHelper.LinkPages(typeof(ActivityPage), typeof(UserProfilePage), TransitionDirection.Right),
+        ..TransitionHelper.LinkPages(typeof(LoggingPage), typeof(UserProfilePage), TransitionDirection.Right),
+    ];
+}
