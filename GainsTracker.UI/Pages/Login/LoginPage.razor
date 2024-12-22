@@ -1,32 +1,62 @@
-﻿@page "/login"
+﻿@using GainsTracker.UI.Elements.Group
+@using GainsTracker.UI.Elements.Shared
 @using GainsTracker.UI.Services.Auth.Interfaces
+@using GainsTracker.UI.Elements.TextInput
+@using GainsTracker.UI.Elements.Button
+@using GainsTracker.UI.Elements.Anchor
+@using GainsTracker.UI.Elements.GtHeader
+
+@page "/login"
 
 <PageTitle>Login</PageTitle>
 
 @inject IGainsAuthService AuthService;  
 @inject NavigationManager NavigationManager
 
-<div class="div-holder">
-    <img src="/Images/logo.png" alt="Gainstracker Logo"/>
+<div class="page-container">
+    <img class="gains-logo" src="/Images/logo.png" alt="Gainstracker Logo"/>
     <div class="login-input-holder">
-        <h1>Welcome to the Gains Tracker!</h1>
-        <input id="username-input" placeholder=" Username" @bind="_userHandle"/>
-        <input id="password-input" type="password" placeholder=" Password" @bind="_password"/>
-        <button class="btn btn-primary" @onclick="Login">Login</button>
-        <p>Don't have an account yet? No worries! You can make one <a href="/register">here</a>.</p>
-        <a id="forgot-password" href="/forgot">Forgot password?</a>
+        <GtHeader>Welcome to the Gains Tracker!</GtHeader>
+        <GtGroup @ref="_textInputGroup">
+            <GtTextInput
+                @bind-Value="_userHandle"
+                Placeholder="Username"
+                TextInputType="GtTextInputType.Text"
+                Variant="GtVariant.Primary"
+                Required="true"/>
+            <GtTextInput
+                @bind-Value="@_password"
+                Placeholder="Password"
+                TextInputType="GtTextInputType.Password"
+                Variant="GtVariant.Primary"
+                Required="true"
+                OnEnter="Login"/>
+        </GtGroup>
+
+        <div class="actions">
+            <span class="login-button-container">
+                <GtButton OnClick="Login" ShowMuscles="true" FullWidth="true">Login</GtButton>
+            </span>
+            <p class="create-account-description">Don't have an account yet? No worries! You can make one
+                <GtAnchor Href="/register">here</GtAnchor>.
+            </p>
+            <GtAnchor Href="/forgot">Forgot password?</GtAnchor>
+        </div>
     </div>
 </div>
 
 @code {
+    private GtGroup? _textInputGroup;
     private string _userHandle = "";
     private string _password = "";
 
-    private async void Login()
+    private async Task Login()
     {
+        if (_textInputGroup == null || !_textInputGroup.ValidateAll())
+            return;
+
         var loginSuccess = await AuthService.Login(_userHandle, _password);
         if (loginSuccess)
             NavigationManager.NavigateTo("/dashboard");
     }
-
 }
