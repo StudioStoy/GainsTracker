@@ -1,7 +1,7 @@
 ﻿@using GainsTracker.UI.Elements.Shared
 @inherits GtBase
 
-<button class="@Class gt-button @GetSizeClass() @GetHoverEffectClass() @GetFullWidthClass()"
+<button class="@Class gt-button @SizeClass @HoverEffectClass @FullWidthClass"
         @onclick="OnClick">
     <span class="hover-emoji left" style="visibility: @(ShowMuscles ? "visible" : "hidden")">💪</span>
     @ChildContent
@@ -15,7 +15,7 @@
     [Parameter] public bool ShowMuscles { get; set; }
     [Parameter] public bool FullWidth { get; set; }
 
-    private string GetSizeClass() => Size switch
+    private string SizeClass => Size switch
     {
         GtSize.Small => "small",
         GtSize.Medium => "medium",
@@ -23,7 +23,7 @@
         _ => "medium",
     };
 
-    private string GetHoverEffectClass() => ShowMuscles ? "hover-effect" : string.Empty;
+    private string HoverEffectClass => ShowMuscles ? "hover-effect" : string.Empty;
     
-    private string GetFullWidthClass() => FullWidth ? "full-width" : string.Empty;
+    private string FullWidthClass => FullWidth ? "full-width" : string.Empty;
 }

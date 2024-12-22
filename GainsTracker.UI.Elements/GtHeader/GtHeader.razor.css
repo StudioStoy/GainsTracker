@@ -1,0 +1,25 @@
+﻿.gt-header {
+    font-size: 24px;
+    margin: 0 0 1rem;
+    font-weight: bolder;
+}
+
+.gt-header-primary {
+    color: var(--primary-color);
+}
+
+.gt-header-secondary {
+    color: var(--font-color);
+}
+
+.gt-header-large {
+    font-size: 2rem;
+}
+
+.gt-header-medium {
+    font-size: 1.5rem;
+}
+
+.gt-header-small {
+    font-size: 1.2rem;
+}

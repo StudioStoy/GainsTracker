@@ -1,0 +1,24 @@
+﻿@using GainsTracker.UI.Elements.Shared
+
+@switch (Size)
+{
+    case GtSize.Large:
+        <h1 class="@HeaderClasses">@ChildContent</h1>
+        break;
+    case GtSize.Medium:
+        <h2 class="@HeaderClasses">@ChildContent</h2>
+        break;
+    case GtSize.Small:
+    default:
+        <h3 class="@HeaderClasses">@ChildContent</h3>
+        break;
+}
+
+@code {
+    [Parameter] public GtVariant Variant { get; set; } = GtVariant.Primary;
+    [Parameter] public GtSize Size { get; set; } = GtSize.Large;
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private string HeaderClasses =>
+        $"gt-header gt-header-{Variant.ToString().ToLower()} gt-header-{Size.ToString().ToLower()}";
+}
