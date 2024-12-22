@@ -57,12 +57,12 @@
 }
 
 .hover-emoji.left {
-    left: 20%;
+    left: 25px;
     transform: translate(-50%, -50%);
 }
 
 .hover-emoji.right {
-    right: 20%;
+    right: 25px;
     transform: translate(50%, -50%) scaleX(-1);
 }
 
@@ -74,4 +74,8 @@
 .gt-button.hover-effect:hover .hover-emoji.right, .gt-button.hover-effect:active .hover-emoji.right {
     opacity: 1;
     transform: translate(150%, -50%) scaleX(-1);
+}
+
+.full-width {
+    width: 100%;
 }

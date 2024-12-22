@@ -1,15 +1,17 @@
 ﻿@using GainsTracker.UI.Elements.Shared
-@using Microsoft.AspNetCore.Components.Web
 @inherits GtBase
 
-<div class="@Class gt-input-wrapper">
-    <input
-        value="@Value"
-        @oninput="OnInput"
-        type="@InputTypeProperty"
-        class="gt-input @VariantClass @ValidationClass"
-        @onkeydown="HandleEnter"
-        placeholder="@Placeholder"/>
+<div class="gt-input-container">
+    <div class="@Class gt-input-underline-wrapper">
+        <input
+            value="@Value"
+            @oninput="OnInput"
+            type="@InputTypeProperty"
+            class="gt-input @VariantClass @ValidationClass"
+            @onkeydown="HandleEnter"
+            placeholder="@Placeholder"/>
+    </div>
+    <span class="error error-container @(_isValid ? "" : "error-visible")">Please enter the field</span>
 </div>
 
 @code {
@@ -24,7 +26,7 @@
     public override bool Validate()
     {
         if (!Required) return true;
-        
+
         _isValid = !string.IsNullOrWhiteSpace(Value);
         return _isValid;
     }

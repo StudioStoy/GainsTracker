@@ -1,13 +1,16 @@
-﻿.gt-input-wrapper {
-    display: flex;
-    flex-direction: column;
+﻿.gt-input-container {
     width: 100%;
     max-width: 100%;
+}
+
+.gt-input-underline-wrapper {
+    display: flex;
+    flex-direction: column;
     margin: 0;
     position: relative;
 }
 
-.gt-input-wrapper::after {
+.gt-input-underline-wrapper::after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -44,8 +47,8 @@
     box-shadow: 0 0 6px var(--focus-color);
 }
 
-.gt-input:focus + .gt-input-wrapper::after,
-.gt-input-wrapper:focus-within::after {
+.gt-input:focus + .gt-input-underline-wrapper::after,
+.gt-input-underline-wrapper:focus-within::after {
     width: 100%; /* Expand underline */
 }
 
@@ -60,21 +63,35 @@
 }
 
 /* Success State */
-.gt-input-wrapper.success .gt-input {
+.gt-input-underline-wrapper.success .gt-input {
     border-color: var(--success-color);
 }
 
-.gt-input-wrapper.success::after {
+.gt-input-underline-wrapper.success::after {
     background-color: var(--success-color);
 }
 
 /* Error State */
 .error {
+    color: var(--error-color);
     border-color: var(--error-color);
 }
 
 .error::after {
     background-color: var(--error-color);
+}
+
+.error-container {
+    display: block;
+    width: 100%;
+    text-align: left;
+    opacity: 0;
+    margin-bottom: 4px;
+    transition: opacity 0.1s ease-in-out;
+}
+
+.error-visible {
+    opacity: 100%;
 }
 
 /* Disabled State */
