@@ -1,4 +1,12 @@
-.login-input-holder {
+.page-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.login-container {
     background-color: var(--background-color);
     display: flex;
     flex-direction: column;
@@ -9,14 +17,6 @@
     text-align: center;
     width: 70%;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.page-container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
 }
 
 .gains-logo {
