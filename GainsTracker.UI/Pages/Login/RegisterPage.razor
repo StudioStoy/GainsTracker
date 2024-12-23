@@ -1,34 +1,61 @@
-﻿@page "/register"
-@using GainsTracker.UI.Services.Auth.Interfaces
+﻿@using GainsTracker.UI.Services.Auth.Interfaces
+@using GainsTracker.UI.Elements.Button
+@using GainsTracker.UI.Elements.Anchor
+@using GainsTracker.UI.Elements.Group
+@using GainsTracker.UI.Elements.Shared
+@using GainsTracker.UI.Elements.GtHeader
+@using GainsTracker.UI.Elements.TextInput
+
+@page "/register"
 
 <PageTitle>Register</PageTitle>
 
 @inject IGainsAuthService AuthService;  
 @inject NavigationManager NavigationManager
 
-<div class="div-holder">
-    <a href="/login"><img src="/Images/logo.png" alt="Gainstracker Logo"/></a>
-    <div class="register-input-holder">
-        <h1>Create your account</h1>
-        <input id="username-input" placeholder=" Username" @bind="UserHandle"/>
-        <input id="email-input" placeholder=" Email" @bind="EmailAddress"/>
-        <input id="password-input" type="password" placeholder=" Password" @bind="Password"/>
-        <button class="btn btn-primary" @onclick="Register">Start gaining!</button>
+<div class="page-container">
+    <a href="/login"><img class="gains-logo" src="/Images/logo.png" alt="Gainstracker Logo"/></a>
+    <div class="register-container">
+        <div class="anchor-container">
+            <GtAnchor Variant="GtVariant.Primary" Href="/login">&lt; Already have an account?</GtAnchor>
+        </div>
+        <GtHeader>Create your account</GtHeader>
+        <GtGroup @ref="_textInputGroup">
+            <GtTextInput
+                @bind-Value="_userHandle"
+                Placeholder="Username"
+                TextInputType="GtTextInputType.Text"
+                Variant="GtVariant.Primary"
+                Required="true"/>
+            <GtTextInput
+                @bind-Value="@_emailAddress"
+                Placeholder="Email"
+                TextInputType="GtTextInputType.Email"
+                Variant="GtVariant.Primary"
+                Required="true"/>
+            <GtTextInput
+                @bind-Value="@_password"
+                Placeholder="Password"
+                TextInputType="GtTextInputType.Password"
+                Variant="GtVariant.Primary"
+                Required="true"/>
+        </GtGroup>
+        <GtButton OnClick="Register" ShowMuscles="true">Start gaining!</GtButton>
     </div>
 </div>
 
 @code {
-    private string UserHandle = "";
-    private string EmailAddress = "";
-    private string Password = "";
+    private GtGroup? _textInputGroup;
+    private string _userHandle = "";
+    private string _emailAddress = "";
+    private string _password = "";
 
-    private async void Register()
+    private async Task Register()
     {
-        var registered = await AuthService.SignUp(EmailAddress, Password);
-        if (registered)
-            NavigationManager.NavigateTo("/login");
-        else
-            Console.WriteLine("uh oh");
-    }
+        if (_textInputGroup != null && !_textInputGroup.ValidateAll()) return;
 
+        var registered = await AuthService.SignUp(_emailAddress, _password);
+        if (registered)
+            NavigationManager.NavigateTo("/dashboard");
+    }
 }
