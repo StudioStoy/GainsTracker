@@ -5,4 +5,5 @@ public enum GtTextInputType
     Text,
     Number,
     Password,
+    Email,
 }
