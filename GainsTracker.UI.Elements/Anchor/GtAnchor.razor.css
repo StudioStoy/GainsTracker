@@ -3,12 +3,26 @@
     font-weight: bold;
     padding: 0;
     margin: 0;
-    text-decoration: underline;
+    text-decoration: none;
+    position: relative;
     transition: color 0.2s ease-in-out;
 }
 
-.gt-anchor:hover {
-    color: var(--accent-color);
+.gt-anchor::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.15s ease-in-out;
+}
+
+.gt-anchor:hover::after {
+    transform: scaleX(1);
 }
 
 /* Focus state for accessibility */
