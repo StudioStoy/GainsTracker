@@ -1,5 +1,8 @@
-﻿@page "/dashboard"
-@using GainsTracker.UI.Services.API.Interfaces
+﻿@using GainsTracker.UI.Services.API.Interfaces
+@using GainsTracker.UI.Elements.GtHeader
+@using GainsTracker.UI.Elements.Shared
+
+@page "/dashboard"
 
 <PageTitle>Dashboard</PageTitle>
 
@@ -9,10 +12,11 @@
 <meta name="viewport" content="width=device-width"/>
 <div class="content-holder">
     <img src="/Images/logo.png" alt="Gainstracker Logo"/>
-    <div class="div-holder">
+    <div class="page-container">
         <div class="welcome">
-            <h1>Welcome, gainer!</h1>
-            <p>Swole is the goal, size is the price</p>
+            <i style="font-size: xxx-large" class="mdi mdi-home-edit"></i> Home
+            <GtHeader Variant="GtVariant.Secondary">Welcome, gainer!</GtHeader>
+            <p>Swole is the goal, size is the prize</p>
         </div>
         <div class="recent-pbs">
             <h2>Recent personal bests</h2>
@@ -26,13 +30,13 @@
 </div>
 
 @code {
-
-    private async void GetPbs()
+    private async Task GetPbs()
     {
         var pbs = await GainsTrackerService.GetUserWorkouts();
         Console.WriteLine(pbs);
     }
 
-    private void GetGoals() { }
-
+    private void GetGoals()
+    {
+    }
 }
