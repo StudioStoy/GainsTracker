@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.UI.Elements", "GainsTracker.UI.Elements\GainsTracker.UI.Elements.csproj", "{93774957-C5BD-459F-AC4D-E7D5CACA987C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.UI.TransitionableRoute", "GainsTracker.UI.TransitionableRoute\GainsTracker.UI.TransitionableRoute.csproj", "{2FD10A04-DF5D-48FC-BEA6-9E344A561417}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{93774957-C5BD-459F-AC4D-E7D5CACA987C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93774957-C5BD-459F-AC4D-E7D5CACA987C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93774957-C5BD-459F-AC4D-E7D5CACA987C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FD10A04-DF5D-48FC-BEA6-9E344A561417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FD10A04-DF5D-48FC-BEA6-9E344A561417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FD10A04-DF5D-48FC-BEA6-9E344A561417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FD10A04-DF5D-48FC-BEA6-9E344A561417}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,5 +88,6 @@ Global
 		{450CBA4E-3F25-41DE-9420-61D6FEDE73B2} = {58C9D6C1-BFB6-40C2-B43A-B4A7E0321DE7}
 		{2A200125-D27E-4DDF-9242-927EEC7BA5CC} = {58C9D6C1-BFB6-40C2-B43A-B4A7E0321DE7}
 		{93774957-C5BD-459F-AC4D-E7D5CACA987C} = {58C9D6C1-BFB6-40C2-B43A-B4A7E0321DE7}
+		{2FD10A04-DF5D-48FC-BEA6-9E344A561417} = {58C9D6C1-BFB6-40C2-B43A-B4A7E0321DE7}
 	EndGlobalSection
 EndGlobal

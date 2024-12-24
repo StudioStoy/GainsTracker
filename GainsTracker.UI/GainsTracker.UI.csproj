@@ -18,7 +18,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="BlazorTransitionableRoute" Version="4.0.0"/>
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8"/>
         <PackageReference Include="System.Security.Permissions" Version="8.0.0"/>
     </ItemGroup>
@@ -31,6 +30,7 @@
     <ItemGroup>
         <ProjectReference Include="..\GainsTracker.Common\GainsTracker.Common.csproj"/>
         <ProjectReference Include="..\GainsTracker.UI.Elements\GainsTracker.UI.Elements.csproj" />
+        <ProjectReference Include="..\GainsTracker.UI.TransitionableRoute\GainsTracker.UI.TransitionableRoute.csproj" />
     </ItemGroup>
 
 </Project>

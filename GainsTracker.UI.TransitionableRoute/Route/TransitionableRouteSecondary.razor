@@ -1,0 +1,13 @@
+﻿@inherits TransitionableRoutePrimary
+
+<CascadingValue Value="Transition">
+    @ChildContent
+</CascadingValue>
+
+@code {
+    protected override void OnInitialized()
+    {
+        MakeSecondary();
+        base.OnInitialized();
+    }
+}

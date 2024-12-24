@@ -5,6 +5,7 @@
         <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);$(NetVersion)-windows10.0.19041.0</TargetFrameworks>
         <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
         <!--        <TargetFrameworks Condition="'$(IncludeTizenTargetFrameworks)' == 'true'">$(TargetFrameworks);$(NetVersion)-tizen</TargetFrameworks>-->
+        <Authors>Stije Hardeman</Authors>
         <OutputType Condition="'$(TargetFramework)' != '$(NetVersion)'">Exe</OutputType>
         <RootNamespace>GainsTracker.ClientNative</RootNamespace>
         <UseMaui>true</UseMaui>
@@ -47,7 +48,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="BlazorTransitionableRoute" Version="4.0.0"/>
         <PackageReference Include="CommunityToolkit.Maui" Version="9.0.3"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0"/>
     </ItemGroup>
