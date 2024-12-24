@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>$(NetVersion)</TargetFramework>
+        <Authors>Stije Hardeman</Authors>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
