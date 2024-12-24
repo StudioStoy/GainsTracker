@@ -1,6 +1,6 @@
 ﻿@using GainsTracker.UI.Pages
 @using GainsTracker.UI.Pages.Login
-@inherits TransitionableLayoutComponent
+@inherits GainsTracker.UI.TransitionableRoute.Layout.TransitionableLayoutComponent
 
 <div class="transition @TransitioningClass @(Transition.IntoView ? "transitioned" : "transitioned_behind")">
     @Body

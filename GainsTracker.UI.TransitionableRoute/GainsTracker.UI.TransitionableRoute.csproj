@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Authors>Jeremy Byford-Rew, Stije Hardeman</Authors>
+        <OutputType>Library</OutputType>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <SupportedPlatform Include="browser"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Route\TransitionableRouteLayout.razor" />
+      <AdditionalFiles Include="Route\TransitionableRoutePrimary.razor" />
+      <AdditionalFiles Include="Route\TransitionableRouteSecondary.razor" />
+      <AdditionalFiles Include="Route\TransitionableRouteView.razor" />
+    </ItemGroup>
+
+</Project>
