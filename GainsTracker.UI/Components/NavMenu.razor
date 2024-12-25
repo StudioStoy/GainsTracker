@@ -1,8 +1,12 @@
-﻿<nav class="nav-bar">
+﻿@using GainsTracker.Common
+@using GainsTracker.UI.Elements.Icon
+<nav class="nav-bar">
     @* Dashboard *@
     <NavLink class="nav-link" href="dashboard" Match="NavLinkMatch.All" ActiveClass="active-link">
         <div class="nav-link-info">
-            <p class="nav-icon">🏠</p>
+            <p class="nav-icon">
+                <GtIcon Icon="Mdi.HomeEdit"></GtIcon>
+            </p>
             <p class="nav-description">Dashboard</p>
         </div>
     </NavLink>
@@ -10,7 +14,9 @@
     @* Log *@
     <NavLink class="nav-link" href="logging" ActiveClass="active-link">
         <div class="nav-link-info">
-            <p class="nav-icon">📔</p>
+            <p class="nav-icon">
+                <GtIcon Icon="Mdi.Book"></GtIcon>
+            </p>
             <p class="nav-description">Logging</p>
         </div>
     </NavLink>
@@ -18,7 +24,9 @@
     @* Activity *@
     <NavLink class="nav-link" href="activities" ActiveClass="active-link">
         <div class="nav-link-info">
-            <p class="nav-icon">🔥</p>
+            <p class="nav-icon">
+                <GtIcon Icon="Mdi.Bell"></GtIcon>
+            </p>
             <p class="nav-description">Activities</p>
         </div>
     </NavLink>
@@ -27,7 +35,9 @@
 
     <NavLink class="nav-link" href="profile" ActiveClass="active-link">
         <div class="nav-link-info">
-            <p class="nav-icon">🐮</p>
+            <p class="nav-icon">
+                <GtIcon Icon="Mdi.Cow"></GtIcon>
+            </p>
             <p class="nav-description">Profile</p>
         </div>
     </NavLink>

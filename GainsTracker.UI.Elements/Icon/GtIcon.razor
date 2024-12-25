@@ -1,0 +1,37 @@
+﻿@using GainsTracker.Common
+@using GainsTracker.UI.Elements.Shared
+
+<i class="@IconClass @SizeClass"></i>
+
+@code {
+    [Parameter] public Mdi Icon { get; set; }
+    [Parameter] public GtSize Size { get; set; } = GtSize.Medium;
+
+    private string IconClass => $"mdi mdi-{ToKebabCase(Icon.ToString())}";
+
+    /// <summary>
+    ///     Converts PascalCase or snake_case enum names to kebab-case.
+    /// </summary>
+    /// <param name="value">The enum name as a string.</param>
+    /// <returns>The kebab-case string.</returns>
+    private string ToKebabCase(string value)
+    {
+        // Replace uppercase letters with a preceding dash and lowercase letter
+        return string.Concat(
+            value.Select(
+                (ch, i) =>
+                    char.IsUpper(ch) && i > 0
+                        ? "-" + char.ToLower(ch)
+                        : char.ToLower(ch).ToString()
+            )
+        );
+    }
+
+    private string SizeClass => Size switch
+    {
+        GtSize.Small => "mdi-small",
+        GtSize.Medium => "mdi-medium",
+        GtSize.Large => "mdi-large",
+        _ => string.Empty,
+    };
+}
