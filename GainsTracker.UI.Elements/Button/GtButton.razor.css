@@ -1,6 +1,18 @@
-﻿.gt-button {
-    position: relative; /* Anchor .hover-emoji to the button container */
-    overflow: visible; /* Allow .hover-emoji to appear outside the button */
+﻿.gt-button-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.gt-button-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.gt-button {
+    position: relative;
+    overflow: visible; /* Allows emojis to appear outside button bounds */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -14,8 +26,8 @@
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
     text-align: center;
-    max-width: 100%;
-    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.2);
+    z-index: 1; /* Ensure the button stays above emojis */
+    min-width: fit-content;
 }
 
 .gt-button:hover {
@@ -30,52 +42,39 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Predefined sizes */
-.gt-button.small {
-    padding: 0.5em 1em;
-    font-size: 0.85em;
-}
-
-.gt-button.medium {
-    padding: 0.75em 1.5em;
-    font-size: 1em;
-}
-
-.gt-button.large {
-    padding: 1em 2em;
-    font-size: 1.25em;
-}
-
-/* Emoji's & sliding effect */
+/* Hover emoji default state */
 .hover-emoji {
     position: absolute;
     opacity: 0;
     font-size: 2rem;
     transition: transform 0.3s ease, opacity 0.3s ease;
-    pointer-events: none; /* Emojis won't block interaction */
-    top: 50%;
+    pointer-events: none;
 }
 
 .hover-emoji.left {
-    left: 25px;
+    top: 50%;
+    left: 1rem;
     transform: translate(-50%, -50%);
 }
 
 .hover-emoji.right {
-    right: 25px;
+    top: 50%;
+    right: 1rem;
     transform: translate(50%, -50%) scaleX(-1);
 }
 
-.gt-button.hover-effect:hover .hover-emoji.left, .gt-button.hover-effect:active .hover-emoji.left {
+.gt-button-container:hover .hover-emoji.left,
+.gt-button-container:active .hover-emoji.left {
     opacity: 1;
     transform: translate(-150%, -50%);
 }
 
-.gt-button.hover-effect:hover .hover-emoji.right, .gt-button.hover-effect:active .hover-emoji.right {
+.gt-button-container:hover .hover-emoji.right,
+.gt-button-container:active .hover-emoji.right {
     opacity: 1;
     transform: translate(150%, -50%) scaleX(-1);
 }
 
 .full-width {
-    width: 100%;
+    width: 10em;
 }

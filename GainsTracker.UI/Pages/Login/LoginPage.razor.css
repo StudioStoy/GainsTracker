@@ -33,7 +33,9 @@
 }
 
 .login-button-container {
-    width: 50%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .create-account-description {

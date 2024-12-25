@@ -1,12 +1,16 @@
 ﻿@using GainsTracker.UI.Elements.Shared
 @inherits GtBase
 
-<button class="@Class gt-button @SizeClass @HoverEffectClass @FullWidthClass"
-        @onclick="OnClick">
-    <span class="hover-emoji left" style="visibility: @(ShowMuscles ? "visible" : "hidden")">💪</span>
-    @ChildContent
-    <span class="hover-emoji right" style="visibility: @(ShowMuscles ? "visible" : "hidden")">💪</span>
-</button>
+<div class="gt-button-wrapper">
+    <div class="gt-button-container">
+        <span class="hover-emoji left" style="visibility: @(ShowMuscles ? "visible" : "hidden")">💪</span>
+        <button class="@Class gt-button @SizeClass @HoverEffectClass @FullWidthClass"
+                @onclick="OnClick">
+            @ChildContent
+        </button>
+        <span class="hover-emoji right" style="visibility: @(ShowMuscles ? "visible" : "hidden")">💪</span>
+    </div>
+</div>
 
 @code {
     [Parameter] public RenderFragment? ChildContent { get; set; }
@@ -24,6 +28,6 @@
     };
 
     private string HoverEffectClass => ShowMuscles ? "hover-effect" : string.Empty;
-    
+
     private string FullWidthClass => FullWidth ? "full-width" : string.Empty;
 }
