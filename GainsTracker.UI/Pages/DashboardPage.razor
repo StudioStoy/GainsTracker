@@ -1,12 +1,12 @@
 ﻿@using GainsTracker.UI.Elements.Header
 @using GainsTracker.UI.Elements.Shared
-@using GainsTracker.UI.Services.API.Interfaces
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize]
 
 @page "/dashboard"
 
 <PageTitle>Dashboard</PageTitle>
-
-@inject IGainsTrackerService GainsTrackerService;
 
 <!doctype html>
 <meta name="viewport" content="width=device-width"/>
@@ -18,8 +18,8 @@
             <p>Swole is the goal, size is the prize</p>
         </div>
         <div class="recent-pbs">
+            <img src="images/pjer.jpg" alt=""/>
             <h2>Recent personal bests</h2>
-            <button @onclick="GetPbs">aaa</button>
             <ul class="recent-pbs-list"></ul>
         </div>
         <div class="goals">
@@ -29,10 +29,8 @@
 </div>
 
 @code {
-    private async Task GetPbs()
+    private void GetPbs()
     {
-        var pbs = await GainsTrackerService.GetUserWorkouts();
-        Console.WriteLine(pbs);
     }
 
     private void GetGoals()

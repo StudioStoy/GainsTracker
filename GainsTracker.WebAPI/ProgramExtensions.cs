@@ -1,8 +1,4 @@
-﻿// Woah that's a boat load of usings
-
-#region
-
-using System.Reflection;
+﻿using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using DotNetEnv;
@@ -16,8 +12,6 @@ using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationM
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-
-#endregion
 
 namespace GainsTracker.WebAPI;
 
@@ -92,7 +86,7 @@ public static class ProgramExtensions
                 b =>
                 {
                     b
-                        .WithOrigins("https://localhost:7093", "http://localhost:5027", "http://localhost:5027")
+                        .WithOrigins("https://localhost:7015", "https://localhost:5031", "http://localhost:5027", "https://dev-gainstracker.eu.auth0.com/oauth/token")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -117,11 +111,13 @@ public static class ProgramExtensions
             {
                 options.SaveToken = true;
                 options.RequireHttpsMetadata = false;
+                options.Authority = builder.Configuration["JWT:Authority"];
+                options.Audience = builder.Configuration["JWT:Audience"];
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidAudience = builder.Configuration["JWT:ValidAudience"],
+                    ValidAudience = builder.Configuration["JWT:Audience"],
                     ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(bitSecret)),
                 };

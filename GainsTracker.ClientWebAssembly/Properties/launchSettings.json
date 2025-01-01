@@ -32,7 +32,7 @@
       "commandName": "Executable",
       "workingDirectory": "$(ProjectDir)",
       "executablePath": "dotnet.exe",
-      "commandLineArgs": "watch run debug --launch-profile http"
+      "commandLineArgs": "watch run debug --launch-profile https"
     }
   }
 }

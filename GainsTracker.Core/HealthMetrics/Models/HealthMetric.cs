@@ -5,7 +5,7 @@ namespace GainsTracker.Core.HealthMetrics.Models;
 
 public abstract class HealthMetric : ITrackableGoal
 {
-    public Guid Id { get; } = Guid.NewGuid();
+    public Guid Id { get; init; } = Guid.NewGuid();
     public abstract MetricType Type { get; }
     public DateTime LoggingDate { get; } = DateTime.UtcNow;
     public bool IsInGoal { get; set; }

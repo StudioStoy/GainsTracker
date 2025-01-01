@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inherits LayoutComponentBase
 
 @inject NavigationManager NavManager
 
@@ -9,12 +10,13 @@
 <ElementManipulator IsDarkTheme="IsDark"></ElementManipulator>
 
 <div class="page">
-    @if (NavManager.Uri.Split("/").Last() != "login" && NavManager.Uri.Split("/").Last() != "register" && NavManager.Uri.Split("/").Last() != "forgot")
-    {
-        <header class="navigation">
-            <NavMenu/>
-        </header>
-    }
+    <AuthorizeView>
+        <Authorized>
+            <header class="navigation">
+                <NavMenu/>
+            </header>
+        </Authorized>
+    </AuthorizeView>
 
     <main>
         @* <button id="toggleThemeButton" @onclick="ToggleDarkMode">Toggle theme</button> *@

@@ -1,22 +1,25 @@
 ﻿@using GainsTracker.UI.Components
 @using GainsTracker.UI.Components.Transition
 @using GainsTracker.UI.TransitionableRoute.Route
-<Router AppAssembly="@GetType().Assembly"
-        AdditionalAssemblies="new[] { typeof(MainLayout).Assembly }">
-    <Found Context="routeData">
-        <LayoutView Layout="@typeof(MainLayout)">
-            <TransitionableRoutePrimary RouteData="@routeData" ForgetStateOnTransition="true">
-                <TransitionableRouteView DefaultLayout="@typeof(TransitionableViewLayout)"/>
-            </TransitionableRoutePrimary>
-            <TransitionableRouteSecondary RouteData="@routeData" ForgetStateOnTransition="true">
-                <TransitionableRouteView DefaultLayout="@typeof(TransitionableViewLayout)"/>
-            </TransitionableRouteSecondary>
-        </LayoutView>
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+
+<CascadingAuthenticationState>
+    <Router AppAssembly="@GetType().Assembly"
+            AdditionalAssemblies="new[] { typeof(MainLayout).Assembly }">
+        <Found Context="routeData">
+            <LayoutView Layout="@typeof(MainLayout)">
+                <TransitionableRoutePrimary RouteData="@routeData" ForgetStateOnTransition="true">
+                    <TransitionableRouteView DefaultLayout="@typeof(TransitionableViewLayout)"/>
+                </TransitionableRoutePrimary>
+                <TransitionableRouteSecondary RouteData="@routeData" ForgetStateOnTransition="true">
+                    <TransitionableRouteView DefaultLayout="@typeof(TransitionableViewLayout)"/>
+                </TransitionableRouteSecondary>
+            </LayoutView>
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>

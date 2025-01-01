@@ -1,0 +1,83 @@
+@using GainsTracker.UI.Elements.Header
+@using GainsTracker.UI.Elements.Button
+
+@inject NavigationManager NavigationManager
+
+<PageTitle>Log in! | GainsTracker</PageTitle>
+
+<div class="page-container">
+    <img class="gains-logo" src="/Images/logo.png" alt="GainsTracker Logo"/>
+    <div class="hello-container">
+        <GtHeader>You've got to be logged-in for that.</GtHeader>
+        <div class="actions">
+            <span class="login-button-container">
+                <GtButton OnClick="BeginLogin" ShowMuscles="true">Log in or register</GtButton>
+            </span>
+            <p class="create-account-description">You'll be redirected to the Auth0 login page. See you soon!</p>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private void BeginLogin()
+    {
+        NavigationManager.NavigateTo("authentication/login");
+    }
+
+}
+
+<style>
+    .page-container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hello-container {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+        padding: 5%;
+        align-items: center;
+        text-align: center;
+        width: 70%;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .gains-logo {
+        height: 5rem;
+        width: 12rem;
+        object-fit: cover;
+        margin: 0 0 2rem 0;
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 1.2rem;
+    }
+
+    .login-button-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .create-account-description {
+        width: 100%;
+        font-weight: lighter;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    @@media only screen and (max-width: 600px) {
+        .content {
+            width: 100%;
+        }
+    }
+</style>

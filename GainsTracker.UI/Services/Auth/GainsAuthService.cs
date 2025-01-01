@@ -1,70 +1,40 @@
-﻿#region
-
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Threading.Tasks;
+using GainsTracker.Common.Models.Auth.Dto;
+using GainsTracker.UI.Services.API;
 using GainsTracker.UI.Services.Auth.Interfaces;
 using static GainsTracker.Common.Constants;
 
-#endregion
-
 namespace GainsTracker.UI.Services.Auth;
 
-public class GainsAuthService : IGainsAuthService
+public class GainsAuthService(ApiService api)
+    : IGainsAuthService
 {
     private const string Url = $"{BaseUrl}/auth";
 
-    private readonly HttpClient _httpClient;
-
-    public GainsAuthService(HttpClient httpClient)
-    {
-        _httpClient = httpClient;
-    }
-
-    public async Task<bool> PingApiHealth()
-    {
-        const string url = $"{BaseUrl}/health";
-
-        try
-        {
-            var response = await _httpClient.GetAsync(url);
-            var jsonString = JsonNode.Parse(await response.Content.ReadAsStringAsync());
-
-            Debug.WriteLine(jsonString?["status"]?.ToString() == "UP"
-                ? "Server successfully responded."
-                : "Server responded, but not with the correct health indication.");
-
-            return true;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return false;
-        }
-    }
-
-    public async Task<bool> SignUp(string email, string password)
+    public async Task<bool> Register(string userHandle, string lastName, string email, string password)
     {
         try
         {
-            JsonObject loginDto = new()
-            {
-                { "username", email },
-                { "password", password },
-                { "firstName", "Standard" },
-                { "lastName", "User" },
-
-                //TODO: Expand with actual name and other info of the user.
-            };
-
-            StringContent content = new(loginDto.ToString(), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync($"{Url}/register", content);
+            RegisterRequestDto requestDto = new(userHandle, email, password, null);
+            var response = await api.PostAsync($"{Url}/register", requestDto);
 
             ValidateResponse(response);
 
-            //TODO: This response contains the JWT. implement the setting authorization of the returned token here.
+            // Set token in authorization state upon registration.
+            var token = await response.Content.ReadAsStringAsync();
+            // if (!string.IsNullOrEmpty(token))
+                // await authStateProvider.SetTokenAsync(token);
 
+            Console.WriteLine(token);
             return response.IsSuccessStatusCode;
         }
         catch (Exception ex)
@@ -74,7 +44,7 @@ public class GainsAuthService : IGainsAuthService
         }
     }
 
-    public async Task<bool> Login(string email, string password)
+    public async Task<bool> Login2(string email, string password)
     {
         try
         {
@@ -83,17 +53,19 @@ public class GainsAuthService : IGainsAuthService
                 { "userHandle", email },
                 { "password", password },
             };
-            StringContent content = new(loginDto.ToString(), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync($"{Url}/login", content);
+            
+            var response = await api.PostAsync($"{Url}/login", loginDto);
 
             ValidateResponse(response);
 
             var token = await response.Content.ReadAsStringAsync();
 
-            _httpClient.DefaultRequestHeaders.Remove("Authorization");
-            _httpClient.DefaultRequestHeaders.Add("Authorization", token);
+            if (string.IsNullOrEmpty(token)) return false;
+            
+            // Set token in authorization state upon login.
+            // await authStateProvider.SetTokenAsync(token);
 
-            return response.IsSuccessStatusCode;
+            return true;
         }
         catch (Exception ex)
         {
@@ -106,7 +78,7 @@ public class GainsAuthService : IGainsAuthService
     private async void ValidateResponse(HttpResponseMessage response)
     {
         if (response == null)
-            throw new ArgumentException("no response.");
+            throw new ArgumentException("No response.");
 
         if (response.IsSuccessStatusCode) return;
 
@@ -124,4 +96,41 @@ public class GainsAuthService : IGainsAuthService
         if (string.IsNullOrEmpty(token))
             throw new ArgumentException("No valid token.");
     }
+
+    public async Task<bool> Login(string username, string password)
+    {
+        var payload = new Dictionary<string, string>
+        {
+            { "grant_type", "password" },
+            { "username", username },
+            { "password", password },
+            { "client_id", "CGofh0U2vV2LF3O593BL38oBlX7GzOly" },
+            { "client_secret", "secret" },
+            { "audience", "https://dev-gainstracker.eu.auth0.com/api/v2/" }
+        };
+
+        var response = await api.PostAsync("https://dev-gainstracker.eu.auth0.com/oauth/token", payload);
+        if (response.IsSuccessStatusCode)
+        {
+            var result = await response.Content.ReadFromJsonAsync<AuthTokenResponse>();
+            // Save tokens (e.g., access_token, id_token) for later use
+            // await authStateProvider.SetTokenAsync(result!.AccessToken);
+
+        }
+        else
+        {
+            // Handle login failure
+            return false;
+        }
+
+        return false;
+    }
+
+    private class AuthTokenResponse
+    {
+        public string AccessToken { get; set; } = string.Empty;
+        public string IdToken { get; set; } = string.Empty;
+        public string RefreshToken { get; set; } = string.Empty;
+    }
+
 }
