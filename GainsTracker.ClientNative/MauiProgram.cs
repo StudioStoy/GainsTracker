@@ -1,8 +1,4 @@
 ﻿using CommunityToolkit.Maui;
-using GainsTracker.UI.Services.API;
-using GainsTracker.UI.Services.API.Interfaces;
-using GainsTracker.UI.Services.Auth;
-using GainsTracker.UI.Services.Auth.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace GainsTracker.ClientNative;
@@ -23,10 +19,6 @@ public static class MauiProgram
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
 #endif
-
-        // Register dependencies for injection.
-        builder.Services.AddScoped<IGainsAuthService, DummyAuthService>();
-        builder.Services.AddSingleton<HttpClient>();
 
         return builder.Build();
     }

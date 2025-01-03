@@ -2,32 +2,9 @@
 @using GainsTracker.UI.Elements.Button
 @using GainsTracker.UI.Elements.Anchor
 
-@inject NavigationManager NavigationManager
-
 <div class="page-container">
     <img class="gains-logo" src="/Images/logo.png" alt="GainsTracker Logo"/>
     <div class="hello-container">
-        <GtHeader>You've got to be logged in for that.</GtHeader>
-        <div class="actions">
-            <span class="login-button-container">
-                <GtButton OnClick="BeginLogin" ShowMuscles="true" FullWidth="true">Login</GtButton>
-            </span>
-            <p class="create-account-description">Don't have an account yet? No worries! You can make one
-                <GtAnchor Href="/register">here</GtAnchor>.
-            </p>
-            <GtAnchor Href="/register">Forgot password?</GtAnchor>
-        </div>
+        <GtHeader>You don't have access to that resource.</GtHeader>
     </div>
 </div>
-
-@code {
-    private void BeginLogin()
-    {
-        var auth0Domain = "https://dev-gainstracker.eu.auth0.com";
-        var clientId = "CGofh0U2vV2LF3O593BL38oBlX7GzOly";
-        var redirectUri = NavigationManager.BaseUri + "login-callback";
-
-        var loginUrl = $"{auth0Domain}/authorize?response_type=code&client_id={clientId}&redirect_uri={redirectUri}&scope=openid profile email";
-        NavigationManager.NavigateTo(loginUrl, true);
-    }
-}

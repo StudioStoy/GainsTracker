@@ -1,5 +1,9 @@
 ﻿@using GainsTracker.Common
 @using GainsTracker.UI.Elements.Icon
+@using GainsTracker.UI.Elements.Shared
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+@inject NavigationManager NavigationManager
 
 <nav class="nav-bar">
     @* Dashboard *@
@@ -33,7 +37,6 @@
     </NavLink>
 
     @* Profile *@
-
     <NavLink class="nav-link" href="profile" ActiveClass="active-link">
         <div class="nav-link-info">
             <p class="nav-icon">
@@ -42,4 +45,23 @@
             <p class="nav-description">Profile</p>
         </div>
     </NavLink>
+
+    @* Logout *@
+    <div class="nav-link" href="#" @onclick="BeginLogout">
+        <div class="nav-link-info">
+            <p class="nav-icon">
+                <GtIcon Icon="Mdi.Logout" />
+            </p>
+            <p class="nav-description">
+                <span> Logout</span>
+            </p>
+        </div>
+    </div>
 </nav>
+
+@code {
+    private void BeginLogout()
+    {
+        NavigationManager.NavigateToLogout("authentication/logout");
+    }
+}

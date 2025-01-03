@@ -6,7 +6,7 @@
 @inject NavigationManager Navigation
 @inject IConfiguration Configuration
 
-<RemoteAuthenticatorView Action="@Action">
+<RemoteAuthenticatorView Action="@Action" OnLogInSucceeded="HandleLoginSuccess">
     <LogOut>
         @{
             var authority = Configuration["Auth0:Authority"];
@@ -16,7 +16,7 @@
         }
     </LogOut>
     <LoggingIn>
-        <h1>Logging in..</h1>
+        <div></div>
     </LoggingIn>
     <CompletingLoggingIn>
         <h1>Completing login..</h1>
@@ -25,4 +25,9 @@
 
 @code {
     [Parameter] public string Action { get; set; } = string.Empty;
+    
+    private void HandleLoginSuccess()
+    {
+        Navigation.NavigateTo("/");
+    }
 }

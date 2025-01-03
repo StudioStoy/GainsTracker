@@ -12,7 +12,7 @@
                 <h1>Authorizing..</h1>
             </Authorizing>
             <NotAuthorized>
-                @if (context.User.Identity?.IsAuthenticated != true)
+                @if (context.User.Identity?.IsAuthenticated != true && Transition.RouteData != null)
                 {
                     <UnAuthenticatedView/>
                 }
