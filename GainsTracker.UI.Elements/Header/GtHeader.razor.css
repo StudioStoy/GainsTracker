@@ -12,14 +12,14 @@
     color: var(--font-color);
 }
 
-.gt-header-large {
+.gt-large {
     font-size: 2rem;
 }
 
-.gt-header-medium {
+.gt-medium {
     font-size: 1.5rem;
 }
 
-.gt-header-small {
+.gt-small {
     font-size: 1.2rem;
 }

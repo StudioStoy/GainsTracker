@@ -1,6 +1,8 @@
-﻿@using GainsTracker.UI.TransitionableRoute.Models
+﻿@using GainsTracker.UI.Elements.Shared
+@using GainsTracker.UI.TransitionableRoute.Models
 @using Microsoft.AspNetCore.Components.Authorization
 @using GainsTracker.UI.TransitionableRoute.Auth
+@using GainsTracker.UI.Elements.Spinner
 
 @inject NavigationManager NavigationManager;
 
@@ -9,7 +11,7 @@
     <CascadingValue Value="Transition">
         <AuthorizeRouteView RouteData="@Transition.RouteData" DefaultLayout="@DefaultLayout">
             <Authorizing>
-                <h1>Authorizing..</h1>
+                <GtSpinner Size="GtSize.Large"></GtSpinner>
             </Authorizing>
             <NotAuthorized>
                 @if (context.User.Identity?.IsAuthenticated != true && Transition.RouteData != null)

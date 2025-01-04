@@ -1,0 +1,16 @@
+﻿@using GainsTracker.UI.Elements.Shared
+<div class="dumbbell-spinner">
+    <i class="mdi mdi-dumbbell @SizeClass"></i>
+</div>
+
+@code {
+    [Parameter]
+    public GtSize Size { get; set; } = GtSize.Medium;
+    
+    private string SizeClass => Size switch
+    {
+        GtSize.Small => "gt-small",
+        GtSize.Medium => "gt-medium",
+        GtSize.Large => "gt-large",
+        _ => string.Empty,
+    };}

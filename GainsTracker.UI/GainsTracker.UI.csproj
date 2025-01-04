@@ -30,7 +30,7 @@
     <ItemGroup>
         <ProjectReference Include="..\GainsTracker.Common\GainsTracker.Common.csproj"/>
         <ProjectReference Include="..\GainsTracker.UI.Elements\GainsTracker.UI.Elements.csproj" />
-        <ProjectReference Include="..\GainsTracker.UI.TransitionableRoute\GainsTracker.UI.TransitionableRoute.csproj" />
+        <ProjectReference Include="..\GainsTracker.UI.Transitions\GainsTracker.UI.Transitions.csproj" />
     </ItemGroup>
 
 </Project>

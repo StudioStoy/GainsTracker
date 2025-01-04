@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.UI.Elements", "GainsTracker.UI.Elements\GainsTracker.UI.Elements.csproj", "{93774957-C5BD-459F-AC4D-E7D5CACA987C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.UI.TransitionableRoute", "GainsTracker.UI.TransitionableRoute\GainsTracker.UI.TransitionableRoute.csproj", "{2FD10A04-DF5D-48FC-BEA6-9E344A561417}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GainsTracker.UI.Transitions", "GainsTracker.UI.Transitions\GainsTracker.UI.Transitions.csproj", "{2FD10A04-DF5D-48FC-BEA6-9E344A561417}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

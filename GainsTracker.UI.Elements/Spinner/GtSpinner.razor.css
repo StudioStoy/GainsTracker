@@ -1,0 +1,56 @@
+﻿.dumbbell-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+.dumbbell-spinner i {
+    color: dimgrey;
+    text-shadow: 0 0 8px var(--primary-color);
+    transform: rotate(-45deg); /* Initial rotation to set the emoji even */
+    animation: bounceSpinColor 2.5s ease-in-out infinite;
+}
+
+@keyframes bounceSpinColor {
+    0% {
+        transform: translateY(0) rotate(-45deg) scale(1);
+        color: dimgrey;
+    }
+    /* Bounce up */
+    20% {
+        transform: translateY(-50px) rotate(-45deg) scale(1);
+    }
+    /* Spin at the top */
+    40% {
+        transform: translateY(-50px) rotate(675deg) scale(1.5);
+        color: var(--accent-color);
+        text-shadow: 0 0 4px white;
+    }
+    /* Start falling */
+    65% {
+        transform: translateY(0) rotate(675deg) scale(1);
+        color: dimgrey;
+    }
+    /* Small bounce after falling */
+    80% {
+        transform: translateY(-10px) rotate(675deg) scale(1);
+    }
+    /* Reset position for next cycle */
+    100% {
+        transform: translateY(0) rotate(675deg) scale(1);
+    }
+}
+
+.gt-small {
+    font-size: 2rem;
+}
+
+.gt-medium {
+    font-size: 5rem;
+}
+
+.gt-large {
+    font-size: 10rem;
+}

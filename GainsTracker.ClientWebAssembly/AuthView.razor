@@ -1,7 +1,9 @@
 ﻿@page "/authentication/{action}"
 
+@using GainsTracker.UI.Elements.Shared
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using Microsoft.Extensions.Configuration
+@using GainsTracker.UI.Elements.Spinner
 
 @inject NavigationManager Navigation
 @inject IConfiguration Configuration
@@ -16,9 +18,9 @@
         }
     </LogOut>
     <LoggingIn>
-        <div></div>
     </LoggingIn>
     <CompletingLoggingIn>
+        <GtSpinner Size="GtSize.Large"></GtSpinner>
         <h1>Completing login..</h1>
     </CompletingLoggingIn>
 </RemoteAuthenticatorView>

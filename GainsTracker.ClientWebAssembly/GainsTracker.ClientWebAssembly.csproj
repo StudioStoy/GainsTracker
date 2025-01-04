@@ -21,7 +21,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\GainsTracker.UI\GainsTracker.UI.csproj"/>
-        <ProjectReference Include="..\GainsTracker.UI.TransitionableRoute\GainsTracker.UI.TransitionableRoute.csproj"/>
+        <ProjectReference Include="..\GainsTracker.UI.Transitions\GainsTracker.UI.Transitions.csproj" />
     </ItemGroup>
 
 </Project>

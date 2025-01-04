@@ -5,7 +5,7 @@ namespace GainsTracker.UI.TransitionableRoute.Interop;
 public class JsInterop(IJSRuntime jsRuntime) : IJsInterop, IAsyncDisposable
 {
     private readonly Lazy<Task<IJSObjectReference>> _moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
-        "import", "./_content/GainsTracker.UI.TransitionableRoute/jsInterop.js").AsTask());
+        "import", "./_content/GainsTracker.UI.Transitions/jsInterop.js").AsTask());
 
     public async ValueTask DisposeAsync()
     {

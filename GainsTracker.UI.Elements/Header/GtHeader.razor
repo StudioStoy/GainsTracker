@@ -20,5 +20,5 @@
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     private string HeaderClasses =>
-        $"gt-header gt-header-{Variant.ToString().ToLower()} gt-header-{Size.ToString().ToLower()}";
+        $"gt-header gt-header-{Variant.ToString().ToLower()} gt-{Size.ToString().ToLower()}";
 }
