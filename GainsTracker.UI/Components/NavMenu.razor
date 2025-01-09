@@ -1,9 +1,11 @@
 ﻿@using GainsTracker.Common
+@using GainsTracker.UI.Auth
 @using GainsTracker.UI.Elements.Icon
 @using GainsTracker.UI.Elements.Shared
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
 @inject NavigationManager NavigationManager
+@inject IAuthService Auth
 
 <nav class="nav-bar">
     @* Dashboard *@
@@ -60,8 +62,9 @@
 </nav>
 
 @code {
-    private void BeginLogout()
+    private async Task BeginLogout()
     {
+        await Auth.Logout();
         NavigationManager.NavigateToLogout("authentication/logout");
     }
 }

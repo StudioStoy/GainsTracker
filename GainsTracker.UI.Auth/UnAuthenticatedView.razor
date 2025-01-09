@@ -2,11 +2,12 @@
 @using GainsTracker.UI.Elements.Button
 
 @inject NavigationManager NavigationManager
+@inject IAuthService Auth
 
 <PageTitle>Log in! | GainsTracker</PageTitle>
 
 <div class="page-container">
-    <img class="gains-logo" src="/Images/logo.png" alt="GainsTracker Logo"/>
+    <img class="gains-logo" src="images/logo.png" alt="GainsTracker Logo"/>
     <div class="hello-container">
         <GtHeader>You've got to be logged-in for that.</GtHeader>
         <div class="actions">
@@ -20,8 +21,9 @@
 
 @code {
 
-    private void BeginLogin()
+    private async Task BeginLogin()
     {
+        await Auth.Login();
         NavigationManager.NavigateTo("authentication/login");
     }
 

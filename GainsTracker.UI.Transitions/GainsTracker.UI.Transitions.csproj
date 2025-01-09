@@ -27,6 +27,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\GainsTracker.UI.Elements\GainsTracker.UI.Elements.csproj" />
+        <ProjectReference Include="..\GainsTracker.UI.Auth\GainsTracker.UI.Auth.csproj" />
     </ItemGroup>
 
 </Project>

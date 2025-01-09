@@ -14,7 +14,7 @@
         <EnableDefaultCssItems>false</EnableDefaultCssItems>
 
         <!-- Display name -->
-        <ApplicationTitle>GainsTracker.ClientNative</ApplicationTitle>
+        <ApplicationTitle>GainsTracker</ApplicationTitle>
 
         <!-- App Identifier -->
         <ApplicationId>nl.studiostoy.gainstracker.clientnative</ApplicationId>
@@ -44,11 +44,13 @@
 
         <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>
-        <!--        <None Remove="Resources\AppIcon\appiconfg.svg" />-->
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Auth0.OidcClient.MAUI" Version="1.0.1" />
         <PackageReference Include="CommunityToolkit.Maui" Version="9.0.3"/>
+        <PackageReference Include="IdentityModel.OidcClient" Version="6.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.11" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0"/>
     </ItemGroup>
 

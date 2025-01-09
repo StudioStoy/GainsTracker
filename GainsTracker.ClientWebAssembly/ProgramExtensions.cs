@@ -1,4 +1,6 @@
-﻿using GainsTracker.UI.Services;
+﻿using GainsTracker.ClientWebAssembly.Auth;
+using GainsTracker.UI.Auth;
+using GainsTracker.UI.Services;
 using GainsTracker.UI.Services.API;
 using GainsTracker.UI.Services.Auth;
 using GainsTracker.UI.Services.Auth.Interfaces;
@@ -29,6 +31,9 @@ public static class ProgramExtensions
 
         
         builder.Services.AddScoped<IGainsAuthService, GainsAuthService>();
+        builder.Services.AddScoped<IAuthService, WebAuthService>();
+        
+        builder.Services.AddApiAuthorization().AddAccountClaimsPrincipalFactory<UserAccountFactory>();
     }
 
     /// <summary>

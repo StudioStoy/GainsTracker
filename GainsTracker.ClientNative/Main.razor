@@ -1,24 +1,31 @@
-﻿@using System.Reflection
-@using GainsTracker.UI.Components
+﻿@using GainsTracker.UI.Components
 @using GainsTracker.UI.Components.Transition
 @using GainsTracker.UI.TransitionableRoute.Route
+@using Microsoft.AspNetCore.Components.Authorization
 
-<Router AppAssembly="@GetType().Assembly"
-        AdditionalAssemblies="new List<Assembly> { typeof(MainLayout).Assembly }">
-    <Found Context="routeData">
-        <LayoutView Layout="@typeof(MainLayout)">
-            <TransitionableRoutePrimary RouteData="@routeData" ForgetStateOnTransition="true">
-                <TransitionableRouteView DefaultLayout="@typeof(TransitionableViewLayout)"/>
-            </TransitionableRoutePrimary>
-            <TransitionableRouteSecondary RouteData="@routeData" ForgetStateOnTransition="true">
-                <TransitionableRouteView DefaultLayout="@typeof(TransitionableViewLayout)"/>
-            </TransitionableRouteSecondary>
-        </LayoutView>
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+@inject NavigationManager Navigation
+
+<CascadingAuthenticationState>
+    <Router AppAssembly="@GetType().Assembly"
+            AdditionalAssemblies="new[] { typeof(MainLayout).Assembly }">
+        <Found Context="routeData">
+            <LayoutView Layout="@typeof(MainLayout)">
+                <TransitionableRoutePrimary RouteData="@routeData" ForgetStateOnTransition="true">
+                    <TransitionableRouteView DefaultLayout="@typeof(TransitionableViewLayout)"/>
+                </TransitionableRoutePrimary>
+                <TransitionableRouteSecondary RouteData="@routeData" ForgetStateOnTransition="true">
+                    <TransitionableRouteView DefaultLayout="@typeof(TransitionableViewLayout)"/>
+                </TransitionableRouteSecondary>
+            </LayoutView>
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+                @{
+                    Navigation.NavigateTo("/"); // TODO: Solve this in a cleaner way.
+                }
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>

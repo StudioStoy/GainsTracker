@@ -15,11 +15,14 @@ public static class MauiProgram
 
         builder.Services.AddMauiBlazorWebView();
 
+        builder.ConfigureAuth();
+        builder.ConfigureHttpClient();
+        
 #if DEBUG
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
 #endif
-
+        
         return builder.Build();
     }
 }
