@@ -1,25 +1,44 @@
-﻿using GainsTracker.ClientNative.Auth;
+﻿using System.Reflection;
+using GainsTracker.ClientNative.Auth;
+using GainsTracker.Common.Models.Auth;
 using GainsTracker.UI.Auth;
 using GainsTracker.UI.Services.API;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace GainsTracker.ClientNative;
 
 public static class ProgramExtensions
 {
     /// <summary>
+    ///     Loads the appsettings.json in the root folder.
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <exception cref="InvalidOperationException">Throws when there's no appsettings.json detected</exception>
+    public static void ConfigureAppsettings(this MauiAppBuilder builder)
+    {
+        var asm = Assembly.GetExecutingAssembly();
+        var path = $"{asm.GetName().Name}.appsettings.json";
+        using Stream stream = asm.GetManifestResourceStream(path) ?? throw new InvalidOperationException();
+        builder.Configuration.AddJsonStream(stream);
+        builder.Services.AddOptions<Auth0ConfigOptions>().BindConfiguration("Auth0");
+    }
+    
+    /// <summary>
     ///     Add authentication and API authorization with Auth0.
     /// </summary>
     public static void ConfigureAuth(this MauiAppBuilder builder)
     {
-        // Auth0 Client Id and domain are both public, and thus can be in source control.
+        var serviceProvider = builder.Services.BuildServiceProvider();
+        var auth0Config = serviceProvider.GetRequiredService<IOptions<Auth0ConfigOptions>>().Value;
+
         builder.Services.AddSingleton(new Auth0Client(new Auth0ClientOptions
         {
-            Domain = "dev-gainstracker.eu.auth0.com",
-            ClientId = "CGofh0U2vV2LF3O593BL38oBlX7GzOly",
+            Domain = auth0Config.Authority,
+            ClientId = auth0Config.ClientId,
             Scope = "openid profile email",
-            RedirectUri = "gainstracker://callback",
+            RedirectUri = auth0Config.RedirectUri,
             RoleClaim = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
         }));
 
@@ -27,7 +46,7 @@ public static class ProgramExtensions
         {
             builder.Configuration.Bind("Auth0", options.ProviderOptions);
             options.ProviderOptions.ResponseType = "code";
-            options.ProviderOptions.AdditionalProviderParameters.Add("audience", "https://dev-gainstracker.eu.auth0.com/api/v2/");
+            options.ProviderOptions.AdditionalProviderParameters.Add("audience", auth0Config.Audience);
         });
 
         builder.Services.AddOptions();

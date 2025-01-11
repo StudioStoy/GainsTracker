@@ -1,4 +1,5 @@
 ﻿using GainsTracker.ClientWebAssembly.Auth;
+using GainsTracker.Common.Models.Auth;
 using GainsTracker.UI.Auth;
 using GainsTracker.UI.Services;
 using GainsTracker.UI.Services.API;
@@ -6,6 +7,8 @@ using GainsTracker.UI.Services.Auth;
 using GainsTracker.UI.Services.Auth.Interfaces;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.Options;
+
 namespace GainsTracker.ClientWebAssembly;
 
 public static class ProgramExtensions
@@ -18,17 +21,21 @@ public static class ProgramExtensions
         builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
         builder.Logging.SetMinimumLevel(LogLevel.Debug);
 
+        builder.Services.Configure<Auth0ConfigOptions>(options => builder.Configuration.GetSection("Auth0").Bind(options));
+        
         builder.Services.AddOidcAuthentication(options =>
         {
+            var serviceProvider = builder.Services.BuildServiceProvider();
+            var auth0Config = serviceProvider.GetRequiredService<IOptions<Auth0ConfigOptions>>().Value;
+
             builder.Configuration.Bind("Auth0", options.ProviderOptions);
             options.ProviderOptions.ResponseType = "code";
-            options.ProviderOptions.AdditionalProviderParameters.Add("audience", "https://dev-gainstracker.eu.auth0.com/api/v2/");
+            options.ProviderOptions.AdditionalProviderParameters.Add("audience", auth0Config.Audience);
 
             options.ProviderOptions.DefaultScopes.Add("openid");
             options.ProviderOptions.DefaultScopes.Add("profile");
             options.ProviderOptions.DefaultScopes.Add("email");
         });
-
         
         builder.Services.AddScoped<IGainsAuthService, GainsAuthService>();
         builder.Services.AddScoped<IAuthService, WebAuthService>();

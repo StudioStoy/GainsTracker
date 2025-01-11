@@ -6,9 +6,9 @@ public class Auth0ClientOptions
 
     public string ClientId { get; set; } = string.Empty;
 
-    public string RedirectUri { get; set; } = "gainstracker://callback";
+    public string RedirectUri { get; set; } = string.Empty;
 
-    public string Scope { get; set; } = "openid";
+    public string Scope { get; set; } = string.Empty;
 
     public string RoleClaim { get; set; } = string.Empty;
 
