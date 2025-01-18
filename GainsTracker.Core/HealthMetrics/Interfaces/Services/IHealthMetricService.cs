@@ -4,6 +4,6 @@ namespace GainsTracker.Core.HealthMetrics.Interfaces.Services;
 
 public interface IHealthMetricService
 {
-    Task AddMetricToGainsAccount(string userHandle, CreateMetricDto createMetricDto);
-    Task<List<MetricDto>> GetAllMetricsByUsername(string currentUsername);
+    Task AddMetricToGainsAccount(Guid gainsId, CreateMetricDto createMetricDto);
+    Task<List<MetricDto>> GetAllMetricsByGainsId(Guid gainsId);
 }

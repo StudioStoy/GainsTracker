@@ -22,7 +22,7 @@ public class FriendRequestService(IFriendRepository repository, IGainsService ga
         );
     }
 
-    public async Task SendFriendRequest(string userHandle, string friendHandle)
+    public async Task SendFriendRequestByGainsId(string userHandle, string friendHandle)
     {
         await CheckFriendshipStatus(userHandle, friendHandle);
 
@@ -46,7 +46,7 @@ public class FriendRequestService(IFriendRepository repository, IGainsService ga
 
         await repository.UpdateFriendRequest(request);
     }
-
+    
     private async Task<List<Friend>> GetFriends(string userHandle)
     {
         var gainsAccount = await gainsService.GetGainsAccountByUserHandle(userHandle);

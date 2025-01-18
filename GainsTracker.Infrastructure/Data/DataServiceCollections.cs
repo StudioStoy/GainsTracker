@@ -1,6 +1,4 @@
-using GainsTracker.Core.Auth.Models;
 using GainsTracker.Data;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -27,11 +25,6 @@ public static class DataServiceCollections
                 .UseSnakeCaseNamingConvention()
                 .LogTo(Console.WriteLine, LogLevel.Information)
             );
-
-        // Set up Identity with the GainsDbContext and configure options
-        services.AddIdentity<User, IdentityRole>()
-            .AddEntityFrameworkStores<GainsDbContext>()
-            .AddDefaultTokenProviders();
 
         services.AddSingleton<GainsDbContextFactory>();
 

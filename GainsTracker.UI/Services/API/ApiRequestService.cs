@@ -7,9 +7,15 @@ namespace GainsTracker.UI.Services.API;
 
 public class ApiService(HttpClient httpClient)
 {
-    public async Task<HttpResponseMessage> GetAsync(string requestUri)
+    private readonly JsonSerializerOptions _jsonOptions = new()
     {
-        return await httpClient.GetAsync(requestUri);
+        PropertyNameCaseInsensitive = true,
+    };
+    
+    public async Task<TValue?> GetAsync<TValue>(string requestUri)
+    {
+        var response =  await httpClient.GetAsync(requestUri);
+        return JsonSerializer.Deserialize<TValue>(await response.Content.ReadAsStringAsync(), _jsonOptions);
     }
 
     public async Task<HttpResponseMessage> PostAsync(string requestUri, object postData)

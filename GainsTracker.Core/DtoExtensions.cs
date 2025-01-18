@@ -1,10 +1,12 @@
 ﻿using System.Drawing;
 using System.Reflection;
 using GainsTracker.Common.Models.Friends.Dto;
+using GainsTracker.Common.Models.UserDtos;
 using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Common.Models.Workouts.Dto;
 using GainsTracker.Core.Friends.Models;
 using GainsTracker.Core.UserProfiles.Models;
+using GainsTracker.Core.Users.Models;
 using GainsTracker.Core.Workouts.Models.Measurements;
 using GainsTracker.Core.Workouts.Models.Workouts;
 
@@ -39,6 +41,16 @@ public static class DtoExtensions
 
         return dtoList;
     }
+    
+    // User
+    public static UserDto ToDto(this User user) =>
+        new(
+            Id: user.Id,
+            AuthId: user.AuthIdentifier,
+            GainsAccountId: user.GainsAccountId,
+            UserHandle: user.Handle,
+            Email: user.Email
+        );
 
     // FriendRequest
     public static FriendRequestDto ToDto(this FriendRequest request)

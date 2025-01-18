@@ -6,8 +6,8 @@ namespace GainsTracker.Core.UserProfiles.Interfaces.Repositories;
 
 public interface IUserProfileRepository : IGenericRepository<UserProfile>
 {
-    Task UpdateUserProfileByUserHandle(string userHandle, UpdateUserProfileDto userProfileDto);
-    Task<List<Measurement>> GetPinnedPBs(string userHandle);
-    Task AddAndRemovePBs(string userHandle, UpdatePinnedPBsDto pinnedPBsDto);
-    Task<UserProfile> GetUserProfileByUserHandle(string userHandle);
+    Task UpdateUserProfileByUserHandle(Guid gainsId, UpdateUserProfileDto userProfileDto);
+    Task<List<Measurement>> GetPinnedPBs(Guid gainsId);
+    Task AddAndRemovePBs(Guid gainsId, UpdatePinnedPBsDto pinnedPBsDto);
+    Task<UserProfile> GetUserProfileByGainsId(Guid gainsId);
 }

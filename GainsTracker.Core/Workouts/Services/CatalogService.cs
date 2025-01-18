@@ -1,17 +1,15 @@
 ﻿using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Common.Models.Workouts.Dto;
-using GainsTracker.Core.Gains.Interfaces.Services;
 using GainsTracker.Core.Workouts.Interfaces.Repositories;
 using GainsTracker.Core.Workouts.Interfaces.Services;
 using GainsTracker.Core.Workouts.Models.Workouts;
 
 namespace GainsTracker.Core.Workouts.Services;
 
-public class CatalogService(IWorkoutRepository repository, IGainsService gainsService) : ICatalogService
+public class CatalogService(IWorkoutRepository repository) : ICatalogService
 {
-    public async Task<List<WorkoutTypeDto>> GetAvailableWorkoutTypesForUser(string username)
+    public async Task<List<WorkoutTypeDto>> GetAvailableWorkoutTypesByGainsId(Guid gainsId)
     {
-        var gainsId = await gainsService.GetGainsIdByUsername(username);
         var allWorkoutTypes = GetAllWorkoutTypes();
         var workouts = await repository.GetWorkoutsByGainsId(gainsId);
         var activeWorkoutTypes = workouts

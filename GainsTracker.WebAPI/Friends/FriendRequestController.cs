@@ -1,4 +1,5 @@
 ﻿using GainsTracker.Core.Friends.Interfaces.Services;
+using GainsTracker.Core.Users.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,23 +8,29 @@ namespace GainsTracker.WebAPI.Friends;
 [ApiController]
 [Authorize]
 [Route("friends/request")]
-public class FriendRequestController(IFriendRequestService friendRequestService) : ExtendedControllerBase
+public class FriendRequestController(IFriendRequestService friendRequestService, IUserService userService)
+    : ExtendedControllerBase(userService)
 {
     [HttpGet]
-    public async Task<IActionResult> GetFriendRequests() =>
-        Ok(await friendRequestService.GetFriendRequests(CurrentUsername));
+    public async Task<IActionResult> GetFriendRequests()
+    {
+        var userHandle = (await GetCurrentUser()).UserHandle;
+        return Ok(await friendRequestService.GetFriendRequests(userHandle));
+    }
 
     [HttpPost]
     public async Task<IActionResult> SendFriendRequest(string friendName)
     {
-        await friendRequestService.SendFriendRequest(CurrentUsername, friendName);
+        var userHandle = (await GetCurrentUser()).UserHandle;
+        await friendRequestService.SendFriendRequestByGainsId(userHandle, friendName);
         return NoContent();
     }
 
     [HttpPut]
     public async Task<IActionResult> HandleFriendRequest(Guid requestId, bool accept = true)
     {
-        await friendRequestService.HandleFriendRequestState(CurrentUsername, requestId, accept);
+        var userHandle = (await GetCurrentUser()).UserHandle;
+        await friendRequestService.HandleFriendRequestState(userHandle, requestId, accept);
         return NoContent();
     }
 }

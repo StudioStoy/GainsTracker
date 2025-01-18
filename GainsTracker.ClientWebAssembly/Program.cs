@@ -9,5 +9,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.ConfigureAuth();
 builder.ConfigureHttpClient();
+builder.ConfigureServices();
 
 await builder.Build().RunAsync();

@@ -3,6 +3,7 @@ using GainsTracker.Common.Models.Auth;
 using GainsTracker.UI.Auth;
 using GainsTracker.UI.Services;
 using GainsTracker.UI.Services.API;
+using GainsTracker.UI.Services.API.Workouts;
 using GainsTracker.UI.Services.Auth;
 using GainsTracker.UI.Services.Auth.Interfaces;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -36,7 +37,7 @@ public static class ProgramExtensions
             options.ProviderOptions.DefaultScopes.Add("profile");
             options.ProviderOptions.DefaultScopes.Add("email");
         });
-        
+
         builder.Services.AddScoped<IGainsAuthService, GainsAuthService>();
         builder.Services.AddScoped<IAuthService, WebAuthService>();
         
@@ -57,5 +58,10 @@ public static class ProgramExtensions
             { InnerHandler = new HttpClientHandler() })
             { BaseAddress = new Uri("https://localhost:7015/") });
         });
+    }
+
+    public static void ConfigureServices(this WebAssemblyHostBuilder builder)
+    {
+        builder.Services.AddScoped<IWorkoutService, WorkoutService>();
     }
 }

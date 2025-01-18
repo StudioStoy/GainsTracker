@@ -2,6 +2,7 @@
 using GainsTracker.Common.Models.Measurements.Units;
 using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Common.Models.Workouts.Dto;
+using GainsTracker.Core.Users.Interfaces;
 using GainsTracker.Core.Workouts.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,8 @@ namespace GainsTracker.WebAPI.Workouts;
 [ApiController]
 [Authorize]
 [Route("catalog")]
-public class CatalogController(ICatalogService catalogService) : ExtendedControllerBase
+public class CatalogController(ICatalogService catalogService, IUserService userService) : ExtendedControllerBase(
+    userService)
 {
     /// <summary>
     /// Gets a list of possible new workouts the user can start logging.
@@ -19,8 +21,11 @@ public class CatalogController(ICatalogService catalogService) : ExtendedControl
     /// <returns></returns>
     [HttpGet("workout")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<WorkoutTypeDto>))]
-    public async Task<IActionResult> GetAvailableWorkoutsForUser() =>
-        Ok(await catalogService.GetAvailableWorkoutTypesForUser(CurrentUsername));
+    public async Task<IActionResult> GetAvailableWorkoutsForUser()
+    {
+        var gainsId = (await GetCurrentUser()).GainsAccountId;
+        return Ok(await catalogService.GetAvailableWorkoutTypesByGainsId(gainsId));
+    }
 
     /// <summary>
     /// Gets a list of possible measurements the user can send for each exercise category. 

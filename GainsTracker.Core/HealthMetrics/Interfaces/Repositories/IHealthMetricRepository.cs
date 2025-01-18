@@ -4,5 +4,5 @@ namespace GainsTracker.Core.HealthMetrics.Interfaces.Repositories;
 
 public interface IHealthMetricRepository : IGenericRepository<HealthMetric>
 {
-    Task<List<HealthMetric>> GetAllMetricsByUsername(string username);
+    Task<List<HealthMetric>> GetAllMetricsByGainsId(Guid gainsId);
 }

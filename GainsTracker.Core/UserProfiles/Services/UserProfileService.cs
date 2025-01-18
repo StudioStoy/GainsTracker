@@ -7,28 +7,28 @@ namespace GainsTracker.Core.UserProfiles.Services;
 
 public class UserProfileService(IUserProfileRepository repository) : IUserProfileService
 {
-    public async Task UpdateUserProfile(string userHandle, UpdateUserProfileDto userProfileDto)
+    public async Task UpdateUserProfile(Guid gainsId, UpdateUserProfileDto userProfileDto)
     {
         // Caveat: this profanity filter is not perfect. However, it is better than nothing.
         ProfanityFilter.ProfanityFilter detector = new();
         if (detector.IsProfanity(userProfileDto.DisplayName) || detector.IsProfanity(userProfileDto.Description))
             throw new ArgumentException("no bad words buster");
 
-        await repository.UpdateUserProfileByUserHandle(userHandle, userProfileDto);
+        await repository.UpdateUserProfileByUserHandle(gainsId, userProfileDto);
     }
 
-    public async Task<UserProfileDto> GetUserProfile(string userHandle) =>
-        (await repository.GetUserProfileByUserHandle(userHandle)).ToDto();
+    public async Task<UserProfileDto> GetUserProfile(Guid gainsId) =>
+        (await repository.GetUserProfileByGainsId(gainsId)).ToDto();
 
-    public async Task<List<MeasurementDto>> GetPinnedPBs(string userHandle)
+    public async Task<List<MeasurementDto>> GetPinnedPBs(Guid gainsId)
     {
-        return (await repository.GetPinnedPBs(userHandle))
+        return (await repository.GetPinnedPBs(gainsId))
             .Select(pb => pb.ToDto())
             .ToList();
     }
 
-    public async Task UpdatePinnedPBs(string userHandle, UpdatePinnedPBsDto pinnedPBsDto)
+    public async Task UpdatePinnedPBs(Guid gainsId, UpdatePinnedPBsDto pinnedPBsDto)
     {
-        await repository.AddAndRemovePBs(userHandle, pinnedPBsDto);
+        await repository.AddAndRemovePBs(gainsId, pinnedPBsDto);
     }
 }

@@ -16,17 +16,16 @@ public class WorkoutService(
     IGainsService gainsService)
     : IWorkoutService
 {
-    public async Task<List<WorkoutDto>> GetWorkoutsByUsername(string username)
+    public async Task<List<WorkoutDto>> GetWorkoutsByGainsId(Guid gainsId)
     {
-        var id = await gainsService.GetGainsIdByUsername(username);
-        return (await workoutRepository.GetWorkoutsByGainsId(id))
+        return (await workoutRepository.GetWorkoutsByGainsId(gainsId))
             .Select(w => w.ToDto())
             .ToList();
     }
 
-    public async Task<WorkoutDto> AddWorkoutToGainsAccount(string username, CreateWorkoutDto workoutDto)
+    public async Task<WorkoutDto> AddWorkoutToGainsAccount(Guid gainsId, CreateWorkoutDto workoutDto)
     {
-        var gainsAccount = await gainsService.GetGainsAccountByUserHandle(username);
+        var gainsAccount = await gainsService.GetGainsAccountById(gainsId);
         await WorkoutTypeAlreadyUsed(gainsAccount.Id, workoutDto.WorkoutType);
 
         Workout workout = new(gainsAccount.Id, workoutDto.WorkoutType, workoutDto.WorkoutType.GetCategoryFromType(),

@@ -1,15 +1,11 @@
 ﻿using System.Reflection;
-using System.Security.Claims;
-using System.Text;
 using DotNetEnv;
 using GainsTracker.Infrastructure;
-using GainsTracker.Infrastructure.Auth;
 using GainsTracker.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -23,12 +19,12 @@ public static class ProgramExtensions
     public static void RegisterEpicDependencies(this WebApplicationBuilder builder)
     {
         builder.Services
-            .AddAuthServices()
             .AddWorkoutServices()
             .AddHealthMetricServices()
             .AddUserProfileServices()
             .AddFriendServices()
-            .AddGainsServices();
+            .AddGainsServices()
+            .AddUserServices();
     }
 
     public static void ConfigureDatabaseAndIdentity(this WebApplicationBuilder builder, bool useInMemory = false)
@@ -49,31 +45,7 @@ public static class ProgramExtensions
             .Replace("{password}", Environment.GetEnvironmentVariable("DB_PASS") ?? "gainstracker_local");
 
         builder.Services.AddDataServices(connectionString, useInMemory);
-
-        builder.Services.Configure<IdentityOptions>(options =>
-        {
-            options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
-
-            // Password settings.
-            options.Password.RequireDigit = true;
-            options.Password.RequireLowercase = true;
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequireUppercase = true;
-            options.Password.RequiredLength = 5;
-            options.Password.RequiredUniqueChars = 1;
-
-            // Lockout settings.
-            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            options.Lockout.MaxFailedAccessAttempts = 5;
-            options.Lockout.AllowedForNewUsers = true;
-
-            // User settings.
-            options.User.AllowedUserNameCharacters =
-                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+!#$^";
-            options.User.RequireUniqueEmail = false;
-        });
     }
-
 
     /// <summary>
     ///     Add CORS policy for local development and testing purposes.
@@ -86,7 +58,7 @@ public static class ProgramExtensions
                 b =>
                 {
                     b
-                        .WithOrigins("https://localhost:7015", "https://localhost:5031", "http://localhost:5027", "https://dev-gainstracker.eu.auth0.com/oauth/token")
+                        .WithOrigins("https://localhost:7015", "https://localhost:5031", "http://localhost:5027")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -98,30 +70,22 @@ public static class ProgramExtensions
     /// </summary>
     public static void ConfigureAuthentication(this WebApplicationBuilder builder)
     {
-        var bitSecret = builder.Configuration["JWT:Secret"]!.Replace("{secretJWT}", Env.GetString("JWT_SECRET"));
         builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(options =>
+        {
+            options.Authority = builder.Configuration["Auth0:Authority"];
+            options.TokenValidationParameters = new TokenValidationParameters
             {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-
-            // Add the JWT Bearer.
-            .AddJwtBearer(options =>
-            {
-                options.SaveToken = true;
-                options.RequireHttpsMetadata = false;
-                options.Authority = builder.Configuration["JWT:Authority"];
-                options.Audience = builder.Configuration["JWT:Audience"];
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidAudience = builder.Configuration["JWT:Audience"],
-                    ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(bitSecret)),
-                };
-            });
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidAudience = builder.Configuration["Auth0:Audience"],
+                ValidIssuer = builder.Configuration["Auth0:ValidIssuer"],
+            };
+        });
     }
 
     public static void EnableDataProtection(this WebApplicationBuilder builder)
@@ -180,7 +144,7 @@ public static class ProgramExtensions
                     new List<string>()
                 },
             });
-            
+
             var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
         });

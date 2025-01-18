@@ -9,11 +9,10 @@ public class HealthMetricRepository(GainsDbContextFactory contextFactory)
 {
     private readonly GainsDbContextFactory _contextFactory = contextFactory;
 
-    public async Task<List<HealthMetric>> GetAllMetricsByUsername(string username)
+    public async Task<List<HealthMetric>> GetAllMetricsByGainsId(Guid gainsId)
     {
         await using var context = _contextFactory.CreateDbContext();
 
-        var gainsId = await GetGainsIdByUserHandle(username);
         var gains = await context.GainsAccounts
             .Include(g => g.Metrics)
             .FirstAsync(g => g.Id == gainsId);

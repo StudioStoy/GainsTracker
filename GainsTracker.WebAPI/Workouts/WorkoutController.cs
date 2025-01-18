@@ -1,4 +1,5 @@
 using GainsTracker.Common.Models.Workouts.Dto;
+using GainsTracker.Core.Users.Interfaces;
 using GainsTracker.Core.Workouts.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ namespace GainsTracker.WebAPI.Workouts;
 [ApiController]
 [Authorize]
 [Route("workouts")]
-public class WorkoutController(IWorkoutService service) : ExtendedControllerBase
+public class WorkoutController(IWorkoutService service, IUserService userService) : ExtendedControllerBase(userService)
 {
     /// <summary>
     /// Gets all the workouts of a user. 
@@ -17,8 +18,11 @@ public class WorkoutController(IWorkoutService service) : ExtendedControllerBase
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<WorkoutDto>))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
-    public async Task<IActionResult> GetUserWorkouts() => 
-        Ok(await service.GetWorkoutsByUsername(CurrentUsername));
+    public async Task<IActionResult> GetUserWorkouts()
+    {
+        var gainsId = (await GetCurrentUser()).GainsAccountId;
+        return Ok(await service.GetWorkoutsByGainsId(gainsId));
+    }
 
     /// <summary>
     /// Registers a workout to the user's account.
@@ -31,7 +35,8 @@ public class WorkoutController(IWorkoutService service) : ExtendedControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
     public async Task<IActionResult> AddWorkoutToAccount([FromBody] CreateWorkoutDto workout)
     {
-        var createdWorkout = await service.AddWorkoutToGainsAccount(CurrentUsername, workout);
+        var gainsId = (await GetCurrentUser()).GainsAccountId;
+        var createdWorkout = await service.AddWorkoutToGainsAccount(gainsId, workout);
         return CreatedAtAction(nameof(AddWorkoutToAccount), new { id = createdWorkout.Id }, createdWorkout);
     }
 
@@ -43,7 +48,7 @@ public class WorkoutController(IWorkoutService service) : ExtendedControllerBase
     [HttpGet("{workoutId:guid}/measurement")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkoutMeasurementsDto))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
-    public async Task<IActionResult> GetWorkoutWithMeasurements(Guid workoutId) => 
+    public async Task<IActionResult> GetWorkoutWithMeasurements(Guid workoutId) =>
         Ok(await service.GetWorkoutMeasurementsById(workoutId));
 
     /// <summary>

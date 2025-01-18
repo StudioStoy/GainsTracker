@@ -1,9 +1,20 @@
-﻿@page "/Logging"
+﻿@using GainsTracker.UI.Services.API.Workouts
+@using Microsoft.AspNetCore.Authorization
+
+@inject IWorkoutService WorkoutService
+
+@attribute [Authorize]
+
+@page "/Logging"
 
 <PageTitle>Logging</PageTitle>
 
 <h3>Logging</h3>
 
 @code {
-
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await WorkoutService.GetUserWorkouts();
+        await base.OnAfterRenderAsync(firstRender);
+    }
 }

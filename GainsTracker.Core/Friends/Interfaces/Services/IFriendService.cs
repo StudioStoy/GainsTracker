@@ -5,5 +5,5 @@ namespace GainsTracker.Core.Friends.Interfaces.Services;
 
 public interface IFriendService
 {
-    public Task<List<FriendDto>> GetFriends(string username);
+    public Task<List<FriendDto>> GetFriendsByGainsId(Guid userId);
 }

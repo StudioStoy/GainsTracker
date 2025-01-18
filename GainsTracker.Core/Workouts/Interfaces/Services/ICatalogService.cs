@@ -4,5 +4,5 @@ namespace GainsTracker.Core.Workouts.Interfaces.Services;
 
 public interface ICatalogService
 {
-    Task<List<WorkoutTypeDto>> GetAvailableWorkoutTypesForUser(string username);
+    Task<List<WorkoutTypeDto>> GetAvailableWorkoutTypesByGainsId(Guid gainsId);
 }

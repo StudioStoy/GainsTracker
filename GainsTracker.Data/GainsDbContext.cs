@@ -1,25 +1,20 @@
-﻿#region
-
-using System.Data.Entity.ModelConfiguration.Conventions;
-using GainsTracker.Core.Auth.Models;
+﻿using System.Data.Entity.ModelConfiguration.Conventions;
 using GainsTracker.Core.Friends.Models;
 using GainsTracker.Core.Gains.Models;
 using GainsTracker.Core.HealthMetrics.Models;
 using GainsTracker.Core.UserProfiles.Models;
+using GainsTracker.Core.Users.Models;
 using GainsTracker.Core.Workouts.Models.Measurements;
 using GainsTracker.Core.Workouts.Models.Workouts;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-#endregion
-
 namespace GainsTracker.Data;
 
-public sealed class GainsDbContext(DbContextOptions<GainsDbContext> options) : IdentityDbContext<User>(options)
+public sealed class GainsDbContext(DbContextOptions<GainsDbContext> options) : DbContext(options)
 {
     // The main domains.
-    public override DbSet<User> Users { get; set; }
+    public DbSet<User> Users { get; set; }
     public DbSet<GainsAccount> GainsAccounts { get; set; }
     public DbSet<Workout> Workouts { get; set; }
     public DbSet<Friend> Friends { get; set; }

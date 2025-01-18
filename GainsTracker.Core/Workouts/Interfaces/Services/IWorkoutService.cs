@@ -5,8 +5,8 @@ namespace GainsTracker.Core.Workouts.Interfaces.Services;
 public interface IWorkoutService
 {
     // Workouts
-    Task<List<WorkoutDto>> GetWorkoutsByUsername(string username);
-    Task<WorkoutDto> AddWorkoutToGainsAccount(string username, CreateWorkoutDto workout);
+    Task<List<WorkoutDto>> GetWorkoutsByGainsId(Guid gainsId);
+    Task<WorkoutDto> AddWorkoutToGainsAccount(Guid gainsId, CreateWorkoutDto workout);
 
     // Measurements
     Task<WorkoutMeasurementsDto> GetWorkoutMeasurementsById(Guid workoutId);

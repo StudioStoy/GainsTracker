@@ -1,19 +1,17 @@
 ﻿using GainsTracker.Common.Models.UserProfiles;
 using GainsTracker.Common.Models.Workouts.Dto;
 using GainsTracker.Core.UserProfiles.Interfaces.Services;
+using GainsTracker.Core.Users.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GainsTracker.WebAPI.UserProfiles;
 
-/// <summary>
-/// test
-/// </summary>
-/// <param name="userProfileService"></param>
 [ApiController]
 [Authorize]
 [Route("user/profile")]
-public class UserProfileController(IUserProfileService userProfileService) : ExtendedControllerBase
+public class UserProfileController(IUserProfileService userProfileService, IUserService userService)
+    : ExtendedControllerBase(userService)
 {
     /// <summary>
     /// Updates all supplied fields of the user profile.
@@ -26,7 +24,8 @@ public class UserProfileController(IUserProfileService userProfileService) : Ext
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
     public async Task<IActionResult> UpdateUserProfile(UpdateUserProfileDto userProfileDto)
     {
-        await userProfileService.UpdateUserProfile(CurrentUsername, userProfileDto);
+        var gainsId = (await GetCurrentUser()).GainsAccountId;
+        await userProfileService.UpdateUserProfile(gainsId, userProfileDto);
         return NoContent();
     }
 
@@ -37,8 +36,11 @@ public class UserProfileController(IUserProfileService userProfileService) : Ext
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserProfileDto))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
-    public async Task<IActionResult> GetUserProfile() =>
-        Ok(await userProfileService.GetUserProfile(CurrentUsername));
+    public async Task<IActionResult> GetUserProfile()
+    {
+        var gainsId = (await GetCurrentUser()).GainsAccountId;
+        return Ok(await userProfileService.GetUserProfile(gainsId));
+    }
 
     /// <summary>
     /// Add or remove pinned PB's to the user's profile.
@@ -51,7 +53,8 @@ public class UserProfileController(IUserProfileService userProfileService) : Ext
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
     public async Task<IActionResult> UpdatePinnedPBs(UpdatePinnedPBsDto pinnedPBsDto)
     {
-        await userProfileService.UpdatePinnedPBs(CurrentUsername, pinnedPBsDto);
+        var gainsId = (await GetCurrentUser()).GainsAccountId;
+        await userProfileService.UpdatePinnedPBs(gainsId, pinnedPBsDto);
         return NoContent();
     }
 
@@ -62,5 +65,9 @@ public class UserProfileController(IUserProfileService userProfileService) : Ext
     [HttpGet("pinned-pbs")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<MeasurementDto>))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
-    public async Task<IActionResult> GetPinnedPBs() => Ok(await userProfileService.GetPinnedPBs(CurrentUsername));
+    public async Task<IActionResult> GetPinnedPBs()
+    {
+        var gainsId = (await GetCurrentUser()).GainsAccountId;
+        return Ok(await userProfileService.GetPinnedPBs(gainsId));
+    }
 }

@@ -9,10 +9,10 @@ namespace GainsTracker.Core.HealthMetrics.Services;
 
 public class HealthMetricService(IHealthMetricRepository repository, IGainsService gainsService) : IHealthMetricService
 {
-    public async Task AddMetricToGainsAccount(string userHandle, CreateMetricDto createMetricDto)
+    public async Task AddMetricToGainsAccount(Guid gainsId, CreateMetricDto createMetricDto)
     {
         var healthMetric = HealthMetricFactory.DeserializeMetricFromJson(createMetricDto.Type, createMetricDto.Data!);
-        var gains = await gainsService.GetGainsAccountByUserHandle(userHandle);
+        var gains = await gainsService.GetGainsAccountById(gainsId);
 
         gains.AddMetric(healthMetric);
 
@@ -20,9 +20,9 @@ public class HealthMetricService(IHealthMetricRepository repository, IGainsServi
         await gainsService.UpdateGainsAccount(gains);
     }
 
-    public async Task<List<MetricDto>> GetAllMetricsByUsername(string username)
+    public async Task<List<MetricDto>> GetAllMetricsByGainsId(Guid gainsId)
     {
-        var data = await repository.GetAllMetricsByUsername(username);
+        var data = await repository.GetAllMetricsByGainsId(gainsId);
         return data.Select(m => new MetricDto
         (
             Id: m.Id,

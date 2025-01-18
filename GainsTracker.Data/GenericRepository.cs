@@ -1,11 +1,8 @@
-﻿#region
-
+﻿using System.Linq.Expressions;
 using GainsTracker.Common.Exceptions;
 using GainsTracker.Core;
 using GainsTracker.Core.Gains.Models;
 using Microsoft.EntityFrameworkCore;
-
-#endregion
 
 namespace GainsTracker.Data;
 
@@ -19,7 +16,21 @@ public class GenericRepository<TEntity>(GainsDbContextFactory contextFactory) : 
         return entity;
     }
 
-    public async Task<List<TEntity>> GetAll()
+    public async Task<TEntity?> FindSingleAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null)
+    {
+        await using var context = contextFactory.CreateDbContext();
+        var query = context.Set<TEntity>().Where(predicate).ApplyIncludes(includes);
+        return await query.FirstOrDefaultAsync();
+    }
+
+    public async Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null)
+    {
+        await using var context = contextFactory.CreateDbContext();
+        var query = context.Set<TEntity>().Where(predicate).ApplyIncludes(includes);
+        return await query.ToListAsync();
+    }
+
+    public async Task<List<TEntity>> GetAllAsync()
     {
         await using var context = contextFactory.CreateDbContext();
 

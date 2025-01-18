@@ -14,9 +14,9 @@ public class UserProfileRepository(GainsDbContextFactory contextFactory)
 {
     private readonly GainsDbContextFactory _contextFactory = contextFactory;
 
-    public async Task UpdateUserProfileByUserHandle(string userHandle, UpdateUserProfileDto userProfileDto)
+    public async Task UpdateUserProfileByUserHandle(Guid gainsId, UpdateUserProfileDto userProfileDto)
     {
-        var current = await GetUserProfileEntityByUserHandle(userHandle);
+        var current = await GetUserProfileEntityByGainsId(gainsId);
         current.Description = userProfileDto.Description ?? current.Description;
         current.DisplayName = userProfileDto.DisplayName ?? current.DisplayName;
         current.Icon.Url = userProfileDto.IconUrl ?? current.Icon.Url;
@@ -27,17 +27,17 @@ public class UserProfileRepository(GainsDbContextFactory contextFactory)
         await UpdateAsync(current);
     }
 
-    public async Task<List<Measurement>> GetPinnedPBs(string userHandle)
+    public async Task<List<Measurement>> GetPinnedPBs(Guid gainsId)
     {
-        var profileEntity = await GetUserProfileByUserHandle(userHandle, () => up => up.PinnedPBs);
+        var profileEntity = await GetUserProfileByGainsId(gainsId, () => up => up.PinnedPBs);
         return [.. profileEntity.PinnedPBs];
     }
 
-    public async Task AddAndRemovePBs(string userHandle, UpdatePinnedPBsDto pinnedPBsDto)
+    public async Task AddAndRemovePBs(Guid gainsId, UpdatePinnedPBsDto pinnedPBsDto)
     {
         await using var context = _contextFactory.CreateDbContext();
 
-        var userProfileEntity = await GetUserProfileByUserHandle(userHandle, () => up => up.PinnedPBs);
+        var userProfileEntity = await GetUserProfileByGainsId(gainsId, () => up => up.PinnedPBs);
         List<Measurement> toAdd = [];
         List<Measurement> toRemove = [];
 
@@ -68,11 +68,10 @@ public class UserProfileRepository(GainsDbContextFactory contextFactory)
         await UpdateAsync(userProfileEntity);
     }
 
-    public async Task<UserProfile> GetUserProfileByUserHandle(string userHandle)
+    public async Task<UserProfile> GetUserProfileByGainsId(Guid gainsId)
     {
         await using var context = _contextFactory.CreateDbContext();
 
-        var gainsId = await GetGainsIdByUserHandle(userHandle);
         var userProfile = await context.UserProfiles
             .Include(up => up.Icon)
             .FirstOrDefaultAsync(e => e.GainsAccountId == gainsId);
@@ -83,11 +82,10 @@ public class UserProfileRepository(GainsDbContextFactory contextFactory)
         return userProfile;
     }
 
-    private async Task<UserProfile> GetUserProfileEntityByUserHandle(string userHandle)
+    private async Task<UserProfile> GetUserProfileEntityByGainsId(Guid gainsId)
     {
         await using var context = _contextFactory.CreateDbContext();
 
-        var gainsId = await GetGainsIdByUserHandle(userHandle);
         var userProfile = await context.UserProfiles
             .Include(up => up.Icon)
             .FirstOrDefaultAsync(e => e.GainsAccountId == gainsId);
@@ -98,13 +96,11 @@ public class UserProfileRepository(GainsDbContextFactory contextFactory)
         return userProfile;
     }
 
-    private async Task<UserProfile> GetUserProfileByUserHandle(string userHandle,
+    private async Task<UserProfile> GetUserProfileByGainsId(Guid gainsId,
         params IncludeProperty<UserProfile>[] properties)
     {
         await using var context = _contextFactory.CreateDbContext();
-
-        var gainsId = await GetGainsIdByUserHandle(userHandle);
-
+        
         // If no include expressions are provided, set a default one for the Icon.
         var includes = properties.Length != 0
             ? properties
