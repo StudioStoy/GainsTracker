@@ -56,7 +56,7 @@ public static class ProgramExtensions
             var accessTokenProvider = api.GetRequiredService<IAccessTokenProvider>();
             return new ApiService(new HttpClient(new WebAuthMessageHandler(accessTokenProvider)
             { InnerHandler = new HttpClientHandler() })
-            { BaseAddress = new Uri("https://localhost:7015/") });
+            { BaseAddress = new Uri("https://localhost:7045/") });
         });
     }
 

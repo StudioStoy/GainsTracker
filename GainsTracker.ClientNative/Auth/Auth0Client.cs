@@ -33,7 +33,7 @@ public class Auth0Client(Auth0ClientOptions options)
             RedirectUri = Options.RedirectUri,
             Browser = Options.Browser,
             Domain = Options.Domain,
-        }).LoginAsync(new { audience = "https://dev-gainstracker.eu.auth0.com/api/v2/" });
+        }).LoginAsync(new { audience = Options.Audience });
     }
 
     public async Task<BrowserResult> LogoutAsync()

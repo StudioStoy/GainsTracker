@@ -3,6 +3,7 @@ using GainsTracker.ClientNative.Auth;
 using GainsTracker.Common.Models.Auth;
 using GainsTracker.UI.Auth;
 using GainsTracker.UI.Services.API;
+using GainsTracker.UI.Services.API.Workouts;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -36,6 +37,7 @@ public static class ProgramExtensions
         builder.Services.AddSingleton(new Auth0Client(new Auth0ClientOptions
         {
             Domain = auth0Config.Authority,
+            Audience = auth0Config.Audience,
             ClientId = auth0Config.ClientId,
             Scope = "openid profile email",
             RedirectUri = auth0Config.RedirectUri,
@@ -78,7 +80,7 @@ public static class ProgramExtensions
 
             var authHandler = new NativeAuthMessageHandler(GetToken)
             {
-                InnerHandler = platformHandler
+                InnerHandler = platformHandler,
             };
 
             return new ApiService(new HttpClient(authHandler) { BaseAddress = baseAddress });
@@ -89,5 +91,10 @@ public static class ProgramExtensions
                 return state.User.FindFirst(c => c.Type == "access_token")?.Value ?? string.Empty;
             }
         });
+    }
+    
+    public static void ConfigureServices(this MauiAppBuilder builder)
+    {
+        builder.Services.AddScoped<IWorkoutService, WorkoutService>();
     }
 }

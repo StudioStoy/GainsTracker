@@ -18,6 +18,7 @@ public static class MauiProgram
         builder.ConfigureAppsettings();
         builder.ConfigureAuth();
         builder.ConfigureHttpClient();
+        builder.ConfigureServices();
         
 #if DEBUG
         builder.Services.AddBlazorWebViewDeveloperTools();
