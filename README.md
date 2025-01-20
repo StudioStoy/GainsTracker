@@ -4,12 +4,13 @@ To track your gains
 
 TO BE EXPANDED
 
+## Designs
+[Mobile designs on Figma](https://www.figma.com/design/g5APgVy3HQ1xwI0XxJlwGG/Gains-Tracker)
+
 ## Releases
-Releases follow a specific versioning naming system. For example: `v0.1.0-alpha-api`. Which means the following:
+Releases follow a specific versioning naming system.
 
 - `v`: Version
-- `0.1.0`: MAJOR.MINOR.PATCH
-- `-alpha`: Indicate the release is an pre-release version
-- `-api`: Indicates the release contains the API functionality, but not yet in the UI logic for it. If there's no `-api` suffix, the release contains both the API and UI logic for that release.
+- `0.0.0`: MAJOR.MINOR.PATCH
 
 © [StudioStoy 2024](https://studiostoy.nl)
