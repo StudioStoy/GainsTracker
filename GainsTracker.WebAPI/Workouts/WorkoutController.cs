@@ -33,7 +33,7 @@ public class WorkoutController(IWorkoutService service, IUserService userService
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
-    public async Task<IActionResult> AddWorkoutToAccount([FromBody] CreateWorkoutDto workout)
+    public async Task<IActionResult> AddWorkoutToAccount([FromBody] AddNewWorkoutDto workout)
     {
         var gainsId = (await GetCurrentUser()).GainsAccountId;
         var createdWorkout = await service.AddWorkoutToGainsAccount(gainsId, workout);

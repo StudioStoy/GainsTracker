@@ -23,7 +23,7 @@ public class WorkoutService(
             .ToList();
     }
 
-    public async Task<WorkoutDto> AddWorkoutToGainsAccount(Guid gainsId, CreateWorkoutDto workoutDto)
+    public async Task<WorkoutDto> AddWorkoutToGainsAccount(Guid gainsId, AddNewWorkoutDto workoutDto)
     {
         var gainsAccount = await gainsService.GetGainsAccountById(gainsId);
         await WorkoutTypeAlreadyUsed(gainsAccount.Id, workoutDto.WorkoutType);
@@ -38,7 +38,6 @@ public class WorkoutService(
         return new WorkoutDto
         (
             Id: workout.Id,
-            GainsAccountId: gainsAccount.Id,
             Type: workout.Type,
             Category: workout.Category
         );

@@ -10,54 +10,61 @@ namespace GainsTracker.Data;
 
 public static class ModelBuilderExtensions
 {
-    public static void ConfigureRelationModels(this ModelBuilder builder)
+    public static void ConfigureRelationModels(this ModelBuilder modelBuilder)
     {
-        builder.Entity<FriendRequest>()
+        modelBuilder.Entity<FriendRequest>()
             .HasOne(a => a.Requester)
             .WithMany(b => b.SentFriendRequests)
             .HasForeignKey(f => f.RequesterId);
 
-        builder.Entity<FriendRequest>()
+        modelBuilder.Entity<FriendRequest>()
             .HasOne(a => a.Recipient)
             .WithMany(b => b.ReceivedFriendRequests)
             .HasForeignKey(c => c.RecipientId);
 
-        builder.Entity<GainsAccount>(gainsAccount =>
+        modelBuilder.Entity<GainsAccount>(gainsAccount =>
         {
             gainsAccount.Navigation(g => g.SentFriendRequests).AutoInclude();
             gainsAccount.Navigation(g => g.ReceivedFriendRequests).AutoInclude();
         });
 
-        builder.Entity<UserProfile>(userProfile =>
-        {
-            userProfile.HasMany(u => u.PinnedPBs)
-            .WithOne()
-            .HasForeignKey(u => u.PinnedByUserProfileId)
-            .IsRequired(false);
+        // Measurements
+        modelBuilder.Entity<Measurement>()
+            .ToTable("Measurements");
 
-            // userProfile.HasOne(u => u.Icon)
-                // .WithOne()
-                // .HasForeignKey<ProfileIcon>(i => i.UserProfileId);
-        });
+        modelBuilder.Entity<StrengthMeasurement>()
+            .ToTable("StrengthMeasurements");
+
+        modelBuilder.Entity<TimeAndDistanceEnduranceMeasurement>()
+            .ToTable("TimeAndDistanceEnduranceMeasurements");
+
+        modelBuilder.Entity<TimeEnduranceMeasurement>()
+            .ToTable("TimeEnduranceMeasurements");
+
+        modelBuilder.Entity<RepsMeasurement>()
+            .ToTable("RepsMeasurements");
+
+        modelBuilder.Entity<GeneralMeasurement>()
+            .ToTable("GeneralMeasurements");
     }
 
     /// <summary>
     ///     Converts the enum names in the database to string format.
     ///     Add any new enum classes here to make sure they get converted properly
     /// </summary>
-    public static void ConvertEnumsToStrings(this ModelBuilder builder)
+    public static void ConvertEnumsToStrings(this ModelBuilder modelBuilder)
     {
         // Workout types
-        builder.Entity<Workout>()
+        modelBuilder.Entity<Workout>()
             .Property(workout => workout.Type)
             .HasConversion<string>();
 
         // Measurement types
-        builder.Entity<StrengthMeasurement>()
+        modelBuilder.Entity<StrengthMeasurement>()
             .Property(measurement => measurement.WeightUnit)
             .HasConversion<string>();
 
-        builder.Entity<TimeAndDistanceEnduranceMeasurement>()
+        modelBuilder.Entity<TimeAndDistanceEnduranceMeasurement>()
             .Property(measurement => measurement.DistanceUnit)
             .HasConversion<string>();
     }

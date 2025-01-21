@@ -125,7 +125,6 @@ public static class DtoExtensions
         return new WorkoutDto
         (
             Id: workout.Id,
-            GainsAccountId: workout.GainsAccountId,
             Type: workout.Type,
             Category: workout.Category,
             PersonalBest: bestMeasurement

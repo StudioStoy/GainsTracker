@@ -42,12 +42,10 @@ public sealed class GainsDbContext(DbContextOptions<GainsDbContext> options) : D
         configurationBuilder.Conventions.Remove(typeof(ManyToManyCascadeDeleteConvention));
     }
 
-    // In here, all the many-to-one, one-to-one, etc relations are managed.
+    // In here, all the many-to-one, one-to-one, etc. relations are managed.
     // Also, auto-includes.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        var entityAssembly = typeof(GainsDbContext).Assembly;
-        modelBuilder.ApplyConfigurationsFromAssembly(entityAssembly);
         modelBuilder.ConfigureRelationModels();
         modelBuilder.ConvertEnumsToStrings();
         modelBuilder.ConvertCustomPropertiesToDbFormat();

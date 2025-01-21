@@ -1,4 +1,5 @@
 ﻿using GainsTracker.Common.Exceptions;
+using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Core.Workouts.Interfaces.Repositories;
 using GainsTracker.Core.Workouts.Models.Workouts;
 using Microsoft.EntityFrameworkCore;
@@ -46,5 +47,15 @@ public class WorkoutRepository(GainsDbContextFactory contextFactory)
             throw new NotFoundException("WorkoutEntity with that id not found");
 
         return workout;
+    }
+    
+    public async Task<List<WorkoutType>> GetUsedWorkoutTypesByGainsId(Guid gainsId)
+    {
+        await using var context = _contextFactory.CreateDbContext();
+
+        return await context.Workouts
+            .Where(w => w.GainsAccountId == gainsId)
+            .Select(w => w.Type)
+            .ToListAsync();
     }
 }

@@ -13,7 +13,7 @@ public class Workout
         Type = type;
         Category = category;
         Measurements = measurements;
-        if (measurements.Any())
+        if (measurements.Count != 0)
             PersonalBest = measurements.First();
     }
 
