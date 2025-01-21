@@ -42,6 +42,7 @@ public class UserProfileController(IUserProfileService userProfileService, IUser
         return Ok(await userProfileService.GetUserProfile(gainsId));
     }
 
+    // TODO: Move the pinned PB handling to Workout controller.
     /// <summary>
     /// Add or remove pinned PB's to the user's profile.
     /// </summary>
