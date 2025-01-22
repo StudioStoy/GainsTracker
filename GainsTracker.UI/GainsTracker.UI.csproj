@@ -33,4 +33,9 @@
         <ProjectReference Include="..\GainsTracker.UI.Transitions\GainsTracker.UI.Transitions.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Pages\Login\LoginPage.razor" />
+      <UpToDateCheckInput Remove="Pages\Login\RegisterPage.razor" />
+    </ItemGroup>
+
 </Project>

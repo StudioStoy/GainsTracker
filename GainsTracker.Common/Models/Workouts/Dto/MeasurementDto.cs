@@ -18,7 +18,7 @@ public record StrengthMeasurementDto(
     int Reps
 );
 
-public record TimeAndDistanceEnduranceMeasurementDto(
+public record TimeDistanceEnduranceMeasurementDto(
     DistanceUnits DistanceUnit,
     double Distance,
     string Time = "00:00:00"

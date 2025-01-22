@@ -1,5 +1,4 @@
 ﻿using GainsTracker.Core.Friends.Models;
-using GainsTracker.Core.Gains.Models;
 using GainsTracker.Core.UserProfiles.Models;
 using GainsTracker.Core.Workouts.Models.Measurements;
 using GainsTracker.Core.Workouts.Models.Workouts;
@@ -22,30 +21,32 @@ public static class ModelBuilderExtensions
             .WithMany(b => b.ReceivedFriendRequests)
             .HasForeignKey(c => c.RecipientId);
 
-        modelBuilder.Entity<GainsAccount>(gainsAccount =>
+        modelBuilder.Entity<UserProfile>(userProfile =>
         {
-            gainsAccount.Navigation(g => g.SentFriendRequests).AutoInclude();
-            gainsAccount.Navigation(g => g.ReceivedFriendRequests).AutoInclude();
+            userProfile.HasMany(u => u.PinnedPBs)
+                .WithOne()
+                .HasForeignKey(u => u.PinnedByUserProfileId)
+                .IsRequired(false);
         });
-
+        
         // Measurements
         modelBuilder.Entity<Measurement>()
-            .ToTable("Measurements");
+            .ToTable("measurements");
 
         modelBuilder.Entity<StrengthMeasurement>()
-            .ToTable("StrengthMeasurements");
+            .ToTable("strength_measurements");
 
-        modelBuilder.Entity<TimeAndDistanceEnduranceMeasurement>()
-            .ToTable("TimeAndDistanceEnduranceMeasurements");
+        modelBuilder.Entity<TimeDistanceEnduranceMeasurement>()
+            .ToTable("time_distance_endurance_measurements");
 
         modelBuilder.Entity<TimeEnduranceMeasurement>()
-            .ToTable("TimeEnduranceMeasurements");
+            .ToTable("time_endurance_measurements");
 
         modelBuilder.Entity<RepsMeasurement>()
-            .ToTable("RepsMeasurements");
+            .ToTable("reps_measurements");
 
         modelBuilder.Entity<GeneralMeasurement>()
-            .ToTable("GeneralMeasurements");
+            .ToTable("general_measurements");
     }
 
     /// <summary>
@@ -64,7 +65,7 @@ public static class ModelBuilderExtensions
             .Property(measurement => measurement.WeightUnit)
             .HasConversion<string>();
 
-        modelBuilder.Entity<TimeAndDistanceEnduranceMeasurement>()
+        modelBuilder.Entity<TimeDistanceEnduranceMeasurement>()
             .Property(measurement => measurement.DistanceUnit)
             .HasConversion<string>();
     }
@@ -80,7 +81,7 @@ public static class ModelBuilderExtensions
             .Property(measurement => measurement.Time)
             .HasConversion(timeConverter);
 
-        builder.Entity<TimeAndDistanceEnduranceMeasurement>()
+        builder.Entity<TimeDistanceEnduranceMeasurement>()
             .Property(measurement => measurement.Time)
             .HasConversion(timeConverter);
     }

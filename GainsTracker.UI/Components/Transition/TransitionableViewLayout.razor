@@ -1,5 +1,4 @@
 ﻿@using GainsTracker.UI.Pages
-@using GainsTracker.UI.Pages.Login
 @inherits GainsTracker.UI.TransitionableRoute.Layout.TransitionableLayoutComponent
 
 <div class="transition @TransitioningClass @(Transition.IntoView ? "transitioned" : "transitioned_behind")">
@@ -33,10 +32,6 @@
     // Add all transitions here for each page to page route.
     private readonly List<KeyValuePair<(Type from, Type to), (string effectOut, string effectIn)>> _epicTransitions =
     [
-        ..TransitionHelper.LinkPages(typeof(LoginPage), typeof(DashboardPage), TransitionDirection.Up),
-        ..TransitionHelper.LinkPages(typeof(LoginPage), typeof(RegisterPage), TransitionDirection.Right),
-
-        ..TransitionHelper.LinkPages(typeof(DashboardPage), typeof(RegisterPage), TransitionDirection.Down),
         ..TransitionHelper.LinkPages(typeof(DashboardPage), typeof(LoggingPage), TransitionDirection.Right),
         ..TransitionHelper.LinkPages(typeof(DashboardPage), typeof(ActivityPage), TransitionDirection.Right),
         ..TransitionHelper.LinkPages(typeof(DashboardPage), typeof(UserProfilePage), TransitionDirection.Right),

@@ -30,7 +30,7 @@ public class MeasurementValidationService : IMeasurementValidationService
                     throw new BadRequestException("No negative or zero measurements.");
                 break;
             case ExerciseCategory.TimeAndDistanceEndurance:
-                var running = measurement as TimeAndDistanceEnduranceMeasurement;
+                var running = measurement as TimeDistanceEnduranceMeasurement;
                 if (running!.Time == 0 || running.Distance <= 0)
                     throw new BadRequestException("No negative or zero measurements.");
                 break;

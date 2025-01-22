@@ -52,7 +52,7 @@ public class CatalogController(ICatalogService catalogService, IUserService user
             new(
                 ExerciseCategory.TimeAndDistanceEndurance.ToString(),
                 GenericJsonSerializer.SerializeObjectToJson(
-                    new TimeAndDistanceEnduranceMeasurementDto(DistanceUnits.Kilometers, 0))
+                    new TimeDistanceEnduranceMeasurementDto(DistanceUnits.Kilometers, 0))
             ),
             new(
                 ExerciseCategory.General.ToString(),

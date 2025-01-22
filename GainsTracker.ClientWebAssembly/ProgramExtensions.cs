@@ -4,8 +4,6 @@ using GainsTracker.UI.Auth;
 using GainsTracker.UI.Services;
 using GainsTracker.UI.Services.API;
 using GainsTracker.UI.Services.API.Workouts;
-using GainsTracker.UI.Services.Auth;
-using GainsTracker.UI.Services.Auth.Interfaces;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Options;
@@ -38,7 +36,6 @@ public static class ProgramExtensions
             options.ProviderOptions.DefaultScopes.Add("email");
         });
 
-        builder.Services.AddScoped<IGainsAuthService, GainsAuthService>();
         builder.Services.AddScoped<IAuthService, WebAuthService>();
         
         builder.Services.AddApiAuthorization().AddAccountClaimsPrincipalFactory<UserAccountFactory>();

@@ -7,7 +7,7 @@ namespace GainsTracker.WebAPI.Friends;
 
 [ApiController]
 [Authorize]
-[Route("friends/request")]
+[Route("friends/requests")]
 public class FriendRequestController(IFriendRequestService friendRequestService, IUserService userService)
     : ExtendedControllerBase(userService)
 {

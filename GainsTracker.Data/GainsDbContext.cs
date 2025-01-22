@@ -26,7 +26,7 @@ public sealed class GainsDbContext(DbContextOptions<GainsDbContext> options) : D
     public DbSet<Measurement> Measurements { get; set; }
     public DbSet<RepsMeasurement> SimpleRepMeasurements { get; set; }
     public DbSet<TimeEnduranceMeasurement> SimpleEnduranceMeasurements { get; set; }
-    public DbSet<TimeAndDistanceEnduranceMeasurement> RunningMeasurements { get; set; }
+    public DbSet<TimeDistanceEnduranceMeasurement> RunningMeasurements { get; set; }
     public DbSet<StrengthMeasurement> WeightMeasurements { get; set; }
     public DbSet<GeneralMeasurement> GeneralMeasurements { get; set; }
 

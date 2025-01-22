@@ -7,36 +7,35 @@ namespace GainsTracker.Core.Workouts.Models.Measurements;
 public abstract class Measurement : ITrackableGoal
 {
     public Guid Id { get; init; } = Guid.NewGuid();
+    public Guid PinnedByUserProfileId { get; set; }
 
     public DateTime TimeOfRecord { get; init; } = DateTime.UtcNow;
     protected internal abstract ExerciseCategory Category { get; }
-    public string Notes { get; set; } = string.Empty;
+    public string Notes { get; init; } = string.Empty;
     public bool IsInGoal { get; set; }
-    
-    public bool Pinned { get; set; }
 }
 
 public class StrengthMeasurement : Measurement
 {
     public WeightUnits WeightUnit { get; init; } = WeightUnits.Kilograms;
-    public double Weight { get; set; }
-    public int Reps { get; set; }
+    public double Weight { get; init; }
+    public int Reps { get; init; }
 
     protected internal override ExerciseCategory Category => ExerciseCategory.Strength;
 }
 
-public class TimeAndDistanceEnduranceMeasurement : Measurement
+public class TimeDistanceEnduranceMeasurement : Measurement
 {
-    public long Time { get; set; }
-    public DistanceUnits DistanceUnit { get; set; }
-    public double Distance { get; set; }
+    public long Time { get; init; }
+    public DistanceUnits DistanceUnit { get; init; }
+    public double Distance { get; init; }
 
     protected internal override ExerciseCategory Category => ExerciseCategory.TimeAndDistanceEndurance;
 }
 
 public class TimeEnduranceMeasurement : Measurement
 {
-    public long Time { get; set; }
+    public long Time { get; init; }
 
     protected internal override ExerciseCategory Category => ExerciseCategory.TimeEndurance;
 }

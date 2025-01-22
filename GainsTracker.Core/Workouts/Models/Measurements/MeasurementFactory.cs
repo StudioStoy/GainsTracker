@@ -20,7 +20,7 @@ public static class MeasurementFactory
         {
             ExerciseCategory.Strength => measurementData.Deserialize<StrengthMeasurement>(options),
             ExerciseCategory.TimeAndDistanceEndurance => measurementData
-                .Deserialize<TimeAndDistanceEnduranceMeasurement>(options),
+                .Deserialize<TimeDistanceEnduranceMeasurement>(options),
             ExerciseCategory.TimeEndurance => measurementData.Deserialize<TimeEnduranceMeasurement>(options),
             ExerciseCategory.Reps => measurementData.Deserialize<RepsMeasurement>(options),
             ExerciseCategory.General => measurementData.Deserialize<GeneralMeasurement>(options),
@@ -46,7 +46,7 @@ public static class MeasurementFactory
             { typeof(RepsMeasurement), typeof(RepsMeasurementValidator) },
             { typeof(StrengthMeasurement), typeof(StrengthMeasurementValidator) },
             { typeof(TimeEnduranceMeasurement), typeof(TimeMeasurementValidator) },
-            { typeof(TimeAndDistanceEnduranceMeasurement), typeof(TimeAndDistanceMeasurementValidator) },
+            { typeof(TimeDistanceEnduranceMeasurement), typeof(TimeAndDistanceMeasurementValidator) },
             { typeof(GeneralMeasurement), typeof(GeneralMeasurementValidator) },
         };
 
