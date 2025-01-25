@@ -100,17 +100,9 @@ public class UserProfileRepository(GainsDbContextFactory contextFactory)
         params IncludeProperty<UserProfile>[] properties)
     {
         await using var context = _contextFactory.CreateDbContext();
-        
-        // If no include expressions are provided, set a default one for the Icon.
-        var includes = properties.Length != 0
-            ? properties
-            : [() => up => up.Icon];
 
         var query = context.UserProfiles.AsQueryable();
-
-        foreach (var property in includes)
-            // Use the property expression to include it in the query.
-            query = query.Include(property());
+        query = properties.Aggregate(query, (current, property) => current.Include(property()));
 
         var userProfile = await query.FirstOrDefaultAsync(e => e.GainsAccountId == gainsId);
 

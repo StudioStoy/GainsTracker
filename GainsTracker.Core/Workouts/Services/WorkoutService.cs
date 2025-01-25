@@ -1,6 +1,7 @@
 ﻿using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.Workouts;
-using GainsTracker.Common.Models.Workouts.Dto;
+using GainsTracker.Common.Models.Workouts.Enums;
+using GainsTracker.Common.Models.Workouts.Measurements;
 using GainsTracker.Core.Gains.Interfaces.Services;
 using GainsTracker.Core.Workouts.Interfaces.Repositories;
 using GainsTracker.Core.Workouts.Interfaces.Services;
@@ -46,23 +47,15 @@ public class WorkoutService(
     public async Task<WorkoutMeasurementsDto> GetWorkoutMeasurementsById(Guid workoutId)
     {
         var workout = await workoutRepository.GetWorkoutWithMeasurementsById(workoutId);
+
         return new WorkoutMeasurementsDto
         (
             Id: workout.Id,
-            Measurements: workout.Measurements
-                .Select(m => new MeasurementDto
-                (
-                    Id: m.Id.ToString(),
-                    WorkoutId: workout.Id.ToString(),
-                    Category: m.Category,
-                    TimeOfRecord: m.TimeOfRecord,
-                    Notes: m.Notes,
-                    Data: MeasurementFactory.SerializeMeasurementToJson(m)
-                )).ToList()
+            Measurements: workout.Measurements.Select(m => m.ToDto()).ToList()
         );
     }
 
-    public async Task<MeasurementDto> AddMeasurementToWorkout(Guid workoutId, CreateMeasurementDto dto)
+    public async Task<IMeasurementDto> AddMeasurementToWorkout(Guid workoutId, AddMeasurementDto dto)
     {
         var measurement = MeasurementFactory.DeserializeMeasurementFromJson(dto.Category, dto.Data);
         measurementValidationService.ValidateMeasurement(measurement);
@@ -72,7 +65,7 @@ public class WorkoutService(
 
         await measurementRepository.AddAsync(measurement);
         await workoutRepository.UpdateAsync(workout);
-        
+
         return measurement.ToDto();
     }
 

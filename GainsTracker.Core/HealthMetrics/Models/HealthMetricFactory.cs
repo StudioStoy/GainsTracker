@@ -1,5 +1,6 @@
 using System.Text.Json;
 using GainsTracker.Common.Models.Metrics;
+using GainsTracker.Common.Models.Metrics.Enums;
 
 namespace GainsTracker.Core.HealthMetrics.Models;
 

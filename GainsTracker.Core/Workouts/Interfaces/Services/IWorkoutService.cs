@@ -1,4 +1,5 @@
-﻿using GainsTracker.Common.Models.Workouts.Dto;
+﻿using GainsTracker.Common.Models.Workouts;
+using GainsTracker.Common.Models.Workouts.Measurements;
 
 namespace GainsTracker.Core.Workouts.Interfaces.Services;
 
@@ -10,5 +11,5 @@ public interface IWorkoutService
 
     // Measurements
     Task<WorkoutMeasurementsDto> GetWorkoutMeasurementsById(Guid workoutId);
-    Task<MeasurementDto> AddMeasurementToWorkout(Guid id, CreateMeasurementDto measurementRequestDto);
+    Task<IMeasurementDto> AddMeasurementToWorkout(Guid id, AddMeasurementDto measurementRequestDto);
 }

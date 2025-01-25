@@ -1,5 +1,6 @@
 ﻿using GainsTracker.Common.Models.UserProfiles;
-using GainsTracker.Common.Models.Workouts.Dto;
+using GainsTracker.Common.Models.Workouts;
+using GainsTracker.Common.Models.Workouts.Measurements;
 using GainsTracker.Core.UserProfiles.Interfaces.Services;
 using GainsTracker.Core.Users.Interfaces;
 using Microsoft.AspNetCore.Authorization;

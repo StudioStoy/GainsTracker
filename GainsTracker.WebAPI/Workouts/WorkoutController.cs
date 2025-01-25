@@ -1,4 +1,5 @@
-using GainsTracker.Common.Models.Workouts.Dto;
+using GainsTracker.Common.Models.Workouts;
+using GainsTracker.Common.Models.Workouts.Measurements;
 using GainsTracker.Core.Users.Interfaces;
 using GainsTracker.Core.Workouts.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -62,7 +63,7 @@ public class WorkoutController(IWorkoutService service, IUserService userService
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
     public async Task<IActionResult> AddMeasurementToWorkout(Guid workoutId,
-        [FromBody] CreateMeasurementDto measurementDto)
+        [FromBody] AddMeasurementDto measurementDto)
     {
         var createdMeasurement = await service.AddMeasurementToWorkout(workoutId, measurementDto);
         return CreatedAtAction(nameof(AddMeasurementToWorkout), new { id = createdMeasurement.Id }, createdMeasurement);

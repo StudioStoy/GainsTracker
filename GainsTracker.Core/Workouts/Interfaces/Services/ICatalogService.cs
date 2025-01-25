@@ -1,4 +1,4 @@
-﻿using GainsTracker.Common.Models.Workouts.Dto;
+﻿using GainsTracker.Common.Models.Workouts;
 
 namespace GainsTracker.Core.Workouts.Interfaces.Services;
 

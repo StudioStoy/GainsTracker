@@ -23,12 +23,17 @@ public static class ModelBuilderExtensions
 
         modelBuilder.Entity<UserProfile>(userProfile =>
         {
-            userProfile.HasMany(u => u.PinnedPBs)
+            userProfile
+                .HasMany(u => u.PinnedPBs)
                 .WithOne()
                 .HasForeignKey(u => u.PinnedByUserProfileId)
                 .IsRequired(false);
+            
+            userProfile
+                .Navigation(u => u.Icon)
+                .AutoInclude();
         });
-        
+
         // Measurements
         modelBuilder.Entity<Measurement>()
             .ToTable("measurements");

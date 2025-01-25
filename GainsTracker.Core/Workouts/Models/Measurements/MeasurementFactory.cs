@@ -1,42 +1,34 @@
 ﻿using System.Text.Json;
 using GainsTracker.Common.Models.Workouts;
+using GainsTracker.Common.Models.Workouts.Enums;
+using GainsTracker.Common.Models.Workouts.Measurements;
 using GainsTracker.Core.Workouts.Models.Measurements.Validators;
 
 namespace GainsTracker.Core.Workouts.Models.Measurements;
 
 public static class MeasurementFactory
 {
+    private static readonly JsonSerializerOptions Options = new() { PropertyNameCaseInsensitive = true };
+
     public static Measurement DeserializeMeasurementFromJson(ExerciseCategory category, JsonDocument? measurementData)
     {
-        JsonSerializerOptions options = new()
-        {
-            PropertyNameCaseInsensitive = true,
-        };
-
         if (measurementData == null)
             throw new ArgumentException("Can't deserialize measurement, invalid data provided.");
 
         return (category switch
         {
-            ExerciseCategory.Strength => measurementData.Deserialize<StrengthMeasurement>(options),
+            ExerciseCategory.Strength => measurementData.Deserialize<StrengthMeasurement>(Options),
             ExerciseCategory.TimeAndDistanceEndurance => measurementData
-                .Deserialize<TimeDistanceEnduranceMeasurement>(options),
-            ExerciseCategory.TimeEndurance => measurementData.Deserialize<TimeEnduranceMeasurement>(options),
-            ExerciseCategory.Reps => measurementData.Deserialize<RepsMeasurement>(options),
-            ExerciseCategory.General => measurementData.Deserialize<GeneralMeasurement>(options),
+                .Deserialize<TimeDistanceEnduranceMeasurement>(Options),
+            ExerciseCategory.TimeEndurance => measurementData.Deserialize<TimeEnduranceMeasurement>(Options),
+            ExerciseCategory.Reps => measurementData.Deserialize<RepsMeasurement>(Options),
+            ExerciseCategory.General => measurementData.Deserialize<GeneralMeasurement>(Options),
             _ => throw new ArgumentOutOfRangeException(nameof(category), "That exercise is not supported"),
         })!;
     }
 
-    public static JsonDocument SerializeMeasurementToJson(Measurement measurement)
-    {
-        JsonSerializerOptions options = new()
-        {
-            PropertyNameCaseInsensitive = true,
-        };
-
-        return JsonSerializer.SerializeToDocument(measurement, measurement.GetType(), options);
-    }
+    public static JsonDocument SerializeMeasurementToJson(Measurement measurement) =>
+        JsonSerializer.SerializeToDocument(measurement, measurement.GetType(), Options);
 
     public static MeasurementValidator GetValidator(WorkoutType type, Measurement previousBest,
         Measurement newMeasurement)

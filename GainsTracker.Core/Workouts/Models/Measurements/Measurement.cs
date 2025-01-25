@@ -1,10 +1,11 @@
 ﻿using GainsTracker.Common.Models.Generic;
-using GainsTracker.Common.Models.Measurements.Units;
-using GainsTracker.Common.Models.Workouts;
+using GainsTracker.Common.Models.Measurements.Enums.Units;
+using GainsTracker.Common.Models.Workouts.Enums;
+using GainsTracker.Common.Models.Workouts.Measurements;
 
 namespace GainsTracker.Core.Workouts.Models.Measurements;
 
-public abstract class Measurement : ITrackableGoal
+public abstract class Measurement : ITrackableGoal, IMeasurementDto
 {
     public Guid Id { get; init; } = Guid.NewGuid();
     public Guid PinnedByUserProfileId { get; set; }
@@ -42,14 +43,14 @@ public class TimeEnduranceMeasurement : Measurement
 
 public class RepsMeasurement : Measurement
 {
-    public int Reps { get; set; }
+    public int Reps { get; init; }
 
     protected internal override ExerciseCategory Category => ExerciseCategory.Reps;
 }
 
 public class GeneralMeasurement : Measurement
 {
-    public string GeneralAchievement { get; set; } = string.Empty;
+    public string GeneralAchievement { get; init; } = string.Empty;
 
     protected internal override ExerciseCategory Category => ExerciseCategory.General;
 }

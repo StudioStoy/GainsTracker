@@ -3,10 +3,12 @@ using System.Reflection;
 using GainsTracker.Common.Models.Friends.Dto;
 using GainsTracker.Common.Models.UserDtos;
 using GainsTracker.Common.Models.UserProfiles;
-using GainsTracker.Common.Models.Workouts.Dto;
+using GainsTracker.Common.Models.Workouts;
+using GainsTracker.Common.Models.Workouts.Measurements;
 using GainsTracker.Core.Friends.Models;
 using GainsTracker.Core.UserProfiles.Models;
 using GainsTracker.Core.Users.Models;
+using GainsTracker.Core.Workouts;
 using GainsTracker.Core.Workouts.Models.Measurements;
 using GainsTracker.Core.Workouts.Models.Workouts;
 
@@ -94,33 +96,17 @@ public static class DtoExtensions
             IconUrl: userProfile.Icon.Url,
             IconColor: ColorTranslator.ToHtml(Color.FromArgb(userProfile.Icon.PictureColor)),
             DisplayName: userProfile.DisplayName,
-            PinnedPBs: userProfile.PinnedPBs.Select(pb => new MeasurementDto
-            (
-                Id: pb.Id.ToString(),
-                WorkoutId: string.Empty,
-                Category: pb.Category,
-                TimeOfRecord: pb.TimeOfRecord,
-                Notes: pb.Notes,
-                Data: MeasurementFactory.SerializeMeasurementToJson(pb)
-            )).ToList()
+            PinnedPBs: userProfile.PinnedPBs.Select(pb => pb.ToDto()).ToList()
         );
     }
 
     // Workout
     public static WorkoutDto ToDto(this Workout workout)
     {
-        MeasurementDto? bestMeasurement = null;
+        IMeasurementDto? bestMeasurement = null;
 
         if (workout.PersonalBest != null)
-            bestMeasurement = new MeasurementDto
-            (
-                Id: workout.PersonalBest.Id.ToString(),
-                WorkoutId: workout.Id.ToString(),
-                TimeOfRecord: workout.PersonalBest.TimeOfRecord,
-                Category: workout.PersonalBest.Category,
-                Notes: workout.PersonalBest.Notes,
-                Data: MeasurementFactory.SerializeMeasurementToJson(workout.PersonalBest)
-            );
+            bestMeasurement = workout.PersonalBest.ToDto();
 
         return new WorkoutDto
         (
@@ -130,15 +116,4 @@ public static class DtoExtensions
             PersonalBest: bestMeasurement
         );
     }
-
-    // Measurement
-    public static MeasurementDto ToDto(this Measurement measurement) =>
-        new(
-            Id: measurement.Id.ToString(),
-            WorkoutId: string.Empty,
-            Category: measurement.Category,
-            TimeOfRecord: measurement.TimeOfRecord,
-            Notes: measurement.Notes,
-            Data: MeasurementFactory.SerializeMeasurementToJson(measurement)
-        );
 }

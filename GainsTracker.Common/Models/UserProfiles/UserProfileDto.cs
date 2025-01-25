@@ -1,4 +1,5 @@
-using GainsTracker.Common.Models.Workouts.Dto;
+using GainsTracker.Common.Models.Workouts;
+using GainsTracker.Common.Models.Workouts.Measurements;
 
 namespace GainsTracker.Common.Models.UserProfiles;
 
@@ -7,5 +8,5 @@ public record UserProfileDto(
     string? IconUrl,
     string? IconColor,
     string? Description,
-    List<MeasurementDto>? PinnedPBs
+    List<IMeasurementDto>? PinnedPBs
 );

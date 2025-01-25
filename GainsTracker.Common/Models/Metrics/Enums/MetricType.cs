@@ -1,4 +1,4 @@
-namespace GainsTracker.Common.Models.Metrics;
+namespace GainsTracker.Common.Models.Metrics.Enums;
 
 public enum MetricType
 {

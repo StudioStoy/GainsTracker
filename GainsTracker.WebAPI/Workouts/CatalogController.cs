@@ -1,7 +1,8 @@
 ﻿using GainsTracker.Common.Models.Generic;
-using GainsTracker.Common.Models.Measurements.Units;
+using GainsTracker.Common.Models.Measurements.Enums.Units;
 using GainsTracker.Common.Models.Workouts;
-using GainsTracker.Common.Models.Workouts.Dto;
+using GainsTracker.Common.Models.Workouts.Enums;
+using GainsTracker.Common.Models.Workouts.Measurements;
 using GainsTracker.Core.Users.Interfaces;
 using GainsTracker.Core.Workouts.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -39,24 +40,24 @@ public class CatalogController(ICatalogService catalogService, IUserService user
         [
             new(
                 ExerciseCategory.Reps.ToString(),
-                GenericJsonSerializer.SerializeObjectToJson(new RepsMeasurementDto(0))
+                GenericJsonSerializer.SerializeObjectToJson(new RepsMeasurementDto())
             ),
             new(
                 ExerciseCategory.Strength.ToString(),
-                GenericJsonSerializer.SerializeObjectToJson(new StrengthMeasurementDto(WeightUnits.Kilograms, 0, 0))
+                GenericJsonSerializer.SerializeObjectToJson(new StrengthMeasurementDto())
             ),
             new(
                 ExerciseCategory.TimeEndurance.ToString(),
-                GenericJsonSerializer.SerializeObjectToJson(new TimeEnduranceMeasurementDto(0))
+                GenericJsonSerializer.SerializeObjectToJson(new TimeEnduranceMeasurementDto())
             ),
             new(
                 ExerciseCategory.TimeAndDistanceEndurance.ToString(),
                 GenericJsonSerializer.SerializeObjectToJson(
-                    new TimeDistanceEnduranceMeasurementDto(DistanceUnits.Kilometers, 0))
+                    new TimeDistanceEnduranceMeasurementDto())
             ),
             new(
                 ExerciseCategory.General.ToString(),
-                GenericJsonSerializer.SerializeObjectToJson(new GeneralMeasurementDto(string.Empty))
+                GenericJsonSerializer.SerializeObjectToJson(new GeneralMeasurementDto())
             ),
         ];
 

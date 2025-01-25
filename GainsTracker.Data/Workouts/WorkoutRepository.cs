@@ -1,5 +1,6 @@
 ﻿using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.Workouts;
+using GainsTracker.Common.Models.Workouts.Enums;
 using GainsTracker.Core.Workouts.Interfaces.Repositories;
 using GainsTracker.Core.Workouts.Models.Workouts;
 using Microsoft.EntityFrameworkCore;

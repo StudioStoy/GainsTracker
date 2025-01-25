@@ -1,4 +1,5 @@
 ﻿using GainsTracker.Common.Models.Workouts;
+using GainsTracker.Common.Models.Workouts.Enums;
 using GainsTracker.Core.Workouts.Models.Measurements;
 
 namespace GainsTracker.Core.Workouts.Models.Workouts;

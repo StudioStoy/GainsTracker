@@ -1,4 +1,4 @@
-﻿using GainsTracker.Common.Models.Metrics.Dto;
+﻿using GainsTracker.Common.Models.Metrics;
 using GainsTracker.Core.HealthMetrics.Interfaces.Services;
 using GainsTracker.Core.Users.Interfaces;
 using Microsoft.AspNetCore.Authorization;

@@ -1,5 +1,6 @@
 ﻿using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.Workouts;
+using GainsTracker.Common.Models.Workouts.Enums;
 
 namespace GainsTracker.Core.Workouts.Models.Workouts;
 
