@@ -53,7 +53,7 @@ public static class WorkoutUtils
             case WorkoutType.Cycling:
             case WorkoutType.Swimming:
             case WorkoutType.Rowing:
-                return ExerciseCategory.TimeAndDistanceEndurance;
+                return ExerciseCategory.TimeDistanceEndurance;
             case WorkoutType.Bouldering:
                 return ExerciseCategory.General;
             default:

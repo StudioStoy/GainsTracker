@@ -16,23 +16,21 @@ public class MeasurementValidationService : IMeasurementValidationService
         switch (measurement.Category)
         {
             case ExerciseCategory.Strength:
-                var strength = measurement as StrengthMeasurement;
-                if (strength!.Weight <= 0 || strength.Reps <= 0)
+                if (measurement is StrengthMeasurement strength
+                    && (strength.Weight <= 0 || strength.Reps <= 0))
                     throw new BadRequestException("No negative or zero measurements.");
                 break;
             case ExerciseCategory.Reps:
-                var simpleRep = measurement as RepsMeasurement;
-                if (simpleRep!.Reps <= 0)
+                if (measurement is RepsMeasurement { Reps: <= 0 })
                     throw new BadRequestException("No negative or zero measurements.");
                 break;
             case ExerciseCategory.TimeEndurance:
-                var simpleEndurance = measurement as TimeEnduranceMeasurement;
-                if (simpleEndurance!.Time == 0)
+                if (measurement is TimeEnduranceMeasurement { Time.Ticks: <= 0 })
                     throw new BadRequestException("No negative or zero measurements.");
                 break;
-            case ExerciseCategory.TimeAndDistanceEndurance:
-                var running = measurement as TimeDistanceEnduranceMeasurement;
-                if (running!.Time == 0 || running.Distance <= 0)
+            case ExerciseCategory.TimeDistanceEndurance:
+                if (measurement is TimeDistanceEnduranceMeasurement running
+                    && (running.Time.Ticks == 0 || running.Distance <= 0))
                     throw new BadRequestException("No negative or zero measurements.");
                 break;
             case ExerciseCategory.General:

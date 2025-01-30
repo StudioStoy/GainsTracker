@@ -9,6 +9,7 @@ using GainsTracker.Core.Friends.Models;
 using GainsTracker.Core.UserProfiles.Models;
 using GainsTracker.Core.Users.Models;
 using GainsTracker.Core.Workouts;
+using GainsTracker.Core.Workouts.Extensions;
 using GainsTracker.Core.Workouts.Models.Measurements;
 using GainsTracker.Core.Workouts.Models.Workouts;
 
@@ -103,7 +104,7 @@ public static class DtoExtensions
     // Workout
     public static WorkoutDto ToDto(this Workout workout)
     {
-        IMeasurementDto? bestMeasurement = null;
+        MeasurementDto? bestMeasurement = null;
 
         if (workout.PersonalBest != null)
             bestMeasurement = workout.PersonalBest.ToDto();

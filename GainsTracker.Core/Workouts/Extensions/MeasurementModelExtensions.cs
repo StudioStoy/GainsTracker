@@ -1,11 +1,11 @@
 ﻿using GainsTracker.Common.Models.Workouts.Measurements;
 using GainsTracker.Core.Workouts.Models.Measurements;
 
-namespace GainsTracker.Core.Workouts;
+namespace GainsTracker.Core.Workouts.Extensions;
 
-public static class MeasurementExtensions
+public static class MeasurementModelExtensions
 {
-    public static IMeasurementDto ToDto(this Measurement measurement) => measurement switch
+    public static MeasurementDto ToDto(this Measurement measurement) => measurement switch
     {
         StrengthMeasurement strength => strength.ToDto(),
         TimeDistanceEnduranceMeasurement timeDistance => timeDistance.ToDto(),
@@ -36,7 +36,7 @@ public static class MeasurementExtensions
             Notes = measurement.Notes,
             DistanceUnit = measurement.DistanceUnit,
             Distance = measurement.Distance,
-            Time = TimeSpan.FromMilliseconds(measurement.Time).ToString(@"hh\:mm\:ss"),
+            Time = measurement.Time.Ticks,
         };
 
     private static TimeEnduranceMeasurementDto ToDto(this TimeEnduranceMeasurement measurement) =>
@@ -46,7 +46,7 @@ public static class MeasurementExtensions
             Category = measurement.Category,
             TimeOfRecord = measurement.TimeOfRecord,
             Notes = measurement.Notes,
-            Time = TimeSpan.FromMilliseconds(measurement.Time).ToString(@"hh\:mm\:ss"),
+            Time = measurement.Time.Ticks,
         };
 
     private static RepsMeasurementDto ToDto(this RepsMeasurement measurement) =>

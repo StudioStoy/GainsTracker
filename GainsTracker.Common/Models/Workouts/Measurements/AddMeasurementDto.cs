@@ -1,6 +1,5 @@
-﻿using System.Text.Json;
-using GainsTracker.Common.Models.Workouts.Enums;
+﻿using GainsTracker.Common.Models.Workouts.Enums;
 
 namespace GainsTracker.Common.Models.Workouts.Measurements;
 
-public record AddMeasurementDto(ExerciseCategory Category, JsonDocument? Data);
+public record AddMeasurementDto(ExerciseCategory Category, MeasurementDto Data);

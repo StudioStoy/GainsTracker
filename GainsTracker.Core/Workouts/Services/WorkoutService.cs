@@ -3,6 +3,7 @@ using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Common.Models.Workouts.Enums;
 using GainsTracker.Common.Models.Workouts.Measurements;
 using GainsTracker.Core.Gains.Interfaces.Services;
+using GainsTracker.Core.Workouts.Extensions;
 using GainsTracker.Core.Workouts.Interfaces.Repositories;
 using GainsTracker.Core.Workouts.Interfaces.Services;
 using GainsTracker.Core.Workouts.Models.Measurements;
@@ -55,9 +56,9 @@ public class WorkoutService(
         );
     }
 
-    public async Task<IMeasurementDto> AddMeasurementToWorkout(Guid workoutId, AddMeasurementDto dto)
+    public async Task<MeasurementDto> AddMeasurementToWorkout(Guid workoutId, CreateMeasurementDto measurementDto)
     {
-        var measurement = MeasurementFactory.DeserializeMeasurementFromJson(dto.Category, dto.Data);
+        var measurement = measurementDto.ToModel();
         measurementValidationService.ValidateMeasurement(measurement);
 
         var workout = await workoutRepository.GetWorkoutById(workoutId);

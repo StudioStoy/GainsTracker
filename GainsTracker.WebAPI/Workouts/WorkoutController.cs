@@ -63,7 +63,7 @@ public class WorkoutController(IWorkoutService service, IUserService userService
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
     public async Task<IActionResult> AddMeasurementToWorkout(Guid workoutId,
-        [FromBody] AddMeasurementDto measurementDto)
+        [FromBody] CreateMeasurementDto measurementDto)
     {
         var createdMeasurement = await service.AddMeasurementToWorkout(workoutId, measurementDto);
         return CreatedAtAction(nameof(AddMeasurementToWorkout), new { id = createdMeasurement.Id }, createdMeasurement);

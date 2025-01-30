@@ -4,6 +4,7 @@ using GainsTracker.Common.Models.Workouts.Measurements;
 using GainsTracker.Core.UserProfiles.Interfaces.Repositories;
 using GainsTracker.Core.UserProfiles.Interfaces.Services;
 using GainsTracker.Core.Workouts;
+using GainsTracker.Core.Workouts.Extensions;
 
 namespace GainsTracker.Core.UserProfiles.Services;
 
@@ -22,7 +23,7 @@ public class UserProfileService(IUserProfileRepository repository) : IUserProfil
     public async Task<UserProfileDto> GetUserProfile(Guid gainsId) =>
         (await repository.GetUserProfileByGainsId(gainsId)).ToDto();
 
-    public async Task<List<IMeasurementDto>> GetPinnedPBs(Guid gainsId)
+    public async Task<List<MeasurementDto>> GetPinnedPBs(Guid gainsId)
     {
         return (await repository.GetPinnedPBs(gainsId))
             .Select(pb => pb.ToDto())

@@ -18,7 +18,7 @@ public static class MeasurementFactory
         return (category switch
         {
             ExerciseCategory.Strength => measurementData.Deserialize<StrengthMeasurement>(Options),
-            ExerciseCategory.TimeAndDistanceEndurance => measurementData
+            ExerciseCategory.TimeDistanceEndurance => measurementData
                 .Deserialize<TimeDistanceEnduranceMeasurement>(Options),
             ExerciseCategory.TimeEndurance => measurementData.Deserialize<TimeEnduranceMeasurement>(Options),
             ExerciseCategory.Reps => measurementData.Deserialize<RepsMeasurement>(Options),

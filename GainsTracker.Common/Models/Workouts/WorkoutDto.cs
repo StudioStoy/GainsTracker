@@ -7,5 +7,5 @@ public record WorkoutDto(
     Guid Id,
     WorkoutType Type,
     ExerciseCategory Category,
-    IMeasurementDto? PersonalBest = null
+    MeasurementDto? PersonalBest = null
 );

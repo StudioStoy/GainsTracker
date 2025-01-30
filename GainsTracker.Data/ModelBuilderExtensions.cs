@@ -74,20 +74,4 @@ public static class ModelBuilderExtensions
             .Property(measurement => measurement.DistanceUnit)
             .HasConversion<string>();
     }
-
-    /// <summary>
-    ///     Converts other properties to the correct database format.
-    /// </summary>
-    public static void ConvertCustomPropertiesToDbFormat(this ModelBuilder builder)
-    {
-        var timeConverter = new ValueConverter<long, string>(v => v.ToString(), v => Convert.ToInt64(v));
-
-        builder.Entity<TimeEnduranceMeasurement>()
-            .Property(measurement => measurement.Time)
-            .HasConversion(timeConverter);
-
-        builder.Entity<TimeDistanceEnduranceMeasurement>()
-            .Property(measurement => measurement.Time)
-            .HasConversion(timeConverter);
-    }
 }

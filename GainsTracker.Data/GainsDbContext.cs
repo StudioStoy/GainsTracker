@@ -48,7 +48,6 @@ public sealed class GainsDbContext(DbContextOptions<GainsDbContext> options) : D
     {
         modelBuilder.ConfigureRelationModels();
         modelBuilder.ConvertEnumsToStrings();
-        modelBuilder.ConvertCustomPropertiesToDbFormat();
 
         foreach (var item in modelBuilder.Model.GetEntityTypes())
         {

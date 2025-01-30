@@ -51,7 +51,7 @@ public class CatalogController(ICatalogService catalogService, IUserService user
                 GenericJsonSerializer.SerializeObjectToJson(new TimeEnduranceMeasurementDto())
             ),
             new(
-                ExerciseCategory.TimeAndDistanceEndurance.ToString(),
+                ExerciseCategory.TimeDistanceEndurance.ToString(),
                 GenericJsonSerializer.SerializeObjectToJson(
                     new TimeDistanceEnduranceMeasurementDto())
             ),

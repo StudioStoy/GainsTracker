@@ -8,5 +8,5 @@ public record UserProfileDto(
     string? IconUrl,
     string? IconColor,
     string? Description,
-    List<IMeasurementDto>? PinnedPBs
+    List<MeasurementDto>? PinnedPBs
 );
