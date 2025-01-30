@@ -37,11 +37,13 @@ public class GenericRepository<TEntity>(GainsDbContextFactory contextFactory) : 
         return await context.Set<TEntity>().ToListAsync();
     }
 
-    public async Task AddAsync(TEntity entity)
+    public async Task<TEntity> AddAsync(TEntity entity)
     {
         await using var context = contextFactory.CreateDbContext();
-        await context.AddAsync(entity);
+        var created = (await context.AddAsync(entity)).Entity;
         await context.SaveChangesAsync();
+
+        return created;
     }
 
     public async Task<TEntity> UpdateAsync(TEntity entity)

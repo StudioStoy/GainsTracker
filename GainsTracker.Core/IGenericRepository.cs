@@ -14,7 +14,7 @@ public interface IGenericRepository<TEntity> where TEntity : class
         Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null);
 
     Task<List<TEntity>> GetAllAsync();
-    Task AddAsync(TEntity entity);
+    Task<TEntity> AddAsync(TEntity entity);
     Task<TEntity> UpdateAsync(TEntity entity);
     Task DeleteAsync(Guid id);
 

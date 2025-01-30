@@ -15,6 +15,19 @@ public class UserProfileController(IUserProfileService userProfileService, IUser
     : ExtendedControllerBase(userService)
 {
     /// <summary>
+    /// Get the user's profile and icon information.
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserProfileDto))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
+    public async Task<IActionResult> GetUserProfile()
+    {
+        var gainsId = (await GetCurrentUser()).GainsAccountId;
+        return Ok(await userProfileService.GetUserProfile(gainsId));
+    }
+    
+    /// <summary>
     /// Updates all supplied fields of the user profile.
     /// </summary>
     /// <param name="userProfileDto">The fields to update.</param>
@@ -28,19 +41,6 @@ public class UserProfileController(IUserProfileService userProfileService, IUser
         var gainsId = (await GetCurrentUser()).GainsAccountId;
         await userProfileService.UpdateUserProfile(gainsId, userProfileDto);
         return NoContent();
-    }
-
-    /// <summary>
-    /// Get the user's profile and icon information.
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserProfileDto))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
-    public async Task<IActionResult> GetUserProfile()
-    {
-        var gainsId = (await GetCurrentUser()).GainsAccountId;
-        return Ok(await userProfileService.GetUserProfile(gainsId));
     }
 
     // TODO: Move the pinned PB handling to Workout controller.

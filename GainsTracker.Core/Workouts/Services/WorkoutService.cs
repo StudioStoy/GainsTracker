@@ -6,21 +6,19 @@ using GainsTracker.Core.Gains.Interfaces.Services;
 using GainsTracker.Core.Workouts.Extensions;
 using GainsTracker.Core.Workouts.Interfaces.Repositories;
 using GainsTracker.Core.Workouts.Interfaces.Services;
-using GainsTracker.Core.Workouts.Models.Measurements;
 using GainsTracker.Core.Workouts.Models.Workouts;
 
 namespace GainsTracker.Core.Workouts.Services;
 
 public class WorkoutService(
-    IWorkoutRepository workoutRepository,
-    IMeasurementRepository measurementRepository,
-    IMeasurementValidationService measurementValidationService,
+    IWorkoutRepository repository,
+    IMeasurementService measurementService,
     IGainsService gainsService)
     : IWorkoutService
 {
     public async Task<List<WorkoutDto>> GetWorkoutsByGainsId(Guid gainsId)
     {
-        return (await workoutRepository.GetWorkoutsByGainsId(gainsId))
+        return (await repository.GetWorkoutsByGainsId(gainsId))
             .Select(w => w.ToDto())
             .ToList();
     }
@@ -30,11 +28,11 @@ public class WorkoutService(
         var gainsAccount = await gainsService.GetGainsAccountById(gainsId);
         await WorkoutTypeAlreadyUsed(gainsAccount.Id, workoutDto.WorkoutType);
 
-        Workout workout = new(gainsAccount.Id, workoutDto.WorkoutType, workoutDto.WorkoutType.GetCategoryFromType(),
+        var workout = new Workout(gainsAccount.Id, workoutDto.WorkoutType, workoutDto.WorkoutType.GetCategoryFromType(),
             []);
         gainsAccount.AddWorkout(workout);
 
-        await workoutRepository.AddAsync(workout);
+        await repository.AddAsync(workout);
         await gainsService.UpdateGainsAccount(gainsAccount);
 
         return new WorkoutDto
@@ -47,7 +45,7 @@ public class WorkoutService(
 
     public async Task<WorkoutMeasurementsDto> GetWorkoutMeasurementsById(Guid workoutId)
     {
-        var workout = await workoutRepository.GetWorkoutWithMeasurementsById(workoutId);
+        var workout = await repository.GetWorkoutWithMeasurementsById(workoutId);
 
         return new WorkoutMeasurementsDto
         (
@@ -58,21 +56,26 @@ public class WorkoutService(
 
     public async Task<MeasurementDto> AddMeasurementToWorkout(Guid workoutId, CreateMeasurementDto measurementDto)
     {
-        var measurement = measurementDto.ToModel();
-        measurementValidationService.ValidateMeasurement(measurement);
+        var measurement = await measurementService.CreateMeasurement(measurementDto);
 
-        var workout = await workoutRepository.GetWorkoutById(workoutId);
+        var workout = await repository.GetWorkoutById(workoutId);
         workout.AddNewMeasurement(measurement);
 
-        await measurementRepository.AddAsync(measurement);
-        await workoutRepository.UpdateAsync(workout);
+        await repository.UpdateAsync(workout);
 
         return measurement.ToDto();
     }
 
+    public async Task<List<MeasurementDto>> GetAllPersonalBestsByGainsId(Guid gainsId)
+    {
+        return (await repository.GetAllPersonalBestsByGainsId(gainsId))
+            .Select(w => w.PersonalBest!.ToDto(w.Id))
+            .ToList();
+    }
+
     private async Task WorkoutTypeAlreadyUsed(Guid gainsId, WorkoutType type)
     {
-        var workouts = await workoutRepository.GetWorkoutsByGainsId(gainsId);
+        var workouts = await repository.GetWorkoutsByGainsId(gainsId);
         if (workouts.Any(w => w.Type == type))
             throw new ConflictException($"Workout with type {type} is already added to this account!");
     }

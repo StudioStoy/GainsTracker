@@ -11,12 +11,15 @@ public static class WorkoutsServiceCollections
     public static IServiceCollection AddWorkoutServices(this IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
-
-        services.AddScoped<IWorkoutService, WorkoutService>();
-        services.AddScoped<IWorkoutRepository, WorkoutRepository>();
+        
         services.AddScoped<IMeasurementRepository, MeasurementRepository>();
-        services.AddScoped<ICatalogService, CatalogService>();
         services.AddScoped<IMeasurementValidationService, MeasurementValidationService>();
+        services.AddScoped<IMeasurementService, MeasurementService>();
+
+        services.AddScoped<IWorkoutRepository, WorkoutRepository>();
+        services.AddScoped<IWorkoutService, WorkoutService>();
+
+        services.AddScoped<ICatalogService, CatalogService>();
 
         return services;
     }

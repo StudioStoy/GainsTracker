@@ -13,9 +13,9 @@ namespace GainsTracker.Common.Models.Workouts.Measurements;
 public record MeasurementDto
 {
     public ExerciseCategory Category { get; init; }
-    public Guid Id { get; init; } = Guid.NewGuid();
+    public Guid Id { get; init; } = Guid.Empty;
     
-    public string WorkoutId { get; init; } = string.Empty;
+    public Guid WorkoutId { get; init; } = Guid.Empty;
     public DateTime TimeOfRecord { get; init; } = DateTime.UtcNow;
     public string Notes { get; init; } = string.Empty;
 }

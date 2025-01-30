@@ -68,4 +68,17 @@ public class WorkoutController(IWorkoutService service, IUserService userService
         var createdMeasurement = await service.AddMeasurementToWorkout(workoutId, measurementDto);
         return CreatedAtAction(nameof(AddMeasurementToWorkout), new { id = createdMeasurement.Id }, createdMeasurement);
     }
+    
+    /// <summary>
+    /// Gets all the personal best measurements of a user. 
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("personal-bests")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<WorkoutDto>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
+    public async Task<IActionResult> GetPersonalBests()
+    {
+        var gainsId = (await GetCurrentUser()).GainsAccountId;
+        return Ok(await service.GetAllPersonalBestsByGainsId(gainsId));
+    }
 }
