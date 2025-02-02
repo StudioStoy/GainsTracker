@@ -11,19 +11,18 @@ public class CatalogService(IWorkoutRepository repository) : ICatalogService
     public async Task<List<WorkoutTypeDto>> GetAvailableWorkoutTypesByGainsId(Guid gainsId)
     {
         var allWorkoutTypes = GetAllWorkoutTypes();
-        var workouts = await repository.GetWorkoutsByGainsId(gainsId);
-        var activeWorkoutTypes = workouts
-            .Select(w => new WorkoutTypeDto(w.Type.ToString(), ""));
+        var workouts = (await repository.GetUsedWorkoutTypesByGainsId(gainsId))
+            .Select(type => new WorkoutTypeDto(type, type.GetCategoryFromType()));
 
-        return allWorkoutTypes.Except(activeWorkoutTypes).ToList();
+        return allWorkoutTypes.Except(workouts).ToList();
     }
 
     private static List<WorkoutTypeDto> GetAllWorkoutTypes()
     {
-        return Enum.GetNames<WorkoutType>()
+        return Enum.GetValues<WorkoutType>()
             .Select(workoutType => new WorkoutTypeDto(
                 workoutType,
-                WorkoutUtils.GetCategoryFromType(workoutType).ToString())
+                workoutType.GetCategoryFromType())
             ).ToList();
     }
 }

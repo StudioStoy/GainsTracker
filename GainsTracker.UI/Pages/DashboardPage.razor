@@ -1,6 +1,11 @@
-﻿@using GainsTracker.UI.Elements.Header
+﻿@using GainsTracker.Common.Models.Workouts.Measurements
+@using GainsTracker.UI.Elements.Header
 @using GainsTracker.UI.Elements.Shared
+@using GainsTracker.UI.Services.API.Workouts
 @using Microsoft.AspNetCore.Authorization
+@using GainsTracker.UI.Components
+
+@inject IWorkoutService WorkoutService
 
 @attribute [Authorize]
 
@@ -19,7 +24,14 @@
         </div>
         <div class="recent-pbs">
             <h2>Recent personal bests</h2>
-            <ul class="recent-pbs-list"></ul>
+            <div class="recent-pbs-list">
+                @foreach (var pb in _personalBests)
+                {
+                    <div class="pb-card">
+                        <PersonalBestView PersonalBest="pb" />
+                    </div>
+                }
+            </div>
         </div>
         <div class="goals">
             <h2>Your goals</h2>
@@ -28,8 +40,13 @@
 </div>
 
 @code {
-    private void GetPbs()
+    private List<PersonalBestDto> _personalBests = [];
+
+    protected override async Task OnInitializedAsync() => await GetPbs();
+
+    private async Task GetPbs()
     {
+        _personalBests = await WorkoutService.GetPersonalBests();
     }
 
     private void GetGoals()

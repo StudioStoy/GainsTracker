@@ -1,3 +1,5 @@
-﻿namespace GainsTracker.Common.Models.Workouts;
+﻿using GainsTracker.Common.Models.Workouts.Enums;
 
-public record WorkoutTypeDto(string Type, string Category);
+namespace GainsTracker.Common.Models.Workouts;
+
+public record WorkoutTypeDto(WorkoutType Type, ExerciseCategory Category);

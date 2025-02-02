@@ -4,7 +4,7 @@ using GainsTracker.Common.Models.Workouts.Enums;
 
 namespace GainsTracker.Common.Models.Workouts.Measurements;
 
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "category")]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
 [JsonDerivedType(typeof(StrengthMeasurementDto), "Strength")]
 [JsonDerivedType(typeof(TimeDistanceEnduranceMeasurementDto), "TimeDistanceEndurance")]
 [JsonDerivedType(typeof(TimeEnduranceMeasurementDto), "TimeEndurance")]
@@ -12,9 +12,13 @@ namespace GainsTracker.Common.Models.Workouts.Measurements;
 [JsonDerivedType(typeof(GeneralMeasurementDto), "General")]
 public record MeasurementDto
 {
-    public ExerciseCategory Category { get; init; }
-    public Guid Id { get; init; } = Guid.Empty;
+    // TODO: this works with deserializing back into the frontend. Is it the best solution however? 
+    protected ExerciseCategory Type { get; init; }
     
+    public ExerciseCategory Category { get; init; }
+
+    public Guid Id { get; init; } = Guid.Empty;
+
     public Guid WorkoutId { get; init; } = Guid.Empty;
     public DateTime TimeOfRecord { get; init; } = DateTime.UtcNow;
     public string Notes { get; init; } = string.Empty;

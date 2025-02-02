@@ -5,21 +5,21 @@ namespace GainsTracker.Core.Workouts.Extensions;
 
 public static class MeasurementModelExtensions
 {
-    public static MeasurementDto ToDto(this Measurement measurement, Guid? workoutId = null) => measurement switch
+    public static MeasurementDto ToDto(this Measurement measurement) => measurement switch
     {
-        StrengthMeasurement strength => strength.ToDto(workoutId),
-        TimeDistanceEnduranceMeasurement timeDistance => timeDistance.ToDto(workoutId),
-        TimeEnduranceMeasurement time => time.ToDto(workoutId),
-        RepsMeasurement reps => reps.ToDto(workoutId),
-        GeneralMeasurement general => general.ToDto(workoutId),
+        StrengthMeasurement strength => strength.ToDto(),
+        TimeDistanceEnduranceMeasurement timeDistance => timeDistance.ToDto(),
+        TimeEnduranceMeasurement time => time.ToDto(),
+        RepsMeasurement reps => reps.ToDto(),
+        GeneralMeasurement general => general.ToDto(),
         _ => throw new InvalidOperationException($"Unsupported measurement type: {measurement.GetType()}"),
     };
 
-    private static StrengthMeasurementDto ToDto(this StrengthMeasurement measurement, Guid? workoutId) =>
+    private static StrengthMeasurementDto ToDto(this StrengthMeasurement measurement) =>
         new()
         {
             Id = measurement.Id,
-            WorkoutId = workoutId ?? Guid.Empty,
+            WorkoutId = Guid.Empty,
             Category = measurement.Category,
             TimeOfRecord = measurement.TimeOfRecord,
             Notes = measurement.Notes,
@@ -28,11 +28,11 @@ public static class MeasurementModelExtensions
             Reps = measurement.Reps,
         };
 
-    private static TimeDistanceEnduranceMeasurementDto ToDto(this TimeDistanceEnduranceMeasurement measurement, Guid? workoutId) =>
+    private static TimeDistanceEnduranceMeasurementDto ToDto(this TimeDistanceEnduranceMeasurement measurement) =>
         new()
         {
             Id = measurement.Id,
-            WorkoutId = workoutId ?? Guid.Empty,
+            WorkoutId = Guid.Empty,
             Category = measurement.Category,
             TimeOfRecord = measurement.TimeOfRecord,
             Notes = measurement.Notes,
@@ -41,33 +41,33 @@ public static class MeasurementModelExtensions
             Time = measurement.Time.Ticks,
         };
 
-    private static TimeEnduranceMeasurementDto ToDto(this TimeEnduranceMeasurement measurement, Guid? workoutId) =>
+    private static TimeEnduranceMeasurementDto ToDto(this TimeEnduranceMeasurement measurement) =>
         new()
         {
             Id = measurement.Id,
-            WorkoutId = workoutId ?? Guid.Empty,
+            WorkoutId = Guid.Empty,
             Category = measurement.Category,
             TimeOfRecord = measurement.TimeOfRecord,
             Notes = measurement.Notes,
             Time = measurement.Time.Ticks,
         };
 
-    private static RepsMeasurementDto ToDto(this RepsMeasurement measurement, Guid? workoutId) =>
+    private static RepsMeasurementDto ToDto(this RepsMeasurement measurement) =>
         new()
         {
             Id = measurement.Id,
-            WorkoutId = workoutId ?? Guid.Empty,
+            WorkoutId = Guid.Empty,
             Category = measurement.Category,
             TimeOfRecord = measurement.TimeOfRecord,
             Notes = measurement.Notes,
             Reps = measurement.Reps,
         };
 
-    private static GeneralMeasurementDto ToDto(this GeneralMeasurement measurement, Guid? workoutId) =>
+    private static GeneralMeasurementDto ToDto(this GeneralMeasurement measurement) =>
         new()
         {
             Id = measurement.Id,
-            WorkoutId = workoutId ?? Guid.Empty,
+            WorkoutId = Guid.Empty,
             Category = measurement.Category,
             TimeOfRecord = measurement.TimeOfRecord,
             Notes = measurement.Notes,

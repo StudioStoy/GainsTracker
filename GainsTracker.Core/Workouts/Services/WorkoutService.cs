@@ -66,10 +66,10 @@ public class WorkoutService(
         return measurement.ToDto();
     }
 
-    public async Task<List<MeasurementDto>> GetAllPersonalBestsByGainsId(Guid gainsId)
+    public async Task<List<PersonalBestDto>> GetAllPersonalBestsByGainsId(Guid gainsId)
     {
         return (await repository.GetAllPersonalBestsByGainsId(gainsId))
-            .Select(w => w.PersonalBest!.ToDto(w.Id))
+            .Select(w => new PersonalBestDto(w.Id, w.Type.ToString(), w.PersonalBest!.ToDto()))
             .ToList();
     }
 

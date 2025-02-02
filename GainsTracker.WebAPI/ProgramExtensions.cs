@@ -107,7 +107,7 @@ public static class ProgramExtensions
         {
             options.SwaggerDoc("v1", new OpenApiInfo
             {
-                Version = "v1",
+                Version = "v0.1.0",
                 Title = "Gains Tracker API",
                 Description = "Web API for managing GainsTracker resources, developed by Studio Stoy.",
                 Contact = new OpenApiContact

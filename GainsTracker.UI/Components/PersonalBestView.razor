@@ -1,0 +1,31 @@
+@using GainsTracker.Common.Models.Workouts.Measurements
+
+<div class="pb-item">
+    <div class="pb-title">@PersonalBest.WorkoutName</div>
+
+    <div class="pb-value">
+        @GetFormattedValue()
+    </div>
+
+    <div class="pb-date">
+        @PersonalBest.Measurement.TimeOfRecord.ToString("dd/MM/yyyy")
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public PersonalBestDto PersonalBest { get; set; } = null!;
+
+    private string GetFormattedValue()
+    {
+        return PersonalBest.Measurement switch
+        {
+            StrengthMeasurementDto strength => $"{strength.Weight} {strength.WeightUnit}",
+            TimeDistanceEnduranceMeasurementDto endurance => $"{endurance.Distance}{endurance.DistanceUnit} <br> {TimeSpan.FromTicks(endurance.Time).ToString(@"m\:ss")} min",
+            TimeEnduranceMeasurementDto timeEndurance => $"{TimeSpan.FromTicks(timeEndurance.Time).ToString(@"m\:ss")} min",
+            RepsMeasurementDto reps => $"{reps.Reps} reps",
+            GeneralMeasurementDto general => $"{general.General}",
+            _ => "N/A",
+        };
+    }
+}
