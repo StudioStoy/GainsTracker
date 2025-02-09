@@ -7,4 +7,5 @@ public interface IWorkoutService
 {
     public Task<List<WorkoutDto>> GetUserWorkouts();
     public Task<List<PersonalBestDto>> GetPersonalBests();
+    public Task CreateWorkout(AddNewWorkoutDto workout);
 }
