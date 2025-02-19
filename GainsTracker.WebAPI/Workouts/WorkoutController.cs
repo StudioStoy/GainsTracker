@@ -26,19 +26,19 @@ public class WorkoutController(IWorkoutService service, IUserService userService
     }
 
     /// <summary>
-    /// Registers a workout to the user's account.
+    /// Adds a new workout it to the user's account and logs its first measurement.
     /// </summary>
-    /// <param name="workout">The workout type to register.</param>
+    /// <param name="workout">The workout data to add.</param>
     /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
-    public async Task<IActionResult> AddWorkoutToAccount([FromBody] AddNewWorkoutDto workout)
+    public async Task<IActionResult> CreateWorkoutWithMeasurement([FromBody] AddNewWorkoutDto workout)
     {
         var gainsId = (await GetCurrentUser()).GainsAccountId;
         var createdWorkout = await service.AddWorkoutToGainsAccount(gainsId, workout);
-        return CreatedAtAction(nameof(AddWorkoutToAccount), new { id = createdWorkout.Id }, createdWorkout);
+        return CreatedAtAction(nameof(CreateWorkoutWithMeasurement), new { id = createdWorkout.Id }, createdWorkout);
     }
 
     /// <summary>

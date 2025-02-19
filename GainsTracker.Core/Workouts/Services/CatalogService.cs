@@ -12,7 +12,7 @@ public class CatalogService(IWorkoutRepository repository) : ICatalogService
     {
         var allWorkoutTypes = GetAllWorkoutTypes();
         var workouts = (await repository.GetUsedWorkoutTypesByGainsId(gainsId))
-            .Select(type => new WorkoutTypeDto(type, type.GetCategoryFromType()));
+            .Select(type => new WorkoutTypeDto(type, type.GetCategory()));
 
         return allWorkoutTypes.Except(workouts).ToList();
     }
@@ -22,7 +22,7 @@ public class CatalogService(IWorkoutRepository repository) : ICatalogService
         return Enum.GetValues<WorkoutType>()
             .Select(workoutType => new WorkoutTypeDto(
                 workoutType,
-                workoutType.GetCategoryFromType())
+                workoutType.GetCategory())
             ).ToList();
     }
 }

@@ -6,58 +6,26 @@ namespace GainsTracker.Core.Workouts.Models.Workouts;
 
 public static class WorkoutUtils
 {
-    public static ExerciseCategory GetCategoryFromType(string workoutType) =>
-        GetCategoryFromType(Enum.Parse<WorkoutType>(workoutType));
+    public static ExerciseCategory GetCategory(string workoutType) =>
+        GetCategory(Enum.Parse<WorkoutType>(workoutType));
 
-    public static ExerciseCategory GetCategoryFromType(this WorkoutType workoutType)
-    {
-        switch (workoutType)
+    public static ExerciseCategory GetCategory(this WorkoutType workoutType) =>
+        workoutType switch
         {
-            case WorkoutType.WeightedSquat:
-            case WorkoutType.Abduction:
-            case WorkoutType.Adduction:
-            case WorkoutType.BenchPress:
-            case WorkoutType.CalfExtensions:
-            case WorkoutType.LegPress:
-            case WorkoutType.ShoulderPress:
-            case WorkoutType.DumbbellPress:
-            case WorkoutType.BicepCurl:
-            case WorkoutType.LatPullDown:
-            case WorkoutType.BicepPullDown:
-            case WorkoutType.PectoralFly:
-            case WorkoutType.LowRows:
-            case WorkoutType.DeadLift:
-            case WorkoutType.ChestPress:
-            case WorkoutType.HammerCurl:
-            case WorkoutType.InclineBenchPress:
-            case WorkoutType.InclineDumbbellPress:
-            case WorkoutType.Shrugs:
-            case WorkoutType.LegCurl:
-            case WorkoutType.LegExtension:
-            case WorkoutType.OverheadPress:
-                return ExerciseCategory.Strength;
-            case WorkoutType.ClosePullUp:
-            case WorkoutType.WidePullUp:
-            case WorkoutType.DiamondPushUp:
-            case WorkoutType.ClosePushUp:
-            case WorkoutType.BodySquat:
-            case WorkoutType.WidePushUp:
-            case WorkoutType.SitUps:
-            case WorkoutType.LegRaise:
-                return ExerciseCategory.Reps;
-            case WorkoutType.Planking:
-            case WorkoutType.JumpingRope:
-                return ExerciseCategory.TimeEndurance;
-            case WorkoutType.Walking:
-            case WorkoutType.Running:
-            case WorkoutType.Cycling:
-            case WorkoutType.Swimming:
-            case WorkoutType.Rowing:
-                return ExerciseCategory.TimeDistanceEndurance;
-            case WorkoutType.Bouldering:
-                return ExerciseCategory.General;
-            default:
-                throw new NotFoundException($"Type {workoutType} is not supported.");
-        }
-    }
+            WorkoutType.WeightedSquat or WorkoutType.Abduction or WorkoutType.Adduction or WorkoutType.BenchPress
+                or WorkoutType.CalfExtensions or WorkoutType.LegPress or WorkoutType.ShoulderPress
+                or WorkoutType.DumbbellPress or WorkoutType.BicepCurl or WorkoutType.LatPullDown
+                or WorkoutType.BicepPullDown or WorkoutType.PectoralFly or WorkoutType.LowRows or WorkoutType.DeadLift
+                or WorkoutType.ChestPress or WorkoutType.HammerCurl or WorkoutType.InclineBenchPress
+                or WorkoutType.InclineDumbbellPress or WorkoutType.Shrugs or WorkoutType.LegCurl
+                or WorkoutType.LegExtension or WorkoutType.OverheadPress => ExerciseCategory.Strength,
+            WorkoutType.ClosePullUp or WorkoutType.WidePullUp or WorkoutType.DiamondPushUp or WorkoutType.ClosePushUp
+                or WorkoutType.BodySquat or WorkoutType.WidePushUp or WorkoutType.SitUps
+                or WorkoutType.LegRaise => ExerciseCategory.Reps,
+            WorkoutType.Planking or WorkoutType.JumpingRope => ExerciseCategory.TimeEndurance,
+            WorkoutType.Walking or WorkoutType.Running or WorkoutType.Cycling or WorkoutType.Swimming
+                or WorkoutType.Rowing => ExerciseCategory.TimeDistanceEndurance,
+            WorkoutType.Bouldering => ExerciseCategory.General,
+            _ => throw new NotFoundException($"Type {workoutType} is not supported."),
+        };
 }

@@ -28,18 +28,21 @@ public class WorkoutService(
         var gainsAccount = await gainsService.GetGainsAccountById(gainsId);
         await WorkoutTypeAlreadyUsed(gainsAccount.Id, workoutDto.WorkoutType);
 
-        var workout = new Workout(gainsAccount.Id, workoutDto.WorkoutType, workoutDto.WorkoutType.GetCategoryFromType(),
-            []);
+        var workout = new Workout(gainsAccount.Id, workoutDto.WorkoutType, workoutDto.WorkoutType.GetCategory(), []);
         gainsAccount.AddWorkout(workout);
-
         await repository.AddAsync(workout);
+        
+        var measurement = await measurementService.CreateMeasurement(workoutDto.Measurement);
+        workout.AddNewMeasurement(measurement);
+        
         await gainsService.UpdateGainsAccount(gainsAccount);
 
         return new WorkoutDto
         (
             Id: workout.Id,
             Type: workout.Type,
-            Category: workout.Category
+            Category: workout.Category,
+            PersonalBest: workout.PersonalBest?.ToDto()
         );
     }
 

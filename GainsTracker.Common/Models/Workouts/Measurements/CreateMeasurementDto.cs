@@ -4,12 +4,7 @@ using GainsTracker.Common.Models.Workouts.Enums;
 
 namespace GainsTracker.Common.Models.Workouts.Measurements;
 
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "category")]
-[JsonDerivedType(typeof(CreateStrengthMeasurementDto), "Strength")]
-[JsonDerivedType(typeof(CreateTimeDistanceEnduranceMeasurementDto), "TimeDistanceEndurance")]
-[JsonDerivedType(typeof(CreateTimeEnduranceMeasurementDto), "TimeEndurance")]
-[JsonDerivedType(typeof(CreateRepsMeasurementDto), "Reps")]
-[JsonDerivedType(typeof(CreateGeneralMeasurementDto), "General")]
+[JsonConverter(typeof(CreateMeasurementDtoConverter))]
 public record CreateMeasurementDto
 {
     public ExerciseCategory Category { get; init; }
