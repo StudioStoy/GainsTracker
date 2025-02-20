@@ -3,4 +3,4 @@ using GainsTracker.Common.Models.Workouts.Measurements;
 
 namespace GainsTracker.Common.Models.Workouts;
 
-public record AddNewWorkoutDto(WorkoutType WorkoutType, CreateMeasurementDto Measurement);
+public record CreateNewWorkoutDto(WorkoutType WorkoutType, CreateMeasurementDto Measurement);

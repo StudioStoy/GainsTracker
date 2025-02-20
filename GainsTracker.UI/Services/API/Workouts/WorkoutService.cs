@@ -11,6 +11,6 @@ public class WorkoutService(ApiService api) : IWorkoutService
     public async Task<List<PersonalBestDto>> GetPersonalBests() =>
         await api.GetAsync<List<PersonalBestDto>>("/workouts/personal-bests") ?? [];
 
-    public async Task CreateWorkout(AddNewWorkoutDto workout) =>
+    public async Task CreateWorkout(CreateNewWorkoutDto workout) =>
         await api.PostAsync("/workouts", workout);
 }

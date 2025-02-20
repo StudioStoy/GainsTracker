@@ -8,7 +8,7 @@ namespace GainsTracker.Common.Models.Workouts.Measurements;
 public record CreateMeasurementDto
 {
     public ExerciseCategory Category { get; init; }
-    public string Notes { get; init; } = string.Empty;
+    public string Notes { get; set; } = string.Empty;
 }
 
 public record CreateStrengthMeasurementDto : CreateMeasurementDto

@@ -1,7 +1,11 @@
-﻿@using GainsTracker.UI.Services.API.Workouts
+﻿@using GainsTracker.Common.Models.Workouts
+@using GainsTracker.Common.Models.Workouts.Enums
+@using GainsTracker.Common.Models.Workouts.Measurements
+@using GainsTracker.UI.Services.API.Workouts
 @using Microsoft.AspNetCore.Authorization
 
 @inject IWorkoutService WorkoutService
+@inject ICatalogService CatalogService
 
 @attribute [Authorize]
 
@@ -9,12 +13,75 @@
 
 <PageTitle>Logging</PageTitle>
 
-<h3>Logging</h3>
+<h3>Log a Workout</h3>
+
+@if (_loading)
+{
+    <p>Loading workouts...</p>
+}
+else
+{
+    <label>Select a workout:</label>
+    <select @bind="_selectedWorkoutType">
+        <option value="">-- Select --</option>
+        @foreach (var workout in _workouts)
+        {
+            <option value="@workout.Type">@workout.Type</option>
+        }
+    </select>
+
+    @if (_selectedWorkout != null)
+    {
+        <h4>Measurement Details</h4>
+
+        <EditForm Model="_measurement" OnValidSubmit="SubmitWorkout">
+            <DataAnnotationsValidator/>
+
+            <MeasurementTemplate Category="@_selectedWorkout.Category" Model="measurement"/>
+
+            <div>
+                <label>Notes:</label>
+                <InputTextArea @bind-Value="_measurement.Notes"/>
+            </div>
+
+            <button type="submit">Log Workout</button>
+        </EditForm>
+    }
+}
 
 @code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    private bool _loading = true;
+
+    private List<WorkoutTypeDto> _workouts = [];
+    private string? _selectedWorkoutType;
+    private WorkoutTypeDto? _selectedWorkout;
+    private CreateMeasurementDto _measurement = new CreateMeasurementDto();
+
+    protected override async Task OnInitializedAsync()
     {
-        await WorkoutService.GetUserWorkouts();
-        await base.OnAfterRenderAsync(firstRender);
+        _workouts = await CatalogService.GetAvailableWorkoutTypes();
+        _loading = false;
+    }
+
+    private void UpdateMeasurement()
+    {
+        _selectedWorkout = _workouts.FirstOrDefault(w => w.Type.ToString() == _selectedWorkoutType);
+        _measurement = _selectedWorkout?.Category switch
+        {
+            ExerciseCategory.Strength => new CreateStrengthMeasurementDto(),
+            ExerciseCategory.TimeDistanceEndurance => new CreateTimeDistanceEnduranceMeasurementDto(),
+            ExerciseCategory.TimeEndurance => new CreateTimeEnduranceMeasurementDto(),
+            ExerciseCategory.Reps => new CreateRepsMeasurementDto(),
+            ExerciseCategory.General => new CreateGeneralMeasurementDto(),
+            _ => new CreateGeneralMeasurementDto(),
+        };
+    }
+
+    private async Task SubmitWorkout()
+    {
+        if (_selectedWorkout == null) return;
+
+        var createWorkoutDto = new CreateNewWorkoutDto(_selectedWorkout.Type, _measurement);
+        await WorkoutService.CreateWorkout(createWorkoutDto);
     }
 }
