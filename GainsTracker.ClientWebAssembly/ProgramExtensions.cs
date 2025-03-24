@@ -60,5 +60,6 @@ public static class ProgramExtensions
     public static void ConfigureServices(this WebAssemblyHostBuilder builder)
     {
         builder.Services.AddScoped<IWorkoutService, WorkoutService>();
+        builder.Services.AddScoped<ICatalogService, CatalogService>();
     }
 }

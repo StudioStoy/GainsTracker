@@ -13,29 +13,29 @@ public record CreateMeasurementDto
 
 public record CreateStrengthMeasurementDto : CreateMeasurementDto
 {
-    public WeightUnits WeightUnit { get; init; }
-    public double Weight { get; init; } = 0.0;
-    public int Reps { get; init; } = 0;
+    public WeightUnits WeightUnit { get; set; }
+    public double Weight { get; set; } = 0.0;
+    public int Reps { get; set; } = 0;
 }
 
 public record CreateTimeDistanceEnduranceMeasurementDto : CreateMeasurementDto
 {
-    public DistanceUnits DistanceUnit { get; init; }
-    public double Distance { get; init; } = 0.0;
-    public long Time { get; init; }
+    public DistanceUnits DistanceUnit { get; set; }
+    public double Distance { get; set; } = 0.0;
+    public long Time { get; set; }
 }
 
 public record CreateTimeEnduranceMeasurementDto : CreateMeasurementDto
 {
-    public long Time { get; init; }
+    public long Time { get; set; }
 }
 
 public record CreateRepsMeasurementDto : CreateMeasurementDto
 {
-    public int Reps { get; init; } = 0;
+    public int Reps { get; set; } = 0;
 }
 
 public record CreateGeneralMeasurementDto : CreateMeasurementDto
 {
-    public string General { get; init; } = string.Empty;
+    public string General { get; set; } = string.Empty;
 }

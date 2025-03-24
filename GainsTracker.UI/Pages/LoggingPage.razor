@@ -3,6 +3,7 @@
 @using GainsTracker.Common.Models.Workouts.Measurements
 @using GainsTracker.UI.Services.API.Workouts
 @using Microsoft.AspNetCore.Authorization
+@using GainsTracker.UI.Components
 
 @inject IWorkoutService WorkoutService
 @inject ICatalogService CatalogService
@@ -22,14 +23,14 @@
 else
 {
     <label>Select a workout:</label>
-    <select @bind="_selectedWorkoutType">
+    <select @bind-Value="SelectedWorkoutType" @bind-Value:event="onchange">
         <option value="">-- Select --</option>
         @foreach (var workout in _workouts)
         {
             <option value="@workout.Type">@workout.Type</option>
         }
     </select>
-
+    
     @if (_selectedWorkout != null)
     {
         <h4>Measurement Details</h4>
@@ -37,7 +38,7 @@ else
         <EditForm Model="_measurement" OnValidSubmit="SubmitWorkout">
             <DataAnnotationsValidator/>
 
-            <MeasurementTemplate Category="@_selectedWorkout.Category" Model="measurement"/>
+            <MeasurementTemplate Category="@_selectedWorkout.Category" Model="_measurement"/>
 
             <div>
                 <label>Notes:</label>
@@ -53,9 +54,19 @@ else
     private bool _loading = true;
 
     private List<WorkoutTypeDto> _workouts = [];
-    private string? _selectedWorkoutType;
+    private WorkoutType? SelectedWorkoutType
+    {
+        get => _selectedWorkoutTypeBacking;
+        set
+        {
+            if (_selectedWorkoutTypeBacking == value) return;
+            _selectedWorkoutTypeBacking = value;
+            UpdateMeasurement();
+        }
+    }
+    private WorkoutType? _selectedWorkoutTypeBacking;
     private WorkoutTypeDto? _selectedWorkout;
-    private CreateMeasurementDto _measurement = new CreateMeasurementDto();
+    private CreateMeasurementDto _measurement = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -65,7 +76,7 @@ else
 
     private void UpdateMeasurement()
     {
-        _selectedWorkout = _workouts.FirstOrDefault(w => w.Type.ToString() == _selectedWorkoutType);
+        _selectedWorkout = _workouts.FirstOrDefault(w => w.Type == SelectedWorkoutType);
         _measurement = _selectedWorkout?.Category switch
         {
             ExerciseCategory.Strength => new CreateStrengthMeasurementDto(),

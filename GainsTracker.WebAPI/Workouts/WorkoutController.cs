@@ -46,7 +46,7 @@ public class WorkoutController(IWorkoutService service, IUserService userService
     /// </summary>
     /// <param name="workoutId">The id of the workout.</param>
     /// <returns></returns>
-    [HttpGet("{workoutId:guid}/measurement")]
+    [HttpGet("{workoutId:guid}/measurements")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkoutMeasurementsDto))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
     public async Task<IActionResult> GetWorkoutWithMeasurements(Guid workoutId) =>
@@ -58,7 +58,7 @@ public class WorkoutController(IWorkoutService service, IUserService userService
     /// <param name="workoutId">The id of the workout.</param>
     /// <param name="measurementDto">The measurement data to add to the workout.</param>
     /// <returns></returns>
-    [HttpPost("{workoutId:guid}/measurement")]
+    [HttpPost("{workoutId:guid}/measurements")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]

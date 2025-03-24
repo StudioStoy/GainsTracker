@@ -1,0 +1,79 @@
+@using GainsTracker.Common.Models.Workouts.Enums
+@using GainsTracker.Common.Models.Workouts.Measurements
+@using GainsTracker.Common.Models.Measurements.Enums.Units
+
+@typeparam TMeasurement
+
+<EditForm Model="Model">
+    <DataAnnotationsValidator />
+
+    @switch (Category)
+    {
+        case ExerciseCategory.Strength:
+            <div class="input-group">
+                <label>Weight:</label>
+                <InputNumber @bind-Value="StrengthMeasurement.Weight" class="input-field" />
+                <select @bind="StrengthMeasurement.WeightUnit">
+                    @foreach (var unit in Enum.GetValues(typeof(WeightUnits)))
+                    {
+                        <option value="@unit">@unit</option>
+                    }
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Reps:</label>
+                <InputNumber @bind-Value="StrengthMeasurement.Reps" class="input-field" />
+            </div>
+            break;
+
+        case ExerciseCategory.TimeDistanceEndurance:
+            <div class="input-group">
+                <label>Distance:</label>
+                <InputNumber @bind-Value="TimeDistanceMeasurement.Distance" class="input-field" />
+                <select @bind="TimeDistanceMeasurement.DistanceUnit">
+                    @foreach (var unit in Enum.GetValues(typeof(DistanceUnits)))
+                    {
+                        <option value="@unit">@unit</option>
+                    }
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Time (seconds):</label>
+                <InputNumber @bind-Value="TimeDistanceMeasurement.Time" class="input-field" />
+            </div>
+            break;
+
+        case ExerciseCategory.TimeEndurance:
+            <div class="input-group">
+                <label>Time (seconds):</label>
+                <InputNumber @bind-Value="TimeEnduranceMeasurement.Time" class="input-field" />
+            </div>
+            break;
+
+        case ExerciseCategory.Reps:
+            <div class="input-group">
+                <label>Reps:</label>
+                <InputNumber @bind-Value="RepsMeasurement.Reps" class="input-field" />
+            </div>
+            break;
+
+        case ExerciseCategory.General:
+            <div class="input-group">
+                <label>Notes:</label>
+                <InputTextArea @bind-Value="GeneralMeasurement.General" class="input-field" />
+            </div>
+            break;
+    }
+
+</EditForm>
+
+@code {
+    [Parameter, EditorRequired] public required ExerciseCategory Category { get; set; }
+    [Parameter, EditorRequired] public required TMeasurement Model { get; set; }
+
+    private CreateStrengthMeasurementDto StrengthMeasurement => Model as CreateStrengthMeasurementDto ?? new();
+    private CreateTimeDistanceEnduranceMeasurementDto TimeDistanceMeasurement => Model as CreateTimeDistanceEnduranceMeasurementDto ?? new();
+    private CreateTimeEnduranceMeasurementDto TimeEnduranceMeasurement => Model as CreateTimeEnduranceMeasurementDto ?? new();
+    private CreateRepsMeasurementDto RepsMeasurement => Model as CreateRepsMeasurementDto ?? new();
+    private CreateGeneralMeasurementDto GeneralMeasurement => Model as CreateGeneralMeasurementDto ?? new();
+}

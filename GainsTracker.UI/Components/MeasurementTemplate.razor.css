@@ -1,0 +1,17 @@
+.input-group {
+    margin-bottom: 10px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: var(--focus-color);
+}

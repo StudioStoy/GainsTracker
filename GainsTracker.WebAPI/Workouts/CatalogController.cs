@@ -20,7 +20,7 @@ public class CatalogController(ICatalogService catalogService, IUserService user
     /// Gets a list of possible new workouts the user can start logging.
     /// </summary>
     /// <returns></returns>
-    [HttpGet("workout")]
+    [HttpGet("workouts")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<WorkoutTypeDto>))]
     public async Task<IActionResult> GetAvailableWorkoutsForUser()
     {
@@ -32,7 +32,7 @@ public class CatalogController(ICatalogService catalogService, IUserService user
     /// Gets a list of possible measurements the user can send for each exercise category. 
     /// </summary>
     /// <returns></returns>
-    [HttpGet("measurement")]
+    [HttpGet("measurements")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<MeasurementTypeDto>))]
     public IActionResult GetExampleMeasurementRequests()
     {
