@@ -1,0 +1,17 @@
+﻿@inject ModalService ModalService
+
+<div class="modal-container">
+    @foreach (var modalType in ModalService.ModalStack)
+    {
+        <DynamicComponent Type="@modalType"/>
+    }
+</div>
+
+@code {
+    protected override void OnInitialized() => ModalService.OnChange += OnModalStateChanged;
+
+    private void OnModalStateChanged() => StateHasChanged();
+
+    public void Dispose() => ModalService.OnChange -= OnModalStateChanged;
+}
+

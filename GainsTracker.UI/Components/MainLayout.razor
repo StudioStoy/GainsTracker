@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
+@using GainsTracker.UI.Elements.Modal
 @inherits LayoutComponentBase
 
 @inject NavigationManager NavManager
@@ -8,6 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap" rel="stylesheet">
 
 <ElementManipulator IsDarkTheme="IsDark"></ElementManipulator>
+
+<GtModalContainer />
 
 <div class="page">
     <AuthorizeView>
@@ -25,6 +28,7 @@
         </article>
     </main>
 </div>
+
 
 @code {
     [Parameter] public bool IsDark { get; set; }

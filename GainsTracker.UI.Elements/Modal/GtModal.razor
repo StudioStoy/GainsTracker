@@ -1,0 +1,30 @@
+﻿@using GainsTracker.UI.Elements.Button
+@inherits GtModalBase
+
+<div class="modal-backdrop @(IsClosing ? "modal-closing-backdrop" : "")" @onclick="HandleCloseModal">
+    <div class="modal-content @(IsClosing ? "modal-closing" : "")" @onclick:stopPropagation="true">
+        <div class="modal-body">
+            @ChildContent
+        </div>
+        <div class="modal-footer">
+            @FooterContent
+        </div>
+        <div class="modal-actions">
+            @if (ActionContentOverride != null)
+            {
+                @ActionContentOverride
+            }
+            else
+            {
+                <GtButton OnClick="HandleCloseModal">Confirm</GtButton>
+                <GtButton OnClick="HandleCloseModal">Cancel</GtButton>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public RenderFragment? FooterContent { get; set; }
+    [Parameter] public RenderFragment? ActionContentOverride { get; set; }
+}

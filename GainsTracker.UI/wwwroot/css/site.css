@@ -2,6 +2,7 @@
 
 body {
     margin: 0;
+    font-family: 'Inter', serif;
 }
 
 /* unclicked -> hover -> clicked -> visited link style */
@@ -36,4 +37,98 @@ a:link, a:hover, a:active, a:visited {
 
 .blazor-error-boundary::after {
     content: "An error has occurred."
+}
+
+/* Modal Container */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Backdrop */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: all;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+}
+
+.modal-closing-backdrop {
+    opacity: 0;
+    pointer-events: none; /* Disable interaction after closing */
+    animation: fadeOut 0.3s forwards;
+}
+
+/* Modal Content */
+.modal-content {
+    background: var(--background-color);
+    padding: 1rem;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transform: scale(0.85);
+    opacity: 0;
+    animation: fadeInScale 0.3s forwards;
+}
+.modal-closing {
+    animation: fadeOutScale 0.3s forwards;
+}
+
+.modal-footer, .modal-actions {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeOutScale {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.85);
+    }
 }
