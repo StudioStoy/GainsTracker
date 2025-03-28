@@ -1,5 +1,4 @@
-﻿using GainsTracker.Common.Models.Generic;
-using GainsTracker.Common.Models.Measurements.Enums.Units;
+﻿using GainsTracker.Common.Models.Catalog;
 using GainsTracker.Common.Models.Workouts;
 using GainsTracker.Common.Models.Workouts.Enums;
 using GainsTracker.Common.Models.Workouts.Measurements;
@@ -33,31 +32,30 @@ public class CatalogController(ICatalogService catalogService, IUserService user
     /// </summary>
     /// <returns></returns>
     [HttpGet("measurements")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<MeasurementTypeDto>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<MeasurementExampleDto>))]
     public IActionResult GetExampleMeasurementRequests()
     {
-        List<MeasurementTypeDto> examples =
+        List<MeasurementExampleDto> examples =
         [
             new(
                 ExerciseCategory.Reps.ToString(),
-                GenericJsonSerializer.SerializeObjectToJson(new RepsMeasurementDto())
+                new RepsMeasurementDto()
             ),
             new(
                 ExerciseCategory.Strength.ToString(),
-                GenericJsonSerializer.SerializeObjectToJson(new StrengthMeasurementDto())
+                new StrengthMeasurementDto()
             ),
             new(
                 ExerciseCategory.TimeEndurance.ToString(),
-                GenericJsonSerializer.SerializeObjectToJson(new TimeEnduranceMeasurementDto())
+                new TimeEnduranceMeasurementDto()
             ),
             new(
                 ExerciseCategory.TimeDistanceEndurance.ToString(),
-                GenericJsonSerializer.SerializeObjectToJson(
-                    new TimeDistanceEnduranceMeasurementDto())
+                new TimeDistanceEnduranceMeasurementDto()
             ),
             new(
                 ExerciseCategory.General.ToString(),
-                GenericJsonSerializer.SerializeObjectToJson(new GeneralMeasurementDto())
+                new GeneralMeasurementDto()
             ),
         ];
 

@@ -61,5 +61,6 @@ public static class ProgramExtensions
     {
         builder.Services.AddScoped<IWorkoutService, WorkoutService>();
         builder.Services.AddScoped<ICatalogService, CatalogService>();
+        builder.Services.AddSingleton<ModalService>();
     }
 }

@@ -8,9 +8,15 @@ public class WorkoutService(ApiService api) : IWorkoutService
     public async Task<List<WorkoutDto>> GetUserWorkouts() =>
         await api.GetAsync<List<WorkoutDto>>("/workouts") ?? [];
 
+    public async Task<List<WorkoutDto>> GetWorkoutMeasurements(Guid workoutId) =>
+        await api.GetAsync<List<WorkoutDto>>($"/workouts/{workoutId}") ?? [];
+    
     public async Task<List<PersonalBestDto>> GetPersonalBests() =>
         await api.GetAsync<List<PersonalBestDto>>("/workouts/personal-bests") ?? [];
 
-    public async Task CreateWorkout(CreateNewWorkoutDto workout) =>
+    public async Task CreateNewWorkout(CreateNewWorkoutDto workout) =>
         await api.PostAsync("/workouts", workout);
+    
+    public async Task AddMeasurementToWorkout(Guid workoutId, CreateMeasurementDto measurement) =>
+        await api.PostAsync($"/workouts/{workoutId}/measurements", measurement);
 }
