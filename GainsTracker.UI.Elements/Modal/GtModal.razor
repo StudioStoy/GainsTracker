@@ -1,7 +1,11 @@
 ﻿@using GainsTracker.UI.Elements.Button
 @inherits GtModalBase
 
-<div class="modal-backdrop @(IsClosing ? "modal-closing-backdrop" : "")" @onclick="HandleCloseModal">
+<div class="modal-backdrop @(IsClosing ? "modal-closing-backdrop" : "")"
+     tabindex="0"
+     @onkeydown="HandleOnKeyDown"
+     @onclick="HandleCloseModal"
+     @ref="_modalBackdrop">
     <div class="modal-content @(IsClosing ? "modal-closing" : "")" @onclick:stopPropagation="true">
         <div class="modal-body">
             @ChildContent
@@ -27,4 +31,19 @@
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public RenderFragment? FooterContent { get; set; }
     [Parameter] public RenderFragment? ActionContentOverride { get; set; }
+
+    private ElementReference _modalBackdrop;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await _modalBackdrop.FocusAsync();
+    }
+
+    private async Task HandleOnKeyDown(KeyboardEventArgs keyboardEvent)
+    {
+        Console.WriteLine(keyboardEvent);
+        if (keyboardEvent.Key == "Escape")
+            await HandleCloseModal();
+    }
 }
