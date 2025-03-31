@@ -2,43 +2,28 @@
 @using GainsTracker.Common.Models.Workouts.Enums
 @using GainsTracker.Common.Models.Workouts.Measurements
 @using GainsTracker.UI.Services.API.Workouts
-@using Microsoft.AspNetCore.Authorization
-@using GainsTracker.UI.Components
+@using GainsTracker.UI.Elements.Modal
 
 @inject IWorkoutService WorkoutService
-@inject ICatalogService CatalogService
 
-@attribute [Authorize]
+<GtModal>
+    <h3>Log a Workout</h3>
 
-@page "/Logging"
-
-<PageTitle>Logging</PageTitle>
-
-<h3>Log a Workout</h3>
-
-@if (_loading)
-{
-    <p>Loading workouts...</p>
-}
-else
-{
     <label>Select a workout:</label>
     <select @bind-Value="SelectedWorkoutType" @bind-Value:event="onchange">
         <option value="">-- Select --</option>
-        @foreach (var workout in _workouts)
+        @foreach (var workout in SelectableWorkouts)
         {
             <option value="@workout.Type">@workout.Type</option>
         }
     </select>
-    
+
     @if (_selectedWorkout != null)
     {
-        <h4>Measurement Details</h4>
-
-        <EditForm Model="_measurement" OnValidSubmit="SubmitWorkout">
+        <EditForm Model="_measurement" OnValidSubmit="AddNewWorkout">
             <DataAnnotationsValidator/>
 
-            <MeasurementTemplate Category="@_selectedWorkout.Category" Model="_measurement"/>
+            <MeasurementTemplate Category="@_measurement.Category" Model="_measurement"/>
 
             <div>
                 <label>Notes:</label>
@@ -48,12 +33,13 @@ else
             <button type="submit">Log Workout</button>
         </EditForm>
     }
-}
+</GtModal>
 
 @code {
-    private bool _loading = true;
+    [Parameter] public required List<WorkoutTypeDto> SelectableWorkouts { get; init; }
 
-    private List<WorkoutTypeDto> _workouts = [];
+    private WorkoutTypeDto? _selectedWorkout;
+
     private WorkoutType? SelectedWorkoutType
     {
         get => _selectedWorkoutTypeBacking;
@@ -64,20 +50,17 @@ else
             UpdateMeasurement();
         }
     }
-    private WorkoutType? _selectedWorkoutTypeBacking;
-    private WorkoutTypeDto? _selectedWorkout;
-    private CreateMeasurementDto _measurement = new();
 
-    protected override async Task OnInitializedAsync()
-    {
-        _workouts = await CatalogService.GetAvailableWorkoutTypes();
-        _loading = false;
-    }
+    private WorkoutType? _selectedWorkoutTypeBacking;
+
+    private CreateMeasurementDto _measurement = null!;
 
     private void UpdateMeasurement()
     {
-        _selectedWorkout = _workouts.FirstOrDefault(w => w.Type == SelectedWorkoutType);
-        _measurement = _selectedWorkout?.Category switch
+        _selectedWorkout = SelectableWorkouts.FirstOrDefault(w => w.Type == SelectedWorkoutType);
+        if (_selectedWorkout == null) return;
+
+        _measurement = _selectedWorkout.Category switch
         {
             ExerciseCategory.Strength => new CreateStrengthMeasurementDto(),
             ExerciseCategory.TimeDistanceEndurance => new CreateTimeDistanceEnduranceMeasurementDto(),
@@ -88,11 +71,12 @@ else
         };
     }
 
-    private async Task SubmitWorkout()
+    // Create new workout and add the initial measurement to it.
+    private async Task AddNewWorkout()
     {
         if (_selectedWorkout == null) return;
 
         var createWorkoutDto = new CreateNewWorkoutDto(_selectedWorkout.Type, _measurement);
-        await WorkoutService.CreateWorkout(createWorkoutDto);
+        await WorkoutService.CreateNewWorkout(createWorkoutDto);
     }
 }

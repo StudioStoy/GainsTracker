@@ -1,12 +1,14 @@
 ﻿@using GainsTracker.UI.Elements.Button
-@inherits GtModalBase
+@using GainsTracker.UI.Elements.Modal.Infrastructure
 
-<div class="modal-backdrop @(IsClosing ? "modal-closing-backdrop" : "")"
+@inject ModalService ModalService;
+
+<div class="modal-backdrop @(_isClosing ? "modal-closing-backdrop" : "")"
      tabindex="0"
      @onkeydown="HandleOnKeyDown"
      @onclick="HandleCloseModal"
      @ref="_modalBackdrop">
-    <div class="modal-content @(IsClosing ? "modal-closing" : "")" @onclick:stopPropagation="true">
+    <div class="modal-content @(_isClosing ? "modal-closing" : "")" @onclick:stopPropagation="true">
         <div class="modal-body">
             @ChildContent
         </div>
@@ -32,17 +34,24 @@
     [Parameter] public RenderFragment? FooterContent { get; set; }
     [Parameter] public RenderFragment? ActionContentOverride { get; set; }
 
+    private bool _isClosing;
     private ElementReference _modalBackdrop;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-            await _modalBackdrop.FocusAsync();
+        // Focussing on the modal enables pressing the "Escape" key to close the modal.
+        if (firstRender) await _modalBackdrop.FocusAsync();
     }
 
+    private async Task HandleCloseModal()
+    {
+        _isClosing = true;
+        await Task.Delay(ModalService.ModalAnimationDelay);
+        ModalService.CloseLast();
+    }
+    
     private async Task HandleOnKeyDown(KeyboardEventArgs keyboardEvent)
     {
-        Console.WriteLine(keyboardEvent);
         if (keyboardEvent.Key == "Escape")
             await HandleCloseModal();
     }
