@@ -1,17 +1,16 @@
-﻿@inject ModalService ModalService
+﻿@using GainsTracker.UI.Elements.Modal.Infrastructure
+@inject ModalService ModalService
 
 <div class="modal-container">
-    @foreach (var modalType in ModalService.ModalStack)
+    @foreach (var modal in ModalService.ModalStack)
     {
-        <DynamicComponent Type="@modalType"/>
+        <DynamicComponent Type="@modal.ModalType" Parameters="modal.Parameters" />
     }
 </div>
 
 @code {
     protected override void OnInitialized() => ModalService.OnChange += OnModalStateChanged;
-
+    protected void Dispose() => ModalService.OnChange -= OnModalStateChanged;
+    
     private void OnModalStateChanged() => StateHasChanged();
-
-    public void Dispose() => ModalService.OnChange -= OnModalStateChanged;
 }
-

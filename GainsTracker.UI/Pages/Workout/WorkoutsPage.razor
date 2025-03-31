@@ -1,0 +1,55 @@
+﻿@using GainsTracker.Common.Models.Workouts
+@using GainsTracker.UI.Services.API.Workouts
+@using Microsoft.AspNetCore.Authorization
+@using GainsTracker.UI.Elements.Button
+@using GainsTracker.UI.Elements.Modal.Infrastructure
+@using GainsTracker.UI.Elements.Shared
+@using GainsTracker.UI.Elements.Spinner
+
+@inject IWorkoutService WorkoutService
+@inject ICatalogService CatalogService
+@inject ModalService ModalService
+
+@attribute [Authorize]
+
+@page "/workouts"
+
+<PageTitle>Workouts | GainsTracker</PageTitle>
+
+@if (_selectableWorkouts == null)
+{
+    <GtSpinner Size="GtSize.Small"></GtSpinner>
+    <p>Loading workouts...</p>
+}
+else
+{
+    <GtButton OnClick="HandleOpenNewWorkoutModal">Log new workout</GtButton>
+
+    @if (_selectedWorkout != null)
+    {
+        <GtButton OnClick="HandleOpenAddMeasurementModal">Log existing workout</GtButton>
+    }
+}
+
+
+@code {
+    private List<WorkoutTypeDto>? _selectableWorkouts;
+    private WorkoutDto? _selectedWorkout { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _selectableWorkouts = await CatalogService.GetAvailableWorkoutTypes();
+    }
+
+    private void HandleOpenNewWorkoutModal()
+    {
+        if (_selectableWorkouts is null || _selectableWorkouts.Count == 0) return;
+        ModalService.Open(new CreateNewWorkoutModal { SelectableWorkouts = _selectableWorkouts });
+    }
+
+    private void HandleOpenAddMeasurementModal()
+    {
+        if (_selectedWorkout is null) return;
+        ModalService.Open(new LogMeasurementModal { Workout = _selectedWorkout });
+    }
+}
