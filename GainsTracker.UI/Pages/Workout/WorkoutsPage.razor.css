@@ -1,0 +1,10 @@
+﻿.workout-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30vw;
+    min-width: 350px;
+    max-width: 400px;
+    padding: 10px;
+    box-sizing: border-box;
+}

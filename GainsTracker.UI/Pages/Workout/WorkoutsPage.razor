@@ -16,13 +16,21 @@
 
 <PageTitle>Workouts | GainsTracker</PageTitle>
 
-@if (_selectableWorkouts == null)
+@if (_selectableWorkouts == null || _workouts == null)
 {
     <GtSpinner Size="GtSize.Small"></GtSpinner>
     <p>Loading workouts...</p>
 }
 else
 {
+    <div class="workout-list">
+        @foreach (var workout in _workouts)
+        {
+            <WorkoutCard Title="@workout.Type.ToString()" PersonalBest="@workout.PersonalBest?.ToString()"
+                         OnDelete="() => DeleteWorkout(workout.Id)"/>
+        }
+    </div>
+
     <GtButton OnClick="HandleOpenNewWorkoutModal">Log new workout</GtButton>
 
     @if (_selectedWorkout != null)
@@ -34,13 +42,20 @@ else
 
 @code {
     private List<WorkoutTypeDto>? _selectableWorkouts;
+    private List<WorkoutDto>? _workouts;
     private WorkoutDto? _selectedWorkout { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         _selectableWorkouts = await CatalogService.GetAvailableWorkoutTypes();
+        _workouts = await WorkoutService.GetUserWorkouts();
     }
 
+    private void DeleteWorkout(Guid id)
+    {
+        _workouts?.RemoveAll(w => w.Id == id);
+    }
+    
     private void HandleOpenNewWorkoutModal()
     {
         if (_selectableWorkouts is null || _selectableWorkouts.Count == 0) return;

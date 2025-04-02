@@ -2,6 +2,7 @@
 using GainsTracker.Common.Models.Auth;
 using GainsTracker.UI.Auth;
 using GainsTracker.UI.Elements.Modal;
+using GainsTracker.UI.Elements.Modal.Infrastructure;
 using GainsTracker.UI.Services;
 using GainsTracker.UI.Services.API;
 using GainsTracker.UI.Services.API.Workouts;

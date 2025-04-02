@@ -1,0 +1,50 @@
+﻿@using GainsTracker.Common.Models.Workouts
+@using GainsTracker.Common.Models.Workouts.Enums
+@using GainsTracker.Common.Models.Workouts.Measurements
+@using GainsTracker.UI.Services.API.Workouts
+@using GainsTracker.UI.Components
+@using GainsTracker.UI.Elements.Modal
+@using GainsTracker.UI.Elements.Shared
+@using GainsTracker.UI.Elements.Spinner
+
+@inject IWorkoutService WorkoutService
+
+<GtModal>
+    <h4>Measurement Details</h4>
+
+    <EditForm Model="_measurement" OnValidSubmit="AddMeasurementToWorkout">
+        <DataAnnotationsValidator/>
+
+        <MeasurementTemplate Category="@_measurement.Category" Model="_measurement"/>
+
+        <div>
+            <label>Notes:</label>
+            <InputTextArea @bind-Value="_measurement.Notes"/>
+        </div>
+
+        <button type="submit">Log Workout</button>
+    </EditForm>
+</GtModal>
+
+@code {
+    [Parameter] public required WorkoutDto Workout { get; set; }
+
+    private CreateMeasurementDto _measurement { get; set; } = null!;
+
+    protected override void OnInitialized()
+    {
+        _measurement = Workout.Category switch
+        {
+            ExerciseCategory.Strength => new CreateStrengthMeasurementDto(),
+            ExerciseCategory.TimeDistanceEndurance => new CreateTimeDistanceEnduranceMeasurementDto(),
+            ExerciseCategory.TimeEndurance => new CreateTimeEnduranceMeasurementDto(),
+            ExerciseCategory.Reps => new CreateRepsMeasurementDto(),
+            ExerciseCategory.General => new CreateGeneralMeasurementDto(),
+            _ => new CreateGeneralMeasurementDto(),
+        };
+    }
+
+    // Add a measurement to an existing workout.
+    private async Task AddMeasurementToWorkout() =>
+        await WorkoutService.AddMeasurementToWorkout(Workout.Id, _measurement);
+}

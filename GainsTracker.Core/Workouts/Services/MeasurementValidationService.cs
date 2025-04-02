@@ -24,12 +24,12 @@ public class MeasurementValidationService : IMeasurementValidationService
                     throw new BadRequestException("No negative or zero measurements.");
                 break;
             case ExerciseCategory.TimeEndurance:
-                if (measurement is TimeEnduranceMeasurement { Time.Ticks: <= 0 })
+                if (measurement is TimeEnduranceMeasurement { Time.Milliseconds: <= 0 })
                     throw new BadRequestException("No negative or zero measurements.");
                 break;
             case ExerciseCategory.TimeDistanceEndurance:
                 if (measurement is TimeDistanceEnduranceMeasurement running
-                    && (running.Time.Ticks == 0 || running.Distance <= 0))
+                    && (running.Time.Milliseconds == 0 || running.Distance <= 0))
                     throw new BadRequestException("No negative or zero measurements.");
                 break;
             case ExerciseCategory.General:

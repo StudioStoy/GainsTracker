@@ -19,7 +19,6 @@ public static class CreateMeasurementDtoExtensions
         new()
         {
             Notes = dto.Notes,
-            WeightUnit = dto.WeightUnit,
             Weight = dto.Weight,
             Reps = dto.Reps,
         };
@@ -30,14 +29,14 @@ public static class CreateMeasurementDtoExtensions
             Notes = dto.Notes,
             DistanceUnit = dto.DistanceUnit,
             Distance = dto.Distance,
-            Time = TimeSpan.FromTicks(dto.Time),
+            Time = TimeSpan.FromMilliseconds(dto.Time),
         };
 
     private static TimeEnduranceMeasurement ToModel(this CreateTimeEnduranceMeasurementDto dto) =>
         new()
         {
             Notes = dto.Notes,
-            Time = TimeSpan.FromTicks(dto.Time),
+            Time = TimeSpan.FromMilliseconds(dto.Time),
         };
 
     private static RepsMeasurement ToModel(this CreateRepsMeasurementDto dto) =>

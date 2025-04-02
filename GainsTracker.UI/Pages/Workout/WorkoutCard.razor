@@ -1,0 +1,18 @@
+﻿@using GainsTracker.Common
+@using GainsTracker.UI.Elements.Icon
+@using GainsTracker.UI.Elements.Shared
+@code {
+    [Parameter] public string Title { get; set; } = "Workout Name";
+    [Parameter] public string PersonalBest { get; set; } = "None yet!";
+    [Parameter] public EventCallback OnDelete { get; set; }
+}
+
+<div class="workout-card">
+    <div class="workout-info">
+        <h3>@Title</h3>
+        <p>Current PB: @PersonalBest</p>
+    </div>
+    <button class="delete-button" @onclick="OnDelete">
+        <GtIcon Size="GtSize.Small" Icon="Mdi.TrashCanOutline"></GtIcon>
+    </button>
+</div>

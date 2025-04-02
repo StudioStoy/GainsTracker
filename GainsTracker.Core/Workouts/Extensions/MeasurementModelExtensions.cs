@@ -23,7 +23,6 @@ public static class MeasurementModelExtensions
             Category = measurement.Category,
             TimeOfRecord = measurement.TimeOfRecord,
             Notes = measurement.Notes,
-            WeightUnit = measurement.WeightUnit,
             Weight = measurement.Weight,
             Reps = measurement.Reps,
         };
@@ -38,7 +37,7 @@ public static class MeasurementModelExtensions
             Notes = measurement.Notes,
             DistanceUnit = measurement.DistanceUnit,
             Distance = measurement.Distance,
-            Time = measurement.Time.Ticks,
+            Time = measurement.Time.Milliseconds,
         };
 
     private static TimeEnduranceMeasurementDto ToDto(this TimeEnduranceMeasurement measurement) =>
@@ -49,7 +48,7 @@ public static class MeasurementModelExtensions
             Category = measurement.Category,
             TimeOfRecord = measurement.TimeOfRecord,
             Notes = measurement.Notes,
-            Time = measurement.Time.Ticks,
+            Time = measurement.Time.Milliseconds,
         };
 
     private static RepsMeasurementDto ToDto(this RepsMeasurement measurement) =>

@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using GainsTracker.Common.Models.Measurements.Enums.Units;
+using GainsTracker.Common.Models.Measurements.Units;
 using GainsTracker.Common.Models.Workouts.Enums;
 
 namespace GainsTracker.Common.Models.Workouts.Measurements;
@@ -14,7 +14,6 @@ public abstract record CreateMeasurementDto
 public record CreateStrengthMeasurementDto : CreateMeasurementDto
 {
     public override ExerciseCategory Category => ExerciseCategory.Strength;
-    public WeightUnits WeightUnit { get; set; }
     public double Weight { get; set; } = 0.0;
     public int Reps { get; set; } = 0;
 }

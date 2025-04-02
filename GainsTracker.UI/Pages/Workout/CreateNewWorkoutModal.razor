@@ -75,7 +75,7 @@
     private async Task AddNewWorkout()
     {
         if (_selectedWorkout == null) return;
-
+        
         var createWorkoutDto = new CreateNewWorkoutDto(_selectedWorkout.Type, _measurement);
         await WorkoutService.CreateNewWorkout(createWorkoutDto);
     }

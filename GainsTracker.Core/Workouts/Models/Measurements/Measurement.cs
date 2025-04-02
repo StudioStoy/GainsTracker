@@ -1,5 +1,5 @@
 ﻿using GainsTracker.Common.Models.Generic;
-using GainsTracker.Common.Models.Measurements.Enums.Units;
+using GainsTracker.Common.Models.Measurements.Units;
 using GainsTracker.Common.Models.Workouts.Enums;
 
 namespace GainsTracker.Core.Workouts.Models.Measurements;
@@ -17,7 +17,6 @@ public abstract class Measurement : ITrackableGoal
 
 public class StrengthMeasurement : Measurement
 {
-    public WeightUnits WeightUnit { get; init; } = WeightUnits.Kilograms;
     public double Weight { get; init; }
     public int Reps { get; init; }
 

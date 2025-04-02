@@ -1,3 +1,4 @@
+@using GainsTracker.Common.Converters
 @using GainsTracker.Common.Models.Workouts.Measurements
 
 <div class="pb-item">
@@ -20,9 +21,9 @@
     {
         return PersonalBest.Measurement switch
         {
-            StrengthMeasurementDto strength => $"{strength.Weight} {strength.WeightUnit}",
-            TimeDistanceEnduranceMeasurementDto endurance => $"{endurance.Distance}{endurance.DistanceUnit} <br> {TimeSpan.FromTicks(endurance.Time).ToString(@"m\:ss")} min",
-            TimeEnduranceMeasurementDto timeEndurance => $"{TimeSpan.FromTicks(timeEndurance.Time).ToString(@"m\:ss")} min",
+            StrengthMeasurementDto strength => $"{strength.Weight}{UnitConverter.GetWeightUnit()}",
+            TimeDistanceEnduranceMeasurementDto endurance => $"{endurance.Distance}{UnitConverter.GetLengthUnit(endurance.Distance)} \n {TimeConverter.MillisecondsToTimeString(endurance.Time)}",
+            TimeEnduranceMeasurementDto timeEndurance => $"{TimeConverter.MillisecondsToTimeString(timeEndurance.Time)}",
             RepsMeasurementDto reps => $"{reps.Reps} reps",
             GeneralMeasurementDto general => $"{general.General}",
             _ => "N/A",

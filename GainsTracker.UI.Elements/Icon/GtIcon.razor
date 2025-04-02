@@ -18,11 +18,10 @@
     {
         // Replace uppercase letters with a preceding dash and lowercase letter
         return string.Concat(
-            value.Select(
-                (ch, i) =>
-                    char.IsUpper(ch) && i > 0
-                        ? "-" + char.ToLower(ch)
-                        : char.ToLower(ch).ToString()
+            value.Select((ch, i) =>
+                char.IsUpper(ch) && i > 0
+                    ? "-" + char.ToLower(ch)
+                    : char.ToLower(ch).ToString()
             )
         );
     }

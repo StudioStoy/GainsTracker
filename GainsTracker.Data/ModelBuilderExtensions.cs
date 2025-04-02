@@ -66,10 +66,6 @@ public static class ModelBuilderExtensions
             .HasConversion<string>();
 
         // Measurement types
-        modelBuilder.Entity<StrengthMeasurement>()
-            .Property(measurement => measurement.WeightUnit)
-            .HasConversion<string>();
-
         modelBuilder.Entity<TimeDistanceEnduranceMeasurement>()
             .Property(measurement => measurement.DistanceUnit)
             .HasConversion<string>();
