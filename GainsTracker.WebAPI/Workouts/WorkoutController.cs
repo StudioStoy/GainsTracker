@@ -42,6 +42,20 @@ public class WorkoutController(IWorkoutService service, IUserService userService
     }
 
     /// <summary>
+    /// Delete a specific workout by id. 
+    /// </summary>
+    /// <returns></returns>
+    [HttpDelete("{workoutId:guid}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<WorkoutDto>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResult))]
+    public async Task<IActionResult> DeleteWorkout(Guid workoutId)
+    {
+        var gainsId = (await GetCurrentUser()).GainsAccountId;
+        await service.DeleteWorkoutById(gainsId, workoutId);
+        return Ok();
+    }
+    
+    /// <summary>
     /// Gets the logged measurements of the specific workout.
     /// </summary>
     /// <param name="workoutId">The id of the workout.</param>

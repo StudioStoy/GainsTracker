@@ -1,18 +1,21 @@
-﻿@using GainsTracker.Common.Models.Workouts
-@using GainsTracker.UI.Services.API.Workouts
-@using Microsoft.AspNetCore.Authorization
-@using GainsTracker.UI.Elements.Button
-@using GainsTracker.UI.Elements.Modal.Infrastructure
-@using GainsTracker.UI.Elements.Shared
-@using GainsTracker.UI.Elements.Spinner
-
-@inject IWorkoutService WorkoutService
+﻿@inject IWorkoutService WorkoutService
 @inject ICatalogService CatalogService
 @inject ModalService ModalService
 
 @attribute [Authorize]
 
 @page "/workouts"
+@using GainsTracker.Common.Models.Workouts
+@using GainsTracker.Common.Models.Workouts.Measurements
+@using GainsTracker.UI.Components.Modals
+@using GainsTracker.UI.Elements.Button
+@using GainsTracker.UI.Elements.Modal.Infrastructure
+@using GainsTracker.UI.Elements.Shared
+@using GainsTracker.UI.Elements.Spinner
+@using GainsTracker.UI.Pages.Workout.Components
+@using GainsTracker.UI.Pages.Workout.Modals
+@using GainsTracker.UI.Services.API.Workouts
+@using Microsoft.AspNetCore.Authorization
 
 <PageTitle>Workouts | GainsTracker</PageTitle>
 
@@ -23,20 +26,38 @@
 }
 else
 {
-    <div class="workout-list">
-        @foreach (var workout in _workouts)
-        {
-            <WorkoutCard Title="@workout.Type.ToString()" PersonalBest="@workout.PersonalBest?.ToString()"
-                         OnDelete="() => DeleteWorkout(workout.Id)"/>
-        }
+    <div class="page-container">
+        <img src="/images/logo.png" alt="Gainstracker Logo" class="gains-tracker-logo"/>
+
+        <div class="workout-list-container">
+            <div class="mobile-workout-list">
+                @foreach (var workout in _workouts)
+                {
+                    <WorkoutBar Title="@workout.Type.ToString()" PersonalBest="@workout.PersonalBest?.ToString()"
+                                OnDelete="() => HandleDeleteWorkoutConfirmation(workout.Id)"
+                                OnClick="() => HandleOpenAddMeasurementModal(workout)"/>
+                }
+            </div>
+
+            <div class="desktop-workout-list">
+                @foreach (var workout in _workouts)
+                {
+                    {
+                        var pb = workout.PersonalBest is null ? null : new PersonalBestDto(workout.Id, workout.Type.ToString(), workout.PersonalBest);
+                        <div class="workout-card-wrapper">
+                            <WorkoutCard Title="@workout.Type.ToString()" PersonalBest="@pb"
+                                         OnDelete="() => HandleDeleteWorkoutConfirmation(workout.Id)"
+                                         OnClick="() => HandleOpenAddMeasurementModal(workout)"/>
+                        </div>
+                    }
+                }
+            </div>
+
+            <div class="log-button">
+                <GtButton OnClick="HandleOpenNewWorkoutModal">Log new workout</GtButton>
+            </div>
+        </div>
     </div>
-
-    <GtButton OnClick="HandleOpenNewWorkoutModal">Log new workout</GtButton>
-
-    @if (_selectedWorkout != null)
-    {
-        <GtButton OnClick="HandleOpenAddMeasurementModal">Log existing workout</GtButton>
-    }
 }
 
 
@@ -51,20 +72,30 @@ else
         _workouts = await WorkoutService.GetUserWorkouts();
     }
 
-    private void DeleteWorkout(Guid id)
+    private void HandleDeleteWorkoutConfirmation(Guid id)
     {
+        ModalService.Open(new ConfirmModal
+        {
+            ConfirmationText = "Are you sure you want to delete this workout?",
+            SubText = "This will include all connected measurements.",
+            OnConfirm = EventCallback.Factory.Create(this, () => DeleteWorkout(id)),
+        });
+    }
+
+    private async Task DeleteWorkout(Guid id)
+    {
+        await WorkoutService.RemoveWorkoutById(id);
         _workouts?.RemoveAll(w => w.Id == id);
     }
-    
+
     private void HandleOpenNewWorkoutModal()
     {
         if (_selectableWorkouts is null || _selectableWorkouts.Count == 0) return;
         ModalService.Open(new CreateNewWorkoutModal { SelectableWorkouts = _selectableWorkouts });
     }
 
-    private void HandleOpenAddMeasurementModal()
+    private void HandleOpenAddMeasurementModal(WorkoutDto workout)
     {
-        if (_selectedWorkout is null) return;
-        ModalService.Open(new LogMeasurementModal { Workout = _selectedWorkout });
+        ModalService.Open(new LogMeasurementModal { Workout = workout });
     }
 }

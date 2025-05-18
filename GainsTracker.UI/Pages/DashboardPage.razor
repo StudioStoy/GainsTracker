@@ -1,23 +1,21 @@
-﻿@using GainsTracker.Common.Models.Workouts.Measurements
-@using GainsTracker.UI.Elements.Header
-@using GainsTracker.UI.Elements.Shared
-@using GainsTracker.UI.Services.API.Workouts
-@using Microsoft.AspNetCore.Authorization
-@using GainsTracker.UI.Components
-
-@inject IWorkoutService WorkoutService
+﻿@inject IWorkoutService WorkoutService
 
 @attribute [Authorize]
 
 @page "/dashboard"
+@using GainsTracker.Common.Models.Workouts.Measurements
+@using GainsTracker.UI.Components
+@using GainsTracker.UI.Elements.Header
+@using GainsTracker.UI.Elements.Shared
+@using GainsTracker.UI.Services.API.Workouts
+@using Microsoft.AspNetCore.Authorization
 
 <PageTitle>Dashboard</PageTitle>
 
-<!doctype html>
-<meta name="viewport" content="width=device-width"/>
-<div class="content-holder">
-    <img src="/images/logo.png" alt="Gainstracker Logo"/>
-    <div class="page-container">
+<div class="page-container">
+    <img src="/images/logo.png" alt="Gainstracker Logo" class="gains-tracker-logo"/>
+    <div class="dashboard-container">
+
         <div class="welcome">
             <GtHeader Variant="GtVariant.Secondary">Welcome, gainer!</GtHeader>
             <p>Swole is the goal, size is the prize</p>
@@ -28,7 +26,7 @@
                 @foreach (var pb in _personalBests)
                 {
                     <div class="pb-card">
-                        <PersonalBestView PersonalBest="pb" />
+                        <PersonalBestView PersonalBest="pb"/>
                     </div>
                 }
             </div>

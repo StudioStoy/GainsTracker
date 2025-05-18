@@ -1,0 +1,20 @@
+﻿@using GainsTracker.Common
+@using GainsTracker.UI.Elements.Modal
+@using GainsTracker.UI.Elements.Icon
+
+<GtModal OnConfirm="OnConfirm" OnCancel="OnCancel">
+    <GtIcon Icon="Mdi.AlertCircleCheckOutline"/>
+    <h3>@ConfirmationText</h3>
+    @if (SubText is not null)
+    {
+        <p>@SubText</p>
+    }
+    <p></p>
+</GtModal>
+
+@code {
+    [Parameter] public required string ConfirmationText { get; set; }
+    [Parameter] public string? SubText { get; set; } = string.Empty;
+    [Parameter] public required EventCallback OnConfirm { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; } = EventCallback.Empty;
+}

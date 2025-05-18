@@ -1,0 +1,34 @@
+﻿@using GainsTracker.Common
+@using GainsTracker.Common.Models.Workouts.Measurements
+@using GainsTracker.UI.Elements.Icon
+@using GainsTracker.UI.Elements.Shared
+@using GainsTracker.UI.Elements.Header
+@using GainsTracker.UI.Components
+
+@code {
+    [Parameter] public string Title { get; set; } = "Workout Name";
+    [Parameter] public PersonalBestDto? PersonalBest { get; set; }
+    [Parameter] public string? Recent { get; set; }
+    [Parameter] public EventCallback OnDelete { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
+}
+
+<div class="workout-card">
+    <div class="workout-card-header">
+        <span class="header-wrapper" @onclick="OnClick">
+            <GtHeader Size="GtSize.Medium">@Title</GtHeader>
+        </span>
+        <button class="delete-button" @onclick="OnDelete">
+            <GtIcon Size="GtSize.Small" Icon="Mdi.TrashCanOutline"></GtIcon>
+        </button>
+    </div>
+
+    <div class="workout-info" @onclick="OnClick">
+        <PersonalBestView PersonalBest="@PersonalBest" ShowTitle="false"></PersonalBestView>
+        @if (Recent is not null)
+        {
+            <p>Most recent: @Recent</p>
+        }
+    </div>
+
+</div>

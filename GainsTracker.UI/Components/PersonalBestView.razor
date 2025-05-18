@@ -2,7 +2,10 @@
 @using GainsTracker.Common.Models.Workouts.Measurements
 
 <div class="pb-item">
-    <div class="pb-title">@PersonalBest.WorkoutName</div>
+    @if (ShowTitle)
+    {
+        <div class="pb-title">@PersonalBest.WorkoutName</div>
+    }
 
     <div class="pb-value">
         @GetFormattedValue()
@@ -14,14 +17,14 @@
 </div>
 
 @code {
-    [Parameter]
-    public PersonalBestDto PersonalBest { get; set; } = null!;
+    [Parameter] public PersonalBestDto PersonalBest { get; set; } = null!;
+    [Parameter] public bool ShowTitle { get; set; } = true;
 
     private string GetFormattedValue()
     {
         return PersonalBest.Measurement switch
         {
-            StrengthMeasurementDto strength => $"{strength.Weight}{UnitConverter.GetWeightUnit()}",
+            StrengthMeasurementDto strength => $"{strength.Weight}{UnitConverter.GetWeightUnit()} | {strength.Reps} reps",
             TimeDistanceEnduranceMeasurementDto endurance => $"{endurance.Distance}{UnitConverter.GetLengthUnit(endurance.Distance)} \n {TimeConverter.MillisecondsToTimeString(endurance.Time)}",
             TimeEnduranceMeasurementDto timeEndurance => $"{TimeConverter.MillisecondsToTimeString(timeEndurance.Time)}",
             RepsMeasurementDto reps => $"{reps.Reps} reps",

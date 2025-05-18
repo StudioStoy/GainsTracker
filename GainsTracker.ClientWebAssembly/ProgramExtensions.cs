@@ -20,7 +20,7 @@ public static class ProgramExtensions
     public static void ConfigureAuth(this WebAssemblyHostBuilder builder)
     {
         builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
-        builder.Logging.SetMinimumLevel(LogLevel.Debug);
+        builder.Logging.SetMinimumLevel(LogLevel.Information);
 
         builder.Services.Configure<Auth0ConfigOptions>(options => builder.Configuration.GetSection("Auth0").Bind(options));
         

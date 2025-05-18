@@ -22,8 +22,8 @@
             }
             else
             {
-                <GtButton OnClick="HandleCloseModal">Confirm</GtButton>
-                <GtButton OnClick="HandleCloseModal">Cancel</GtButton>
+                <GtButton OnClick="HandleConfirm">Confirm</GtButton>
+                <GtButton OnClick="HandleCancel">Cancel</GtButton>
             }
         </div>
     </div>
@@ -33,6 +33,8 @@
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public RenderFragment? FooterContent { get; set; }
     [Parameter] public RenderFragment? ActionContentOverride { get; set; }
+    [Parameter] public EventCallback? OnCancel { get; set; }
+    [Parameter] public EventCallback? OnConfirm { get; set; }
 
     private bool _isClosing;
     private ElementReference _modalBackdrop;
@@ -43,6 +45,22 @@
         if (firstRender) await _modalBackdrop.FocusAsync();
     }
 
+    private async Task HandleConfirm()
+    {
+        if (OnConfirm.HasValue)
+            await OnConfirm.Value.InvokeAsync();
+
+        await HandleCloseModal();
+    }
+    
+    private async Task HandleCancel()
+    {
+        if (OnCancel.HasValue)
+            await OnCancel.Value.InvokeAsync();
+
+        await HandleCloseModal();
+    }
+    
     private async Task HandleCloseModal()
     {
         _isClosing = true;

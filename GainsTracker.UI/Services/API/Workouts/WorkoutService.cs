@@ -22,4 +22,9 @@ public class WorkoutService(ApiService api) : IWorkoutService
 
     public async Task AddMeasurementToWorkout(Guid workoutId, CreateMeasurementDto measurement) =>
         await api.PostAsync($"/workouts/{workoutId}/measurements", measurement);
+
+    public async Task RemoveWorkoutById(Guid workoutId)
+    {
+        await api.DeleteAsync($"/workouts/{workoutId}");
+    }
 }

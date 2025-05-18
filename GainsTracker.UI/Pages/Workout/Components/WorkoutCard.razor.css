@@ -1,0 +1,39 @@
+﻿.workout-card {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    color: var(--primary-color);
+    box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    min-width: 250px;
+    height: 10rem;
+    box-sizing: border-box;
+}
+
+.workout-card-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.header-wrapper {
+    cursor: pointer;
+}
+
+.workout-info {
+    padding-top: 2rem;
+    cursor: pointer;
+}
+
+.delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    transition: all 0.2s ease-in-out;
+}
+
+.delete-button:hover {
+    color: var(--primary-color);
+    transform: scale(1.2);
+}

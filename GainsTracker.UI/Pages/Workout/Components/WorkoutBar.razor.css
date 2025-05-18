@@ -1,4 +1,4 @@
-﻿.workout-card {
+﻿.workout-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -8,10 +8,10 @@
     margin: 10px 0;
     color: var(--primary-color);
     box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.4);
-    width: calc(100% - 20px); /* Subtracts margin or padding */
-    max-width: 100%;
+    width: 100%;
     height: 100%;
-    box-sizing: border-box; /* Ensures padding doesn’t overflow */
+    box-sizing: border-box;
+    cursor: pointer;
 }
 
 .workout-info h3 {

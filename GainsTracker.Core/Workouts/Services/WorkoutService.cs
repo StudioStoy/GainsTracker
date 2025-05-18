@@ -46,6 +46,11 @@ public class WorkoutService(
         );
     }
 
+    public Task DeleteWorkoutById(Guid gainsId, Guid workoutId)
+    {
+        return repository.DeleteWorkoutById(workoutId);
+    }
+    
     public async Task<WorkoutMeasurementsDto> GetWorkoutMeasurementsById(Guid workoutId)
     {
         var workout = await repository.GetWorkoutWithMeasurementsById(workoutId);

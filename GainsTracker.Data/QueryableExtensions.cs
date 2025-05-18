@@ -1,4 +1,6 @@
-﻿namespace GainsTracker.Data;
+﻿using GainsTracker.Data.Shared;
+
+namespace GainsTracker.Data;
 
 public static class QueryableExtensions
 {

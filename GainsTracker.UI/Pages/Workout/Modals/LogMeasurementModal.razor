@@ -1,16 +1,13 @@
 ﻿@using GainsTracker.Common.Models.Workouts
 @using GainsTracker.Common.Models.Workouts.Enums
 @using GainsTracker.Common.Models.Workouts.Measurements
-@using GainsTracker.UI.Services.API.Workouts
-@using GainsTracker.UI.Components
 @using GainsTracker.UI.Elements.Modal
-@using GainsTracker.UI.Elements.Shared
-@using GainsTracker.UI.Elements.Spinner
-
+@using GainsTracker.UI.Pages.Workout.Components
+@using GainsTracker.UI.Services.API.Workouts
 @inject IWorkoutService WorkoutService
 
 <GtModal>
-    <h4>Measurement Details</h4>
+    <h4>@Workout.Type</h4>
 
     <EditForm Model="_measurement" OnValidSubmit="AddMeasurementToWorkout">
         <DataAnnotationsValidator/>

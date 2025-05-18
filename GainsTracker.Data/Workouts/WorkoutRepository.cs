@@ -37,6 +37,22 @@ public class WorkoutRepository(GainsDbContextFactory contextFactory)
 
         return workout;
     }
+    
+    public async Task DeleteWorkoutById(Guid id)
+    {
+        await using var context = _contextFactory.CreateDbContext();
+
+        var workout = await context.Workouts
+            .Include(w => w.Measurements)
+            .Include(w => w.PersonalBest)
+            .FirstOrDefaultAsync(w => w.Id == id);
+
+        if (workout is null)
+            return;
+
+        context.Workouts.Remove(workout);
+        await context.SaveChangesAsync();
+    }
 
     public async Task<Workout> GetWorkoutWithMeasurementsById(Guid id)
     {

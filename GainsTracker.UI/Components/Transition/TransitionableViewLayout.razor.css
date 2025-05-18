@@ -1,0 +1,14 @@
+﻿.transition {
+    position: fixed;
+    top: 5rem; /* top navbar */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+}
+@media screen and (max-width: 600px) {
+    .transition {
+        top: 0;
+        bottom: 5rem; /* height of your bottom navbar */
+    }
+}

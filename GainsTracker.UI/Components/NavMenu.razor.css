@@ -37,7 +37,7 @@
 }
 
 /* For tablet up to desktop */
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 650px) {
     .nav-icon {
         display: none;
     }

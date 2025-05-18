@@ -68,7 +68,6 @@ history.replaceState = modifyStateFunction(replaceState, 0);
 
 // Attach the `onPopstate` handler to listen for navigation changes.
 window.addEventListener('popstate', onPopstate);
-window.addEventListener('hashchange', () => console.log('hashchange aaaaaaaaaaaaa'));
 
 // JSInterop functionality for synchronizing navigation with Blazor.
 let dotnetHelperPrimary = undefined;
