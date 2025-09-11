@@ -5,6 +5,7 @@
 @attribute [Authorize]
 
 @page "/workouts"
+@using GainsTracker.Common
 @using GainsTracker.Common.Models.Workouts
 @using GainsTracker.Common.Models.Workouts.Measurements
 @using GainsTracker.UI.Components.Modals
@@ -79,6 +80,7 @@ else
             ConfirmationText = "Are you sure you want to delete this workout?",
             SubText = "This will include all connected measurements.",
             OnConfirm = EventCallback.Factory.Create(this, () => DeleteWorkout(id)),
+            Icon = Mdi.DeleteForever,
         });
     }
 

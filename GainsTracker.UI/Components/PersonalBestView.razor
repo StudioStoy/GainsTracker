@@ -24,7 +24,7 @@
     {
         return PersonalBest.Measurement switch
         {
-            StrengthMeasurementDto strength => $"{strength.Weight}{UnitConverter.GetWeightUnit()} | {strength.Reps} reps",
+            StrengthMeasurementDto strength => $"{strength.Weight}{UnitConverter.GetWeightUnit()} \u00d7 {strength.Reps} reps",
             TimeDistanceEnduranceMeasurementDto endurance => $"{endurance.Distance}{UnitConverter.GetLengthUnit(endurance.Distance)} \n {TimeConverter.MillisecondsToTimeString(endurance.Time)}",
             TimeEnduranceMeasurementDto timeEndurance => $"{TimeConverter.MillisecondsToTimeString(timeEndurance.Time)}",
             RepsMeasurementDto reps => $"{reps.Reps} reps",

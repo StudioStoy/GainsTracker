@@ -4,62 +4,57 @@
 
 @typeparam TMeasurement
 
-<EditForm Model="Model">
-    <DataAnnotationsValidator />
+@switch (Category)
+{
+    case ExerciseCategory.Strength:
+        <div class="input-group">
+            <label>Weight:</label>
+            <InputNumber @bind-Value="StrengthMeasurement.Weight" class="input-field"/>
+        </div>
+        <div class="input-group">
+            <label>Reps:</label>
+            <InputNumber @bind-Value="StrengthMeasurement.Reps" class="input-field"/>
+        </div>
+        break;
 
-    @switch (Category)
-    {
-        case ExerciseCategory.Strength:
-            <div class="input-group">
-                <label>Weight:</label>
-                <InputNumber @bind-Value="StrengthMeasurement.Weight" class="input-field" />
-            </div>
-            <div class="input-group">
-                <label>Reps:</label>
-                <InputNumber @bind-Value="StrengthMeasurement.Reps" class="input-field" />
-            </div>
-            break;
+    case ExerciseCategory.TimeDistanceEndurance:
+        <div class="input-group">
+            <label>Distance:</label>
+            <InputNumber @bind-Value="TimeDistanceMeasurement.Distance" class="input-field"/>
+            <select @bind="TimeDistanceMeasurement.DistanceUnit">
+                @foreach (var unit in Enum.GetValues(typeof(DistanceUnits)))
+                {
+                    <option value="@unit">@unit</option>
+                }
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Time (seconds):</label>
+            <InputNumber @bind-Value="TimeDistanceMeasurement.Time" class="input-field"/>
+        </div>
+        break;
 
-        case ExerciseCategory.TimeDistanceEndurance:
-            <div class="input-group">
-                <label>Distance:</label>
-                <InputNumber @bind-Value="TimeDistanceMeasurement.Distance" class="input-field" />
-                <select @bind="TimeDistanceMeasurement.DistanceUnit">
-                    @foreach (var unit in Enum.GetValues(typeof(DistanceUnits)))
-                    {
-                        <option value="@unit">@unit</option>
-                    }
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Time (seconds):</label>
-                <InputNumber @bind-Value="TimeDistanceMeasurement.Time" class="input-field" />
-            </div>
-            break;
+    case ExerciseCategory.TimeEndurance:
+        <div class="input-group">
+            <label>Time (seconds):</label>
+            <InputNumber @bind-Value="TimeEnduranceMeasurement.Time" class="input-field"/>
+        </div>
+        break;
 
-        case ExerciseCategory.TimeEndurance:
-            <div class="input-group">
-                <label>Time (seconds):</label>
-                <InputNumber @bind-Value="TimeEnduranceMeasurement.Time" class="input-field" />
-            </div>
-            break;
+    case ExerciseCategory.Reps:
+        <div class="input-group">
+            <label>Reps:</label>
+            <InputNumber @bind-Value="RepsMeasurement.Reps" class="input-field"/>
+        </div>
+        break;
 
-        case ExerciseCategory.Reps:
-            <div class="input-group">
-                <label>Reps:</label>
-                <InputNumber @bind-Value="RepsMeasurement.Reps" class="input-field" />
-            </div>
-            break;
-
-        case ExerciseCategory.General:
-            <div class="input-group">
-                <label>Notes:</label>
-                <InputTextArea @bind-Value="GeneralMeasurement.General" class="input-field" />
-            </div>
-            break;
-    }
-
-</EditForm>
+    case ExerciseCategory.General:
+        <div class="input-group">
+            <label>Notes:</label>
+            <InputTextArea @bind-Value="GeneralMeasurement.General" class="input-field"/>
+        </div>
+        break;
+}
 
 @code {
     [Parameter, EditorRequired] public required ExerciseCategory Category { get; set; }

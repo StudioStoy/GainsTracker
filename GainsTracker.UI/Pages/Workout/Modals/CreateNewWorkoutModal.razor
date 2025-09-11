@@ -7,40 +7,49 @@
 
 @inject IWorkoutService WorkoutService
 
-<GtModal>
+<GtModal ConfirmButtonType="submit"
+         FormModel="_measurement"
+         OnValidSubmit="AddNewWorkout"
+         ConfirmButtonText="Log it!"
+         CancelButtonText="Cancel">
     <h3>Log a Workout</h3>
 
     <label>Select a workout:</label>
-    <select @bind-Value="SelectedWorkoutType" @bind-Value:event="onchange">
+    <select @bind="SelectedWorkoutTypeString">
         <option value="">-- Select --</option>
         @foreach (var workout in SelectableWorkouts)
         {
             <option value="@workout.Type">@workout.Type</option>
         }
     </select>
-
+    
     @if (_selectedWorkout != null)
     {
-        <EditForm Model="_measurement" OnValidSubmit="AddNewWorkout">
-            <DataAnnotationsValidator/>
-
-            <MeasurementTemplate Category="@_measurement.Category" Model="_measurement"/>
-
-            <div>
-                <label>Notes:</label>
-                <InputTextArea @bind-Value="_measurement.Notes"/>
-            </div>
-
-            <button type="submit">Log Workout</button>
-        </EditForm>
+        <MeasurementTemplate Category="@_measurement.Category" Model="_measurement"/>
+        <div>
+            <label>Notes:</label>
+            <InputTextArea @bind-Value="_measurement.Notes"/>
+        </div>
     }
 </GtModal>
+
 
 @code {
     [Parameter] public required List<WorkoutTypeDto> SelectableWorkouts { get; init; }
 
     private WorkoutTypeDto? _selectedWorkout;
-
+    private string? SelectedWorkoutTypeString
+    {
+        get => SelectedWorkoutType?.ToString();
+        set
+        {
+            if (string.IsNullOrEmpty(value))
+                SelectedWorkoutType = null;
+            else
+                SelectedWorkoutType = Enum.Parse<WorkoutType>(value);
+        }
+    }
+    
     private WorkoutType? SelectedWorkoutType
     {
         get => _selectedWorkoutTypeBacking;
@@ -76,7 +85,7 @@
     private async Task AddNewWorkout()
     {
         if (_selectedWorkout == null) return;
-        
+
         var createWorkoutDto = new CreateNewWorkoutDto(_selectedWorkout.Type, _measurement);
         await WorkoutService.CreateNewWorkout(createWorkoutDto);
     }

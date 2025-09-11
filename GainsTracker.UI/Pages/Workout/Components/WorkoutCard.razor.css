@@ -6,14 +6,20 @@
     box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.4);
     width: 100%;
     min-width: 250px;
-    height: 10rem;
+    height: fit-content;
     box-sizing: border-box;
+    transition: transform 0.1s ease-in-out;
+}
+
+.workout-card:active {
+    transform: scale(1.1);
 }
 
 .workout-card-header {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    cursor: pointer;
 }
 
 .header-wrapper {

@@ -1,7 +1,8 @@
 ﻿@using GainsTracker.UI.Elements.Button
+@using Microsoft.AspNetCore.Components.Forms
 @using GainsTracker.UI.Elements.Modal.Infrastructure
 
-@inject ModalService ModalService;
+@inject ModalService ModalService
 
 <div class="modal-backdrop @(_isClosing ? "modal-closing-backdrop" : "")"
      tabindex="0"
@@ -9,50 +10,85 @@
      @onclick="HandleCloseModal"
      @ref="_modalBackdrop">
     <div class="modal-content @(_isClosing ? "modal-closing" : "")" @onclick:stopPropagation="true">
-        <div class="modal-body">
-            @ChildContent
-        </div>
-        <div class="modal-footer">
-            @FooterContent
-        </div>
-        <div class="modal-actions">
-            @if (ActionContentOverride != null)
-            {
-                @ActionContentOverride
-            }
-            else
-            {
-                <GtButton OnClick="HandleConfirm">Confirm</GtButton>
-                <GtButton OnClick="HandleCancel">Cancel</GtButton>
-            }
-        </div>
+
+        @if (IsFormModal)
+        {
+            <EditForm Model="FormModel" OnValidSubmit="HandleFormSubmit">
+                <div class="modal-body">
+                    @ChildContent
+                </div>
+                <div class="modal-footer">
+                    @FooterContent
+                </div>
+                <div class="modal-actions">
+                    <GtButton ButtonType="@ConfirmButtonType">
+                        @ConfirmButtonText
+                    </GtButton>
+                    <GtButton OnClick="HandleCancel">
+                        @CancelButtonText
+                    </GtButton>
+                </div>
+            </EditForm>
+        }
+        else
+        {
+            <div class="modal-body">
+                @ChildContent
+            </div>
+            <div class="modal-footer">
+                @FooterContent
+            </div>
+            <div class="modal-actions">
+                <GtButton ButtonType="@ConfirmButtonType" OnClick="HandleConfirm">
+                    @ConfirmButtonText
+                </GtButton>
+                <GtButton OnClick="HandleCancel">
+                    @CancelButtonText
+                </GtButton>
+            </div>
+        }
     </div>
 </div>
 
 @code {
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public RenderFragment? FooterContent { get; set; }
-    [Parameter] public RenderFragment? ActionContentOverride { get; set; }
-    [Parameter] public EventCallback? OnCancel { get; set; }
+    [Parameter] public object? FormModel { get; set; }
+    [Parameter] public EventCallback<EditContext> OnValidSubmit { get; set; }
     [Parameter] public EventCallback? OnConfirm { get; set; }
+    [Parameter] public EventCallback? OnCancel { get; set; }
+    [Parameter] public string ConfirmButtonText { get; set; } = "Confirm";
+    [Parameter] public string CancelButtonText { get; set; } = "Cancel";
+    [Parameter] public string ConfirmButtonType { get; set; } = "button";
 
     private bool _isClosing;
     private ElementReference _modalBackdrop;
 
+    private bool IsFormModal => ConfirmButtonType == "submit" && FormModel != null;
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        // Focussing on the modal enables pressing the "Escape" key to close the modal.
-        if (firstRender) await _modalBackdrop.FocusAsync();
+        if (firstRender)
+            await _modalBackdrop.FocusAsync();
     }
 
     private async Task HandleConfirm()
     {
-        if (OnConfirm.HasValue)
+        if (!IsFormModal && OnConfirm.HasValue)
             await OnConfirm.Value.InvokeAsync();
+
+        if (!IsFormModal)
+            await HandleCloseModal();
+    }
+
+    private async Task HandleFormSubmit(EditContext editContext)
+    {
+        if (OnValidSubmit.HasDelegate)
+            await OnValidSubmit.InvokeAsync(editContext);
 
         await HandleCloseModal();
     }
-    
+
     private async Task HandleCancel()
     {
         if (OnCancel.HasValue)
@@ -60,14 +96,14 @@
 
         await HandleCloseModal();
     }
-    
+
     private async Task HandleCloseModal()
     {
         _isClosing = true;
         await Task.Delay(ModalService.ModalAnimationDelay);
         ModalService.CloseLast();
     }
-    
+
     private async Task HandleOnKeyDown(KeyboardEventArgs keyboardEvent)
     {
         if (keyboardEvent.Key == "Escape")

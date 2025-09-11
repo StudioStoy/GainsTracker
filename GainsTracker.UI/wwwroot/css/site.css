@@ -80,7 +80,7 @@ a:link, a:hover, a:active, a:visited {
     background: var(--background-color);
     padding: 1rem;
     border-radius: 8px;
-    width: 400px;
+    width: fit-content;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     text-align: center;
     transform: scale(0.85);

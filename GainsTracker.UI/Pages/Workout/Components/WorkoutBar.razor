@@ -1,6 +1,8 @@
 ﻿@using GainsTracker.Common
 @using GainsTracker.UI.Elements.Icon
 @using GainsTracker.UI.Elements.Shared
+@using GainsTracker.UI.Elements.Header
+
 @code {
     [Parameter] public string Title { get; set; } = "Workout Name";
     [Parameter] public string PersonalBest { get; set; } = "None yet!";
@@ -9,9 +11,9 @@
     [Parameter] public EventCallback OnClick { get; set; }
 }
 
-<div class="workout-bar" @onclick="OnClick">
-    <div class="workout-info">
-        <h3>@Title</h3>
+<div class="workout-bar">
+    <div class="workout-info" @onclick="OnClick">
+        <GtHeader Size="GtSize.Small">@Title</GtHeader>
         <p>PB: @PersonalBest</p>
         @if (Recent is not null)
         {

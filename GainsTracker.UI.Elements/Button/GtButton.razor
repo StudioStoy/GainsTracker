@@ -5,6 +5,7 @@
     <div class="gt-button-container">
         <span class="hover-emoji left" style="visibility: @(ShowMuscles ? "visible" : "hidden")">💪</span>
         <button class="@Class gt-button @SizeClass @HoverEffectClass @FullWidthClass"
+                type="@ButtonType"
                 @onclick="OnClick">
             @ChildContent
         </button>
@@ -18,6 +19,7 @@
     [Parameter] public GtSize Size { get; set; } = GtSize.Medium;
     [Parameter] public bool ShowMuscles { get; set; }
     [Parameter] public bool FullWidth { get; set; }
+    [Parameter] public string ButtonType { get; set; } = "button";
 
     private string SizeClass => Size switch
     {
@@ -28,6 +30,5 @@
     };
 
     private string HoverEffectClass => ShowMuscles ? "hover-effect" : string.Empty;
-
     private string FullWidthClass => FullWidth ? "full-width" : string.Empty;
 }

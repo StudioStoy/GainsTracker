@@ -3,7 +3,7 @@
 @using GainsTracker.UI.Elements.Icon
 
 <GtModal OnConfirm="OnConfirm" OnCancel="OnCancel">
-    <GtIcon Icon="Mdi.AlertCircleCheckOutline"/>
+    <GtIcon Icon="Icon"/>
     <h3>@ConfirmationText</h3>
     @if (SubText is not null)
     {
@@ -17,4 +17,6 @@
     [Parameter] public string? SubText { get; set; } = string.Empty;
     [Parameter] public required EventCallback OnConfirm { get; set; }
     [Parameter] public EventCallback OnCancel { get; set; } = EventCallback.Empty;
+    [Parameter] public Mdi Icon { get; set; } = Mdi.AlertCircleCheckOutline;
+    
 }
