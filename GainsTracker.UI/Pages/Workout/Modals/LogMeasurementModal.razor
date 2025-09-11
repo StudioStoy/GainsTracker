@@ -4,23 +4,22 @@
 @using GainsTracker.UI.Elements.Modal
 @using GainsTracker.UI.Pages.Workout.Components
 @using GainsTracker.UI.Services.API.Workouts
+
 @inject IWorkoutService WorkoutService
 
-<GtModal>
+<GtModal ConfirmButtonType="submit"
+         FormModel="_measurement"
+         OnValidSubmit="AddMeasurementToWorkout"
+         ConfirmButtonText="Add"
+         CancelButtonText="Cancel">
     <h4>@Workout.Type</h4>
 
-    <EditForm Model="_measurement" OnValidSubmit="AddMeasurementToWorkout">
-        <DataAnnotationsValidator/>
+    <MeasurementTemplate Category="@_measurement.Category" Model="_measurement"/>
 
-        <MeasurementTemplate Category="@_measurement.Category" Model="_measurement"/>
-
-        <div>
-            <label>Notes:</label>
-            <InputTextArea @bind-Value="_measurement.Notes"/>
-        </div>
-
-        <button type="submit">Log Workout</button>
-    </EditForm>
+    <div>
+        <label>Notes:</label>
+        <InputTextArea @bind-Value="_measurement.Notes"/>
+    </div>
 </GtModal>
 
 @code {

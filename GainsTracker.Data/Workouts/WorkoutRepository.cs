@@ -21,6 +21,7 @@ public class WorkoutRepository(GainsDbContextFactory contextFactory)
         return await context.Workouts
             .Include(w => w.PersonalBest)
             .Where(w => w.GainsAccountId == gainsId)
+            .OrderByDescending(w => w.LastUpdated)
             .ToListAsync();
     }
 

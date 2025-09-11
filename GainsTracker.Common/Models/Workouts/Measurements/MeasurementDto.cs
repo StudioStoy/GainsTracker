@@ -24,7 +24,14 @@ public abstract record MeasurementDto
     public DateTime TimeOfRecord { get; init; } = DateTime.UtcNow;
     public string Notes { get; init; } = string.Empty;
 
-    public override string ToString() => Type.ToString();
+    public virtual string ToShortString() => Type.ToString();
+
+    public virtual string ToLongString()
+    {
+        return !string.IsNullOrEmpty(Notes)
+            ? $"{Type} | Notes: {Notes}"
+            : ToShortString();
+    }
 }
 
 public record StrengthMeasurementDto : MeasurementDto
@@ -32,7 +39,14 @@ public record StrengthMeasurementDto : MeasurementDto
     public double Weight { get; init; }
     public int Reps { get; init; }
 
-    public override string ToString() => $"{Reps}x {Weight}{UnitConverter.GetWeightUnit()}";
+    public override string ToShortString() => $"{Reps}x {Weight}{UnitConverter.GetWeightUnit()}";
+
+    public override string ToLongString()
+    {
+        return !string.IsNullOrEmpty(Notes)
+            ? $"{Reps}x {Weight}{UnitConverter.GetWeightUnit()} | Notes: {Notes}"
+            : ToShortString();
+    }
 }
 
 public record TimeDistanceEnduranceMeasurementDto : MeasurementDto
@@ -41,27 +55,55 @@ public record TimeDistanceEnduranceMeasurementDto : MeasurementDto
     public double Distance { get; init; }
     public long Time { get; init; }
 
-    public override string ToString() =>
+    public override string ToShortString() =>
         $"{UnitConverter.ConvertLength(Distance)}{UnitConverter.GetLengthUnit(Distance)}/{TimeConverter.MillisecondsToTimeString(Time)}";
+
+    public override string ToLongString()
+    {
+        return !string.IsNullOrEmpty(Notes)
+            ? $"{UnitConverter.ConvertLength(Distance)}{UnitConverter.GetLengthUnit(Distance)}/{TimeConverter.MillisecondsToTimeString(Time)} | Notes: {Notes}"
+            : ToShortString();
+    }
 }
 
 public record TimeEnduranceMeasurementDto : MeasurementDto
 {
     public long Time { get; init; }
 
-    public override string ToString() => TimeConverter.MillisecondsToTimeString(Time);
+    public override string ToShortString() => TimeConverter.MillisecondsToTimeString(Time);
+
+    public override string ToLongString()
+    {
+        return !string.IsNullOrEmpty(Notes)
+            ? $"{TimeConverter.MillisecondsToTimeString(Time)} | Notes: {Notes}"
+            : ToShortString();
+    }
 }
 
 public record RepsMeasurementDto : MeasurementDto
 {
     public int Reps { get; init; }
 
-    public override string ToString() => $"{Reps}x";
+    public override string ToShortString() => $"{Reps}x";
+
+    public override string ToLongString()
+    {
+        return !string.IsNullOrEmpty(Notes)
+            ? $"{Reps}x | Notes: {Notes}"
+            : ToShortString();
+    }
 }
 
 public record GeneralMeasurementDto : MeasurementDto
 {
     public string General { get; init; } = string.Empty;
 
-    public override string ToString() => General;
+    public override string ToShortString() => General;
+
+    public override string ToLongString()
+    {
+        return !string.IsNullOrEmpty(Notes)
+            ? $"{General} | Notes: {Notes}"
+            : ToShortString();
+    }
 }

@@ -34,7 +34,7 @@ else
             <div class="mobile-workout-list">
                 @foreach (var workout in _workouts)
                 {
-                    <WorkoutBar Title="@workout.Type.ToString()" PersonalBest="@workout.PersonalBest?.ToString()"
+                    <WorkoutBar Title="@workout.Type.ToString()" PersonalBest="@workout.PersonalBest?.ToLongString()"
                                 OnDelete="() => HandleDeleteWorkoutConfirmation(workout.Id)"
                                 OnClick="() => HandleOpenAddMeasurementModal(workout)"/>
                 }

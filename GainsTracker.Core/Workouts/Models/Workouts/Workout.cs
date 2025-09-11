@@ -1,5 +1,4 @@
-﻿using GainsTracker.Common.Models.Workouts;
-using GainsTracker.Common.Models.Workouts.Enums;
+﻿using GainsTracker.Common.Models.Workouts.Enums;
 using GainsTracker.Core.Workouts.Models.Measurements;
 
 namespace GainsTracker.Core.Workouts.Models.Workouts;
@@ -14,6 +13,7 @@ public class Workout
         Type = type;
         Category = category;
         Measurements = measurements;
+        LastUpdated = DateTime.UtcNow;
         if (measurements.Count != 0)
             PersonalBest = measurements.First();
     }
@@ -22,6 +22,7 @@ public class Workout
     public Guid GainsAccountId { get; init; }
     public WorkoutType Type { get; init; }
     public ExerciseCategory Category { get; init; }
+    public DateTime LastUpdated { get; private set; }
 
     public Measurement? PersonalBest { get; set; }
     public List<Measurement> Measurements { get; init; } = [];
@@ -30,6 +31,7 @@ public class Workout
     {
         CheckAndUpdatePersonalBest(measurement, PersonalBest);
         Measurements.Add(measurement);
+        LastUpdated = DateTime.UtcNow;
     }
 
     private void CheckAndUpdatePersonalBest(Measurement newMeasurement, Measurement? oldPersonalBest)
