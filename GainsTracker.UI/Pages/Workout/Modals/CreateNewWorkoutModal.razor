@@ -7,9 +7,8 @@
 
 @inject IWorkoutService WorkoutService
 
-<GtModal ConfirmButtonType="submit"
-         FormModel="_measurement"
-         OnValidSubmit="AddNewWorkout"
+<GtModal FormModel="_measurement"
+         OnConfirm="AddNewWorkout"
          ConfirmButtonText="Log it!"
          CancelButtonText="Cancel">
     <h3>Log a Workout</h3>

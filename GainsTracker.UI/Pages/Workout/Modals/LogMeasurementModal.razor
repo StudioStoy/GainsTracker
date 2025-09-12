@@ -7,9 +7,8 @@
 
 @inject IWorkoutService WorkoutService
 
-<GtModal ConfirmButtonType="submit"
-         FormModel="_measurement"
-         OnValidSubmit="AddMeasurementToWorkout"
+<GtModal FormModel="_measurement"
+         OnConfirm="AddMeasurementToWorkout"
          ConfirmButtonText="Add"
          CancelButtonText="Cancel">
     <h4>@Workout.Type</h4>
@@ -41,6 +40,5 @@
     }
 
     // Add a measurement to an existing workout.
-    private async Task AddMeasurementToWorkout() =>
-        await WorkoutService.AddMeasurementToWorkout(Workout.Id, _measurement);
+    private async Task AddMeasurementToWorkout() => await WorkoutService.AddMeasurementToWorkout(Workout.Id, _measurement);
 }

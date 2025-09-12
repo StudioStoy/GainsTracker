@@ -24,10 +24,13 @@ public class Auth0AuthenticationStateProvider(Auth0Client client) : Authenticati
                 return new AuthenticationState(new ClaimsPrincipal());
 
             _currentUser = loginResult.User;
+            var identity = (ClaimsIdentity)_currentUser.Identity!;
+            if (!string.IsNullOrEmpty(loginResult.AccessToken))
+                identity.AddClaim(new Claim("access_token", loginResult.AccessToken));
+
             if (_currentUser.Identity is { IsAuthenticated: true })
                 return new AuthenticationState(_currentUser);
 
-            var identity = (ClaimsIdentity)_currentUser.Identity!;
             if (identity.RoleClaimType == client.Options.RoleClaim)
                 return new AuthenticationState(_currentUser);
 
@@ -44,9 +47,6 @@ public class Auth0AuthenticationStateProvider(Auth0Client client) : Authenticati
                     identity.AddClaim(new Claim(identity.RoleClaimType, roleClaim.Value));
                 }
             }
-
-            // Add JWT to the user's claims to send authentication in the web API.
-            identity.AddClaim(new Claim("access_token", loginResult.AccessToken));
 
             return new AuthenticationState(_currentUser);
         }

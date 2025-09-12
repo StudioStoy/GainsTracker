@@ -2,6 +2,7 @@
 using GainsTracker.ClientNative.Auth;
 using GainsTracker.Common.Models.Auth;
 using GainsTracker.UI.Auth;
+using GainsTracker.UI.Elements.Modal.Infrastructure;
 using GainsTracker.UI.Services.API;
 using GainsTracker.UI.Services.API.Workouts;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -96,5 +97,6 @@ public static class ProgramExtensions
     public static void ConfigureServices(this MauiAppBuilder builder)
     {
         builder.Services.AddScoped<IWorkoutService, WorkoutService>();
+        builder.Services.AddSingleton<ModalService>();
     }
 }

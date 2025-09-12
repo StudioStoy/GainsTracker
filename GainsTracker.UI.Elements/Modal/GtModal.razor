@@ -17,9 +17,6 @@
                 <div class="modal-body">
                     @ChildContent
                 </div>
-                <div class="modal-footer">
-                    @FooterContent
-                </div>
                 <div class="modal-actions">
                     <GtButton ButtonType="@ConfirmButtonType">
                         @ConfirmButtonText
@@ -35,9 +32,6 @@
             <div class="modal-body">
                 @ChildContent
             </div>
-            <div class="modal-footer">
-                @FooterContent
-            </div>
             <div class="modal-actions">
                 <GtButton ButtonType="@ConfirmButtonType" OnClick="HandleConfirm">
                     @ConfirmButtonText
@@ -51,20 +45,43 @@
 </div>
 
 @code {
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter] public RenderFragment? FooterContent { get; set; }
-    [Parameter] public object? FormModel { get; set; }
-    [Parameter] public EventCallback<EditContext> OnValidSubmit { get; set; }
-    [Parameter] public EventCallback? OnConfirm { get; set; }
-    [Parameter] public EventCallback? OnCancel { get; set; }
+    /// <summary>
+    /// Automatically set by adding the HTML between the `<GtModal></GtModal>` tags.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Model to be mutated by the form values. 
+    /// </summary>
+    /// <remarks>
+    /// Setting this value will make the modal use an EditForm.
+    /// </remarks>
+    [Parameter]
+    public object? FormModel { get; set; }
+
+    /// <summary>
+    /// Callback action when the Confirm button is pressed.
+    /// </summary>
+    /// <remarks>
+    /// Will be invoked with an EditContext parameter when the modal is a form.
+    /// </remarks>
+    [Parameter]
+    public EventCallback OnConfirm { get; set; }
+    
+    /// <summary>
+    /// Callback action when the Cancel button is pressed.
+    /// </summary>
+    [Parameter]
+    public EventCallback OnCancel { get; set; }
+
     [Parameter] public string ConfirmButtonText { get; set; } = "Confirm";
     [Parameter] public string CancelButtonText { get; set; } = "Cancel";
-    [Parameter] public string ConfirmButtonType { get; set; } = "button";
 
-    private bool _isClosing;
     private ElementReference _modalBackdrop;
-
-    private bool IsFormModal => ConfirmButtonType == "submit" && FormModel != null;
+    private bool _isClosing;
+    private bool IsFormModal => FormModel != null;
+    private string ConfirmButtonType => IsFormModal ? "submit" : "button";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -74,25 +91,23 @@
 
     private async Task HandleConfirm()
     {
-        if (!IsFormModal && OnConfirm.HasValue)
-            await OnConfirm.Value.InvokeAsync();
-
         if (!IsFormModal)
-            await HandleCloseModal();
+            await OnConfirm.InvokeAsync();
+
+        await HandleCloseModal();
     }
 
     private async Task HandleFormSubmit(EditContext editContext)
     {
-        if (OnValidSubmit.HasDelegate)
-            await OnValidSubmit.InvokeAsync(editContext);
+        if (IsFormModal)
+            await OnConfirm.InvokeAsync(editContext);
 
         await HandleCloseModal();
     }
 
     private async Task HandleCancel()
     {
-        if (OnCancel.HasValue)
-            await OnCancel.Value.InvokeAsync();
+        await OnCancel.InvokeAsync();
 
         await HandleCloseModal();
     }
