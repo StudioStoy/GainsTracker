@@ -7,6 +7,6 @@ public class CatalogService(ApiService api) : ICatalogService
 {
     public async Task<List<WorkoutTypeDto>> GetAvailableWorkoutTypes()
     {
-        return await api.GetAsync<List<WorkoutTypeDto>>("/catalog/workouts") ?? [];
+        return (await api.GetAsync<List<WorkoutTypeDto>>("/catalog/workouts")).Value ?? [];
     }
 }

@@ -21,7 +21,7 @@
             <option value="@workout.Type">@workout.Type</option>
         }
     </select>
-    
+
     @if (_selectedWorkout != null)
     {
         <MeasurementTemplate Category="@_measurement.Category" Model="_measurement"/>
@@ -35,8 +35,10 @@
 
 @code {
     [Parameter] public required List<WorkoutTypeDto> SelectableWorkouts { get; init; }
+    [Parameter] public required EventCallback<CreateNewWorkoutDto> OnConfirm { get; set; }
 
     private WorkoutTypeDto? _selectedWorkout;
+
     private string? SelectedWorkoutTypeString
     {
         get => SelectedWorkoutType?.ToString();
@@ -48,7 +50,7 @@
                 SelectedWorkoutType = Enum.Parse<WorkoutType>(value);
         }
     }
-    
+
     private WorkoutType? SelectedWorkoutType
     {
         get => _selectedWorkoutTypeBacking;
@@ -86,6 +88,7 @@
         if (_selectedWorkout == null) return;
 
         var createWorkoutDto = new CreateNewWorkoutDto(_selectedWorkout.Type, _measurement);
-        await WorkoutService.CreateNewWorkout(createWorkoutDto);
+        await OnConfirm.InvokeAsync(createWorkoutDto);
     }
+
 }

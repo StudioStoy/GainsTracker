@@ -9,6 +9,10 @@
 }
 
 .gt-header-secondary {
+    color: var(--font-color-inverted);
+}
+
+.gt-header-tertiary {
     color: var(--font-color);
 }
 

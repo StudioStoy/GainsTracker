@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -11,41 +12,76 @@ public class ApiService(HttpClient httpClient)
     {
         PropertyNameCaseInsensitive = true,
     };
-    
-    public async Task<TValue?> GetAsync<TValue>(string requestUri)
+
+    /// --- GET with typed result ---
+    public async Task<ApiResult<T>> GetAsync<T>(string requestUri)
     {
-        var response =  await httpClient.GetAsync(requestUri);
-        return JsonSerializer.Deserialize<TValue>(await response.Content.ReadAsStringAsync(), _jsonOptions);
+        var response = await httpClient.GetAsync(requestUri);
+        return await CreateResult<T>(response);
     }
 
-    public async Task<HttpResponseMessage> PostAsync(string requestUri, object postData)
+    // --- POST with optional response payload ---
+    public async Task<ApiResult<T>> PostAsync<T>(string requestUri, object postData)
     {
-        StringContent content = new(JsonSerializer.Serialize(postData), Encoding.UTF8, "application/json");
-        return await httpClient.PostAsync(requestUri, content);
+        var content = new StringContent(JsonSerializer.Serialize(postData), Encoding.UTF8, "application/json");
+        var response = await httpClient.PostAsync(requestUri, content);
+        return await CreateResult<T>(response);
     }
 
-    public async Task<HttpResponseMessage> PutAsync(string requestUri, object putData)
+    // --- POST without expecting response body ---
+    public async Task<ApiResult> PostAsync(string requestUri, object postData)
     {
-        StringContent content = new(JsonSerializer.Serialize(putData), Encoding.UTF8, "application/json");
-        return await httpClient.PutAsync(requestUri, content);
+        var content = new StringContent(JsonSerializer.Serialize(postData), Encoding.UTF8, "application/json");
+        var response = await httpClient.PostAsync(requestUri, content);
+        return CreateResult(response);
     }
 
-    public async Task<HttpResponseMessage> DeleteAsync(string requestUri)
+    public async Task<ApiResult<T>> PutAsync<T>(string requestUri, object putData)
     {
-        return await httpClient.DeleteAsync(requestUri);
+        var content = new StringContent(JsonSerializer.Serialize(putData), Encoding.UTF8, "application/json");
+        var response = await httpClient.PutAsync(requestUri, content);
+        return await CreateResult<T>(response);
     }
 
-    public async Task<HttpResponseMessage> PatchAsync(string requestUri, object? patchData = null)
+    public async Task<ApiResult> DeleteAsync(string requestUri)
+    {
+        var response = await httpClient.DeleteAsync(requestUri);
+        return CreateResult(response);
+    }
+
+    public async Task<ApiResult<T>> PatchAsync<T>(string requestUri, object? patchData = null)
     {
         StringContent? content = null;
         if (patchData != null)
             content = new StringContent(JsonSerializer.Serialize(patchData), Encoding.UTF8, "application/json");
 
-        return await httpClient.PatchAsync(requestUri, content);
+        var response = await httpClient.PatchAsync(requestUri, content);
+        return await CreateResult<T>(response);
     }
 
-    public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request)
+    private async Task<ApiResult<T>> CreateResult<T>(HttpResponseMessage response)
     {
-        return await httpClient.SendAsync(request);
+        if (!response.IsSuccessStatusCode)
+            return ApiResult<T>.Failure(response.StatusCode, await response.Content.ReadAsStringAsync());
+
+        if (response.StatusCode == HttpStatusCode.NoContent)
+            return ApiResult<T>.Success(default, response.StatusCode, isEmpty: true);
+
+        var content = await response.Content.ReadAsStringAsync();
+        var value = string.IsNullOrWhiteSpace(content)
+            ? default
+            : JsonSerializer.Deserialize<T>(content, _jsonOptions);
+
+        return ApiResult<T>.Success(value, response.StatusCode);
+    }
+
+    private static ApiResult CreateResult(HttpResponseMessage response)
+    {
+        if (!response.IsSuccessStatusCode) return ApiResult.Failure(response.StatusCode, response.ReasonPhrase);
+
+        return ApiResult.Success(
+            response.StatusCode,
+            response.StatusCode == HttpStatusCode.NoContent
+        );
     }
 }

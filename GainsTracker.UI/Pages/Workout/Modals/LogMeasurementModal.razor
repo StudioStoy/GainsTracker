@@ -3,32 +3,30 @@
 @using GainsTracker.Common.Models.Workouts.Measurements
 @using GainsTracker.UI.Elements.Modal
 @using GainsTracker.UI.Pages.Workout.Components
-@using GainsTracker.UI.Services.API.Workouts
 
-@inject IWorkoutService WorkoutService
-
-<GtModal FormModel="_measurement"
+<GtModal FormModel="Measurement"
          OnConfirm="AddMeasurementToWorkout"
          ConfirmButtonText="Add"
          CancelButtonText="Cancel">
-    <h4>@Workout.Type</h4>
+    <h4>Add log for @Workout.Type</h4>
 
-    <MeasurementTemplate Category="@_measurement.Category" Model="_measurement"/>
+    <MeasurementTemplate Category="@Measurement.Category" Model="Measurement"/>
 
     <div>
         <label>Notes:</label>
-        <InputTextArea @bind-Value="_measurement.Notes"/>
+        <InputTextArea @bind-Value="Measurement.Notes"/>
     </div>
 </GtModal>
 
 @code {
     [Parameter] public required WorkoutDto Workout { get; set; }
+    [Parameter] public required EventCallback<(Guid, CreateMeasurementDto)> OnConfirm { get; set; }
 
-    private CreateMeasurementDto _measurement { get; set; } = null!;
+    private CreateMeasurementDto Measurement { get; set; } = null!;
 
     protected override void OnInitialized()
     {
-        _measurement = Workout.Category switch
+        Measurement = Workout.Category switch
         {
             ExerciseCategory.Strength => new CreateStrengthMeasurementDto(),
             ExerciseCategory.TimeDistanceEndurance => new CreateTimeDistanceEnduranceMeasurementDto(),
@@ -39,6 +37,8 @@
         };
     }
 
-    // Add a measurement to an existing workout.
-    private async Task AddMeasurementToWorkout() => await WorkoutService.AddMeasurementToWorkout(Workout.Id, _measurement);
+    private async Task AddMeasurementToWorkout()
+    {
+        await OnConfirm.InvokeAsync((Workout.Id, Measurement));
+    }
 }

@@ -4,4 +4,5 @@ public enum GtVariant
 {
     Primary,
     Secondary,
+    Tertiary,
 }

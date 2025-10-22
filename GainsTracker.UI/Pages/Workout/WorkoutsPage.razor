@@ -17,6 +17,7 @@
 @using GainsTracker.UI.Pages.Workout.Modals
 @using GainsTracker.UI.Services.API.Workouts
 @using Microsoft.AspNetCore.Authorization
+@using GainsTracker.UI.Elements.Header
 
 <PageTitle>Workouts | GainsTracker</PageTitle>
 
@@ -28,8 +29,9 @@
 else
 {
     <div class="page-container">
-        <img src="/images/logo.png" alt="Gainstracker Logo" class="gains-tracker-logo"/>
-
+        <div class="gains-tracker-logo">
+            <GtHeader Variant="GtVariant.Secondary">Workouts</GtHeader>
+        </div>
         <div class="workout-list-container">
             <div class="mobile-workout-list">
                 @foreach (var workout in _workouts)
@@ -65,7 +67,6 @@ else
 @code {
     private List<WorkoutTypeDto>? _selectableWorkouts;
     private List<WorkoutDto>? _workouts;
-    private WorkoutDto? _selectedWorkout { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -93,11 +94,34 @@ else
     private void HandleOpenNewWorkoutModal()
     {
         if (_selectableWorkouts is null || _selectableWorkouts.Count == 0) return;
-        ModalService.Open(new CreateNewWorkoutModal { SelectableWorkouts = _selectableWorkouts });
+        ModalService.Open(new CreateNewWorkoutModal
+        {
+            SelectableWorkouts = _selectableWorkouts,
+            OnConfirm = EventCallback.Factory.Create<CreateNewWorkoutDto>(this, CreateNewWorkout),
+        });
     }
 
     private void HandleOpenAddMeasurementModal(WorkoutDto workout)
     {
-        ModalService.Open(new LogMeasurementModal { Workout = workout });
+        ModalService.Open(new LogMeasurementModal
+        {
+            Workout = workout,
+            OnConfirm = EventCallback.Factory.Create<(Guid, CreateMeasurementDto)>(this, AddWorkoutMeasurement),
+        });
     }
+
+    private async Task AddWorkoutMeasurement((Guid workoutId, CreateMeasurementDto measurementDto) data)
+    {
+        var result = await WorkoutService.AddMeasurementToWorkout(data.workoutId, data.measurementDto);
+        if (result.IsSuccess)
+            _workouts = await WorkoutService.GetUserWorkouts();
+    }
+
+    private async Task CreateNewWorkout(CreateNewWorkoutDto data)
+    {
+        var result = await WorkoutService.CreateNewWorkout(data);
+        if (result.IsSuccess)
+            _workouts = await WorkoutService.GetUserWorkouts();
+    }
+
 }
