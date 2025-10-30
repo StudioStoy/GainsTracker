@@ -53,8 +53,17 @@ h2 {
 .recent-pbs {
     text-align: left;
     padding: 20px;
+    width: 80%;
 }
 
+.recent-pbs-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.recent-pbs-button {
+    margin: 0;
+}
 .recent-pbs-list {
     display: flex;
     gap: 15px;

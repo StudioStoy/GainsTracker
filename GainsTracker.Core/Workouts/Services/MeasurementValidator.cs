@@ -1,16 +1,15 @@
 ﻿using GainsTracker.Common.Exceptions;
 using GainsTracker.Common.Models.Workouts.Enums;
-using GainsTracker.Core.Workouts.Interfaces.Services;
 using GainsTracker.Core.Workouts.Models.Measurements;
 
 namespace GainsTracker.Core.Workouts.Services;
 
 /// <summary>
-///     This class contains functions for managing all the types of measurements.
+/// This class contains functions for managing all the types of measurements.
 /// </summary>
-public class MeasurementValidationService : IMeasurementValidationService
+public static class MeasurementValidator
 {
-    public void ValidateMeasurement(Measurement measurement)
+    public static void Validate(Measurement measurement)
     {
         switch (measurement.Category)
         {
@@ -42,7 +41,7 @@ public class MeasurementValidationService : IMeasurementValidationService
                     throw new BadRequestException("Please provide a valid value.");
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(ExerciseCategory), "This category is unknown.");
+                throw new ArgumentOutOfRangeException(measurement.Category.ToString(), "This category is unknown.");
         }
     }
 }

@@ -13,7 +13,6 @@ public static class WorkoutsServiceCollections
         ArgumentNullException.ThrowIfNull(services);
         
         services.AddScoped<IMeasurementRepository, MeasurementRepository>();
-        services.AddScoped<IMeasurementValidationService, MeasurementValidationService>();
         services.AddScoped<IMeasurementService, MeasurementService>();
 
         services.AddScoped<IWorkoutRepository, WorkoutRepository>();

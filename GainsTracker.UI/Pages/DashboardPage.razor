@@ -1,14 +1,18 @@
-﻿@inject IWorkoutService WorkoutService
+﻿@inject NavigationManager NavigationManager
+@inject IWorkoutService WorkoutService
 
 @attribute [Authorize]
 
-@page "/dashboard"
 @using GainsTracker.Common.Models.Workouts.Measurements
 @using GainsTracker.UI.Components
+@using GainsTracker.UI.Elements.Button
 @using GainsTracker.UI.Elements.Header
 @using GainsTracker.UI.Elements.Shared
 @using GainsTracker.UI.Services.API.Workouts
 @using Microsoft.AspNetCore.Authorization
+
+
+@page "/dashboard"
 
 <PageTitle>Dashboard</PageTitle>
 
@@ -21,7 +25,10 @@
             <p>Swole is the goal, size is the prize</p>
         </div>
         <div class="recent-pbs">
-            <h2>Recent personal bests</h2>
+            <div class="recent-pbs-header">
+                <h2>Recent personal bests</h2>
+                <GtButton Class="recent-pbs-button" OnClick="NavigateToWorkouts">>></GtButton>
+            </div>
             <div class="recent-pbs-list">
                 @foreach (var pb in _personalBests)
                 {
@@ -30,9 +37,6 @@
                     </div>
                 }
             </div>
-        </div>
-        <div class="goals">
-            <h2>Your goals</h2>
         </div>
     </div>
 </div>
@@ -49,5 +53,10 @@
 
     private void GetGoals()
     {
+    }
+
+    private void NavigateToWorkouts()
+    {
+        NavigationManager.NavigateTo("/workouts");
     }
 }

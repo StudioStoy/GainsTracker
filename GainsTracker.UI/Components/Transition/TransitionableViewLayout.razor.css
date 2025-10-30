@@ -6,7 +6,7 @@
     bottom: 0;
     overflow-y: auto;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 650px) {
     .transition {
         top: 0;
         bottom: 5rem; /* height of your bottom navbar */

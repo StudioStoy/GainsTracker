@@ -6,13 +6,13 @@ using GainsTracker.Core.Workouts.Models.Measurements;
 
 namespace GainsTracker.Core.Workouts.Services;
 
-public class MeasurementService(IMeasurementRepository repository, IMeasurementValidationService measurementValidationService) : IMeasurementService
+public class MeasurementService(IMeasurementRepository repository) : IMeasurementService
 {
     public async Task<Measurement> CreateMeasurement(CreateMeasurementDto measurementDto)
     {
         var measurement = measurementDto.ToModel();
-        measurementValidationService.ValidateMeasurement(measurement);
-        
+        MeasurementValidator.Validate(measurement);
+
         return await repository.AddAsync(measurement);
     }
 }

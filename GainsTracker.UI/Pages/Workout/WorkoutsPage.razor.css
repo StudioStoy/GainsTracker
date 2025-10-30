@@ -60,11 +60,7 @@
         display: grid;
     }
 
-    .log-button {
-        display: none;
-    }
-
     .workout-card-wrapper {
-        min-width: 300px;
+        min-width: 250px;
     }
 }

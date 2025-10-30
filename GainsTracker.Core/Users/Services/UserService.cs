@@ -7,7 +7,7 @@ using GainsTracker.Core.Users.Models;
 
 namespace GainsTracker.Core.Users.Services;
 
-public class UserService(IUserRepository userRepository, IGainsService gainsService) : IUserService
+public class UserService(IUserRepository userRepository) : IUserService
 {
     public async Task<UserDto> GetUserByAuthId(string authIdentifier)
     {
